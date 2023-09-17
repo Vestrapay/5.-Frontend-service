@@ -5,7 +5,7 @@ import { MouseEventHandler } from "react"
 export type DefaultInputType = {
     type: string
     name: string,
-    label?: React.ReactNode,
+    label?: React.ReactNode | string,
     topLabel?: "",
     handleChange: React.ChangeEventHandler<HTMLInputElement> | undefined,
     handleBlur: React.FocusEventHandler<HTMLInputElement> | undefined,

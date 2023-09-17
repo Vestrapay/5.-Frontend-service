@@ -12,11 +12,11 @@ const DefaultButton = ({
   handleBlur
 }: DefaultButtonType) => {
   return (
-    <div className={containerVariant}>
+    <div className={`font-nunito ${containerVariant}`}>
       <button
         type="button"
         onClick={handleClick}
-        className={`bg-primary-blue px-8 py-3 rounded-lg text-primary-white text-sm font-600 ${variant} ${
+        className={`font-nunito bg-darkslateblue px-8 py-3 rounded-lg border-none text-white text-sm font-600 ${variant} ${
           isDisabled && "cursor-not-allowed"
         } hover:opacity-80`}
         disabled={isDisabled}

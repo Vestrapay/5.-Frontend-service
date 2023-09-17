@@ -55,32 +55,7 @@ const topMenuItems: any[] = [
         subMenuItems: [],
         icon: (prop: string) => <DashTerminalIcon prop={prop} />,
         roles: "VIEW_TERMINAL"
-    },
-    // {
-    //     id: 4,
-    //     name: 'Shop & Inventory',
-    //     subMenuItems: [
-    //         { name: 'Loans', route: '/#' },
-    //         { name: 'Manage Shop', route: '/#' },
-    //         { name: 'Manage Products', route: '/#' },
-    //         { name: 'Restock Inventory', route: '/#' },
-    //         { name: 'Stock Transfer', route: '/#' },
-    //         { name: 'Income Statements', route: '/#' },
-    //         { name: 'Daily Inventory', route: '/#' }
-    //     ],
-    //     icon: (prop: any) => <DashShopIcon  prop={prop} />,
-    // },
-    // {
-    //     id: 6,
-    //     name: 'End of Day Report',
-    //     route: '/reports/eod',
-    //     subMenuItems: [
-    //         // { name: 'End of Day Report', route: '/reports/eod', role: "VIEW_TRANSACTION" },
-    //         // { name: 'Reconciliation', route: '/reports/reconciliation' }
-    //     ],
-    //     icon: (prop: any) => <DashReportIcon prop={prop} />,
-    //     roles: "VIEW_TRANSACTION"
-    // },
+    }
 ]
 
 

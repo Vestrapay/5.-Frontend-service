@@ -1,5 +1,5 @@
 
-import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
+import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 import { BsFillCheckCircleFill, BsFillXCircleFill } from 'react-icons/bs';
 import React, { forwardRef, useState, useEffect } from 'react'
 import { DefaultInputType } from '../types';
@@ -91,14 +91,14 @@ const DefaultInput = forwardRef<any, any>(({
     return (
         <div className={containerVariant}>
             {label &&
-                <label htmlFor={`input${name}`} className={`text-gray-200 ${labelVariant}`}>
+                <label htmlFor={`input${name}`} className={`text-blackish font-300 ${labelVariant}`}>
                     {topLabel} {required ? <span className='text-red-100'>*</span> : ""}
                 </label>
             }
 
             <div className={`relative group w-full leading-6 text-sm font-500 border px-6 py-0 rounded-lg 
-            ${type === 'password' ? "pr-[57.5px]" : validate ? "pr-[77.5px]" : ""} ${topLabel ? "mt-2" : ""}  ${!isDisabled ? "bg-blue-darker" : "bg-blue-darkish"} 
-            ${error ? 'border-red-500 focus:border-red-500' : confirm ? ' border-green-500' : 'border-gray-800 focus:border-black-200'} ${variant}`}
+            ${type === 'password' ? "pr-[57.5px]" : validate ? "pr-[77.5px]" : ""} ${topLabel ? "mt-2" : ""}  ${!isDisabled ? "bg-gray-50" : "bg-gray-100"} 
+            ${error ? 'border-red-500 focus:border-red-500' : confirm ? ' border-green-500' : ''} ${variant}`}
             >
                 {icon}
                 <input
@@ -110,30 +110,20 @@ const DefaultInput = forwardRef<any, any>(({
                     onChange={onChange}
                     onBlur={handleBlur}
                     value={value}
-                    placeholder={placeHolder}
+                    placeholder={placeHolder || topLabel}
                     disabled={isDisabled}
                     required={required || false}
                     readOnly={readOnly || false}
-                    className={`outline-none focus:border-none placeholder:text-primary-white text-gray-300 placeholder:text-sm placeholder:min-w-max w-full
-                    leading-6 text-sm font-500 px-0 py-5 group-focus-within:pt-7 group-focus-within:pb-3 ${value ? "pt-7 pb-3" : ""} 
-                    bg-[#ffffff00] ${icon ? "pl-0" : ""} focus:border-gray-500 ${inputVariant}`}
+                    className={`outline-none placeholder:text-gray-300 text-blackish placeholder:text-sm placeholder:min-w-max w-full border-none
+                    leading-6 text-sm font-300 px-0 py-3 bg-[#ffffff00] ${icon ? "pl-0" : ""} ${inputVariant}`}
                 />
-                <label
-                    htmlFor={`${label}-input${name}`}
-                    className={`leading-6 transform transition-all absolute top-0 left-0 h-full flex items-center pl-6 text-sm text-gray-500 
-                    group-focus-within:text-xs peer-valid:text-xs 
-                    group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:pt-4
-                    group-focus-within:-translate-y-[1/2] peer-valid:-translate-y-full peer-valid:-translate-x-[1/2] 
-                    group-focus-within:pl-6 peer-valid:pl-6 ${value ? "text-xs h-1/2 -translate-y-[1/2] pb-4" : ""}`}
-                >
-                    {label || name}
-                </label>
+                {/* {label || name} */}
             </div>
             {type === 'password' ?
                 <>
                     <div className='relative cursor-pointer flex items-center justify-center'>
-                        <span className={`absolute bottom-5 text-gray-500 ${validate ? "right-12" : "right-6"}`} onClick={togglePasswordVisiblity}>
-                            {passwordShown ? <AiOutlineEyeInvisible size={25} color="#284DE3" /> : <AiOutlineEye size={25} color="blue" />}
+                        <span className={`absolute bottom-1 text-gray-500 ${validate ? "right-12" : "right-6"}`} onClick={togglePasswordVisiblity}>
+                            {passwordShown ? <AiFillEyeInvisible size={25} color="gray" /> : <AiFillEye size={25} color="gray" />}
                         </span>
                     </div>
 
