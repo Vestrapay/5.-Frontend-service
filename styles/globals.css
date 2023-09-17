@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,300&family=Poppins:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Nunito';
+}
+
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.sidebar__wrapper {
+  transition: 0.3s all ease-out;
+  z-index: 5;
+}
+
+.showMenuNav {
+  display: block !important;
+  position: fixed !important;
+  width: 100% !important;
+  height: 100vh !important;
+  top: 0 !important;
+  right: 0 !important;
+  background: white !important;
+  z-index: 9999999999999999999999999 !important;
+  left: 0 !important;
+}
+
+.hideMenuNav {
+  display: none;
+}
+
+.active:after {
+  width: 100%;
+}
+
+.box-shadow {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.active {
+  display: block;
+}
+.login-bg {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+}
+
+.logo-img {
+  width: 72px;
+  height: 67.89px;
+  margin-top: 87px;
+}
