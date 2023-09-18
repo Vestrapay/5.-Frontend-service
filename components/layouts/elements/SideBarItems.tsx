@@ -1,68 +1,179 @@
-import { DashHomeIcon, DashUserIcon, DashTransIcon, DashShopIcon, DashReportIcon, DashTerminalIcon } from '@/components/reusables/icons'
-import { Storage } from 'Utils/inAppstorage'
+import {
+    DashHomeIcon,
+    DashReportIcon,
+    DashShopIcon,
+    DashTerminalIcon,
+    DashTransIcon,
+    DashUserIcon,
+    VestraDashDisputeLogsIcon,
+    VestraDashHomeIcon, VestraDashNotificationIcon,
+    VestraDashPaymentsIcon, VestraDashSettingsIcon,
+    VestraDashTransactionIcon,
+    VestraDashUsersIcon
+} from '@/components/reusables/icons'
+import {Storage} from 'Utils/inAppstorage'
+import {IconProps, MenuItems, RoleProps, SubMenuItems} from "@types";
+
 
 const { role } = Storage.getItem("userDetails") || {};
 
-const topMenuItems: any[] = [
+const topMenuItems: MenuItems[] = [
     {
         id: 1,
         name: 'Dashboard',
         route: '/dashboard',
         subMenuItems: [],
-        icon: (prop: any) => <DashHomeIcon prop={prop} />,
-        roles: ""
+        icon: (prop: IconProps) => <VestraDashHomeIcon width={prop.width} height={prop.height} style={prop.style}/>,
+        roles: ["USER", "ADMIN"]
     },
     {
         id: 2,
-        name: 'Accounts',
+        name: 'Users',
         subMenuItems: [],
-        route: '/accounts',
-        icon: (prop: any) => <DashReportIcon prop={prop} />,
-        roles: "VIEW_ACCOUNTS"
+        route: '/dashboard/users',
+        icon: (prop: IconProps) => <VestraDashUsersIcon width={prop.width} height={prop.height} style={prop.style} />,
+        roles: ["ADMIN"]
     },
     {
         id: 3,
-        name: 'Reports',
-        // route: '',
-        icon: (prop: any) => <DashTransIcon prop={prop} />,
-        // roles: "VIEW_TRANSACTION",
+        name: 'Transactions',
+        route: '/dashboard/transactions',
         subMenuItems: [
-            { name: 'Transactions', route: '/reports/transactions', role: "" },
-            { name: 'Settlement', route: '/reports/settlement', role: ""},
-            // { name: 'Settlement Transactions', route: '/reports/settlementTrans', role: ""}
+            {
+                id: 1,
+                name: "Transactions",
+                route: '/dashboard/transactions',
+                roles: ["USER", "ADMIN"]
+            },
+            {
+                id: 2,
+                name: "Refunds",
+                route: '/dashboard/transactions/refunds',
+                roles: ["USER", "ADMIN"]
+            },
+            {
+                id: 3,
+                name: "Chargebacks",
+                route: '/dashboard/transactions/chargebacks',
+                roles: ["USER", "ADMIN"]
+            }
         ],
+        icon: (prop: IconProps) => <VestraDashTransactionIcon width={prop.width} height={prop.height} style={prop.style} />,
+        roles: ["USER", "ADMIN"]
     },
     {
         id: 4,
-        name: 'User Management',
-        subMenuItems: [],
-        route: '/users',
-        icon: (prop: string) => <DashUserIcon prop={prop} />,
-        roles: "VIEW_USER"
+        name: 'Payments',
+        route: '/dashboard/payments',
+        subMenuItems: [
+            {
+                id: 1,
+                name: "Transfer",
+                route: '/dashboard/payments/transfer',
+                roles: ["USER", "ADMIN"]
+            },
+            {
+                id: 2,
+                name: "Card",
+                route: '/dashboard/payments/card',
+                roles: ["USER", "ADMIN"]
+            },
+            {
+                id: 3,
+                name: "Payment Links",
+                route: '/dashboard/payments/payment-links',
+                roles: ["USER", "ADMIN"]
+            },
+            {
+                id: 4,
+                name: "USSD",
+                route: '/dashboard/payments/ussd',
+                roles: ["USER", "ADMIN"]
+            }
+        ],
+        icon: (prop: IconProps) => <VestraDashPaymentsIcon width={prop.width} height={prop.height} style={prop.style} />,
+        roles: ["USER", "ADMIN"]
     },
     {
         id: 5,
-        name: 'Institution Management',
-        route: '/institution',
+        name: 'Dispute Logs',
+        route: '/dashboard/dispute-logs',
         subMenuItems: [],
-        icon: (prop: string) => <DashShopIcon prop={prop} />,
-        roles: "VIEW_BRANCH"
+        icon: (prop: IconProps) => <VestraDashDisputeLogsIcon width={prop.width} height={prop.height} style={prop.style} />,
+        roles: ["USER", "ADMIN"]
     },
     {
         id: 6,
-        name: 'Bank Management',
-        route: '/banks',
+        name: "Notifications",
+        route: '/dashboard/notifications',
         subMenuItems: [],
-        icon: (prop: string) => <DashTerminalIcon prop={prop} />,
-        roles: "VIEW_TERMINAL"
+        icon: (prop: IconProps) => <VestraDashNotificationIcon width={prop.width} height={prop.height} style={prop.style} />,
+        roles: ["USER", "ADMIN"]
+    },
+    {
+        id: 7,
+        name: "Settings",
+        route: '/dashboard/settings',
+        subMenuItems: [
+            {
+                id: 1,
+                name: 'Profile',
+                route: '/dashboard/settings/profile',
+                roles: ["USER", "ADMIN"]
+            },
+            {
+                id: 2,
+                name: 'Business',
+                route: '/dashboard/settings/business',
+                roles: ["USER", "ADMIN"]
+            },
+            {
+                id: 3,
+                name: "Settlement",
+                route: '/dashboard/settings/settlement',
+                roles: ["USER", "ADMIN"]
+            },
+            {
+                id: 4,
+                name: "Permission",
+                route: '/dashboard/settings/permission',
+                roles: ["USER", "ADMIN"]
+            },
+            {
+                id: 5,
+                name: "API Keys",
+                route: '/dashboard/settings/api-keys',
+                roles: ["USER", "ADMIN"]
+            },
+            {
+                id: 6,
+                name: "Webhook",
+                route: '/dashboard/settings/webhook',
+                roles: ["USER", "ADMIN"]
+            }
+        ],
+        icon: (prop: IconProps) => <VestraDashSettingsIcon width={prop.width} height={prop.height} style={prop.style} />,
+        roles: ["USER", "ADMIN"]
     }
 ]
 
 
-export const userRoles = role;
-
-export const finalMenu = (role: any): any[] => {
-
-    let items = topMenuItems.map((each: any) => { return { ...each, subMenuItems: each.subMenuItems.filter((e: any) => role?.permissions?.find((one: { permissionName: any }) => one.permissionName == e.role) || e.role == "") } })
-    return items;//items.filter(e => role?.permissions?.find((one: { permissionName: any }) => one.permissionName == e.roles) || e.roles == "")
+export const userRoles: RoleProps = {
+    role: "USER"
 }
+
+export const finalMenu = (userRoles: string[]): MenuItems[] => {
+    return topMenuItems.map((each: MenuItems | SubMenuItems) => {
+        const filteredSubMenuItems = each?.subMenuItems.filter((subItem: MenuItems) => {
+            // Check if the sub-item has no roles defined or if any role matches the user's roles.
+            return !subItem.roles || subItem.roles.some(role => userRoles.includes(role));
+        });
+
+        // Check if the main menu item should be included based on the filtered sub-menu items.
+        if (filteredSubMenuItems.length > 0 || !each.roles || each.roles.some(role => userRoles.includes(role))) {
+            return { ...each, subMenuItems: filteredSubMenuItems };
+        }
+
+        return null; // Exclude main menu item with no matching sub-menu items.
+    }).filter(Boolean) as MenuItems[]; // Filter out null values (main menu items without matching sub-menu items).
+};

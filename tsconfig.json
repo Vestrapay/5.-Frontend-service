@@ -22,6 +22,24 @@
     "paths": {
       "@/components/*": [
         "components/*"
+      ],
+      "@public/*": [
+        "public/*"
+      ],
+      "@styles/*": [
+        "styles/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ],
+      "@pages/*": [
+        "pages/*"
+      ],
+      "@types": [
+        "lib/types"
+      ],
+      "@context": [
+        "context/context"
       ]
     },
     "plugins": [
@@ -35,7 +53,7 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.js",
-    "components/layouts/DashboardLayout.js",
+    "components/layouts/DashboardLayout",
     ".next/types/**/*.ts"
   ],
   "exclude": [

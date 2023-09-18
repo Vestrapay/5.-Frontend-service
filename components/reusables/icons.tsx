@@ -1,4 +1,68 @@
 import React from "react";
+import classNames from "classnames";
+import {IconProps} from "@types";
+import Image from "next/image";
+import {
+    DashboardIcon,
+    DisputeLogsIcon,
+    NotificationIcon, PaymentsIcon,
+    SettingsIcon,
+    TransactionsIcon,
+    UsersIcon
+} from "@public/assets";
+import {Category, TwoUsers, Chart, Notification, Setting} from "react-iconly";
+import {Transfer} from "react-huge-icons/bulk"
+import {HiMiniUserGroup} from "react-icons/hi2";
+
+
+export const VestraDashHomeIcon = ({ width=24, height=24, style }: IconProps) => {
+    return (
+        // <Image
+        //     src={DashboardIcon}
+        //     alt={"dashboard"}
+        //     width={width}
+        //     height={height}
+        //     className="text-red-500"
+        // />
+        <Category stroke="bold" set="bulk" size="medium" style={{...style, width: width, height: height}} />
+    )
+}
+
+export const VestraDashUsersIcon = ({ width=24, height=24, style }: IconProps) => {
+    return (
+        <HiMiniUserGroup style={{...style, width: width, height: height}} />
+    )
+}
+
+export const VestraDashTransactionIcon = ({ width=24, height=24, style }: IconProps) => {
+    return (
+        <Chart set="bulk" stroke="bold" filled={true} style={{...style, width: width, height: height}}/>
+    )
+}
+
+export const VestraDashPaymentsIcon = ({ width=24, height=24, style }: IconProps) => {
+    return (
+        <Transfer style={{...style, width: width, height: height}} className="rotate-90"/>
+    )
+}
+
+export const VestraDashDisputeLogsIcon = ({ width=24, height=24, style }: IconProps) => {
+    return (
+        <TwoUsers set="bulk" stroke="bold" style={{...style, width: width, height: height}} />
+    )
+}
+
+export const VestraDashNotificationIcon = ({ width=24, height=24, style }: IconProps) => {
+    return (
+        <Notification set="bulk" stroke="bold" style={{...style, width: width, height: height}} />
+    )
+}
+
+export const VestraDashSettingsIcon = ({ width=24, height=24, style }: IconProps) => {
+    return (
+        <Setting set="bulk" stroke="bold" style={{...style, width: width, height: height}} />
+    )
+}
 
 
 export const DashHomeIcon = ({ prop }: any) => {

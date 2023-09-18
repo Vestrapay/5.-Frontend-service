@@ -1,0 +1,11 @@
+export {default as Logo} from './logo/vestra.svg';
+export {default as DashboardIcon} from './icons/Category.svg';
+export {default as UsersIcon} from './icons/Group.svg';
+export {default as TransactionsIcon} from './icons/Chart.svg';
+export {default as PaymentsIcon} from './icons/transfer.svg';
+export {default as DisputeLogsIcon} from './icons/supervised_user_circle.svg';
+export {default as NotificationIcon} from './icons/Notification.svg';
+export {default as SettingsIcon} from './icons/Setting.svg';
+export {default as LogoutIcon} from './icons/Logout.svg';
+export {default as MigrationIcon} from './icons/exchange 1.svg';
+// export {default as DashboardIconActive} from './icons/Category.png';
