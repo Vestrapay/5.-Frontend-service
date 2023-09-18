@@ -9,6 +9,7 @@ import {ReactQueryDevtools} from "react-query/devtools";
 import router from "next/router";
 import {Toaster} from "react-hot-toast";
 import {Context} from "@context";
+import {Logo, LogoIcon} from "@public/assets";
 
 export default function App({Component, pageProps}: AppProps) {
 
@@ -36,6 +37,7 @@ export default function App({Component, pageProps}: AppProps) {
                     name="viewport"
                     content="minimum-scale=1, initial-scale=1, width=device-width"
                 />
+                <link rel="icon" type="image/png" href="../public/assets/logo/vestra.png" sizes="32x32"/>
                 <link
                     rel="stylesheet"
                     href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css"

@@ -27,6 +27,7 @@ module.exports = {
             textColor: {
                 unselected: "#97a3bb",
                 selected: "#382C7C",
+                ultraMarine: "#030229",
             },
             backgroundColor: {
                 selected: "#382C7C",

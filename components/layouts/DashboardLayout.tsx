@@ -9,7 +9,7 @@ function DashboardLayout({children}: LayoutProps) {
     const {sidebarItems, setSidebarItems} = useContext(SidebarContext);
 
     useEffect(() => {
-        const role = ["USER"]
+        const role = ["ADMIN"]
         const topMenuItems = finalMenu(role)
         setSidebarItems(topMenuItems)
     }, []);

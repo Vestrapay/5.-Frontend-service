@@ -69,7 +69,7 @@ const topMenuItems: MenuItems[] = [
             {
                 id: 1,
                 name: "Transfer",
-                route: '/dashboard/payments/transfer',
+                route: '/dashboard/payments',
                 roles: ["USER", "ADMIN"]
             },
             {
@@ -118,7 +118,7 @@ const topMenuItems: MenuItems[] = [
             {
                 id: 1,
                 name: 'Profile',
-                route: '/dashboard/settings/profile',
+                route: '/dashboard/settings',
                 roles: ["USER", "ADMIN"]
             },
             {

@@ -1,4 +1,5 @@
 export {default as Logo} from './logo/vestra.svg';
+export {default as LogoIcon} from './logo/vestra.png';
 export {default as DashboardIcon} from './icons/Category.svg';
 export {default as UsersIcon} from './icons/Group.svg';
 export {default as TransactionsIcon} from './icons/Chart.svg';
@@ -9,3 +10,5 @@ export {default as SettingsIcon} from './icons/Setting.svg';
 export {default as LogoutIcon} from './icons/Logout.svg';
 export {default as MigrationIcon} from './icons/exchange 1.svg';
 // export {default as DashboardIconActive} from './icons/Category.png';
+export {default as ProfileImage2} from './icons/dummy-profile.png';
+export {default as ProfileImage3} from './icons/dummy-profile[1].png';
