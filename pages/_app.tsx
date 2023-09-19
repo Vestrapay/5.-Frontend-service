@@ -9,7 +9,7 @@ import {ReactQueryDevtools} from "react-query/devtools";
 import router from "next/router";
 import {Toaster} from "react-hot-toast";
 import {Context} from "@context";
-import {Logo, LogoIcon} from "@public/assets";
+import CalenderProvider from "../context/calenderContext";
 
 export default function App({Component, pageProps}: AppProps) {
 
@@ -44,9 +44,11 @@ export default function App({Component, pageProps}: AppProps) {
                 />
             </Head>
             <Context>
-                <Toaster/>
-                <Component {...pageProps} />
-                <ReactQueryDevtools initialIsOpen={false}/>
+                <CalenderProvider>
+                    <Toaster/>
+                    <Component {...pageProps} />
+                    <ReactQueryDevtools initialIsOpen={false}/>
+                </CalenderProvider>
             </Context>
         </QueryClientProvider>
     )

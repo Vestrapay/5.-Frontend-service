@@ -12,3 +12,7 @@ export {default as MigrationIcon} from './icons/exchange 1.svg';
 // export {default as DashboardIconActive} from './icons/Category.png';
 export {default as ProfileImage2} from './icons/dummy-profile.png';
 export {default as ProfileImage3} from './icons/dummy-profile[1].png';
+export {default as CardLogo} from './logo/vestra-card.png';
+export {default as Cloud} from './utils/cloud.png';
+export {default as MasterCard} from './logo/mastercard.svg';
+export {default as DivisionLine} from './utils/Line.svg';

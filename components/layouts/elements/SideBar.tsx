@@ -53,7 +53,7 @@ function SideBar() {
         <>
             {/* Large Side bar */}
             <aside
-                className="min-h-[100vh] h-[100%] pt-8 pb-10 xl:h-full bg-white lg:drop-shadow-lg drop-shadow-lg z-50 lg:inset-x-auto inset-x-0 lg:inset-y-0 | self-start top-0 w-[250px] relative flex transition-all duration-300 ease-in-out"
+                className="min-h-[100vh] h-[100%] pt-8 pb-10 xl:h-full bg-white lg:drop-shadow-lg drop-shadow-lg z-50 lg:inset-x-auto inset-x-0 lg:inset-y-0 | self-start top-0 w-[220px]  flex transition-all duration-300 ease-in-out fixed"
             >
                 <div className='px-5 w-full flex flex-col gap-1 overflow-y-auto text-slate-500 font-medium'>
                     <div className="w-full justify-center flex">
@@ -107,7 +107,7 @@ function SideBar() {
                                 )
                                 :
                                 sidebarItems?.map((item: MenuItems | SubMenuItems, index: number) => (
-                                    <div className="relative text-base">
+                                    <div key={index} className="relative text-base">
                                         {
                                             activeLink === item.route
                                                 &&

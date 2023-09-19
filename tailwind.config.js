@@ -28,13 +28,24 @@ module.exports = {
                 unselected: "#97a3bb",
                 selected: "#382C7C",
                 ultraMarine: "#030229",
+                card: "rgba(255, 255, 255, 0.39)",
+                green: "#439A86",
+                red: "#BB4430"
             },
             backgroundColor: {
+                selected: "#382C7C",
+                dashboard: "#FAFAFB",
+                cardBlue: "#0D3151",
+                card: "linear-gradient(180deg, #0D3151 0%, #0D3151 100%)",
+            },
+            boxShadowColor: {
                 selected: "#382C7C",
             },
             spacing: {},
             fontFamily: {
                 nunito: "Nunito",
+                quicksand: "Quicksand",
+                mitr: "Mitr",
             },
         },
         fontSize: {
