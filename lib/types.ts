@@ -41,3 +41,5 @@ export type SidebarContextProps = {
     sidebarItems: MenuItems[] | SubMenuItems[],
     setSidebarItems: React.Dispatch<React.SetStateAction<MenuItems[] | SubMenuItems[]>>
 }
+
+export type CardProviderProps = "mastercard" | "visa" | "verve"

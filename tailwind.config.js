@@ -34,6 +34,7 @@ module.exports = {
             },
             backgroundColor: {
                 selected: "#382C7C",
+                unselected: "#97a3bb",
                 dashboard: "#FAFAFB",
                 cardBlue: "#0D3151",
                 card: "linear-gradient(180deg, #0D3151 0%, #0D3151 100%)",

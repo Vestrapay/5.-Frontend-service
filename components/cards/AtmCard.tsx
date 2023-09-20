@@ -4,7 +4,7 @@ import Image from "next/image";
 import {CardLogo, Cloud, MasterCard} from "@public/assets";
 import {RiVisaLine} from "react-icons/ri";
 
-const AtmCard = ({debitCardNumber="5789546256772847", cardHolder="Omonigho Isaiah", expiryDate="06/26", cardProvider = ""}) => {
+const AtmCard = ({debitCardNumber="5789546256772847", cardHolder="Omonigho Isaiah", expiryDate="06/26", cardProvider = "", isActivated}) => {
 
     const groups:string[] = []
 
@@ -19,7 +19,7 @@ const AtmCard = ({debitCardNumber="5789546256772847", cardHolder="Omonigho Isaia
     }
 
     return (
-        <div className="flex relative w-[321px] h-[196px] bg-selected rounded-xl flex-col p-5 drop-shadow-md">
+        <div className={`flex relative w-[350px] h-[196px] ${isActivated ? "bg-slate-400" : "bg-selected"} rounded-xl flex-col p-5 drop-shadow-md`}>
             <Image src={CardLogo} alt={"card-logo"} className="flex mb-0"/>
             <p className="opacity-50 text-card text-[8px]">PREMIUM ACCOUNT</p>
             <div className="flex gap-4 items-center justify-start tracking-widest">

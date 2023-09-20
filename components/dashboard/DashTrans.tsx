@@ -12,11 +12,11 @@ function DashTrans({ data }: any) {
     const { recentTransactions } = data || {}
 
     return (
-        <div className='w-full lg:w-6/6 '>
+        <div className='w-full'>
             <div className='py-7 bg-blue-dark rounded-lg min-h-fit 
             overflow-x-scroll scrollbar-hide'>
                 <div className='px-10 bg-blue-dark mb-10 flex flex-col sm:flex-row justify-between gap-y-5'>
-                    <div className=''>
+                    <div className='m-0'>
                         <p className='text-base font-600 text-primary-white'>Recent Transactions</p>
                     </div>
                 </div>
