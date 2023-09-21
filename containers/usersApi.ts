@@ -3,10 +3,10 @@ import { apiCall } from '../Utils/URLs'
 import { useQuery } from 'react-query'
 import { LoginErrorCard } from '../Utils/actions/error';
 import { DefaultInput, DefaultButton } from "@/components/reusables";
-import { Storage } from 'Utils/inAppstorage';
+import { Storage } from '@/Utils/inAppstorage';
 import { useEffect } from 'react';
 
-//Fetching accounts list data
+//Fetching accounts list data 
 const fetchUsersData = (pageNo: any, pageSize: any, search: string) => {
 
     const func = async (): Promise<any> => {

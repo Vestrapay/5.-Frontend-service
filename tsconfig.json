@@ -32,6 +32,9 @@
       "@utils/*": [
         "utils/*"
       ],
+      "@Utils/*": [
+        "Utils/*"
+      ],
       "@pages/*": [
         "pages/*"
       ],
