@@ -1,12 +1,12 @@
 import React from 'react';
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 
-const DisputeLogs = () => {
+const Index = () => {
     return (
         <DashboardLayout>
-            Dispute Logs
+            Notifications
         </DashboardLayout>
     );
 };
 
-export default DisputeLogs;
+export default Index;

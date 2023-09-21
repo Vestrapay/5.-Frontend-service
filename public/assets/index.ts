@@ -17,4 +17,5 @@ export {default as Cloud} from './utils/cloud.png';
 export {default as MasterCard} from './logo/mastercard.svg';
 export {default as DivisionLine} from './utils/Line.svg';
 export {default as Delimiter} from './utils/LineDelimiter.svg';
-export {default as Loader} from './utils/loadingAnimation.json'
+export {default as Loader} from './utils/loadingAnimation.json';
+export {default as PenIcon} from './utils/pen.svg';

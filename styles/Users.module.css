@@ -1,0 +1,7 @@
+.css-1dpipqs-MuiDataGrid-root .MuiDataGrid-row:not(.MuiDataGrid-row--dynamicHeight)>.MuiDataGrid-cell{
+    overflow: visible;
+}
+
+/*.MuiDataGrid-row:not(.MuiDataGrid-row--dynamicHeight)>.MuiDataGrid-cell {*/
+/*    overflow: visible;*/
+/*}*/
