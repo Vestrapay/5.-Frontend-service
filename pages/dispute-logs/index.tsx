@@ -1,7 +1,7 @@
 import React from 'react';
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 
-const DisputeLogs = () => {
+const Index = () => {
     return (
         <DashboardLayout>
             Dispute Logs
@@ -9,4 +9,4 @@ const DisputeLogs = () => {
     );
 };
 
-export default DisputeLogs;
+export default Index;

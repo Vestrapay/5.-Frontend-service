@@ -37,10 +37,10 @@ function SideBar() {
 
     useEffect(() => {
         setActiveLink(router.asPath)
-        if (dropdownNavLinks.includes(router.asPath.split("/")[2])) {
+        if (dropdownNavLinks.includes(router.asPath.split("/")[1])) {
             console.log("supposed to reload sidebar")
             sidebarItems.filter((item: MenuItems | SubMenuItems) => {
-                if (item.name.toLowerCase() === router.asPath.split("/")[2]) {
+                if (item.name.toLowerCase() === router.asPath.split("/")[1]) {
                     setSelectedSubMenuItem(prevState => item)
                     setIsSubCategorySelected(true)
                 }
@@ -61,7 +61,7 @@ function SideBar() {
                     </div>
                     <div className="flex flex-col gap-2">
                         {
-                            dropdownNavLinks.includes(activeLink.split("/")[2])
+                            dropdownNavLinks.includes(activeLink.split("/")[1])
                             && selectedSubMenuItem && isSubCategorySelected
                                 ? (
                                     <div className="relative text-base">
