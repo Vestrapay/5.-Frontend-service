@@ -76,7 +76,7 @@ const SignUp: NextPage = () => {
               By creating an account you agree to the <span className="text-darkslateblue underline">terms of use</span> and our <span className="text-darkslateblue underline">privacy policy</span>.</label>
           </div>
           <DefaultButton
-            labelText="Create Branch"
+            labelText="Create Account"
             // isLoading={isSubmitting}
             // handleClick={handelSubmit}
           />
