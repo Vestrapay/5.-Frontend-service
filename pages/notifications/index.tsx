@@ -1,7 +1,7 @@
 import React from 'react';
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 
-const Notifications = () => {
+const Index = () => {
     return (
         <DashboardLayout>
             Notifications
@@ -9,4 +9,4 @@ const Notifications = () => {
     );
 };
 
-export default Notifications;
+export default Index;
