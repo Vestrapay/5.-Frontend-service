@@ -33,20 +33,17 @@ function OnBoardingLayout({ page, children }: any) {
     return (
 
         <>
-            <div className=" w-full min-h-[100vh] h-[100%] bg-blue-darker login-bg">
-                <div className=" w-full min-h-[100vh] h-[100%] bg-blue-darker">
-                    {/* <div className=" relative h-full"> */}
-                    <div className='flex absolute w-full top-[25px] justify-between left-0 sm:justify-between  sm:left-[0px] px-10 z-100 bg-blue-darker'>
-
-                        <Image src={'/assets/svg/medusaLogo.svg'} alt="" width={120} height={100} />
-                        {stage && <div className="cursor-pointer" onClick={() => router.push("/dashboard")}><LightCloseIcon /></div>}
-                    </div>
-                    
-                    {/* </div> */}
-                    <div className="h-[90%] py-10 ">
-                        {children ||
-                            <span></span>
-                        }
+            <div className="w-full min-h-[100vh] h-[100%] bg-slate-50">
+                <div className="w-full min-h-[100vh] h-[100%] flex justify-center items-center">
+                    <div className="w-1/3 h-screen bg-white">
+                        <div className=" flex flex-col justify-center items-center pt-20 pb-10 w-full">
+                            <img
+                                className="w-[92px] h-[92px]"
+                                alt=""
+                                src="/logo.svg"
+                            />
+                        </div>
+                        {children}
                     </div>
                 </div>
             </div>
