@@ -16,7 +16,7 @@ import {
 import {Store} from "react-huge-icons/bulk";
 import {BsBug, BsThreeDots} from 'react-icons/bs';
 import {DataGrid} from "@mui/x-data-grid";
-import {recentTransactionsData, recentTransactionsFields} from "@utils/tableSchema";
+import {recentTransactionsData, recentTransactionsFields} from "@Utils/tableSchema";
 import {IoIosArrowDown, IoIosArrowUp} from "react-icons/io";
 
 
@@ -35,14 +35,14 @@ const Dashboard = () => {
                 <DashNavbar/>
                 <div className="w-full grid gap-4 grid-rows-2 grid-cols-6 h-full">
                     <div className="grid grid-rows-2 grid-cols-1 col-span-3 gap-4 h-full">
-                        <div className="flex bg-white p-3 rounded-2xl items-center w-full overflow-auto">
+                        <div className="flex bg-white p-3 rounded-2xl items-center w-full overflow-auto lg:flex-row flex-col ">
                             <AtmCard isActivated={isCardDisabled}/>
                             <Image
                                 src={DivisionLine}
                                 alt={"division-line"}
-                                className="mx-3"
+                                className="mx-5"
                             />
-                            <div className="flex text-right flex-col justify-center">
+                            <div className="flex text-right flex-col justify-center mx-5">
                                 <span className="m-0 py-0.5">
                                     <p className="text-base font-bold m-0">₦2,850.75</p>
                                     <p className="text-xxs whitespace-nowrap m-0 text-unselected">Current balance</p>
@@ -72,7 +72,7 @@ const Dashboard = () => {
                             <Image
                                 src={DivisionLine}
                                 alt={"division-line"}
-                                className="mx-3"
+                                className="mx-5"
                             />
                             <div className="flex flex-col items-center justify-center gap-4 w-1/2 h-full">
                                 <motion.div

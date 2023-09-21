@@ -80,6 +80,7 @@ const SignUp: NextPage = () => {
             // isLoading={isSubmitting}
             // handleClick={handelSubmit}
           />
+          
         </div>
       </div>
     </div>
