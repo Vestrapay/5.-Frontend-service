@@ -9,7 +9,7 @@ import { Storage } from "Utils/inAppstorage";
 
 
 
-const baseUrl = (): any => "http://merchant-pos.tajbank.com:9494";//process.env.REACT_APP_BASE_URL;
+const baseUrl = (): any => "https://6892-2001-569-52c4-d700-4dc7-8a86-fdb8-d6fd.ngrok-free.app";//process.env.REACT_APP_BASE_URL;
 
 
 
