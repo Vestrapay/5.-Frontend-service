@@ -1,13 +1,19 @@
+"use client";
 import React, {useState} from 'react';
 import DashboardLayout from "@/components/layouts/DashboardLayout";
-import {DataGrid, GridColDef, GridRowsProp} from "@mui/x-data-grid";
+import {DataGrid, GridColDef, GridRowId, GridRowsProp} from "@mui/x-data-grid";
 import {BsThreeDots} from "react-icons/bs";
 import Image from "next/image";
 import {LineHorizontal, PenIcon, ProfileImage3} from "@public/assets";
 import {Trash} from "react-huge-icons/bulk";
 import UsersNavbar from "@/components/users/UsersNavbar";
-import {Gender} from "@types";
+import {Gender, UserDetailProps} from "@types";
 import {useNewUserContext} from "../../context/newUserContext";
+import {Property} from "csstype";
+import GridRow = Property.GridRow;
+import UserDetails from "@/components/users/UserDetails";
+import CreateUsers from "@/components/users/CreateUsers";
+import CreateUser from "@/components/users/CreateUser";
 
 const Users = () => {
 
@@ -15,11 +21,11 @@ const Users = () => {
 
     const [selected, setSelected] = useState<number | null>();
 
-    const [isEditable, setIsEditable] = useState(false);
+    const [selectedDetails, setSelectedDetails] = useState<UserDetailProps | any>();
 
-    const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false);
+    // const [isEditable, setIsEditable] = useState(false);
 
-    const {isCreateUser} = useNewUserContext();
+    const {isCreateUser, setIsCreateUser, isEditUser, setIsEditUser} = useNewUserContext();
 
     const usersListData: GridRowsProp = [
         {
@@ -30,7 +36,8 @@ const Users = () => {
             email: "omonigho.efeoghene@outlook.com",
             phone: "08123456789",
             gender: "male",
-            action: "edit"
+            action: "edit",
+            address: "No 1, John Doe Street, Lagos, Nigeria"
         },
         {
             id: 2,
@@ -40,7 +47,8 @@ const Users = () => {
             email: "marry.ann@outlook.com",
             phone: "08123456789",
             gender: "female",
-            action: "edit"
+            action: "edit",
+            address: "No 1, hhjas Street, Lagos, Nigeria"
         }
     ]
 
@@ -121,8 +129,8 @@ const Users = () => {
                                         // Enable edit mode for the row
                                         console.log("Editing user with id: ", id) //TODO: Edit the user with this id
                                         setIsDropDownActive(false)
-                                        setIsEditable(true)
-
+                                        setIsEditUser(true)
+                                        setIsCreateUser(false)
                                     }}
                                     className="w-full px-2 flex justify-start items-center rounded-md cursor-pointer text-blue-600 bg-sky-100 hover:bg-sky-200"
                                 >
@@ -146,6 +154,13 @@ const Users = () => {
             },
             sortable: false,
             hideSortIcons: true,
+        },
+        {
+            field: "address",
+            headerName: "Address",
+            flex: 1,
+            headerAlign: "left",
+            align: "left",
         }
     ]
 
@@ -156,9 +171,21 @@ const Users = () => {
                 className="flex flex-1 flex-col px-10 pb-4 h-screen w-full overflow-x-visible transition-all duration-300 ease-in-out">
                 <UsersNavbar/>
                 <DataGrid
+                    initialState={{
+                        columns: {
+                            columnVisibilityModel: {
+                                "address": false,
+                                "id": false,
+                            }
+                        }
+                    }}
                     columns={usersListFields}
                     rows={usersListData}
                     // checkboxSelection={true}
+                    onRowClick={(params) => {
+                        console.log(params.row)
+                        setSelectedDetails(params.row)
+                    }}
                     disableRowSelectionOnClick={true}
                     getRowClassName={() => "users-table--row"}
                     sx={{
@@ -229,50 +256,14 @@ const Users = () => {
                 />
             </main>
             <div
-                className={`w-[302px] ${isEditable && selected ? "flex flex-col flex-nowrap" : "hidden"} bg-white rounded-tl-xl rounded-bl-xl z-20 h-screen px-5 py-20 shadow-xl transition-all duration-300 ease-in-out`}>
-                <div className="flex flex-col items-center w-ful">
-                    <Image src={ProfileImage3} alt={"profile"}
-                           width={70} height={70}
-                           className="rounded-full bg-red-300 mb-[16px]"
-                    />
-                    {/*TODO: Fetch the user's name from the API*/}
-                    <p className="text-xl text-ultraMarine font-semibold m-0">John Deo</p>
-                    <p className="text-base text-unselected m-0">Front Desk Officer</p>
-                    <Image src={LineHorizontal} alt={"line"} height={1} className="my-10"/>
-                </div>
-
-                <div className="flex flex-col">
-                    <p>Contact Info</p>
-                    <div className="flex flex-col">
-                        <p className="text-sm text-unselected m-0">Email Address</p>
-                        <Image src={LineHorizontal} alt={"line"} height={1} className="my-2"/>
-                        <p className="text-sm text-unselected m-0">Phone Number</p>
-
-                    </div>
-                </div>
+                className={`w-[302px] ${isEditUser && selected ? "flex flex-col flex-nowrap" : "hidden"} bg-white rounded-tl-xl rounded-bl-xl z-20 h-screen p-5 shadow-xl transition-all duration-300 ease-in-out`}
+            >
+                <UserDetails data={selectedDetails} />
             </div>
             <div
-                className={`w-[302px] ${isCreateUser  ? "flex flex-col flex-nowrap" : "hidden"} bg-white rounded-tl-xl rounded-bl-xl z-20 h-screen px-5 py-20 shadow-xl transition-all duration-300 ease-in-out`}>
-                <div className="flex flex-col items-center w-ful">
-                    <Image src={ProfileImage3} alt={"profile"}
-                           width={70} height={70}
-                           className="rounded-full bg-red-300 mb-[16px]"
-                    />
-                    {/*TODO: Fetch the user's name from the API*/}
-                    <p className="text-xl text-ultraMarine font-semibold m-0">Create User</p>
-                    <p className="text-base text-unselected m-0">Front Desk Officer</p>
-                    <Image src={LineHorizontal} alt={"line"} height={1} className="my-10"/>
-                </div>
-
-                <div className="flex flex-col">
-                    <p>Contact Info</p>
-                    <div className="flex flex-col">
-                        <p className="text-sm text-unselected m-0">Email Address</p>
-                        <Image src={LineHorizontal} alt={"line"} height={1} className="my-2"/>
-                        <p className="text-sm text-unselected m-0">Phone Number</p>
-
-                    </div>
-                </div>
+                className={`w-[302px] ${isCreateUser  ? "flex flex-col flex-nowrap" : "hidden"} bg-white rounded-tl-xl rounded-bl-xl z-20 h-screen p-5 shadow-xl transition-all duration-300 ease-in-out`}
+            >
+                <CreateUser />
             </div>
         </DashboardLayout>
     );

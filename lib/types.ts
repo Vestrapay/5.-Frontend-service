@@ -45,3 +45,15 @@ export type SidebarContextProps = {
 export type CardProviderProps = "mastercard" | "visa" | "verve"
 
 export type Gender = "MALE" | "FEMALE"
+
+export type UserDetailProps = {
+    id: number,
+    firstName: string,
+    lastName: string,
+    email: string,
+    phone: string,
+    portrait: string,
+    gender: Gender
+    action: string,
+    address: string,
+}
