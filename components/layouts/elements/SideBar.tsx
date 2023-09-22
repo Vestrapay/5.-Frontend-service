@@ -17,7 +17,7 @@ import { userRoles } from "@/components/layouts/elements/SideBarItems";
 function SideBar() {
 
     const dropdownNavLinks = ["transactions", "payments", "settings"]
-    const [selectedSubMenuItem, setSelectedSubMenuItem] = useState<MenuItems | SubMenuItems | null>();
+    const [selectedSubMenuItem, setSelectedSubMenuItem] = useState<MenuItems | null>();
 
     const [isSubCategorySelected, setIsSubCategorySelected] = useState(false)
 
@@ -39,9 +39,9 @@ function SideBar() {
         setActiveLink(router.asPath)
         if (dropdownNavLinks.includes(router.asPath.split("/")[1])) {
             console.log("supposed to reload sidebar")
-            sidebarItems.filter((item: MenuItems | SubMenuItems) => {
+            sidebarItems.filter((item: any) => {
                 if (item.name.toLowerCase() === router.asPath.split("/")[1]) {
-                    setSelectedSubMenuItem(prevState => item)
+                    setSelectedSubMenuItem(item)
                     setIsSubCategorySelected(true)
                 }
             })
@@ -108,7 +108,7 @@ function SideBar() {
                                         </div>
                                     )
                                     :
-                                    sidebarItems?.map((item: MenuItems | SubMenuItems, index: number) => (
+                                    sidebarItems?.map((item: MenuItems | any, index: number) => (
                                         <div key={index} className="relative text-base">
                                             {
                                                 activeLink === item.route

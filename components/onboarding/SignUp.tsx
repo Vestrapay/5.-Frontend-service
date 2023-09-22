@@ -4,7 +4,7 @@ import type { NextPage } from "next";
 import { LoginErrorCard } from '@Utils/actions/error';
 import { SignUpController } from 'containers/onboardingApi';
 
-const SignUp: NextPage = ({ setPage, setPassData }: any) => {
+const SignUp = ({ setPage, setPassData }: any) => {
 
   const { stateValues, handleSubmit, handleChange, handleClearError } = SignUpController(setPage, setPassData)
 

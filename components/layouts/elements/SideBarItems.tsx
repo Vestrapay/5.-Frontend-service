@@ -163,14 +163,14 @@ export const userRoles: RoleProps = {
 }
 
 export const finalMenu = (userRoles: string[]): MenuItems[] => {
-    return topMenuItems.map((each: MenuItems | SubMenuItems) => {
+    return topMenuItems.map((each: any) => {
         const filteredSubMenuItems = each?.subMenuItems.filter((subItem: MenuItems) => {
             // Check if the sub-item has no roles defined or if any role matches the user's roles.
             return !subItem.roles || subItem.roles.some(role => userRoles.includes(role));
         });
 
         // Check if the main menu item should be included based on the filtered sub-menu items.
-        if (filteredSubMenuItems.length > 0 || !each.roles || each.roles.some(role => userRoles.includes(role))) {
+        if (filteredSubMenuItems.length > 0 || !each.roles || each.roles.some((role:any) => userRoles.includes(role))) {
             return { ...each, subMenuItems: filteredSubMenuItems };
         }
 
