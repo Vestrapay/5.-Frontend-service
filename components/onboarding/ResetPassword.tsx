@@ -1,34 +1,43 @@
 import React from 'react';
-import {DefaultButton, DefaultInput} from "@/components/reusables";
+import { DefaultButton, DefaultInput } from "@/components/reusables";
+import { ResetPasswordController } from 'containers/onboardingApi';
+import { LoginErrorCard } from '@Utils/actions/error';
 
-const ResetPassword = () => {
+const ResetPassword = ({ setPage }: any) => {
+
+    const { stateValues, handleChange, handelSubmit, handleClearError } = ResetPasswordController(setPage);
+
+    const { submittingError, isDisabled, isSubmitting, errorMssg, pin, email } = stateValues || {};
+
     return (
-        <div className=" flex flex-col justify-center items-center w-full px-10 ">
-            <p className="flex whitespace-nowrap justify-center font-semibold w-[94px] h-7 text-[25px] font-nunito">
-                Reset Password
-            </p>
-            <img
-                className="mb-10 w-full h-px"
-                alt=""
-                src="/or.svg"
-            />
-
+        <div className="w-full ">
             <DefaultInput
                 type="email"
-                name="phoneNumber"
+                name="email"
                 label="Email Address"
                 topLabel="Email Address"
                 placeHolder="Enter Email Address"
                 containerVariant="w-full py-2"
-                // value={pin}
-                // handleChange={handleChange}
+                value={email}
+                handleChange={handleChange}
             />
+            
+            <div className=" flex flex-col-reverse gap-5 sm sm:flex-row justify-between items-center">
+                <DefaultButton
+                    labelText="Reset Password"
+                    containerVariant="w-full my-10"
+                    variant="w-full"
+                    isLoading={isSubmitting}
+                    handleClick={handelSubmit}
+                /></div>
 
-            <DefaultButton
-                labelText="Reset Password"
-                // isLoading={isSubmitting}
-                // handleClick={handelSubmit}
-            />
+            <LoginErrorCard handleClear={handleClearError} error={stateValues?.errorMssg || ""} containerVariant={!stateValues?.submittingError ? "hidden" : ""} />
+
+            <div className="flex items-start my-6">
+                <label htmlFor="remember" className="ml-2 text-base font-300 text-blackish text-center w-full">
+                    Back to <span className="text-darkslateblue" onClick={() => setPage("signin")} >Log In</span>
+                </label>
+            </div>
         </div>
     );
 };

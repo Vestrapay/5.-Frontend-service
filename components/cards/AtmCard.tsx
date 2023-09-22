@@ -4,7 +4,7 @@ import Image from "next/image";
 import { CardLogo, Cloud, MasterCard } from "@public/assets";
 import { RiVisaLine } from "react-icons/ri";
 
-const AtmCard = ({ debitCardNumber = "5789546256772847", cardHolder = "Omonigho Isaiah", expiryDate = "06/26", cardProvider = "", isActivated }: any) => {
+const AtmCard = ({ debitCardNumber = "000000000000", cardHolder = "Omonigho Isaiah", expiryDate = "00/00", cardProvider = "", isActivated }: any) => {
 
     const groups: string[] = []
 

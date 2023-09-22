@@ -1,27 +1,28 @@
 import React from 'react';
-import {DefaultButton, DefaultInput} from "@/components/reusables";
+import { DefaultButton, DefaultInput } from "@/components/reusables";
+import type { NextPage } from "next";
+import { SignInController } from 'containers/onboardingApi';
+import { LoginErrorCard } from '@Utils/actions/error';
 
-const SignIn = () => {
+const SignIn: NextPage = ({ setPage }: any) => {
+
+    const { stateValues, handleSubmit, handleChange, handleClearError } = SignInController(setPage);
+
+    const { email, password, loginError, loginErrorMssg, isLoggingIn } = stateValues
+
+
     return (
-        <div className=" flex flex-col justify-center items-center w-full px-10 ">
-            <p className="top-[0px] left-[0px] font-semibold inline-block w-[94px] h-7 text-[25px] font-nunito">
-                Log In
-            </p>
-            <img
-                className="mb-10 w-full h-px"
-                alt=""
-                src="/or.svg"
-            />
+        <div className='w-full'>
 
             <DefaultInput
                 type="email"
-                name="phoneNumber"
+                name="email"
                 label="Email Address"
                 topLabel="Email Address"
                 placeHolder="Enter Email Address"
                 containerVariant="w-full py-2"
-                // value={pin}
-                // handleChange={handleChange}
+                value={email}
+                handleChange={handleChange}
             />
 
             <DefaultInput
@@ -31,8 +32,8 @@ const SignIn = () => {
                 topLabel="Password"
                 placeHolder="Enter Password"
                 containerVariant="w-full py-2"
-                // value={pin}
-                // handleChange={handleChange}
+                value={password}
+                handleChange={handleChange}
             />
 
             <div className="flex items-center w-full my-6 justify-between">
@@ -42,19 +43,29 @@ const SignIn = () => {
                         Remember Me
                     </label>
                 </div>
-                <button className="text-blue-500 border-none bg-transparent font-nunito">
+                <button className="text-darkslateblue border-none text-base bg-transparent font-nunito" onClick={() => setPage("reset")}>
                     Reset Password?
                 </button>
             </div>
-            <DefaultButton
-                labelText="Log in"
-                // isLoading={isSubmitting}
-                // handleClick={handelSubmit}
-            />
-            <p className="text-sm font-300 text-blackish mt-4">
-                Don't have an account yet?
-                <span className="text-blue-500 cursor-pointer ml-2">New Account</span>
-            </p>
+            
+            <div className=" flex flex-col-reverse gap-5 sm sm:flex-row justify-between items-center">
+                <DefaultButton
+                    labelText="Log In"
+                    containerVariant="w-full"
+                    variant="w-full"
+                    isLoading={isLoggingIn}
+                    handleClick={handleSubmit}
+                />
+            </div>
+
+            <LoginErrorCard handleClear={handleClearError} error={stateValues?.loginErrorMssg || ""} containerVariant={!stateValues?.loginError ? "hidden" : ""} />
+
+            <div className="flex items-start my-6">
+                <label htmlFor="remember" className="ml-2 text-base font-300 text-blackish text-center w-full">
+                    Don't have an account yet? <span className="text-darkslateblue" onClick={() => setPage("signup")} >Sign Up</span>
+                </label>
+            </div>
+
         </div>
     );
 };

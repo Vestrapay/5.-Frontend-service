@@ -129,10 +129,10 @@ const DefaultInput = forwardRef<any, any>(({
 
                     {!validate ? null :
                         <div className={`relative cursor-pointer flex items-center justify-center`}>
-                            <div className="absolute mb-1.5 bottom-4 right-4 flex flex-col items-center group">
+                            <div className="absolute mb-1.5 bottom-1 right-4 flex flex-col items-center group">
                                 <SmPasswordCheckIcon />
-                                <div className="absolute bottom-0 flex flex-col items-center  mb-6 hidden group-hover:flex min-w-[100%]">
-                                    <div className="relative z-10 p-2 text-xs leading-none  whitespace-no-wrap bg-[#181d32] shadow-lg rounded-md border-black-200  min-w-[260px] px-4 py-4">
+                                <div className="absolute bottom-0 flex flex-col items-center mb-6 hidden group-hover:flex min-w-[100%]">
+                                    <div className="relative z-10 p-2 -left-1 text-xs leading-none  whitespace-no-wrap bg-[#181d32] shadow-lg rounded-md border-black-200  min-w-[260px] px-4 py-4">
                                         <div>
                                             <div className='flex gap-2 items-center font-300 text-xs text-gray-200 py-2'>
                                                 <span>

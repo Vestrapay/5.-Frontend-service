@@ -9,7 +9,7 @@ import { Storage } from "Utils/inAppstorage";
 
 
 
-const baseUrl = (): any => "https://6892-2001-569-52c4-d700-4dc7-8a86-fdb8-d6fd.ngrok-free.app";//process.env.REACT_APP_BASE_URL;
+const baseUrl = (): any => "https://879d-2001-569-52c4-d700-e0ec-3bbe-ac78-be3e.ngrok-free.app";//process.env.REACT_APP_BASE_URL;
 
 
 
@@ -46,13 +46,13 @@ export const apiCall = ({ urlExtra, name, data = {}, params = {}, action = () =>
     })
         .then(async r => {
             const returned = await action(r.data)
-            if ((r.data.respCode === "00" || r.data.respCode === "SUCCESS") && !returned?.includes("skip")) {
+            if ((r.data.statusCode === 201 || r.data.statusCode === 200) && !returned?.includes("skip")) {
                 successAlert(successDetails, r.data)
-                r?.data?.respBody ? res(r.data.respBody) : res(r.data)
-            } else if (r.data.respCode === "00" || r.status === 200) {
-                r?.data?.respBody ? res(r.data.respBody) : res(r.data)
+                r?.data?.data ? res(r.data.data) : res(r.data)
+            } else if (r.data.statusCode === "00" || r.status === 200 ||  r.status === 201) {
+                r?.data?.data ? res(r.data.data) : res(r.data)
             }
-            else if (r.data.respCode !== "00" && r.status !== 200) {
+            else if (r.data.statusCode !== "00" && r.status !== 200 &&  r.status !== 201) {
                 errorHandler(r)
             } else if (returned?.includes("push")) {
                 successAlert(successDetails, r.data)
@@ -70,7 +70,7 @@ export const apiCall = ({ urlExtra, name, data = {}, params = {}, action = () =>
                 return err
             } else {
                 console.log("Response Error 3:")
-                // rej(err);
+                rej(err);
                 return err
             }
         });

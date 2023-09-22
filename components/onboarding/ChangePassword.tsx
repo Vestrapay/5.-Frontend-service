@@ -1,17 +1,9 @@
 import React from 'react';
-import {DefaultButton, DefaultInput} from "@/components/reusables";
+import { DefaultButton, DefaultInput } from "@/components/reusables";
 
-const ChangePassword = () => {
+const ChangePassword = ({ setPage }: any) => {
     return (
-        <div className=" flex flex-col justify-center items-center w-full px-10 ">
-            <p className="flex whitespace-nowrap justify-center font-semibold w-[94px] h-7 text-[25px] font-nunito">
-                Change Password
-            </p>
-            <img
-                className="mb-10 w-full h-px"
-                alt=""
-                src="/or.svg"
-            />
+        <div className="w-full">
 
             <DefaultInput
                 type="password"
@@ -20,8 +12,8 @@ const ChangePassword = () => {
                 topLabel="New Password"
                 placeHolder="Enter New Password"
                 containerVariant="w-full py-2"
-                // value={pin}
-                // handleChange={handleChange}
+            // value={pin}
+            // handleChange={handleChange}
             />
 
             <DefaultInput
@@ -31,8 +23,8 @@ const ChangePassword = () => {
                 topLabel="Confirm Password"
                 placeHolder="Enter Confirm Password"
                 containerVariant="w-full py-2"
-                // value={pin}
-                // handleChange={handleChange}
+            // value={pin}
+            // handleChange={handleChange}
             />
 
             <p className="text-xs font-semibold">
@@ -52,16 +44,24 @@ const ChangePassword = () => {
                 <br />
                 <span className="font-normal">
                     Note: do not use &lt; or &gt; in your password, as both can cause
-                problems in Web browsers.
+                    problems in Web browsers.
                 </span>
             </p>
 
 
             <DefaultButton
-                labelText="Log in"
-                // isLoading={isSubmitting}
-                // handleClick={handelSubmit}
+                labelText="Change Password"
+                containerVariant="w-full"
+                variant="w-full"
+            // isLoading={isSubmitting}
+            // handleClick={handelSubmit}
             />
+
+            <div className="flex items-start my-6">
+                <label htmlFor="remember" className="ml-2 text-base font-300 text-blackish text-center w-full">
+                    Back to <span className="text-darkslateblue" onClick={() => setPage("signin")} >Login</span>
+                </label>
+            </div>
 
         </div>
     );

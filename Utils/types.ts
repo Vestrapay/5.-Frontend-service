@@ -15,16 +15,20 @@ export type endpointTypes = {
 }
 
 export type endPointlistTypes = {
+    createUser: endpointTypes;
     loginUser: endpointTypes;
     changePassword: endpointTypes;
     forgotPassword: endpointTypes;
     dashboardStats: endpointTypes;
+    dashboardAnalytics: endpointTypes;
+    dashboardNotif: endpointTypes;
+    dashboardTrans: endpointTypes;
+
     accountList: endpointTypes;
     createAccount: endpointTypes;
     updateAccount: endpointTypes;
     getAccount: endpointTypes;
     usersList: endpointTypes;
-    createUser: endpointTypes;
     updateUser: endpointTypes;
     getUser: endpointTypes;
     getAllRoles: endpointTypes;

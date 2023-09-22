@@ -55,7 +55,7 @@ function SideBar() {
             <aside
                 className="min-h-[100vh] h-[100%] pt-5 pb-10 xl:h-full bg-white lg:drop-shadow-lg drop-shadow-lg z-50 lg:inset-x-auto inset-x-0 lg:inset-y-0 | self-start top-0 w-full max-w-[230px]  flex transition-all duration-300 ease-in-out fixed s"
             >
-                
+
                 <div className=' w-full flex flex-col gap-10  justify-between overflow-y-auto text-slate-500 font-medium'>
                     <div className=' w-full flex flex-col gap-1 text-slate-500 font-medium'>
                         <div className="w-full justify-center flex my-3">
@@ -171,7 +171,7 @@ function SideBar() {
                             <p className="text-xs text-slate-900 font-bold my-0">Omonigho Isaiah</p>
                             <p className="text-xs text-slate-500 uppercase my-0">T23456 - USER</p>
                         </div>
-                        <LogoutOpen style={{ width: 24, height: 24 }} className="text-selected cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out hover:text-ultraMarine " />
+                        <LogoutOpen style={{ width: 24, height: 24 }} onClick={() => router.push("/")} className="text-selected cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out hover:text-ultraMarine " />
                     </div>
                 </div>
             </aside>

@@ -14,12 +14,12 @@ export const recentTransactionsFields: GridColDef[] = [
         headerAlign: "center",
     },
     {
-        field: "maskedPan",
+        field: "pan",
         headerName: "Masked PAN",
         flex: 1,
     },
     {
-        field: "description",
+        field: "narration",
         headerName: "Description",
         flex: 1,
         cellClassName: "description",
@@ -27,26 +27,26 @@ export const recentTransactionsFields: GridColDef[] = [
         align: "left",
     },
     {
-        field: "orderID",
-        headerName: "Order ID",
+        field: "uuid",
+        headerName: "Order ID (UUID)",
         flex: 1,
     },
     {
-        field: "paymentRef",
+        field: "transactionReference",
         headerName: "Payment Ref",
         flex: 1,
     },
     {
-        field: "scheme",
+        field: "cardScheme",
         headerName: "Scheme",
         flex: 1,
         headerAlign: "center",
         align: "center",
-        renderCell: ({row: {cardProvider}}: { row: { cardProvider: CardProviderProps } }) => {
+        renderCell: ({row: {cardScheme}}: { row: { cardScheme: CardProviderProps } }) => {
             return (
                 <div
-                    className={`rounded w-full flex justify-center items-center ${cardProvider.toLowerCase() === "visa" ? "bg-violet-200" : cardProvider.toLowerCase() === "mastercard" ? "bg-orange-500" : "bg-slate-500"}`}>
-                    <p className={`text-sm font-bold uppercase ${cardProvider.toLowerCase() === "visa" ? "text-violet-500" : cardProvider.toLowerCase() === "mastercard" ? "text-red" : "text-black"}`}>{cardProvider.toUpperCase()}</p>
+                    className={`rounded w-full flex justify-center items-center ${cardScheme?.toLowerCase() === "visa" ? "bg-violet-200" : cardScheme?.toLowerCase() === "mastercard" ? "bg-orange-500" : "bg-slate-500"}`}>
+                    <p className={`text-sm font-bold uppercase ${cardScheme?.toLowerCase() === "visa" ? "text-violet-500" : cardScheme?.toLowerCase() === "mastercard" ? "text-red" : "text-black"}`}>{cardScheme?.toUpperCase()}</p>
                 </div>
             )
         }
@@ -67,7 +67,7 @@ export const recentTransactionsData: GridRowsProp = [
         description: "Camera Lens",
         orderID: "#123456",
         paymentRef: "#123456",
-        cardProvider: "mastercard",
+        cardScheme: "mastercard",
         amount: "NGN146,000"
     },
     {
@@ -76,7 +76,7 @@ export const recentTransactionsData: GridRowsProp = [
         description: "Camera Lens",
         orderID: "#123456",
         paymentRef: "#123456",
-        cardProvider: "visa",
+        cardScheme: "visa",
         amount: "NGN146,000"
     },
     {
@@ -85,7 +85,7 @@ export const recentTransactionsData: GridRowsProp = [
         description: "Camera Lens",
         orderID: "#123456",
         paymentRef: "#123456",
-        cardProvider: "verve",
+        cardScheme: "verve",
         amount: "NGN146,000"
     }
 ]
