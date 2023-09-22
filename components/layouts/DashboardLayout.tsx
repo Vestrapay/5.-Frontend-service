@@ -21,7 +21,7 @@ function DashboardLayout({children}: LayoutProps) {
             {/* Sidebar */}
             <SideBar/>
             {/* Main */}
-            <main className="w-full max-h-screen bg-dashboard ml-[220px] overflow-x-hidden">
+            <main className="w-full max-h-screen flex bg-dashboard ml-[220px] overflow-x-hidden">
                 {children}
             </main>
         </div>

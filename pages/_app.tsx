@@ -10,6 +10,7 @@ import router from "next/router";
 import {Toaster} from "react-hot-toast";
 import {Context} from "@context";
 import CalenderProvider from "../context/calenderContext";
+import {NewUserContext} from "../context/newUserContext";
 
 export default function App({Component, pageProps}: AppProps) {
 
@@ -45,9 +46,11 @@ export default function App({Component, pageProps}: AppProps) {
             </Head>
             <Context>
                 <CalenderProvider>
-                    <Toaster/>
-                    <Component {...pageProps} />
-                    <ReactQueryDevtools initialIsOpen={false}/>
+                    <NewUserContext>
+                        <Toaster/>
+                        <Component {...pageProps} />
+                        <ReactQueryDevtools initialIsOpen={false}/>
+                    </NewUserContext>
                 </CalenderProvider>
             </Context>
         </QueryClientProvider>
