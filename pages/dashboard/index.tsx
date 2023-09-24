@@ -349,7 +349,7 @@ const Dashboard = () => {
                                         onCellClick={(params) => {
                                             console.log(params)
                                         }}
-                                        loading={recentTransactionsData.length === 0} // TODO: This should be the loading state from the API
+                                        loading={transData?.length === 0} // TODO: This should be the loading state from the API
 
                                     />
                                 </div>

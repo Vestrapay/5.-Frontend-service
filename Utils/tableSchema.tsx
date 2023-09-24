@@ -63,31 +63,22 @@ export const recentTransactionsFields: GridColDef[] = [
 export const recentTransactionsData: GridRowsProp = [
     {
         id: 1,
-        maskedPan: "5673********1234",
-        description: "Camera Lens",
-        orderID: "#123456",
-        paymentRef: "#123456",
+        pan: "5673********1234",
+        narration: "Camera Lens",
+        uuid: "#123456",
+        transactionReference: "#123456",
         cardScheme: "mastercard",
         amount: "NGN146,000"
     },
     {
         id: 2,
-        maskedPan: "5673********1234",
-        description: "Camera Lens",
-        orderID: "#123456",
-        paymentRef: "#123456",
+        pan: "5673********1234",
+        narration: "Camera Lens",
+        uuid: "#123456",
+        transactionReference: "#123456",
         cardScheme: "visa",
         amount: "NGN146,000"
     },
-    {
-        id: 3,
-        maskedPan: "5673********1234",
-        description: "Camera Lens",
-        orderID: "#123456",
-        paymentRef: "#123456",
-        cardScheme: "verve",
-        amount: "NGN146,000"
-    }
 ]
 
 

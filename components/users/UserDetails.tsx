@@ -4,8 +4,6 @@ import Image from "next/image";
 import {LineHorizontal, ProfileImage3} from "@public/assets";
 import {useNewUserContext} from "../../context/newUserContext";
 import {MdCancel} from "react-icons/md";
-import {Property} from "csstype";
-import GridRow = Property.GridRow;
 import {UserDetailProps} from "@types";
 import {CallUser, MailFast, MapBig} from "react-huge-icons/bulk";
 
