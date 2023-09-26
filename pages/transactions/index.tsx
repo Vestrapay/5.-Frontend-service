@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import TransactionsNavbar from "@/components/transactions/TransactionsNavbar";
 import {DataGrid, gridPageCountSelector, gridPageSelector, useGridApiRef, useGridSelector} from "@mui/x-data-grid";
-import {recentTransactionsData, recentTransactionsFields} from "@utils/tableSchema";
+import {recentTransactionsData, recentTransactionsFields} from "@Utils/tableSchema";
 import Pagination from "@mui/material/Pagination";
 
 const Index = () => {
