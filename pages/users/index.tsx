@@ -1,11 +1,11 @@
 "use client";
 import React, {useState} from 'react';
 import DashboardLayout from "@/components/layouts/DashboardLayout";
-import {DataGrid, GridColDef, GridRowId, GridRowsProp} from "@mui/x-data-grid";
+import {DataGrid, GridColDef, GridRowId, GridRowsProp, useGridApiRef, GridApi} from "@mui/x-data-grid";
 import {BsThreeDots} from "react-icons/bs";
 import Image from "next/image";
 import {LineHorizontal, PenIcon, ProfileImage3} from "@public/assets";
-import {Trash} from "react-huge-icons/bulk";
+import {Eye, Trash} from "react-huge-icons/bulk";
 import UsersNavbar from "@/components/users/UsersNavbar";
 import {Gender, UserDetailProps} from "@types";
 import {useNewUserContext} from "../../context/newUserContext";
@@ -14,6 +14,7 @@ import GridRow = Property.GridRow;
 import UserDetails from "@/components/users/UserDetails";
 import CreateUsers from "@/components/users/CreateUsers";
 import CreateUser from "@/components/users/CreateUser";
+import EditUserDetails from "@/components/users/EditUserDetails";
 
 const Users = () => {
 
@@ -25,7 +26,13 @@ const Users = () => {
 
     // const [isEditable, setIsEditable] = useState(false);
 
-    const {isCreateUser, setIsCreateUser, isEditUser, setIsEditUser} = useNewUserContext();
+    const {isCreateUser, setIsCreateUser, isEditUser, setIsEditUser, isViewUser, setIsViewUser} = useNewUserContext();
+
+    const getRowData = (id: GridRowId) => {
+        return apiRef.current?.getRow(id);
+    }
+
+    const apiRef = useGridApiRef();
 
     const usersListData: GridRowsProp = [
         {
@@ -122,30 +129,45 @@ const Users = () => {
                             }}
                             className={`absolute p-0 m-0 top-10 w-full rounded-md bg-white backdrop-blur-sm z-50 inset-x-0 shadow-xl flex flex-col`}>
                             <ul className={`list-none px-2 text-xs font-nunito text-white flex-col gap-1    ${isDropDownActive && selected == id ? "flex justify-center items-center" : "hidden"}`}>
-                                {/*TODO: Fetch this from an API or from an array*/}
-
+                                <li
+                                    onClick={() => {
+                                        // Enable edit mode for the row
+                                        console.log("View user with id: ", id) //TODO: Edit the user with this id
+                                        setIsDropDownActive(false)
+                                        setIsEditUser(false)
+                                        setIsCreateUser(false)
+                                        setIsViewUser(true)
+                                    }}
+                                    className="w-full px-2 flex justify-between items-center rounded-md cursor-pointer text-slate-700 bg-slate-100 hover:bg-slate-200 gap-x-4"
+                                >
+                                    <Eye className="h-8 w-8"/>
+                                    <p className="w-full font-semibold text-left justify-start">View</p>
+                                </li>
                                 <li
                                     onClick={() => {
                                         // Enable edit mode for the row
                                         console.log("Editing user with id: ", id) //TODO: Edit the user with this id
+                                        setSelected(id)
+                                        setSelectedDetails(getRowData(id))
                                         setIsDropDownActive(false)
                                         setIsEditUser(true)
                                         setIsCreateUser(false)
+                                        setIsViewUser(false)
                                     }}
-                                    className="w-full px-2 flex justify-start items-center rounded-md cursor-pointer text-blue-600 bg-sky-100 hover:bg-sky-200"
+                                    className="w-full px-2 flex justify-between gap-x-4 items-center rounded-md cursor-pointer text-blue-600 bg-sky-100 hover:bg-sky-200"
                                 >
                                     <Image src={PenIcon} alt={"pen"} width={16} height={16}/>
-                                    <p className="ml-3 w-full font-semibold text-left justify-start">Edit</p>
+                                    <p className="w-full font-semibold text-left justify-start">Edit</p>
                                 </li>
                                 <li
                                     onClick={() => {
                                         console.log("Deleting user with id: ", id) //TODO: Delete the user with this id
                                         setIsDropDownActive(false)
                                     }}
-                                    className="w-full px-2 flex justify-start items-center text-red rounded-md cursor-pointer z-50 bg-red-100 hover:bg-red-200"
+                                    className="w-full px-2 flex justify-between gap-x-4 items-center text-red-800 rounded-md cursor-pointer z-50 bg-red-100 hover:bg-red-200"
                                 >
                                     <Trash className="w-4 h-4"/>
-                                    <p className="ml-3 font-semibold text-left justify-start">Delete</p>
+                                    <p className="font-semibold text-left justify-start">Delete</p>
                                 </li>
                             </ul>
                         </div>
@@ -164,7 +186,6 @@ const Users = () => {
         }
     ]
 
-
     return (
         <DashboardLayout>
             <main
@@ -181,6 +202,7 @@ const Users = () => {
                     }}
                     columns={usersListFields}
                     rows={usersListData}
+                    apiRef={apiRef}
                     // checkboxSelection={true}
                     onRowClick={(params) => {
                         console.log(params.row)
@@ -256,9 +278,14 @@ const Users = () => {
                 />
             </main>
             <div
-                className={`w-[302px] ${isEditUser && selected ? "flex flex-col flex-nowrap" : "hidden"} bg-white rounded-tl-xl rounded-bl-xl z-20 h-screen p-5 shadow-xl transition-all duration-300 ease-in-out`}
+                className={`w-[302px] ${isViewUser && selected ? "flex flex-col flex-nowrap" : "hidden"} bg-white rounded-tl-xl rounded-bl-xl z-20 h-screen p-5 shadow-xl transition-all duration-300 ease-in-out`}
             >
                 <UserDetails data={selectedDetails} />
+            </div>
+            <div
+                className={`w-[302px] ${isEditUser && selected ? "flex flex-col flex-nowrap" : "hidden"} bg-white rounded-tl-xl rounded-bl-xl z-20 h-screen p-5 shadow-xl transition-all duration-300 ease-in-out`}
+            >
+                <EditUserDetails data={selectedDetails} id={selected} />
             </div>
             <div
                 className={`w-[302px] ${isCreateUser  ? "flex flex-col flex-nowrap" : "hidden"} bg-white rounded-tl-xl rounded-bl-xl z-20 h-screen p-5 shadow-xl transition-all duration-300 ease-in-out`}

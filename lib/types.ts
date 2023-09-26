@@ -53,7 +53,18 @@ export type UserDetailProps = {
     email: string,
     phone: string,
     portrait: string,
-    gender: Gender
+    gender: Gender | string,
     action: string,
     address: string,
+}
+
+
+export type CreateUserProps = {
+    firstName: string,
+    lastName: string,
+    email: string,
+    phone: string,
+    gender: Gender | string,
+    address: string,
+    userRole: string,
 }
