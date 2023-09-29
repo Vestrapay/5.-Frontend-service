@@ -1,4 +1,6 @@
 export { default as DefaultInput } from "./inputs/DefaultInput";
+export { default as DefaultSelect } from "./inputs/DefaultSelect";
+
 export { default as SearchInput } from "./inputs/SearchInput";
 export { default as DefaultButton } from "./buttons/SendButton";
 export { default as DefaultTable } from "./tables/DefaultTable";

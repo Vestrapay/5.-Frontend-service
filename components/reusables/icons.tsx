@@ -9,7 +9,7 @@ import {
     SettingsIcon,
     TransactionsIcon,
     UsersIcon
-} from "@public/assets";
+} from "@reusables/images";
 import {Category, TwoUsers, Chart, Notification, Setting} from "react-iconly";
 import {Transfer} from "react-huge-icons/bulk"
 import {HiMiniUserGroup} from "react-icons/hi2";

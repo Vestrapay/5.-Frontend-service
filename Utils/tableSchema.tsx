@@ -4,7 +4,7 @@ import {BsThreeDots} from "react-icons/bs";
 import React, {useState} from "react";
 import {Trash} from "react-huge-icons/bulk";
 import Image from "next/image";
-import {PenIcon} from "@public/assets";
+import {PenIcon} from "@reusables/images";
 
 export const recentTransactionsFields: GridColDef[] = [
     {

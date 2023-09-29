@@ -80,6 +80,48 @@ export const endPoints: endPointlistTypes = {
         auth: true
     },
 
+
+    //Users 
+    usersList: {
+        url: '/api/v1/user/view-all-merchant-users',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+    merchantCreateUser: {
+        url: '/api/v1/user/merchant-create-user',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+
+    createUser: {
+        url: '/api/v1/user/register',
+        method: 'POST',
+        headers: headers,
+        auth: false
+    },
+
+    updateUser: {
+        url: '/api/v1/user/merchant-update-user',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+    deleteUser: {
+        url: '/api/v1/user/delete',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+
+    getUser: {
+        url: '/api/v1/user/view-merchant-user',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+
     //Accounts
     accountList: {
         url: '/api/v1/account/view',
@@ -105,34 +147,6 @@ export const endPoints: endPointlistTypes = {
         headers: headers,
         auth: true
     },
-
-    //Users
-    usersList: {
-        url: '/api/v1/user/view',
-        method: 'GET',
-        headers: headers,
-        auth: true
-    },
-    createUser: {
-        url: '/api/v1/user/register',
-        method: 'POST',
-        headers: headers,
-        auth: false
-    },
-    
-    updateUser: {
-        url: '/api/v1/user/update',
-        method: 'PUT',
-        headers: headers,
-        auth: true
-    },
-    getUser: {
-        url: '/api/v1/user/view/single',
-        method: 'GET',
-        headers: headers,
-        auth: true
-    },
-
 
     //Institutions
     institutionsList: {
@@ -437,13 +451,6 @@ export const endPoints: endPointlistTypes = {
     creaeteInstitutionUser: {
         url: '/api/v1/user/create',
         method: 'POST',
-        headers: headers,
-        auth: true
-    },
-
-    deleteUser: {
-        url: '/api/v1/user/deleteUser',
-        method: 'PUT',
         headers: headers,
         auth: true
     },

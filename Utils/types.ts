@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from "react"
+import React, { InputHTMLAttributes, ReactElement, ReactNode } from "react"
 import { MouseEventHandler } from "react"
 import { AxiosRequestHeaders } from "axios";
 
@@ -28,9 +28,11 @@ export type endPointlistTypes = {
     createAccount: endpointTypes;
     updateAccount: endpointTypes;
     getAccount: endpointTypes;
+
     usersList: endpointTypes;
     updateUser: endpointTypes;
     getUser: endpointTypes;
+    merchantCreateUser: endpointTypes;
     getAllRoles: endpointTypes;
     institutionsList: endpointTypes;
     createInstitution: endpointTypes;
@@ -99,12 +101,14 @@ export type urlPropTypes = {
     name?: string
     data?: any
     params?: any
+    customHeaders?: {}
     action?: (data: any) => string[] | undefined
     errorAction?: (err: any) => string[] | undefined
     successDetails?: { title: any; text: any; icon: any; }
 }
 
 export type lecPropTypes = {
+    children?: any
     textVariant?: string,
     containerVariant?: string,
     error?: string

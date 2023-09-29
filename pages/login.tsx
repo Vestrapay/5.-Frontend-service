@@ -31,7 +31,7 @@ export default function Home() {
             case 'reset':
                 return <ResetPassword setPage={setPage} />;
             case 'signup':
-                return <CreatePassword setPage={setPage} setPassData={setPassData} />;
+                return <SignUp setPage={setPage} setPassData={setPassData} />;
             case 'createpass':
                 return <CreatePassword setPage={setPage} />;
             case 'verifySignUp':

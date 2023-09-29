@@ -1,7 +1,7 @@
 
 import React from 'react';
 import Image from "next/image";
-import { CardLogo, Cloud, MasterCard } from "@public/assets";
+import { CardLogo, Cloud, MasterCard } from "@reusables/images";
 import { RiVisaLine } from "react-icons/ri";
 
 const AtmCard = ({ debitCardNumber = "000000000000", cardHolder = "Omonigho Isaiah", expiryDate = "00/00", cardProvider = "", isActivated=true }: any) => {

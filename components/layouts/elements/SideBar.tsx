@@ -5,13 +5,13 @@ import Image from 'next/image'
 // import router from 'next/router'
 import { useRouter } from 'next/router'
 import { Storage } from 'Utils/inAppstorage'
-import { Logo, ProfileImage3 } from "@public/assets";
+import { Logo, ProfileImage3 } from "@reusables/images";
 import { MenuItems, SubMenuItems } from "@types";
 import ActiveLinks from "@/components/links/activeLinks";
 import { useSideBarContext } from "@context";
 import { BsArrowLeft } from "react-icons/bs";
 import { motion } from "framer-motion";
-import { ExchangeRectangle, LogoutOpen } from "react-huge-icons/bulk";
+import { ExchangeRectangle, LogoutOpen, UserCircle } from "react-huge-icons/bulk";
 import { userRoles } from "@/components/layouts/elements/SideBarItems";
 
 function SideBar() {
@@ -25,15 +25,28 @@ function SideBar() {
 
     const router = useRouter();
 
-    const [displayName, setDisplayName] = useState("")
+    const [displayName, setDisplayName] = useState({
+        name: "",
+        userType: "",
+    })
 
-    const { name } = Storage.getItem("merchantDetails") || {}
+    const { details } = Storage.getItem("userDetails") || {}
+
 
     const { sidebarItems, setSidebarItems } = useSideBarContext()
 
+    const handelSubmit = async () => {
+        await Storage.clearItem();
+        await router.push("/login");
+    }
+
     useEffect(() => {
-        setDisplayName(name || "")
-    }, [name])
+        setDisplayName({
+            ...displayName,
+            name: details?.businessName || "",
+            userType: details?.userType || ""
+        })
+    }, []);
 
     useEffect(() => {
         setActiveLink(router.asPath)
@@ -163,15 +176,19 @@ function SideBar() {
                                 className="font-bold">Production</span></p>
                         </motion.div>
                     </div>
-                    <div className="flex gap-2 items-center bottom-8  px-5">
-                        <Image src={ProfileImage3} alt={"profile"}
-                            className="rounded-2xl bg-rose-300 cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out"
-                        />
-                        <div className="flex flex-col justify-center items-center">
-                            <p className="text-xs text-slate-900 font-bold my-0">Omonigho Isaiah</p>
-                            <p className="text-xs text-slate-500 uppercase my-0">T23456 - USER</p>
+                    <div className="flex gap-2 items-center bottom-8 ml-5">
+
+                        <div className="flex justify-center items-center rounded-xl p-1 bg-slate-100  cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out">
+                            <UserCircle className={"w-7 h-7 text-unselected rounded-full "} />
                         </div>
-                        <LogoutOpen style={{ width: 24, height: 24 }} onClick={() => router.push("/")} className="text-selected cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out hover:text-ultraMarine " />
+                        {/* <Image src={ProfileImage3} alt={"profile"}
+                            className="rounded-2xl bg-rose-300 cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out"
+                        /> */}
+                        <div className="flex flex-col justify-center items-start">
+                            <p className="text-xs text-slate-900 font-bold my-0">{displayName?.name || ""}</p>
+                            <p className="text-xs text-slate-500 uppercase my-0">{`${displayName?.userType + " " || ""}USER`}</p>
+                        </div>
+                        <LogoutOpen style={{ width: 24, height: 24 }} onClick={handelSubmit} className="text-selected cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out hover:text-ultraMarine " />
                     </div>
                 </div>
             </aside>

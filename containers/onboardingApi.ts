@@ -145,8 +145,10 @@ const SignInController = (setPage: (val: string) => any) => {
                 },
                 action: (res: any): any => {
                     localStorage.setItem('userDetails', JSON.stringify({
-                        token: res?.data || ""
+                        token: res?.message || "",
+                        details: res?.data || ""
                     }))
+                    console.log(res);
                     setState({
                         ...state,
                         isLoggingIn: false,
@@ -174,9 +176,6 @@ const SignInController = (setPage: (val: string) => any) => {
                 }
             })
                 .then(async (res: any) => {
-                    await localStorage.setItem('userDetails', JSON.stringify({
-                        token: res || ""
-                    }))
                     router.push('/dashboard');
                     // setPage("verifySignIn");
                 })

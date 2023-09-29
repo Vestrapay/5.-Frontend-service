@@ -23,6 +23,9 @@
       "@/components/*": [
         "components/*"
       ],
+      "@reusables/*": [
+        "components/reusables/*"
+      ],
       "@public/*": [
         "public/*"
       ],
@@ -30,7 +33,7 @@
         "styles/*"
       ],
       "@utils/*": [
-        "utils/*"
+        "Utils/*"
       ],
       "@Utils/*": [
         "Utils/*"

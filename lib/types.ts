@@ -1,5 +1,5 @@
 import React from "react";
-import {LinkProps} from "next/link";
+import { LinkProps } from "next/link";
 
 export type MenuItems = {
     id: number,
@@ -47,15 +47,25 @@ export type CardProviderProps = "mastercard" | "visa" | "verve"
 export type Gender = "MALE" | "FEMALE"
 
 export type UserDetailProps = {
-    id: number,
-    firstName: string,
-    lastName: string,
-    email: string,
-    phone: string,
-    portrait: string,
-    gender: Gender | string,
-    action: string,
-    address: string,
+    id?: number,
+    uuid?: string,
+    country?: string,
+    firstName?: string,
+    lastName?: string,
+    email?: string,
+    phoneNumber?: string,
+    businessName?: string,
+    merchantId?: string,
+    referralCode?: string,
+    userType?: string,
+    createdAt?: Date | string,
+    updatedAt?: Date | string,
+    enabled?: boolean,
+    kycCompleted?: boolean,
+    username?: string,
+    authorities?: any[],
+    action?: string,
+    address?: string,
 }
 
 

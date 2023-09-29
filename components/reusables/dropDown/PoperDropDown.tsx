@@ -71,7 +71,7 @@ const PopDropDown = ({
                             <div className={`${variant}`}>
                                 <>
                                     <Popover.Button
-                                        className={`${innerVariant}`}
+                                        className={`bg-[#fff] ${innerVariant}`}
                                         onClick={() => { !list ? setShow(!show) : func(); }}
                                     >
                                         <>
@@ -96,7 +96,7 @@ const PopDropDown = ({
                             <div id={poperId} className={` flex flex-col
                     absolute z-100 text-left mt-1  max-h-60 w-full z-10 
                     overflow-x-hide overflow-y-auto rounded-md  bg-blue-dark
-                    py-1 text-sm shadow-md ring-2 ring-gray-600 ring-opacity-1 
+                    py-1 text-sm shadow-md
                     focus:outline-none sm:text-sm ${optionContainerVariant}`}>
                                 {options.map((item: any, index: React.Key | any | null | undefined) => (
                                     <div

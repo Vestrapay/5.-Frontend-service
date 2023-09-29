@@ -1,28 +1,22 @@
-import React, {useEffect, useState} from 'react';
-import Image from 'next/image';
-import { MdCancel } from 'react-icons/md';
-import { useNewUserContext } from '../../context/newUserContext';
-import { Camera } from 'react-huge-icons/bulk';
-import { DefaultInput } from '@/components/reusables';
-import { CreateUserProps, UserDetailProps } from '@types';
+"use client"
+import React from 'react';
+import Image from "next/image";
+import { LineHorizontal, ProfileImage3 } from "@reusables/images";
+import { MdCancel } from "react-icons/md";
+import { useNewUserContext } from "../../context/newUserContext";
+import { Camera } from "react-huge-icons/bulk";
+import { DefaultButton, DefaultInput, DefaultSelect } from '../reusables';
+import { updateUserController } from 'containers/usersApi';
+import { LoginErrorCard } from '@utils/actions/error';
+import { UserDetailProps } from '@types';
 
-const EditUser = ({ data, id }: { data: UserDetailProps, id: number }) => {
-    const { setIsEditUser } = useNewUserContext();
+const CreateUser = ({ data, id }: { data: UserDetailProps, id: number | string }) => {
 
-    const [formData, setFormData] = useState({
-        ...data,
-    });
+    const { setIsEditUser } = useNewUserContext()
 
-    useEffect(() => {
-    //     TODO: Fetch the user's details from the API
-    }, []);
+    const { stateValues, handleSubmit, handleClearError, handleChange, handleExtraChange } = updateUserController(data, id);
 
-
-
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        alert('Submitted');
-    };
+    const { country, firstName, lastName, email, phoneNumber, businessName, enabled, username, submittingError, errorMssg, isSubmitting } = stateValues
 
     return (
         <>
@@ -31,68 +25,136 @@ const EditUser = ({ data, id }: { data: UserDetailProps, id: number }) => {
                     <span className="flex justify-start text-left font-bold">Edit User</span>
                     <MdCancel
                         onClick={() => setIsEditUser(false)}
-                        width={15}
-                        height={15}
-                        className="text-red text-2xl opacity-40 absolute top-0 right-2 cursor-pointer hover:opacity-100 hover:scale-105 transition-all active:opacity-80 active:scale-100"
+                        width={15} height={15}
+                        className="text-red text-2xl opacity-40 absolute top-0 right-2 cursor-pointer hover:opacity-100 hover:scale-205 transition-all active:opacity-80 active:scale-200"
                     />
                 </div>
 
                 <div className="flex justify-center items-center p-10 bg-slate-100 rounded-full">
-                    <Camera className="w-10 h-10 text-unselected m-0" />
+                    <Camera className={"w-10 h-10 text-unselected m-0"} />
                 </div>
             </div>
             <div className="flex flex-col w-full">
-                <form onSubmit={(e) => handleSubmit(e)}>
-                    <label className="text-xs text-unselected">First Name</label>
-                    <input
-                        onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                        type="text"
-                        value={formData.firstName}
-                        name="firstName"
-                        className="w-full h-8 border-none mb-2 rounded-md bg-slate-100 text-sm text-unselected px-3 outline-none"
+                <DefaultInput
+                    type="text"
+                    name="businessName"
+                    label="Business Name"
+                    topLabel="Business Name"
+                    placeHolder="Enter Business Name"
+                    containerVariant="w-full py-2"
+                    value={businessName}
+                    handleChange={handleChange}
+                />
+                <DefaultInput
+                    type="text"
+                    name="username"
+                    label="Username"
+                    topLabel="Username"
+                    placeHolder="Enter Username"
+                    containerVariant="w-full py-2"
+                    value={username}
+                    handleChange={handleChange}
+                />
+                <DefaultInput
+                    type="text"
+                    name="firstName"
+                    label="First Name"
+                    topLabel="First Name"
+                    placeHolder="Enter First Name"
+                    containerVariant="w-full py-2"
+                    value={firstName}
+                    handleChange={handleChange}
+                />
+                <DefaultInput
+                    type="text"
+                    name="lastName"
+                    label="Last Name"
+                    topLabel="Last Name"
+                    placeHolder="Enter Last Name"
+                    containerVariant="w-full py-2"
+                    value={lastName}
+                    handleChange={handleChange}
+                />
+                <DefaultInput
+                    type="text"
+                    name="email"
+                    label="Email"
+                    topLabel="Email"
+                    placeHolder="Enter Email Address"
+                    containerVariant="w-full py-2"
+                    value={email}
+                    handleChange={handleChange}
+                />
+                <DefaultInput
+                    type="text"
+                    name="phoneNumber"
+                    label="Phone Number"
+                    topLabel="Phone Number"
+                    placeHolder="Enter Phone Number"
+                    containerVariant="w-full py-2"
+                    value={phoneNumber}
+                    handleChange={handleChange}
+                />
+                <DefaultInput
+                    type="text"
+                    name="country"
+                    label="Country"
+                    topLabel="Country"
+                    placeHolder="Enter Country"
+                    containerVariant="w-full py-2"
+                    value={country}
+                    handleChange={handleChange}
+                />
+                <DefaultSelect
+                    name="enabled"
+                    label="User Status"
+                    topLabel="User Status"
+                    placeHolder="Enter User Status"
+                    containerVariant="w-full py-2"
+                    value={enabled}
+                    handleChange={handleChange}
+                    data={[{ id: 1, name: "Enabled", value: true }, { id: 1, name: "Not Enabled", value: false }]}
+                />
+
+                {/* <DefaultSelect
+                    name="userRole"
+                    label={`User's Role`}
+                    topLabel={`User's Role`}
+                    placeHolder="Enter User's Role"
+                    containerVariant="w-full py-2 mb-5"
+                    // value={pin}
+                    // handleChange={handleChange}
+                    data={[{ id: 1, name: "Front Desk Officer", value: "frontDeskOfficer" }]}
+                /> */}
+                {/* 
+                <DefaultInput
+                    type="password"
+                    name="password"
+                    label="Password"
+                    topLabel="Password"
+                    placeHolder="Enter Password"
+                    containerVariant="w-full py-2 mb-5"
+                    value={password}
+                    handleChange={handleChange}
+                /> */}
+
+                <LoginErrorCard handleClear={handleClearError} error={stateValues?.errorMssg || ""} containerVariant={!stateValues?.submittingError ? "hidden" : ""} />
+                
+                <div className=" flex flex-col-reverse gap-5 my-5  sm sm:flex-row justify-between items-center">
+                    <DefaultButton
+                        labelText="Edit User"
+                        containerVariant="w-full"
+                        variant="w-full"
+                        isLoading={isSubmitting}
+                        handleClick={handleSubmit}
                     />
-                    <label className="text-xs text-unselected">Last Name</label>
-                    <input
-                        onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                        value={formData.lastName}
-                        type="text"
-                        name="lastName"
-                        className="w-full h-8 border-none mb-2 rounded-md bg-slate-100 text-sm text-unselected px-3 outline-none"
-                    />
-                    <label className="text-xs text-unselected">Email</label>
-                    <input
-                        type="text"
-                        name="email"
-                        className="w-full h-8 border-none mb-2 rounded-md bg-slate-100 text-sm text-unselected px-3 outline-none"
-                    />
-                    <label className="text-xs text-unselected">Phone Number</label>
-                    <input
-                        type="text"
-                        name="phone"
-                        className="w-full h-8 border-none mb-2 rounded-md bg-slate-100 text-sm text-unselected px-3 outline-none"
-                    />
-                    <label className="text-xs text-unselected">Gender</label>
-                    <select className="w-full h-8 border-none mb-2 rounded-md bg-slate-100 text-sm text-unselected px-3 outline-none">
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                    </select>
-                    <label className="text-xs text-unselected">Address</label>
-                    <input
-                        type="text"
-                        name="address"
-                        className="w-full h-8 border-none mb-2 rounded-md bg-slate-100 text-sm text-unselected px-3 outline-none"
-                    />
-                    <label className="text-xs text-unselected">User's Role</label>
-                    <select className="w-full h-8 border-none mb-2 rounded-md bg-slate-100 text-sm text-unselected px-3 outline-none">
-                        <option value="Male">Front Desk Officer</option>
-                    </select>
-                    <button className="w-full h-8 border-none mt-2 rounded-md bg-selected text-sm text-white px-3 outline-none cursor-pointer hover:opacity-90 active:opacity-80">
-                        Edit User
-                    </button>
-                </form>
+                </div>
+
+
+
             </div>
         </>
     );
 };
 
-export default EditUser;
+export default CreateUser;

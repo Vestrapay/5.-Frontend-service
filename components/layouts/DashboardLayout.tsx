@@ -3,6 +3,9 @@ import SideBar from './elements/SideBar'
 import { LayoutProps } from "@types";
 import { SidebarContext } from "@context";
 import { finalMenu } from "@/components/layouts/elements/SideBarItems";
+import { Storage } from '@utils/inAppstorage';
+import router from 'next/router';
+import { apiCall } from '@utils/URLs';
 
 function DashboardLayout({ children }: LayoutProps) {
 
@@ -22,7 +25,7 @@ function DashboardLayout({ children }: LayoutProps) {
             <SideBar />
             {/* Main */}
             <main className="w-full min-h-[100vh] bg-dashboard ml-[220px] overflow-x-hidden 2xl:flex  2xl:flex-col  2xl:items-center">
-                < div className='mt-10 px-4 sm:px-12 pb-10 w-full max-w-[1800px] max-h-screen' >
+                < div className=' w-full max-w-[1800px] ' >
                     {children}
                 </div >
             </main>

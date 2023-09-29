@@ -4,9 +4,29 @@ import { apiCall } from '../Utils/URLs'
 import { LoginErrorCard } from '../Utils/actions/error';
 import { DefaultInput, DefaultButton } from "@/components/reusables";
 import { Storage } from 'Utils/inAppstorage';
+import { useEffect, useState } from 'react';
 
 const fetchDashData = () => {
 
+
+  const [displayName, setDisplayName] = useState({
+    name: "",
+    userType: "",
+    kycStatus: false
+  })
+
+  const { details } = Storage.getItem("userDetails") || {}
+
+
+  useEffect(() => {
+    setDisplayName({
+      name: details?.businessName || "",
+      userType: details?.userType || "",
+      kycStatus: details?.kycStatus ? false : true,
+    })
+  }, [])
+
+  const handleClearError = () => setDisplayName({ ...displayName, kycStatus: false })
 
   const func4 = async (): Promise<any> => {
     const response = await apiCall({
@@ -41,7 +61,6 @@ const fetchDashData = () => {
       refetchOnWindowFocus: false,
     }
   );
-
 
   const func1 = async (): Promise<any> => {
     const response = await apiCall({
@@ -79,6 +98,8 @@ const fetchDashData = () => {
 
 
   return {
+    displayName,
+
     statsLoading,
     statsErrorCheck,
     statsError,
@@ -102,6 +123,7 @@ const fetchDashData = () => {
     transError,
     transSuccess,
     transData,
+    handleClearError
   };
 }
 

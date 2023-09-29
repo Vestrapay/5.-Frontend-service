@@ -8,7 +8,7 @@ const UsersNavbar = () => {
     const {setIsCreateUser, setIsEditUser} = useNewUserContext();
 
     return (
-        <div className="flex justify-between">
+        <div className="flex justify-between  mt-10 ">
             <p className="text-ultraMarine text-2xl flex justify-start">User's List</p>
             <div
                 onClick={() => {

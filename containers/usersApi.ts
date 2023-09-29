@@ -1,10 +1,12 @@
 
 import { apiCall } from '../Utils/URLs'
 import { useQuery } from 'react-query'
-import { LoginErrorCard } from '../Utils/actions/error';
 import { DefaultInput, DefaultButton } from "@/components/reusables";
 import { Storage } from '@Utils/inAppstorage';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { UserDetailProps } from '@types';
+
+const { details } = Storage.getItem("userDetails") || {}
 
 //Fetching accounts list data 
 const fetchUsersData = (pageNo: any, pageSize: any, search: string) => {
@@ -12,10 +14,10 @@ const fetchUsersData = (pageNo: any, pageSize: any, search: string) => {
     const func = async (): Promise<any> => {
         const response = await apiCall({
             name: "usersList",
-            params: {
-                pageNo,
-                pageSize,
-            },
+            // params: {
+            //     pageNo,
+            //     pageSize,
+            // },
             action: (): any => (["skip"])
         })
         return response;
@@ -31,23 +33,40 @@ const fetchUsersData = (pageNo: any, pageSize: any, search: string) => {
     return { isLoading, isError, error, isSuccess, data, refetch }
 }
 
-const UsersController = (pageNo: any, pageSize: any, search: string, show: any) => {
+const UsersController = (showView: any = false, showDel: any = false, pageNo: any = 0, pageSize: any = 20, search: string = "") => {
 
     const { isLoading, isError, error, isSuccess, data, refetch } = fetchUsersData(pageNo, pageSize, search);
-    
+
     useEffect(() => {
         refetch()
-    }, [pageNo, pageSize, search, show])
+    }, [pageNo, pageSize, search, showView, showDel])
 
     return { isLoading, isError, error, isSuccess, data, refetch }
 
 }
 
-const createUserController = (state: any, setState: any, showModal: any) => {
+const createUserController = () => {
 
-    const { email, firstName, lastName, level, roleId, institutionId, submittingError, errorMssg, isSubmitting } = state
 
-    const handelSubmit = async (e: React.FormEvent) => {
+
+    const [state, setState] = useState<any>({
+        country: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+        gender: "",
+        phoneNumber: "",
+        password: "",
+        submittingError: false,
+        isSubmitting: false,
+        errorMssg: ""
+    })
+
+    const { country, firstName, lastName, email, gender, phoneNumber, password, submittingError, errorMssg, isSubmitting } = state
+
+    const handleClearError = () => setState({ ...state, submittingError: false })
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setState((state: any) => ({
             ...state,
@@ -55,9 +74,10 @@ const createUserController = (state: any, setState: any, showModal: any) => {
         }))
         try {
             const response = await apiCall({
-                name: "createUser",
+                name: "merchantCreateUser",
+                customHeaders: { merchantId: details?.id || "" },
                 data: {
-                    email, firstName, lastName, level, roleId, institutionId
+                    country, firstName, lastName, email, gender, phoneNumber, password
                 },
                 action: (): any => {
                     setState({
@@ -74,7 +94,7 @@ const createUserController = (state: any, setState: any, showModal: any) => {
                             ...state,
                             submittingError: true,
                             isSubmitting: false,
-                            errorMssg: err?.response?.data?.respDescription || "Action failed, please try again"
+                            errorMssg: err?.response?.data?.errors && err?.response?.data?.errors[0] || "Action Failed, please try again"
                         })
                         return ["skip"]
                     } else {
@@ -82,20 +102,21 @@ const createUserController = (state: any, setState: any, showModal: any) => {
                             ...state,
                             submittingError: true,
                             isSubmitting: false,
-                            errorMssg: err?.response?.respDescription || "Action failed, please try again"
+                            errorMssg: "Action failed, please try again"
                         })
                     }
                 }
             })
                 .then(async (res: any) => {
-                    showModal();
+                    // showModal();
                     setState({
+                        country: "",
                         firstName: "",
                         lastName: "",
                         email: "",
-                        level: "",
-                        roleId: "",
-                        institutionId: "",
+                        gender: "",
+                        phoneNumber: "",
+                        password: "",
                         submittingError: false,
                         isSubmitting: false,
                         errorMssg: ""
@@ -124,48 +145,50 @@ const createUserController = (state: any, setState: any, showModal: any) => {
     }
 
 
-    return { handelSubmit, handleChange, handleExtraChange }
+    return { handleSubmit, handleClearError, handleChange, handleExtraChange, stateValues: state }
 }
 
-const updateUserController = (state: any, setState: any, showModal: any, data: any) => {
+const updateUserController = (data: UserDetailProps, id: number | string) => {
 
-    const func = async (userId: any): Promise<any> => {
-        const response = await apiCall({
-            name: "getUser",
-            urlExtra: `/${userId}`,
-            action: (res: any): any => {
-                setState({
-                    ...state,
-                    accountName: res?.accountName || "",
-                    apiReference: res?.apiReference || "",
-                    bvn: res?.bvn || "",
-                    time: res?.time || "",
-                    accountType: res?.accountType || "",
-                    timeUnit: res?.timeUnit || "",
-                    status: data?.isEnabled ? true : false
-                })
-                return ["skip"];
-            }
-        })
-        return response;
-    }
+
+    const [state, setState] = useState<any>({
+        country: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+        gender: "",
+        phoneNumber: "",
+        businessName: "",
+        id: "",
+        enabled: false,
+        submittingError: false,
+        isSubmitting: false,
+        errorMssg: ""
+    })
+
 
     useEffect(() => {
         setState({
             ...state,
-            institutionId: data?.institutionId || "",
-            firstName: data?.firstName || "",
-            lastName: data?.lastName || "",
-            email: data?.email || "",
-            userName: data?.userName || "",
-            roleId: data?.roleId || "",
-            level: data?.level || "",
-            userId: data?.id || "",
-            status: data?.isEnabled ? true : false
+            country: state?.country || data?.country || "",
+            firstName: state?.firstName || data?.firstName || "",
+            lastName: state?.lastName || data?.lastName || "",
+            email: state?.email || data?.email || "",
+            gender: state?.gender || "",
+            phoneNumber: state?.phoneNumber || data?.phoneNumber || "",
+            businessName: state?.businessName || data?.businessName || "",
+            username: state?.username || data?.username || "",
+            password: state?.password || "",
+            enabled: state?.enabled || data?.enabled || true,
+            id: state?.id || id || ""
         })
+
     }, [data])
 
-    const {  status, errorMssg, isSubmitting } = state
+
+    const { country, firstName, lastName, email, gender, phoneNumber, businessName, enabled, username, submittingError, errorMssg, isSubmitting } = state
+
+    const handleClearError = () => setState({ ...state, submittingError: false })
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -176,11 +199,9 @@ const updateUserController = (state: any, setState: any, showModal: any, data: a
         try {
             const response = await apiCall({
                 name: "updateUser",
+                customHeaders: { merchantId: state?.id || id || "" },
                 data: {
-                    userId: state?.userId || data?.id,
-                    email: state?.email || data?.email,
-                    roleId: state?.roleId || data?.roleId,
-                    isEnabled: state?.isEnabled || data?.isEnabled,
+                    id, country, firstName, lastName, email, phoneNumber, businessName, enabled, username
                 },
                 action: (): any => {
                     setState({
@@ -190,14 +211,14 @@ const updateUserController = (state: any, setState: any, showModal: any, data: a
                     })
                     return []
                 },
-                successDetails: { title: "Account updated", text: "Congratulations, Your have updated your account.", icon: "" },
+                successDetails: { title: "User Updated Successfully!", text: "Congratulations, Your have updated this user.", icon: "" },
                 errorAction: (err?: any) => {
                     if (err && err?.response?.data) {
                         setState({
                             ...state,
                             submittingError: true,
                             isSubmitting: false,
-                            errorMssg: err?.response?.data?.respDescription || "Action failed, please try again"
+                            errorMssg: err?.response?.data?.errors && err?.response?.data?.errors[0] || "Update Failed, please try again"
                         })
                         return ["skip"]
                     } else {
@@ -205,20 +226,21 @@ const updateUserController = (state: any, setState: any, showModal: any, data: a
                             ...state,
                             submittingError: true,
                             isSubmitting: false,
-                            errorMssg: err?.response?.respDescription || "Action failed, please try again"
+                            errorMssg: "Action failed, please try again"
                         })
                     }
                 }
             })
                 .then(async (res: any) => {
-                    showModal();
+                    // showModal();
                     setState({
-                        accountName: "",
-                        apiReference: "",
-                        bvn: "",
-                        time: "",
-                        accountType: "",
-                        timeUnit: "",
+                        country: "",
+                        firstName: "",
+                        lastName: "",
+                        email: "",
+                        gender: "",
+                        phoneNumber: "",
+                        password: "",
                         submittingError: false,
                         isSubmitting: false,
                         errorMssg: ""
@@ -246,16 +268,81 @@ const updateUserController = (state: any, setState: any, showModal: any, data: a
         });
     }
 
-    const handleStatusChange = () => {
-        setState({
-            ...state,
-            status: !status,
-            submittingError: false
-        });
-    }
 
-    return { handleSubmit, handleChange, handleExtraChange, handleStatusChange }
+    return { handleSubmit, handleClearError, handleChange, handleExtraChange, stateValues: state }
 }
 
 
-export { fetchUsersData, UsersController, createUserController, updateUserController }
+const deleteUsersController = (data: UserDetailProps) => {
+
+    const [state, setState] = useState<any>({
+        enabled: false,
+        submittingError: false,
+        isSubmitting: false,
+        errorMssg: ""
+    })
+
+    const handleClearError = () => setState({ ...state, submittingError: false })
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setState((state: any) => ({
+            ...state,
+            isSubmitting: true
+        }))
+        try {
+            const response = await apiCall({
+                name: "deleteUser",
+                data: data?.id,
+                action: (): any => {
+                    setState({
+                        ...state,
+                        isSubmitting: false,
+                        submittingError: false,
+                    })
+                    return []
+                },
+                successDetails: { title: "User deleted Successfully!", text: "Congratulations, Your have deleted this user.", icon: "" },
+                errorAction: (err?: any) => {
+                    if (err && err?.response?.data) {
+                        setState({
+                            ...state,
+                            submittingError: true,
+                            isSubmitting: false,
+                            errorMssg: err?.response?.data?.errors && err?.response?.data?.errors[0] || "Delete Failed, please try again"
+                        })
+                        return ["skip"]
+                    } else {
+                        setState({
+                            ...state,
+                            submittingError: true,
+                            isSubmitting: false,
+                            errorMssg: "Action failed, please try again"
+                        })
+                    }
+                }
+            })
+                .then(async (res: any) => {
+                    // showModal();
+                    setState({
+                        country: "",
+                        firstName: "",
+                        lastName: "",
+                        email: "",
+                        gender: "",
+                        phoneNumber: "",
+                        password: "",
+                        submittingError: false,
+                        isSubmitting: false,
+                        errorMssg: ""
+                    })
+                })
+        } catch (e) {
+            console.log(e + " 'Caught Error.'");
+        };
+    }
+
+    return { stateValues: state, handleSubmit, handleClearError }
+}
+
+export { fetchUsersData, UsersController, createUserController, updateUserController, deleteUsersController }

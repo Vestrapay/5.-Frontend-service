@@ -28,7 +28,7 @@ const DefaultButton = ({
         {isLoading ? (
           <div role="status" className="px-3">
             <svg
-              className="inline w-5 h-5 text-primary-white animate-spin fill-primary-blue"
+              className="inline w-5 h-5 text-primary-white animate-spin fill-[#50468c]"
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"

@@ -3,7 +3,7 @@ import DashboardLayout from "@/components/layouts/DashboardLayout";
 import AtmCard from "@/components/cards/AtmCard";
 import DashNavbar from "@/components/dashboard/DashNavbar";
 import Image from "next/image";
-import { Delimiter, DivisionLine } from "@public/assets";
+import { Delimiter, DivisionLine } from "@reusables/images";
 import Switch from "react-switch";
 import { MoneyRecive, MoneySend } from "iconsax-react";
 import { motion } from 'framer-motion';
@@ -21,6 +21,8 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { fetchDashData } from 'containers/dashboardApi';
 import DashTransReport from '@/components/charts/DashTransReport';
 import dayjs from 'dayjs';
+import { LoginErrorCard } from '@utils/actions/error';
+import router from 'next/router';
 
 
 const Dashboard = () => {
@@ -33,6 +35,7 @@ const Dashboard = () => {
     const [isTransTypeDropDownActive, setIsTransTypeDropDownActive] = useState(false);
 
     const {
+        displayName,
         statsLoading,
         statsErrorCheck,
         statsError,
@@ -56,16 +59,21 @@ const Dashboard = () => {
         transError,
         transSuccess,
         transData,
+        handleClearError
     } = fetchDashData();
 
     return (
         <DashboardLayout>
-            <main className="px-10 pb-4 h-full">
+            <main className="mt-10 px-10 sm:px-12 pb-10 h-full">
+                
                 <DashNavbar />
+                <LoginErrorCard handleClear={handleClearError} error={""} containerVariant={!displayName?.kycStatus ? "hidden" : "max-w-fit pr-20"} >
+                    <p>Please note that your KYC process is incomplete. <span className="text-darkslateblue underline cursor-pointer" onClick={() => router.push('/settings')} >Complete KYC now. </span></p>
+                </LoginErrorCard>
                 <div className="w-full grid gap-4 grid-rows-2 grid-cols-6 h-full">
                     <div className="grid grid-rows-1 grid-cols-1 col-span-3 gap-4 h-full">
                         <div className="flex bg-white p-3 rounded-2xl items-center w-full overflow-auto lg:flex-row flex-col h-fit ">
-                            <AtmCard isActivated={isCardDisabled} />
+                            <AtmCard isActivated={isCardDisabled} cardHolder={displayName?.name} />
                             <Image
                                 src={DivisionLine}
                                 alt={"division-line"}
