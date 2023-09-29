@@ -17,6 +17,7 @@ import OnBoardingLayout from '@/components/layouts/OnBoardingLayout'
 export default function Home() {
 
     const [page, setPage] = useState("signup");
+    const [resetingPass, setResetingPass] = useState(false);
     const [passData, setPassData] = useState({
         email: "",
         phoneNumber: ""
@@ -25,17 +26,17 @@ export default function Home() {
     const renderPages = () => {
         switch (page) {
             case 'signin':
-                return <SignIn setPage={setPage} />;
+                return <SignIn setPage={setPage} resetingPass={resetingPass} setResetingPass={setResetingPass} />;
             case 'forgotpass':
                 return <ChangePassword setPage={setPage} />;
             case 'reset':
-                return <ResetPassword setPage={setPage} />;
+                return <ResetPassword setPage={setPage} setResetingPass={setResetingPass} />;
             case 'signup':
                 return <SignUp setPage={setPage} setPassData={setPassData} />;
             case 'createpass':
-                return <CreatePassword setPage={setPage} />;
+                return <CreatePassword setPage={setPage} setResetingPass={setResetingPass} />;
             case 'verifySignUp':
-                return <VerifySignUp setPage={setPage} passData={passData}/>;
+                return <VerifySignUp setPage={setPage} passData={passData} />;
             case 'verifySignIn':
                 return <VerifySignIn setPage={setPage} />;
 

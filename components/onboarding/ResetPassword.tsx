@@ -3,9 +3,9 @@ import { DefaultButton, DefaultInput } from "@/components/reusables";
 import { ResetPasswordController } from 'containers/onboardingApi';
 import { LoginErrorCard } from '@Utils/actions/error';
 
-const ResetPassword = ({ setPage }: any) => {
+const ResetPassword = ({ setPage, setResetingPass }: any) => {
 
-    const { stateValues, handleChange, handelSubmit, handleClearError } = ResetPasswordController(setPage);
+    const { stateValues, handleChange, handelSubmit, handleClearError } = ResetPasswordController(setPage, setResetingPass);
 
     const { submittingError, isDisabled, isSubmitting, errorMssg, pin, email } = stateValues || {};
 

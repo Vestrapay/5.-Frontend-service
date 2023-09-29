@@ -107,7 +107,7 @@ const SignUpController = (setPage: (val: string) => any, setPassData: (val: any)
 
 }
 
-const SignInController = (setPage: (val: string) => any) => {
+const SignInController = (setPage: (val: string) => any, resetingPass: boolean, setResetingPass: (val: boolean) => any) => {
 
     const [state, setState] = useState<any>({
         email: "",
@@ -176,7 +176,12 @@ const SignInController = (setPage: (val: string) => any) => {
                 }
             })
                 .then(async (res: any) => {
-                    router.push('/dashboard');
+                    if (resetingPass) {
+                        setPage("createpass")
+                    } else {
+                        setResetingPass(false);
+                        router.push('/dashboard');
+                    }
                     // setPage("verifySignIn");
                 })
         } catch (e) {
@@ -496,7 +501,7 @@ const VerifySignInController = (setPage: (val: string) => any, passData: any) =>
 
 }
 
-const ResetPasswordController = (setPage: (val: string) => any) => {
+const ResetPasswordController = (setPage: (val: string) => any, setResetingPass: (val: boolean) => any) => {
     const [state, setState] = useState<any>({
         pin: "",
         email: "",
@@ -529,7 +534,7 @@ const ResetPasswordController = (setPage: (val: string) => any) => {
                 data: email,
                 successDetails: {
                     title: "Successful",
-                    text: `Please check your email for a temporary password.`,
+                    text: `Please check your email for a temporary password. and login to change the password.`,
                     icon: ""
                 },
                 action: (): any => {
@@ -538,6 +543,7 @@ const ResetPasswordController = (setPage: (val: string) => any) => {
                         isSubmitting: false,
                         submittingError: false,
                     });
+                    setResetingPass(true)
                     return [""]
                 },
                 errorAction: (err?: any) => {
@@ -552,7 +558,8 @@ const ResetPasswordController = (setPage: (val: string) => any) => {
             })
                 .then(async (res: any) => {
                     if (res) {
-                        setPage("createpass");
+                        setResetingPass(true)
+                        setPage("signin");
                         setState({
                             ...state,
                             isSubmitting: false,
@@ -573,7 +580,7 @@ const ResetPasswordController = (setPage: (val: string) => any) => {
     return { stateValues: state, handleChange, handelSubmit, handleClearError }
 }
 
-const ResetedPasswordController = (setPage: (val: string) => any) => {
+const ResetedPasswordController = (setPage: (val: string) => any, setResetingPass: (val: boolean) => any) => {
 
     const [state, setState] = useState<any>({
         oldPassword: "",
@@ -628,7 +635,7 @@ const ResetedPasswordController = (setPage: (val: string) => any) => {
                 },
                 successDetails: {
                     title: "Successful",
-                    text: `Your password has changed, please continue to login`,
+                    text: `Your password has changed, please login with new password.`,
                     icon: ""
                 },
                 action: (): any => {
@@ -637,6 +644,7 @@ const ResetedPasswordController = (setPage: (val: string) => any) => {
                         isSubmitting: false,
                         submittingError: false,
                     });
+                    setResetingPass(false);
                     setPage("signin");
                     return [""]
                 },

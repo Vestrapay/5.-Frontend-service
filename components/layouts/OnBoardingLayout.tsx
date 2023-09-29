@@ -58,8 +58,8 @@ function OnBoardingLayout({ page, children }: any) {
 
         <>
 
-            <div className="relative bg-grayer w-full h-[100vh] overflow-hidden text-left text-base text-text flex justify-center font-nunito">
-                <div className="sm:w-2/3 lg:w-1/3 xl:w-1/4 w-full bg-white h-full py-10 px-5 flex flex-col items-center overflow-y-auto">
+            <div className="relative bg-grayer w-full h-[100vh] overflow-y-auto text-left text-base text-text flex justify-center font-nunito">
+                <div className="sm:w-2/3 lg:w-1/3 xl:w-1/4 w-full bg-white h-full py-10 px-5 flex flex-col items-center">
                     <div className=" flex flex-col justify-center items-center py-20 w-full">
                         <img
                             className="w-[92px] h-[92px]"

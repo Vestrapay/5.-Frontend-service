@@ -4,9 +4,9 @@ import type { NextPage } from "next";
 import { SignInController } from 'containers/onboardingApi';
 import { LoginErrorCard } from '@Utils/actions/error';
 
-const SignIn = ({ setPage }: any) => {
+const SignIn = ({ setPage, resetingPass, setResetingPass }: any) => {
 
-    const { stateValues, handleSubmit, handleChange, handleClearError } = SignInController(setPage);
+    const { stateValues, handleSubmit, handleChange, handleClearError } = SignInController(setPage, resetingPass, setResetingPass);
 
     const { email, password, loginError, loginErrorMssg, isLoggingIn } = stateValues
 
