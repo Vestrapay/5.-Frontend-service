@@ -55,7 +55,8 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export -o build/",
+    "build": "next build",
+    "build_else": "next build && next export -o build/",
     "start": "next start",
     "lint": "next lint"
   }

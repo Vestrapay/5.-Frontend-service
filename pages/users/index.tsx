@@ -3,16 +3,13 @@ import React, { useState } from 'react';
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import { DataGrid, GridColDef, GridRowId, GridRowsProp, useGridApiRef, GridApi } from "@mui/x-data-grid";
 import { BsThreeDots, BsPencilSquare, BsFillTrash2Fill, BsFillTrash3Fill, BsFillEyeFill } from "react-icons/bs";
-import Image from "next/image";
-import { LineHorizontal, PenIcon, ProfileImage3 } from "@reusables/images";
-import { Eye, Trash } from "react-huge-icons/bulk";
+
 import UsersNavbar from "@/components/users/UsersNavbar";
 import { Gender, UserDetailProps } from "@types";
 import { useNewUserContext } from "../../context/newUserContext";
 import { Property } from "csstype";
 import GridRow = Property.GridRow;
 import UserDetails from "@/components/users/UserDetails";
-import CreateUsers from "@/components/users/CreateUsers";
 import CreateUser from "@/components/users/CreateUser";
 import EditUserDetails from "@/components/users/EditUserDetails";
 import { UsersController } from 'containers/usersApi';
