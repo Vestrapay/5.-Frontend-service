@@ -114,6 +114,12 @@ export const endPoints: endPointlistTypes = {
         headers: headers,
         auth: true
     },
+    deleteMerchantUser: {
+        url: '/api/v1/user/delete-merchant-user',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
 
     getUser: {
         url: '/api/v1/user/view-merchant-user',

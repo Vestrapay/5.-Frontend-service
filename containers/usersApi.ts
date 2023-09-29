@@ -33,13 +33,13 @@ const fetchUsersData = (pageNo: any, pageSize: any, search: string) => {
     return { isLoading, isError, error, isSuccess, data, refetch }
 }
 
-const UsersController = (showView: any = false, showDel: any = false, pageNo: any = 0, pageSize: any = 20, search: string = "") => {
+const UsersController = (showDelete:any = false, showView: any = false, showCreate: any = false, pageNo: any = 0, pageSize: any = 20, search: string = "") => {
 
     const { isLoading, isError, error, isSuccess, data, refetch } = fetchUsersData(pageNo, pageSize, search);
 
     useEffect(() => {
         refetch()
-    }, [pageNo, pageSize, search, showView, showDel])
+    }, [pageNo, pageSize, search, showView, showCreate, showDelete])
 
     return { isLoading, isError, error, isSuccess, data, refetch }
 
@@ -272,7 +272,6 @@ const updateUserController = (data: UserDetailProps, id: number | string) => {
     return { handleSubmit, handleClearError, handleChange, handleExtraChange, stateValues: state }
 }
 
-
 const deleteUsersController = (data: UserDetailProps) => {
 
     const [state, setState] = useState<any>({
@@ -292,8 +291,9 @@ const deleteUsersController = (data: UserDetailProps) => {
         }))
         try {
             const response = await apiCall({
-                name: "deleteUser",
-                data: data?.id,
+                name: "deleteMerchantUser",
+                data: data?.uuid,
+                customHeaders: { merchantId: data?.uuid || "" },
                 action: (): any => {
                     setState({
                         ...state,

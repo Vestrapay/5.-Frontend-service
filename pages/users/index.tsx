@@ -36,7 +36,7 @@ const Users = () => {
 
     const { isCreateUser, setIsCreateUser, isEditUser, setIsEditUser, isViewUser, setIsViewUser } = useNewUserContext();
 
-    const { isLoading, isError, error, isSuccess, data, refetch } = UsersController(isEditUser, isCreateUser)
+    const { isLoading, isError, error, isSuccess, data, refetch } = UsersController(showDelete, isEditUser, isCreateUser)
 
     const getRowData = (id: GridRowId) => {
         return apiRef.current?.getRow(id);
