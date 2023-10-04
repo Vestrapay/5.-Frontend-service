@@ -15,6 +15,7 @@ function DashboardLayout({ children }: LayoutProps) {
         const role = ["ADMIN"]
         const topMenuItems = finalMenu(role)
         setSidebarItems(topMenuItems)
+        console.log(topMenuItems)
     }, []);
 
     return (

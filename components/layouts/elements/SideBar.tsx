@@ -50,12 +50,14 @@ function SideBar() {
 
     useEffect(() => {
         setActiveLink(router.asPath)
+        console.log(router.asPath)
         if (dropdownNavLinks.includes(router.asPath.split("/")[1])) {
             console.log("supposed to reload sidebar")
             sidebarItems.filter((item: any) => {
                 if (item.name.toLowerCase() === router.asPath.split("/")[1]) {
                     setSelectedSubMenuItem(item)
                     setIsSubCategorySelected(true)
+                    console.log(item)
                 }
             })
         }
@@ -76,7 +78,7 @@ function SideBar() {
                         </div>
                         <div className="flex flex-col gap-2 px-8">
                             {
-                                dropdownNavLinks.includes(activeLink.split("/")[2])
+                                dropdownNavLinks.includes(activeLink.split("/")[1])
                                     && selectedSubMenuItem && isSubCategorySelected
                                     ? (
                                         <div className="relative text-base">
@@ -94,7 +96,9 @@ function SideBar() {
                                             <p className="text-selected text-base my-2">{selectedSubMenuItem.name}</p>
                                             {
                                                 selectedSubMenuItem?.subMenuItems?.map((item: SubMenuItems, index: number) => (
-                                                    <div className="relative text-base">
+                                                    <div
+                                                        key={index}
+                                                        className="relative text-base">
 
                                                         {
                                                             <motion.div
