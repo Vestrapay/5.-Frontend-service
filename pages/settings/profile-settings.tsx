@@ -1,7 +1,8 @@
 import React, {useRef, useState} from 'react';
 import SettingsProfileLayout from "@pages/settings/index";
 import {Camera} from "react-huge-icons/solid";
-import {DefaultButton} from "@reusables/index";
+import {DefaultButton, DefaultInput} from "@reusables/index";
+import Image from "next/image";
 
 const ProfileSettings = () => {
 
@@ -25,7 +26,8 @@ const ProfileSettings = () => {
                 <form
                     className="flex flex-col w-full"
                 >
-                    <div className="flex flex-col rounded-full bg-slate-400 items-center justify-center h-36 w-36">
+                    <div
+                        className="flex relative flex-col rounded-full bg-slate-400 items-center justify-center h-36 w-36">
                         <input
                             type="file"
                             name="profile"
@@ -37,75 +39,60 @@ const ProfileSettings = () => {
                             hidden
                         />
                         {
-                            file ?
-                                (
-                                    <img
-                                        src={URL.createObjectURL(file)}
-                                        alt="profile"
-                                        className="rounded-full h-36 w-36 bg-cover"
-                                    />
-                                ) : (
-                                    <Camera
-                                        onClick={handleFileInputClick}
-                                        className="w-11 h-11 text-white cursor-pointer"
-                                    />
-                                )
+                            file &&
+                            <Image
+                                src={URL.createObjectURL(file)}
+                                alt="profile"
+                                width={144}
+                                height={144}
+                                className="rounded-full bg-contain absolute inset-y-0 inset-x-0"
+                            />
                         }
+                        <Camera
+                            onClick={handleFileInputClick}
+                            className="w-11 h-11 text-white cursor-pointer absolute opacity-80"
+                        />
+
                     </div>
 
                     <div className="grid grid-cols-4 gap-5 mt-10 w-full">
-                        <div className="flex flex-col col-span-2">
-                            <label
-                                htmlFor="registered-username"
-                            >
-                                Registered Username
-                            </label>
-                            <input
-                                type="text"
-                                name="registered-username"
-                                className="rounded-md p-2 mt-2 border-none bg-slate-100 font-nunito"
-                                placeholder="Update username"
-                            />
-                        </div>
-                        <div className="flex flex-col col-span-2">
-                            <label
-                                htmlFor="registered-fullname"
-                            >
-                                Registered Full Name
-                            </label>
-                            <input
-                                type="text"
-                                name="registered-fullname"
-                                className="rounded-md p-2 mt-2 border-none bg-slate-100 font-nunito"
-                                placeholder="Update full name"
-                            />
-                        </div>
-                        <div className="flex flex-col col-span-2">
-                            <label
-                                htmlFor="email"
-                            >
-                                Email Address
-                            </label>
-                            <input
-                                type="text"
-                                name="email"
-                                className="rounded-md p-2 mt-2 border-none bg-slate-100 font-nunito"
-                                placeholder={"Update email address"}
-                            />
-                        </div>
-                        <div className="flex flex-col col-span-2">
-                            <label
-                                htmlFor="phone-number"
-                            >
-                                Phone Number
-                            </label>
-                            <input
-                                type="text"
-                                name="phone-number"
-                                className="rounded-md p-2 mt-2 border-none bg-slate-100 font-nunito"
-                                placeholder={"Update phone number"}
-                            />
-                        </div>
+
+                        <DefaultInput
+                            type="text"
+                            name="registered-username"
+                            label="Registered Username"
+                            topLabel="Registered Username"
+                            placeHolder="Update username"
+                            containerVariant="w-full py-2 col-span-2"
+                        />
+
+                        <DefaultInput
+                            type="text"
+                            name="registered-fullname"
+                            label="Registered Full Name"
+                            topLabel="Registered Full Name"
+                            placeHolder="Update full name"
+                            containerVariant="w-full py-2 col-span-2"
+                        />
+
+                        <DefaultInput
+                            type="text"
+                            name="email-address"
+                            label="Email Address"
+                            topLabel="Email Address"
+                            placeHolder="Update email address"
+                            containerVariant="w-full py-2 col-span-2"
+                        />
+
+                        <DefaultInput
+                            type="text"
+                            name="phone-number"
+                            label="phone number"
+                            topLabel="Phone Number"
+                            placeHolder="Update phone number"
+                            containerVariant="w-full py-2 col-span-2"
+                        />
+
                         <div className="flex flex-col col-span-2">
                             <div className="flex items-start my-6">
                                 <div className="flex items-center rounded-full h-5">
