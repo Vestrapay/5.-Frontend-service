@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import SettingsProfileLayout from "@pages/settings/index";
+import SettingsProfileLayout from "@pages/settings/profile-settings";
 import { Camera } from "react-huge-icons/solid";
 import { DefaultButton, DefaultInput } from "@reusables/index";
 import Image from "next/image";

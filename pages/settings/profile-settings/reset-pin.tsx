@@ -1,5 +1,5 @@
 import React from 'react';
-import SettingsProfileLayout from "@pages/settings/index";
+import SettingsProfileLayout from "@pages/settings/profile-settings";
 
 const ResetPin = () => {
     return (

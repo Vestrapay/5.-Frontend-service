@@ -10,19 +10,19 @@ const navItems: SettingsNavProps[] = [
     },
     {
         name: "Update KYC",
-        href: "/settings/update-kyc"
+        href: "/settings/profile-settings/update-kyc"
     },
     {
         name: "Password",
-        href: "/settings/password"
+        href: "/settings/profile-settings/password"
     },
     {
         name: "Change PIN",
-        href: "/settings/change-pin"
+        href: "/settings/profile-settings/change-pin"
     },
     {
         name: "Reset PIN",
-        href: "/settings/reset-pin"
+        href: "/settings/profile-settings/reset-pin"
     }
 ]
 
