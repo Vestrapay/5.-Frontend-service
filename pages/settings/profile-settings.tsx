@@ -1,27 +1,37 @@
-import React, {useRef, useState} from 'react';
+import React, { useRef, useState } from 'react';
 import SettingsProfileLayout from "@pages/settings/index";
-import {Camera} from "react-huge-icons/solid";
-import {DefaultButton, DefaultInput} from "@reusables/index";
+import { Camera } from "react-huge-icons/solid";
+import { DefaultButton, DefaultInput } from "@reusables/index";
 import Image from "next/image";
 
 const ProfileSettings = () => {
 
-    const [file, setFile] = useState(null);
+    const [file, setFile] = useState<any | null>(null);
     const [msg, setMsg] = useState("");
 
-    const fileInputRef = useRef();
+    const fileInputRef: any = useRef();
 
     const handleFileInputClick = () => {
         // @ts-ignore
         fileInputRef.current.click();
     }
 
+
+    const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement> | any) => {
+        const file = e?.target?.files[0] || null;
+        console.log(file)
+        let fileLabel: Element | null = document.querySelector("p.name");
+        fileLabel ? fileLabel.innerHTML = file?.name : null
+        setFile(file)
+    }
+
+
     const handleSubmit = () => {
 
     }
 
     return (
-        <SettingsProfileLayout>
+        <SettingsProfileLayout>.   
             <div className="flex">
                 <form
                     className="flex flex-col w-full"
@@ -33,9 +43,7 @@ const ProfileSettings = () => {
                             name="profile"
                             ref={fileInputRef}
                             accept={"image/*"}
-                            onChange={(e) => {
-                                setFile(e.target.files[0])
-                            }}
+                            onChange={handleChangeFile}
                             hidden
                         />
                         {
@@ -97,8 +105,8 @@ const ProfileSettings = () => {
                             <div className="flex items-start my-6">
                                 <div className="flex items-center rounded-full h-5">
                                     <input id="remember" type="checkbox" value=""
-                                           className="w-4 h-4 border border-gray-300 bg-gray-50 focus:ring-3 focus:ring-blue-300 rounded-full"
-                                           required/>
+                                        className="w-4 h-4 border border-gray-300 bg-gray-50 focus:ring-3 focus:ring-blue-300 rounded-full"
+                                        required />
                                 </div>
                                 <label htmlFor="remember" className="ml-2 text-base font-300 text-blackish">
                                     I have read the <strong className="text-selected">Terms and Conditions</strong>
