@@ -31,7 +31,7 @@ const ProfileSettings = () => {
     }
 
     return (
-        <SettingsProfileLayout>.   
+        // <SettingsProfileLayout>.   
             <div className="flex">
                 <form
                     className="flex flex-col w-full"
@@ -122,7 +122,7 @@ const ProfileSettings = () => {
                     </div>
                 </form>
             </div>
-        </SettingsProfileLayout>
+        // </SettingsProfileLayout>
     );
 };
 
