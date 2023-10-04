@@ -4,7 +4,7 @@ import DashboardLayout from "@/components/layouts/DashboardLayout";
 const Settings = () => {
     return (
         <DashboardLayout>
-            Settings
+            hghsh
         </DashboardLayout>
     );
 };
