@@ -1,9 +1,9 @@
 import React from 'react';
 import DashboardLayout from "@/components/layouts/DashboardLayout";
-import {LayoutProps} from "@types";
+import {LayoutProps, SettingsNavProps} from "@types";
 import ActiveLinks from "@/components/links/activeLinks";
 
-const navItems = [
+const navItems: SettingsNavProps[] = [
     {
         name: "Profile Settings",
         href: "/settings/profile-settings"
@@ -26,7 +26,10 @@ const navItems = [
     }
 ]
 
-const SettingsProfileLayout = ({children}: LayoutProps) => {
+const SettingsProfileLayout = ({children, navLinks, pageName="Profile"}: {
+    children: React.ReactNode,
+    navLinks?: SettingsNavProps[],
+    pageName?: string}) => {
     return (
         <DashboardLayout>
             <main
@@ -34,7 +37,7 @@ const SettingsProfileLayout = ({children}: LayoutProps) => {
             >
                 <header className="flex items-center justify-start">
                     <h1 className="text-2xl font-medium">
-                        Settings - Profile
+                        Settings - {pageName}
                     </h1>
                 </header>
                 <div
@@ -48,7 +51,22 @@ const SettingsProfileLayout = ({children}: LayoutProps) => {
                         className="h-full w-full flex rounded-md px-10"
                     >
                         <ul className="list-none p-0 flex justify-between w-full">
-                            {navItems.map((item, index) => (
+                            {
+                                navLinks ? navLinks.map((item, index) => (
+                                        <li
+                                            key={index}
+                                        >
+                                            <ActiveLinks
+                                                href={item.href}
+                                                activeClassName="text-selected"
+                                            >
+                                                <span>
+                                                    {item.name}
+                                                </span>
+                                            </ActiveLinks>
+                                        </li>
+                                    )
+                                ) : navItems.map((item, index) => (
                                     <li
                                         key={index}
                                     >

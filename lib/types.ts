@@ -78,3 +78,8 @@ export type CreateUserProps = {
     address: string,
     userRole: string,
 }
+
+export type SettingsNavProps = {
+    name: string,
+    href: string,
+}
