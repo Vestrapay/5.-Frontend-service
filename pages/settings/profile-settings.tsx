@@ -1,6 +1,7 @@
 import React, {useRef, useState} from 'react';
 import SettingsProfileLayout from "@pages/settings/index";
 import {Camera} from "react-huge-icons/solid";
+import {DefaultButton} from "@reusables/index";
 
 const ProfileSettings = () => {
 
@@ -14,7 +15,7 @@ const ProfileSettings = () => {
         fileInputRef.current.click();
     }
 
-    const handleFileUpload = () => {
+    const handleSubmit = () => {
 
     }
 
@@ -108,17 +109,20 @@ const ProfileSettings = () => {
                         <div className="flex flex-col col-span-2">
                             <div className="flex items-start my-6">
                                 <div className="flex items-center rounded-full h-5">
-                                    <input id="remember" type="checkbox" value="" className="w-4 h-4 border border-gray-300 bg-gray-50 focus:ring-3 focus:ring-blue-300 rounded-full" required />
+                                    <input id="remember" type="checkbox" value=""
+                                           className="w-4 h-4 border border-gray-300 bg-gray-50 focus:ring-3 focus:ring-blue-300 rounded-full"
+                                           required/>
                                 </div>
                                 <label htmlFor="remember" className="ml-2 text-base font-300 text-blackish">
                                     I have read the <strong className="text-selected">Terms and Conditions</strong>
                                 </label>
                             </div>
-                            <button
-                                className="bg-selected rounded-md p-2 border-none font-nunito text-white col-span-1 cursor-pointer hover:opacity-95 transition-all duration-300 ease-in-out"
-                            >
-                                Update
-                            </button>
+                            <DefaultButton
+                                labelText={"Update"}
+                                handleClick={handleSubmit}
+                                variant={"bg-selected cursor-pointer w-1/2"}
+                            />
+
                         </div>
                     </div>
                 </form>
