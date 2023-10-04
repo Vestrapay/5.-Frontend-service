@@ -1,7 +1,8 @@
 import React from 'react';
 import DashboardLayout from "@/components/layouts/DashboardLayout";
-import {LayoutProps, SettingsNavProps} from "@types";
+import { LayoutProps, SettingsNavProps } from "@types";
 import ActiveLinks from "@/components/links/activeLinks";
+import ProfileSettings from './profile-settings';
 
 const navItems: SettingsNavProps[] = [
     {
@@ -26,10 +27,11 @@ const navItems: SettingsNavProps[] = [
     }
 ]
 
-const SettingsProfileLayout = ({children, navLinks, pageName="Profile"}: {
+const SettingsProfileLayout = ({ children, navLinks, pageName = "Profile" }: {
     children: React.ReactNode,
     navLinks?: SettingsNavProps[],
-    pageName?: string}) => {
+    pageName?: string
+}) => {
     return (
         <DashboardLayout>
             <main
@@ -53,19 +55,19 @@ const SettingsProfileLayout = ({children, navLinks, pageName="Profile"}: {
                         <ul className="list-none p-0 flex justify-between w-full">
                             {
                                 navLinks ? navLinks.map((item, index) => (
-                                        <li
-                                            key={index}
+                                    <li
+                                        key={index}
+                                    >
+                                        <ActiveLinks
+                                            href={item.href}
+                                            activeClassName="text-selected"
                                         >
-                                            <ActiveLinks
-                                                href={item.href}
-                                                activeClassName="text-selected"
-                                            >
-                                                <span>
-                                                    {item.name}
-                                                </span>
-                                            </ActiveLinks>
-                                        </li>
-                                    )
+                                            <span>
+                                                {item.name}
+                                            </span>
+                                        </ActiveLinks>
+                                    </li>
+                                )
                                 ) : navItems.map((item, index) => (
                                     <li
                                         key={index}
@@ -80,11 +82,11 @@ const SettingsProfileLayout = ({children, navLinks, pageName="Profile"}: {
                                         </ActiveLinks>
                                     </li>
                                 )
-                            )}
+                                )}
                         </ul>
                     </nav>
                     <div className="mt-10">
-                        {children}
+                        {children || <ProfileSettings />}
                     </div>
                 </div>
             </main>
