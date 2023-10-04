@@ -113,12 +113,12 @@ const topMenuItems: MenuItems[] = [
     {
         id: 7,
         name: "Settings",
-        route: '/settings',
+        route: '/settings/profile-settings',
         subMenuItems: [
             {
                 id: 1,
                 name: 'Profile',
-                route: '/settings',
+                route: '/settings/profile-settings',
                 roles: ["USER", "ADMIN"]
             },
             {
