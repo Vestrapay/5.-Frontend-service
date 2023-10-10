@@ -31,7 +31,13 @@ export type endPointlistTypes = {
 
     usersList: endpointTypes;
     updateUser: endpointTypes;
+    updateAUser: endpointTypes;
     getUser: endpointTypes;
+    getAUser: endpointTypes;
+
+    viewBusiness: endpointTypes;
+    updateBusiness: endpointTypes;
+
     deleteMerchantUser: endpointTypes;
     merchantCreateUser: endpointTypes;
     getAllRoles: endpointTypes;

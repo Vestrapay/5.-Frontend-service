@@ -17,14 +17,14 @@ const navItems: SettingsNavProps[] = [
         name: "Password",
         href: "/settings/profile-settings/password"
     },
-    {
-        name: "Change PIN",
-        href: "/settings/profile-settings/change-pin"
-    },
-    {
-        name: "Reset PIN",
-        href: "/settings/profile-settings/reset-pin"
-    }
+    // {
+    //     name: "Change PIN",
+    //     href: "/settings/profile-settings/change-pin"
+    // },
+    // {
+    //     name: "Reset PIN",
+    //     href: "/settings/profile-settings/reset-pin"
+    // }
 ]
 
 const SettingsProfileLayout = ({ children, navLinks, pageName = "Profile" }: {
@@ -35,7 +35,7 @@ const SettingsProfileLayout = ({ children, navLinks, pageName = "Profile" }: {
     return (
         <DashboardLayout>
             <main
-                className="relative flex flex-1 flex-col h-full mt-10 w-full overflow-x-visible transition-all duration-300 ease-in-out px-10 sm:px-12 pb-10"
+                className="relative flex flex-1 flex-col h-full mt-10 w-full overflow-x-auto transition-all duration-300 ease-in-out px-10 sm:px-12 pb-10"
             >
                 <header className="flex items-center justify-start">
                     <h1 className="text-2xl font-medium">
@@ -50,19 +50,20 @@ const SettingsProfileLayout = ({ children, navLinks, pageName = "Profile" }: {
                             borderRadius: "10px",
                             border: "1px solid #F0F0F0"
                         }}
-                        className="h-full w-full flex rounded-md px-10"
+                        className="h-full w-full flex rounded-md px-10 overflow-x-scroll lg:overflow-x-hidden scrollbar-hide"
                     >
-                        <ul className="list-none p-0 flex justify-between w-full">
+                        <ul className="list-none p-0 flex gap-10 w-full min-w-max">
                             {
                                 navLinks ? navLinks.map((item, index) => (
                                     <li
                                         key={index}
+                                        className='w-full min-w-max'
                                     >
                                         <ActiveLinks
                                             href={item.href}
                                             activeClassName="text-selected"
                                         >
-                                            <span>
+                                            <span className='min-w-max w-full'>
                                                 {item.name}
                                             </span>
                                         </ActiveLinks>
@@ -71,12 +72,13 @@ const SettingsProfileLayout = ({ children, navLinks, pageName = "Profile" }: {
                                 ) : navItems.map((item, index) => (
                                     <li
                                         key={index}
+                                        className='w-full min-w-max'
                                     >
                                         <ActiveLinks
                                             href={item.href}
                                             activeClassName="text-selected"
                                         >
-                                            <span>
+                                            <span className='min-w-max w-full'>
                                                 {item.name}
                                             </span>
                                         </ActiveLinks>

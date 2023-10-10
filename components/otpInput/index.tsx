@@ -150,7 +150,7 @@ export function OtpInput({ value, valueLength, onChange }: Props) {
         <div className="flex flex-row items-start justify-between w-full max-w-md gap-1">
             {valueItems.map((digit, idx) => (
                 <div className=" w-12 h-12 sm:w-24 sm:h-20 terk" key={idx} >
-                    <input className="w-full h-full flex flex-col items-center justify-center text-center px-2.5 sm:px-5 outline-none rounded-lg border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-aqua"
+                    <input className="w-full h-full flex flex-col items-center justify-center text-center outline-none rounded-lg border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-aqua"
                         type="text"
                         inputMode="numeric"
                         autoComplete="one-time-code"

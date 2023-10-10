@@ -29,6 +29,9 @@
       "@public/*": [
         "public/*"
       ],
+      "@assets/*": [
+        "public/assets/*"
+      ],
       "@styles/*": [
         "styles/*"
       ],

@@ -124,7 +124,7 @@ const topMenuItems: MenuItems[] = [
             {
                 id: 2,
                 name: 'Business',
-                route: '/settings/business',
+                route: '/settings/business/about',
                 roles: ["USER", "ADMIN"]
             },
             {

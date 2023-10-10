@@ -17,6 +17,7 @@ export type DefaultInputType = {
     labelVariant?: string,
     containerVariant?: string,
     icon?: any,
+    info?: string,
     required?: boolean,
     validate?: boolean,
     validationFunc: () => any,

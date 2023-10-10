@@ -30,6 +30,7 @@ const DefaultInput = forwardRef<any, any>(({
     compare,
     readOnly,
     checkNum,
+    info = "",
     isDisabled = false
 }: DefaultInputType) => {
 
@@ -92,12 +93,12 @@ const DefaultInput = forwardRef<any, any>(({
         <div className={containerVariant}>
             {label &&
                 <label htmlFor={`input${name}`} className={`text-blackish font-300 ${labelVariant}`}>
-                    {topLabel} {required ? <span className='text-red-100'>*</span> : ""}
+                    {topLabel} {required ? <span className='text-red-500'>*</span> : ""}
                 </label>
             }
 
             <div className={`relative group w-full leading-6 text-sm font-500 border px-6 py-0 rounded-lg 
-            ${type === 'password' ? "pr-[57.5px]" : validate ? "pr-[77.5px]" : ""} ${topLabel ? "mt-2" : ""}  ${!isDisabled ? "bg-gray-50" : "bg-gray-100"} 
+            ${type === 'password' ? "pr-[57.5px]" : validate ? "pr-[77.5px]" : ""} ${topLabel ? "mt-2" : ""}  ${!isDisabled ? "bg-gray-50" : "bg-gray-200 text-gray-300"} 
             ${error ? 'border-red-500 focus:border-red-500' : confirm ? ' border-green-500' : ''} ${variant}`}
             >
                 {icon}
@@ -175,6 +176,11 @@ const DefaultInput = forwardRef<any, any>(({
                         confirmPassword && compare == value && compare !== "" ?
                             (<p className="text-green-500 text-xs h-auto py-1">{"Your passwords match"}</p>)
                             : ""
+            }
+            {
+                info && info != "" ?
+                    (<p className="text-gray-500 text-xs h-auto -pt-2">{info}</p>)
+                    : ""
             }
         </div>
     );

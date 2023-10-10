@@ -80,6 +80,19 @@ export const endPoints: endPointlistTypes = {
         auth: true
     },
 
+    //Business
+    viewBusiness: {
+        url: '/api/v1/business/view',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+    updateBusiness: {
+        url: '/api/v1/business/update',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
 
     //Users 
     usersList: {
@@ -108,6 +121,13 @@ export const endPoints: endPointlistTypes = {
         headers: headers,
         auth: true
     },
+    updateAUser: {
+        url: '/api/v1/user/update',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+
     deleteUser: {
         url: '/api/v1/user/delete',
         method: 'POST',
@@ -124,6 +144,13 @@ export const endPoints: endPointlistTypes = {
     getUser: {
         url: '/api/v1/user/view-merchant-user',
         method: 'POST',
+        headers: headers,
+        auth: true
+    },
+
+    getAUser: {
+        url: '/api/v1/user/view-user',
+        method: 'GET',
         headers: headers,
         auth: true
     },
@@ -242,6 +269,13 @@ export const endPoints: endPointlistTypes = {
         headers: headers,
         auth: true
     },
+    uploadUtility: {
+        url: '/api/v1/kyc/upload',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+
 
 
     generateOtp: {
@@ -254,12 +288,7 @@ export const endPoints: endPointlistTypes = {
         method: 'POST',
         headers: headers
     },
-    uploadUtility: {
-        url: '/api/v1/document/upload_file',
-        method: 'POST',
-        headers: FileHeaders,
-        auth: true
-    },
+
     uploadMOI: {
         url: '/api/v1/merchant/upload_means_of_identity',
         method: 'POST',

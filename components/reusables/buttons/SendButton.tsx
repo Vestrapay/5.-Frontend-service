@@ -16,9 +16,9 @@ const DefaultButton = ({
       <button
         type="button"
         onClick={handleClick}
-        className={`font-nunito bg-darkslateblue px-8 py-3 rounded-lg border-none text-white text-sm font-600 ${variant} ${
+        className={`${variant} font-nunito bg-darkslateblue px-8 py-3 rounded-lg border-none text-white text-sm font-600 ${
           isDisabled && "cursor-not-allowed"
-        } hover:opacity-80`}
+        } hover:opacity-80 ${variant} `}
         disabled={isDisabled}
         onBlur={handleBlur}
       >

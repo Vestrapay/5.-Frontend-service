@@ -20,3 +20,5 @@ export {default as Delimiter} from '@public/assets/utils/LineDelimiter.svg';
 export {default as Loader} from '@public/assets/utils/loadingAnimation.json';
 export {default as PenIcon} from '@public/assets/utils/pen.svg';
 export {default as LineHorizontal} from '@public/assets/utils/LineHorizontal.svg';
+export {default as UploadFile} from '@public/assets/svg/uploadFile.svg';
+export {default as UploadFileSmall} from '@public/assets/svg/uploadFileSmall.svg';
