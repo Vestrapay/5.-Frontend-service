@@ -225,220 +225,30 @@ export const usersResult = {
     ]
 }
 
-
-export const usersTableHeader = [
+export const paymentMethods = [
     {
-        variant: 'font-600 py-5 px-6',
-        name: 'Name & ID',
-        innerVariant: ''
+        name: "Cards",
+        description: "Visa, Mastercard, Discover, Diners Club, Verve.",
+        value: "CARD"
     },
     {
-        variant: 'font-600 py-5 px-6',
-        name: 'Username and Email',
-        innerVariant: ''
+        name: "Bank transfer",
+        description: "Visa, Mastercard, Discover, Diners Club, Verve.",
+        value: "TRANSFER"
     },
     {
-        variant: 'font-600 py-5 px-6',
-        name: 'Institution ID',
-        innerVariant: ''
+        name: "NQR",
+        description: "A secure QR-code-based payments and collections platform for receiving and making payments",
+        value: "NQR"
     },
     {
-        variant: 'font-600 py-5 px-6',
-        name: 'Level',
-        innerVariant: ''
+        name: "PaymentLink",
+        description: "Allows you receive payments via a payment link.",
+        value: "PAYMENTLINK"
     },
     {
-        variant: 'font-600 py-5 px-6',
-        name: 'Creator',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Date Created',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Status',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Action',
-        innerVariant: ''
-    },
-]
-
-export const instituionTableHeader = [
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Name & Institution ID',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Username and Email',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Address',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Settlement Number & Bank',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Allowed IPS',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Date Created',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Status',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Action',
-        innerVariant: ''
-    },
-  ]
-  
-
-export const settlementTableHeader = [
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Institution ID',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Trans Amount and Count',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Settled Amount',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Bank & Account',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Trans Reference',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Cycle Start',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Cycle End',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Status',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Action',
-        innerVariant: ''
-    },
-]
-
-export const bankTableHeader = [
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Name & ID',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'CBN Code',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'NIP Code',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Date Created',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Action',
-        innerVariant: ''
-    },
-  ]
-
-
-export const transactionTableHeader = [
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Beneficiary Acc Name',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Beneficiary Acc Number & Bank',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Sender Acc Name',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Sender Acc Number & Bank',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Trans Amount',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Amount Settled',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Session ID',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Institution ID',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Trans Date',
-        innerVariant: ''
-    },
-    {
-        variant: 'font-600 py-5 px-6',
-        name: 'Actions',
-        innerVariant: ''
+        name: "USSD",
+        description: "GTB, Zenith bank, First bank, Stanbic IBTC, Access bank.",
+        value: "USSD"
     }
 ]

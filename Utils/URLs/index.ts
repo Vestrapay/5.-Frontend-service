@@ -9,7 +9,7 @@ import { Storage } from "Utils/inAppstorage";
 
 
 
-const baseUrl = (): any => "https://36f1-2001-569-52c4-d700-c86d-d6e-4e96-3531.ngrok-free.app";//process.env.REACT_APP_BASE_URL;
+const baseUrl = (): any => "https://c7cc-2001-569-52c4-d700-1d62-c32e-6529-369d.ngrok-free.app";//process.env.REACT_APP_BASE_URL;
 
 
 
@@ -72,7 +72,7 @@ export const apiCall = ({ urlExtra, name, data = {}, params = {}, action = () =>
                 return err
             } else {
                 console.log("Response Error 3:")
-                rej(err);
+                // rej(err);
                 return err
             }
         });

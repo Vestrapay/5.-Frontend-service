@@ -93,6 +93,81 @@ export const endPoints: endPointlistTypes = {
         headers: headers,
         auth: true
     },
+    createBusiness: {
+        url: '/api/v1/business/register',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+
+    //Users 
+    listSettlement: {
+        url: '/api/v1/settlement/view-all',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+    createSettlement: {
+        url: '/api/v1/settlement/create',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+    updateSettlement: {
+        url: '/api/v1/settlement/update',
+        method: 'PUT',
+        headers: headers,
+        auth: true
+    },
+    makePrimarySettlement: {
+        url: '/api/v1/settlement/primary',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+    removeSettlement: {
+        url: '/api/v1/settlement/remove',
+        method: 'DELETE',
+        headers: headers,
+        auth: true
+    },
+
+    //API-KEYS
+    getKeys: {
+        url: '/api/v1/key/get-keys',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+    generateKeys: {
+        url: '/api/v1/key/generate-keys',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+
+    //TRANSACTIONS
+    getTransactions: {
+        url: '/api/v1/transactions/get-transactions',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+
+    //WEB-HOOKS
+    getWebHook: {
+        url: '/api/v1/webhook/view-webhook',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+    createHooks: {
+        url: '/api/v1/webhook/create-webhook',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+
 
     //Users 
     usersList: {
@@ -272,7 +347,7 @@ export const endPoints: endPointlistTypes = {
     uploadUtility: {
         url: '/api/v1/kyc/upload',
         method: 'POST',
-        headers: headers,
+        headers: FileHeaders,
         auth: true
     },
 

@@ -5,6 +5,7 @@ import React, {useState} from "react";
 import {Trash} from "react-huge-icons/bulk";
 import Image from "next/image";
 import {PenIcon} from "@reusables/images";
+import CurrencyFormat from "react-currency-format";
 
 export const recentTransactionsFields: GridColDef[] = [
     {
@@ -57,6 +58,11 @@ export const recentTransactionsFields: GridColDef[] = [
         flex: 1,
         headerAlign: "left",
         align: "left",
+        renderCell: ({row: {amount}}: { row: { amount: CardProviderProps } }) => {
+            return (
+                <CurrencyFormat value={amount || ""} displayType={'text'} thousandSeparator={true} fixedDecimalScale={true} decimalScale={2} prefix={"₦"} />
+            )
+        }
     }
 ]
 
