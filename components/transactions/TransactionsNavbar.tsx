@@ -20,7 +20,7 @@ const TransactionsNavbar = ({apiRef, data}:{apiRef: React.MutableRefObject<GridA
         const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
         const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blobData = new Blob([excelBuffer], { type: fileType });
-        FileSaver.saveAs(blobData, "vestrapay" + fileExtension);
+        FileSaver.saveAs(blobData, "vestrapay transactions" + fileExtension);
     }
 
     return (

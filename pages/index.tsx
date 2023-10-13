@@ -18,6 +18,7 @@ export default function Home() {
 
     const [page, setPage] = useState("signup");
     const [resetingPass, setResetingPass] = useState(false);
+    const [signInStatus, setSignInStatus] = useState(false);
     const [passData, setPassData] = useState({
         email: "",
         phoneNumber: ""
@@ -26,17 +27,18 @@ export default function Home() {
     const renderPages = () => {
         switch (page) {
             case 'signin':
-                return <SignIn setPage={setPage} resetingPass={resetingPass} setResetingPass={setResetingPass} />;
+                return <SignIn setPage={setPage} resetingPass={resetingPass} 
+                signInStatus={signInStatus} setResetingPass={setResetingPass} />;
             case 'forgotpass':
                 return <ChangePassword setPage={setPage} />;
             case 'reset':
                 return <ResetPassword setPage={setPage} setResetingPass={setResetingPass} />;
             case 'signup':
-                return <SignUp setPage={setPage} setPassData={setPassData} />;
+                return <SignUp setPage={setPage} setPassData={setPassData}/>;
             case 'createpass':
                 return <CreatePassword setPage={setPage} setResetingPass={setResetingPass} />;
             case 'verifySignUp':
-                return <VerifySignUp setPage={setPage} passData={passData} />;
+                return <VerifySignUp setPage={setPage} passData={passData} setSignInStatus={setSignInStatus} />;
             case 'verifySignIn':
                 return <VerifySignIn setPage={setPage} />;
 
