@@ -1,11 +1,14 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import TransactionsNavbar from "@/components/transactions/TransactionsNavbar";
-import {DataGrid, gridPageCountSelector, gridPageSelector, useGridApiRef, useGridSelector} from "@mui/x-data-grid";
-import {recentTransactionsData, recentTransactionsFields} from "@Utils/tableSchema";
+import { DataGrid, gridPageCountSelector, gridPageSelector, useGridApiRef, useGridSelector } from "@mui/x-data-grid";
+import { recentTransactionsData, recentTransactionsFields } from "@Utils/tableSchema";
 import Pagination from "@mui/material/Pagination";
+import { TransactionController } from 'containers/transactionApi';
 
-const Index = () => {
+const TransactionsIndex = () => {
+
+    const { isLoading, isError, error, isSuccess, data, refetch } = TransactionController();
 
     const apiRef = useGridApiRef()
 
@@ -30,12 +33,13 @@ const Index = () => {
 
     return (
         <DashboardLayout>
-            <nav>
-                <TransactionsNavbar apiRef={apiRef} data={recentTransactionsData}/>
-            </nav>
-            <main className="flex w-full h-full">
+            <main className="relative flex flex-1 flex-col px-10 pb-4 h-screen w-full overflow-x-visible transition-all duration-300 ease-in-out px-10 sm:px-12 pb-10 h-full">
+                    
+                <nav>
+                    <TransactionsNavbar apiRef={apiRef} data={recentTransactionsData} />
+                </nav>
                 <DataGrid
-                    rows={recentTransactionsData}
+                    rows={data || []}
                     columns={recentTransactionsFields}
                     disableRowSelectionOnClick={true}
                     initialState={{
@@ -116,4 +120,4 @@ const Index = () => {
     );
 };
 
-export default Index;
+export default TransactionsIndex;

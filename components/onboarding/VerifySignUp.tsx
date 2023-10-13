@@ -6,10 +6,10 @@ import Countdown from 'react-countdown';
 import { LoginErrorCard } from '@Utils/actions/error';
 
 
-const VerifySignUp = ({ setPage, passData }: any) => {
+const VerifySignUp = ({ setPage, passData, setSignInStatus }: any) => {
 
 
-    const { stateValues, handleSubmit, onChangeOTP, timeVal, setKey, handleClearError, generateOtp } = VerifySignUpController(setPage, passData)
+    const { stateValues, handleSubmit, onChangeOTP, timeVal, setKey, handleClearError, generateOtp } = VerifySignUpController(setPage, passData, setSignInStatus);
 
     const {
         otp,
@@ -17,9 +17,9 @@ const VerifySignUp = ({ setPage, passData }: any) => {
         minutes,
         seconds,
         key,
-    } = timeVal || {}
+    } = timeVal || {};
 
-    const { submittingError, isDisabled, isSubmitting, errorMssg, pin, confirmPin } = stateValues
+    const { submittingError, isDisabled, isSubmitting, errorMssg, pin, confirmPin } = stateValues;
     console.log(otp);
     return (
         <div className="w-full  ">
@@ -32,7 +32,7 @@ const VerifySignUp = ({ setPage, passData }: any) => {
                 {`Haven't recieved code? `}
                 <span
                     className={
-                        `text-primary-blue cursor-pointer 
+                        `text-darkslateblue cursor-pointer 
                                 ${key == 0.017 ? "opacity-100" : "opacity-50"}`}
                     onClick={
                         key == 0.017 ?
