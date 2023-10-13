@@ -14,7 +14,7 @@ export default function DeleteUser({
     const { stateValues, handleSubmit, handleClearError } = deleteUsersController(data)
 
     return (
-        <Modal show={show} clicked={show}>
+        <Modal show={show} clicked={setShow}>
             <div className="flex flex-row gap-8 justify-around items-start max-w-[50vw] mb-10">
                 <div className=" w-11/12 relative">
                     <div className=" flex flex-col my-5 w-full justify-center items-center">

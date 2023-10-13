@@ -73,7 +73,9 @@ const SignUpController = (setPage: (val: string) => any, setPassData: (val: any)
                         email,
                         phoneNumber
                     });
+
                     setPage("verifySignUp");
+
                     return [""]
                 },
                 errorAction: (err?: any) => {
@@ -90,7 +92,7 @@ const SignUpController = (setPage: (val: string) => any, setPassData: (val: any)
                             ...state,
                             loginError: true,
                             isLoggingIn: false,
-                            loginErrorMssg: "Login Failed, please try again"
+                            loginErrorMssg: "Registration Failed, please try again"
                         })
                     }
                 }
@@ -107,7 +109,7 @@ const SignUpController = (setPage: (val: string) => any, setPassData: (val: any)
 
 }
 
-const SignInController = (setPage: (val: string) => any, resetingPass: boolean, setResetingPass: (val: boolean) => any) => {
+const SignInController = (setPage: (val: string) => any, resetingPass: boolean, setResetingPass: (val: boolean) => any, signInStatus: boolean) => {
 
     const [state, setState] = useState<any>({
         email: "",
@@ -178,7 +180,11 @@ const SignInController = (setPage: (val: string) => any, resetingPass: boolean, 
                 .then(async (res: any) => {
                     if (resetingPass) {
                         setPage("createpass")
-                    } else {
+                    } else if (signInStatus){
+                        setResetingPass(false);
+                        router.push('/create-business');
+                    }
+                    else {
                         setResetingPass(false);
                         router.push('/dashboard');
                     }
@@ -193,7 +199,7 @@ const SignInController = (setPage: (val: string) => any, resetingPass: boolean, 
 
 }
 
-const VerifySignUpController = (setPage: (val: string) => any, passData: any) => {
+const VerifySignUpController = (setPage: (val: string) => any, passData: any, setSignInStatus: (val: any) => any) => {
 
     const [timeVal, setTimeVal] = useState({
         otp: '',
@@ -220,43 +226,7 @@ const VerifySignUpController = (setPage: (val: string) => any, passData: any) =>
         errorMssg: ""
     })
 
-    // console.log(passData);
-
     const { submittingError, isDisabled, isSubmitting, errorMssg, pin } = state
-
-
-    // useEffect(() => {
-    //     let myPhoneInterval = setInterval(() => {
-    //         if (seconds > 0) {
-    //             setTimeVal({ ...timeVal, seconds: seconds - 1 });
-    //         }
-    //         if (seconds === 0) {
-    //             if (minutes === 0) {
-    //                 clearInterval(myPhoneInterval)
-    //             } else {
-    //                 setTimeVal({ ...timeVal, minutes: minutes - 1 });
-    //                 setTimeVal({ ...timeVal, seconds: 59 });
-    //             }
-    //         }
-    //         if (clear) { clearInterval(myPhoneInterval); setTimeVal({ ...timeVal, clear: false }) }
-    //         myPhoneInterval = setInterval(() => {
-    //             if (seconds > 0) {
-    //                 setTimeVal({ ...timeVal, seconds: seconds - 1 });
-    //             }
-    //             if (seconds === 0) {
-    //                 if (minutes === 0) {
-    //                     clearInterval(myPhoneInterval)
-    //                 } else {
-    //                     setTimeVal({ ...timeVal, minutes: minutes - 1 });
-    //                     setTimeVal({ ...timeVal, seconds: 59 });
-    //                 }
-    //             }
-    //         }, 1000)
-    //     }, 1000)
-    //     return () => {
-    //         clearInterval(myPhoneInterval);
-    //     };
-    // }, [clear]);
 
     const setKey = (val: number) => setTimeVal({ ...timeVal, key: val })
 
@@ -274,7 +244,7 @@ const VerifySignUpController = (setPage: (val: string) => any, passData: any) =>
                         errorMssg: "Action failed, please try again"
                     })
                 }
-                return ["skip"];
+                return [""];
             },
             successDetails: {
                 title: "Successful",
@@ -310,6 +280,7 @@ const VerifySignUpController = (setPage: (val: string) => any, passData: any) =>
                         submittingError: false,
                     })
                     // router.push("/dashboard");
+                    setSignInStatus(true);
                     setPage("login")
                     return [""]
 
@@ -446,7 +417,7 @@ const VerifySignInController = (setPage: (val: string) => any, passData: any) =>
             isSubmitting: true
         }))
         try {
-            const response = await apiCall({
+            const response:any = await apiCall({
                 name: "validateOtp",
                 data: {
                     email: passData?.email || "",
@@ -580,6 +551,7 @@ const ResetPasswordController = (setPage: (val: string) => any, setResetingPass:
     return { stateValues: state, handleChange, handelSubmit, handleClearError }
 }
 
+
 const ResetedPasswordController = (setPage: (val: string) => any, setResetingPass: (val: boolean) => any) => {
 
     const [state, setState] = useState<any>({
@@ -641,6 +613,9 @@ const ResetedPasswordController = (setPage: (val: string) => any, setResetingPas
                 action: (): any => {
                     setState({
                         ...state,
+                        oldPassword: "",
+                        password: "",
+                        confirmPassword: "",
                         isSubmitting: false,
                         submittingError: false,
                     });
