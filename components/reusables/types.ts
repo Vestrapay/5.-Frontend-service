@@ -65,6 +65,7 @@ export type DefaultDatePickerType = {
 
 export type DefaultButtonType = {
     labelText: any,
+    type?: string;
     handleClick?: MouseEventHandler<HTMLButtonElement> | undefined,
     isDisabled?: boolean;
     variant?: string;

@@ -9,6 +9,7 @@ const DefaultButton = ({
   isLoading = false,
   icon,
   icon2,
+  type = "default",
   handleBlur
 }: DefaultButtonType) => {
   return (
@@ -16,9 +17,9 @@ const DefaultButton = ({
       <button
         type="button"
         onClick={handleClick}
-        className={`${variant} font-nunito bg-darkslateblue px-8 py-3 rounded-lg border-none text-white text-sm font-600 ${
+        className={`${variant} cursor-pointer font-nunito ${type == "secondary"?"bg-white text-darkslateblue border border-darkslateblue":"bg-darkslateblue border-none text-white"} px-8 py-3 rounded-lg text-sm font-600 ${
           isDisabled && "cursor-not-allowed"
-        } hover:opacity-80 ${variant} `}
+        } hover:opacity-80 ${variant} `} 
         disabled={isDisabled}
         onBlur={handleBlur}
       >

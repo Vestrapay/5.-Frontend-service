@@ -65,7 +65,7 @@ const DefaultSelect = forwardRef<any, any>(({
                     leading-6 text-sm font-300 px-0 py-3 bg-[#ffffff00] ${icon ? "pl-0" : ""} ${inputVariant}`}
                 >
                     <>
-                        <option className='text-gray-300 text-sm min-w-max w-full'>{`Select ${label || topLabel || name || ""}`}</option>
+                        <option className='text-gray-300 text-sm min-w-max w-full'>{`Select ${placeHolder || label || topLabel || name || ""}`}</option>
                         {!data && data?.length < 1 ? <option className='text-gray-200 text-xs min-w-max w-full'>N/A</option>
                             : data?.map((each: any, i: any) => {
                                 return <option value={each?.value || ""} key={i}>{each?.name || ""}</option>
