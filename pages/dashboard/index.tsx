@@ -68,7 +68,7 @@ const Dashboard = () => {
                 
                 <DashNavbar />
                 <LoginErrorCard handleClear={handleClearError} error={""} containerVariant={!displayName?.kycStatus ? "hidden" : "max-w-fit pr-20"} >
-                    <p>Please note that your KYC process is incomplete. <span className="text-darkslateblue underline cursor-pointer" onClick={() => router.push('/settings')} >Complete KYC now. </span></p>
+                    <p>Please note that your KYC process is incomplete. <span className="text-darkslateblue underline cursor-pointer" onClick={() => router.push('/settings/profile-settings/update-kyc')} >Complete KYC now. </span></p>
                 </LoginErrorCard>
                 <div className="w-full grid gap-4 grid-rows-2 grid-cols-6 h-full">
                     <div className="grid grid-rows-1 grid-cols-1 col-span-3 gap-4 h-full">

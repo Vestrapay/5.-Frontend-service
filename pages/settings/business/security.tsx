@@ -14,7 +14,7 @@ const Notifications = () => {
     return (
         <SettingsProfileLayout navLinks={businessNavLinks} pageName={"Business"}>
             <form
-                className="flex flex-col w-full"
+                className="flex flex-col w-full mb-20"
             >
                 <div className="grid grid-cols-2 lg:grid-cols-2 gap-10 w-full">
 
