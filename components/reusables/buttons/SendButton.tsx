@@ -9,6 +9,7 @@ const DefaultButton = ({
   isLoading = false,
   icon,
   icon2,
+  type = "default",
   handleBlur
 }: DefaultButtonType) => {
   return (
@@ -16,9 +17,9 @@ const DefaultButton = ({
       <button
         type="button"
         onClick={handleClick}
-        className={`font-nunito bg-darkslateblue px-8 py-3 rounded-lg border-none text-white text-sm font-600 ${variant} ${
+        className={`${variant} cursor-pointer font-nunito ${type == "secondary"?"bg-white text-darkslateblue border border-darkslateblue":"bg-darkslateblue border-none text-white"} px-8 py-3 rounded-lg text-sm font-600 ${
           isDisabled && "cursor-not-allowed"
-        } hover:opacity-80`}
+        } hover:opacity-80 ${variant} `} 
         disabled={isDisabled}
         onBlur={handleBlur}
       >
@@ -28,7 +29,7 @@ const DefaultButton = ({
         {isLoading ? (
           <div role="status" className="px-3">
             <svg
-              className="inline w-5 h-5 text-primary-white animate-spin fill-primary-blue"
+              className="inline w-5 h-5 text-primary-white animate-spin fill-[#50468c]"
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"

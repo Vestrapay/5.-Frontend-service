@@ -10,8 +10,9 @@ function OnBoardingLayout({ page, children }: any) {
     const router = useRouter()
     const { stage } = router.query
 
-    const [route, setRoute] = useState<boolean>(false)
-    const [windowWidth, setWindowWidowWidth] = useState<number>(0)
+    const [route, setRoute] = useState<boolean>(false);
+    const [title, setTitle] = useState<string>("Sign Up");
+    const [windowWidth, setWindowWidowWidth] = useState<number>(0);
 
     useEffect(() => {
         if (page == 'signin') setRoute(true); else setRoute(false)
@@ -25,28 +26,60 @@ function OnBoardingLayout({ page, children }: any) {
         return () => {
             window.removeEventListener('resize', () =>
                 setWindowWidowWidth(window.innerWidth),
-            )
+            ) 
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [page])
 
+    const findTitle = (page: string) => {
+        switch (page) {
+            case 'signin':
+                return ("Sign In");
+            case 'changepass':
+                return ("Change Password");
+            case 'reset':
+                return ("Reset Password");
+            case 'signup':
+                return ("Sign Up");
+            case 'createpass':
+                return ("Create Password");
+            case 'verifySignUp':
+                return ("Verify Sign-Up");
+            case 'verifySignIn':
+                return ("Verify Sign-In");
+            default:
+                return ("Sign Up");
+        }
+
+    }
+
+
     return (
 
         <>
-            <div className=" w-full min-h-[100vh] h-[100%] bg-blue-darker login-bg">
-                <div className=" w-full min-h-[100vh] h-[100%] bg-blue-darker">
-                    {/* <div className=" relative h-full"> */}
-                    <div className='flex absolute w-full top-[25px] justify-between left-0 sm:justify-between  sm:left-[0px] px-10 z-100 bg-blue-darker'>
 
-                        <Image src={'/assets/svg/medusaLogo.svg'} alt="" width={120} height={100} />
-                        {stage && <div className="cursor-pointer" onClick={() => router.push("/dashboard")}><LightCloseIcon /></div>}
+            <div className="relative bg-grayer w-full h-[100vh] overflow-y-auto text-left text-base text-text flex justify-center font-nunito">
+                <div className="sm:w-2/3 lg:w-1/3 xl:w-1/4 w-full bg-white h-full py-10 px-5 flex flex-col items-center">
+                    <div className=" flex flex-col justify-center items-center py-20 w-full">
+                        <img
+                            className="w-[92px] h-[92px]"
+                            alt=""
+                            src="/logo.svg"
+                        />
+                        <p className="top-[0px] left-[0px] font-semibold inline-block w-[100%] text-center h-7 text-[25px] font-nunito">
+                            {findTitle(page) || ""}
+                        </p>
+
                     </div>
-                    
-                    {/* </div> */}
-                    <div className="h-[90%] py-10 ">
-                        {children ||
-                            <span></span>
-                        }
+
+                    <div className=" flex flex-col justify-center items-center w-full px-10 ">
+                        <img
+                            className="mb-10 w-full h-px"
+                            alt=""
+                            src="/or.svg"
+                        />
+
+                        {children}
                     </div>
                 </div>
             </div>

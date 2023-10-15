@@ -17,6 +17,7 @@ export type DefaultInputType = {
     labelVariant?: string,
     containerVariant?: string,
     icon?: any,
+    info?: string,
     required?: boolean,
     validate?: boolean,
     validationFunc: () => any,
@@ -30,6 +31,7 @@ export type DefaultInputType = {
     minLength: number,
     noLabel: boolean,
     confirm?: boolean,
+    data?: any,
     checkNum?: boolean
 }
 export type DefaultTextAreaType = {
@@ -63,6 +65,7 @@ export type DefaultDatePickerType = {
 
 export type DefaultButtonType = {
     labelText: any,
+    type?: string;
     handleClick?: MouseEventHandler<HTMLButtonElement> | undefined,
     isDisabled?: boolean;
     variant?: string;

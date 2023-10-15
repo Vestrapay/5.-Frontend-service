@@ -18,103 +18,265 @@ export const endPoints: endPointlistTypes = {
 
     //Authentication
     loginUser: {
-        url: '/api/v1/virtualservice/auth/login',
+        url: '/api/v1/auth/login',
         method: 'POST',
         headers: headers,
     },
     changePassword: {
-        url: '/api/v1/virtualservice/auth/changePassword',
+        url: '/api/v1/auth/change-password',
         method: 'POST',
         headers: headers,
         auth: true
     },
     resetPassword: {
-        url: '/api/v1/virtualservice/auth/resetPassword',
+        url: '/api/v1/auth/reset-password',
+        method: 'POST',
+        headers: headers
+    },
+    forgotPassword: {
+        url: '/api/v1/auth/forgotPassword',
         method: 'POST',
         headers: headers,
         auth: true
     },
-    forgotPassword: {
-        url: '/api/v1/virtualservice/auth/forgotPassword',
+
+    //dashboardStats 
+    dashboardAnalytics: {
+        url: '/api/v1/dashboard/analytics',
         method: 'POST',
+        headers: headers,
+        auth: true
+    },
+    dashboardStats: {
+        url: '/api/v1/dashboard/statistics',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+    dashboardNotif: {
+        url: '/api/v1/dashboard/notification',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+    dashboardTrans: {
+        url: '/api/v1/dashboard/get-recent-transactions',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+
+
+    topBranches: {
+        url: '/api/v1/merchantdashboard/topBranches',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+    transactionVolumes: {
+        url: '/api/v1/merchantdashboard/transactionVolumes',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+
+    //Business
+    viewBusiness: {
+        url: '/api/v1/business/view',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+    updateBusiness: {
+        url: '/api/v1/business/update',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+    createBusiness: {
+        url: '/api/v1/business/register',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+
+    //Users 
+    listSettlement: {
+        url: '/api/v1/settlement/view-all',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+    createSettlement: {
+        url: '/api/v1/settlement/create',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+    updateSettlement: {
+        url: '/api/v1/settlement/update',
+        method: 'PUT',
+        headers: headers,
+        auth: true
+    },
+    makePrimarySettlement: {
+        url: '/api/v1/settlement/primary',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+    removeSettlement: {
+        url: '/api/v1/settlement/remove',
+        method: 'DELETE',
+        headers: headers,
+        auth: true
+    },
+
+    //API-KEYS
+    getKeys: {
+        url: '/api/v1/key/get-keys',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+    generateKeys: {
+        url: '/api/v1/key/generate-keys',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+
+    //TRANSACTIONS
+    getTransactions: {
+        url: '/api/v1/transactions/get-transactions',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+
+    //WEB-HOOKS
+    getWebHook: {
+        url: '/api/v1/webhook/view-webhook',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+    createHooks: {
+        url: '/api/v1/webhook/create-webhook',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+
+
+    //Users 
+    usersList: {
+        url: '/api/v1/user/view-all-merchant-users',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+    merchantCreateUser: {
+        url: '/api/v1/user/merchant-create-user',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+
+    createUser: {
+        url: '/api/v1/user/register',
+        method: 'POST',
+        headers: headers,
+        auth: false
+    },
+
+    updateUser: {
+        url: '/api/v1/user/merchant-update-user',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+    updateAUser: {
+        url: '/api/v1/user/update',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+
+    deleteUser: {
+        url: '/api/v1/user/delete',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+    deleteMerchantUser: {
+        url: '/api/v1/user/delete-merchant-user',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+
+    getUser: {
+        url: '/api/v1/user/view-merchant-user',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+
+    getAUser: {
+        url: '/api/v1/user/view-user',
+        method: 'GET',
         headers: headers,
         auth: true
     },
 
     //Accounts
     accountList: {
-        url: '/api/v1/virtualservice/account/view',
+        url: '/api/v1/account/view',
         method: 'GET',
         headers: headers,
         auth: true
     },
     createAccount: {
-        url: '/api/v1/virtualservice/account/create',
+        url: '/api/v1/account/create',
         method: 'POST',
         headers: headers,
         auth: true
     },
     updateAccount: {
-        url: '/api/v1/virtualservice/account/update',
+        url: '/api/v1/account/update',
         method: 'PUT',
         headers: headers,
         auth: true
     },
     getAccount: {
-        url: '/api/v1/virtualservice/account/getdetails',
+        url: '/api/v1/account/getdetails',
         method: 'GET',
         headers: headers,
         auth: true
     },
-
-    //Users
-    usersList: {
-        url: '/api/v1/virtualservice/user/view',
-        method: 'GET',
-        headers: headers,
-        auth: true
-    },
-    createUser: {
-        url: '/api/v1/virtualservice/user/create',
-        method: 'POST',
-        headers: headers,
-        auth: true
-    },
-    updateUser: {
-        url: '/api/v1/virtualservice/user/update',
-        method: 'PUT',
-        headers: headers,
-        auth: true
-    },
-    getUser: {
-        url: '/api/v1/virtualservice/user/view/single',
-        method: 'GET',
-        headers: headers,
-        auth: true
-    },
-
 
     //Institutions
     institutionsList: {
-        url: '/api/v1/virtualservice/institution/view',
+        url: '/api/v1/institution/view',
         method: 'GET',
         headers: headers,
         auth: true
     },
     createInstitution: {
-        url: '/api/v1/virtualservice/institution/create',
+        url: '/api/v1/institution/create',
         method: 'POST',
         headers: headers,
         auth: true
     },
     updateInstitution: {
-        url: '/api/v1/virtualservice/institution/update',
+        url: '/api/v1/institution/update',
         method: 'PUT',
         headers: headers,
         auth: true
     },
     getInstitution: {
-        url: '/api/v1/virtualservice/user/institution/single',
+        url: '/api/v1/user/institution/single',
         method: 'GET',
         headers: headers,
         auth: true
@@ -122,21 +284,21 @@ export const endPoints: endPointlistTypes = {
 
     //Reports
     transactionList: {
-        url: '/api/v1/virtualservice/transaction/view',
+        url: '/api/v1/transaction/view',
         method: 'GET',
         headers: headers,
         auth: true
     },
 
     settlementList: {
-        url: '/api/v1/virtualservice/settlement/view',
+        url: '/api/v1/settlement/view',
         method: 'GET',
         headers: headers,
         auth: true
     },
 
     settlementTransactionList: {
-        url: '/api/v1/virtualservice/settlement/view/transaction',
+        url: '/api/v1/settlement/view/transaction',
         method: 'GET',
         headers: headers,
         auth: true
@@ -144,25 +306,25 @@ export const endPoints: endPointlistTypes = {
 
     //Institutions
     banksList: {
-        url: '/api/v1/virtualservice/bank/view',
+        url: '/api/v1/bank/view',
         method: 'GET',
         headers: headers,
         auth: true
     },
     createBank: {
-        url: '/api/v1/virtualservice/bank/create',
+        url: '/api/v1/bank/create',
         method: 'POST',
         headers: headers,
         auth: true
     },
     updateBank: {
-        url: '/api/v1/virtualservice/bank/update',
+        url: '/api/v1/bank/update',
         method: 'PUT',
         headers: headers,
         auth: true
     },
     getBank: {
-        url: '/api/v1/virtualservice/user/bank/single',
+        url: '/api/v1/user/bank/single',
         method: 'GET',
         headers: headers,
         auth: true
@@ -171,51 +333,51 @@ export const endPoints: endPointlistTypes = {
 
     //Settings
     getAllRoles: {
-        url: '/api/v1/virtualservice/role/getAll',
+        url: '/api/v1/role/getAll',
         method: 'GET',
         headers: headers,
         auth: true
     },
     getAllBanks: {
-        url: '/api/v1/virtualservice/bank/getAll',
+        url: '/api/v1/bank/getAll',
         method: 'GET',
         headers: headers,
         auth: true
     },
-
-
-    generateOtp: {
-        url: '/api/v1/virtualservice/otp/generate',
-        method: 'POST',
-        headers: headers,
-        auth: true
-    },
-    validateOtp: {
-        url: '/api/v1/virtualservice/otp/validate',
-        method: 'POST',
-        headers: headers,
-        auth: true
-    },
     uploadUtility: {
-        url: '/api/v1/virtualservice/document/upload_file',
+        url: '/api/v1/kyc/upload',
         method: 'POST',
         headers: FileHeaders,
         auth: true
     },
+
+
+
+    generateOtp: {
+        url: '/api/v1/auth/resend-otp',
+        method: 'POST',
+        headers: headers
+    },
+    validateOtp: {
+        url: '/api/v1/auth/verify-otp',
+        method: 'POST',
+        headers: headers
+    },
+
     uploadMOI: {
-        url: '/api/v1/virtualservice/merchant/upload_means_of_identity',
+        url: '/api/v1/merchant/upload_means_of_identity',
         method: 'POST',
         headers: FileHeaders,
         auth: true
     },
     uploadRegDoc: {
-        url: '/api/v1/virtualservice/merchant/upload_business_reg_doc',
+        url: '/api/v1/merchant/upload_business_reg_doc',
         method: 'POST',
         headers: FileHeaders,
         auth: true
     },
     listBanks: {
-        url: '/api/v1/virtualservice/banks/getBanks',
+        url: '/api/v1/banks/getBanks',
         method: 'GET',
         headers: headers,
         auth: true
@@ -225,7 +387,7 @@ export const endPoints: endPointlistTypes = {
     //fund transfer
 
     accNameEnquiry: {
-        url: '/api/v1/virtualservice/fundsTransfer/nameEnquiry',
+        url: '/api/v1/fundsTransfer/nameEnquiry',
         method: 'POST',
         headers: headers,
         auth: true
@@ -233,29 +395,10 @@ export const endPoints: endPointlistTypes = {
 
 
 
-    //dashboardStats
-    dashboardStats: {
-        url: '/api/v1/virtualservice/merchantdashboard/stats',
-        method: 'GET',
-        headers: headers,
-        auth: true
-    },
-    topBranches: {
-        url: '/api/v1/virtualservice/merchantdashboard/topBranches',
-        method: 'GET',
-        headers: headers,
-        auth: true
-    },
-    transactionVolumes: {
-        url: '/api/v1/virtualservice/merchantdashboard/transactionVolumes',
-        method: 'GET',
-        headers: headers,
-        auth: true
-    },
 
     //branch management
     listBranch: {
-        url: '/api/v1/virtualservice/merchant/listBranch',
+        url: '/api/v1/merchant/listBranch',
         method: 'GET',
         headers: headers,
         auth: true
@@ -263,7 +406,7 @@ export const endPoints: endPointlistTypes = {
 
     branchTransactions: {
 
-        url: '/api/v1/virtualservice/transaction/getBranchTransactionHistory',
+        url: '/api/v1/transaction/getBranchTransactionHistory',
         method: 'GET',
         headers: headers,
         auth: true
@@ -271,37 +414,37 @@ export const endPoints: endPointlistTypes = {
 
     branchTransactionsStat: {
 
-        url: '/api/v1/virtualservice/transaction/getBranchTerminalTransactionStat',
+        url: '/api/v1/transaction/getBranchTerminalTransactionStat',
         method: 'GET',
         headers: headers,
         auth: true
     },
     createBranch: {
-        url: '/api/v1/virtualservice/branch/createBranch',
+        url: '/api/v1/branch/createBranch',
         method: 'POST',
         headers: headers,
         auth: true
     },
     deleteBranch: {
-        url: '/api/v1/virtualservice/branch/deleteBranch',
+        url: '/api/v1/branch/deleteBranch',
         method: 'DELETE',
         headers: headers,
         auth: true
     },
     deactivateBranch: {
-        url: '/api/v1/virtualservice/branch/deactivate',
+        url: '/api/v1/branch/deactivate',
         method: 'PATCH',
         headers: headers,
         auth: true
     },
     branchDetails: {
-        url: '/api/v1/virtualservice/branch/getBranch',
+        url: '/api/v1/branch/getBranch',
         method: 'GET',
         headers: headers,
         auth: true
     },
     branchTerminals: {
-        url: '/api/v1/virtualservice/branch/listTerminals',
+        url: '/api/v1/branch/listTerminals',
         method: 'GET',
         headers: headers,
         auth: true
@@ -309,55 +452,55 @@ export const endPoints: endPointlistTypes = {
 
     //terminal management
     listTerminals: {
-        url: '/api/v1/virtualservice/merchant/listTerminals',
+        url: '/api/v1/merchant/listTerminals',
         method: 'GET',
         headers: headers,
         auth: true
     },
     requestTerminal: {
-        url: '/api/v1/virtualservice/terminal/requestTerminal',
+        url: '/api/v1/terminal/requestTerminal',
         method: 'POST',
         headers: headers,
         auth: true
     },
     renameTerminal: {
-        url: '/api/v1/virtualservice/terminal/renameTerminal',
+        url: '/api/v1/terminal/renameTerminal',
         method: 'PUT',
         headers: headers,
         auth: true
     },
     repairTerminal: {
-        url: '/api/v1/virtualservice/terminal/terminalRepairRequest',
+        url: '/api/v1/terminal/terminalRepairRequest',
         method: 'POST',
         headers: headers,
         auth: true
     },
     terminalDetails: {
-        url: '/api/v1/virtualservice/terminal/getTerminal',
+        url: '/api/v1/terminal/getTerminal',
         method: 'GET',
         headers: headers,
         auth: true
     },
     terminalStats: {
-        url: '/api/v1/virtualservice/terminal/terminalStats',
+        url: '/api/v1/terminal/terminalStats',
         method: 'GET',
         headers: headers,
         auth: true
     },
     terminalLinkRequest: {
-        url: '/api/v1/virtualservice/terminal/linkTerminal',
+        url: '/api/v1/terminal/linkTerminal',
         method: 'PUT',
         headers: headers,
         auth: true
     },
     terminalUnlinkRequest: {
-        url: '/api/v1/virtualservice/terminal/terminalUnlinkRequest',
+        url: '/api/v1/terminal/terminalUnlinkRequest',
         method: 'PUT',
         headers: headers,
         auth: true
     },
     deactivateTerminal: {
-        url: '/api/v1/virtualservice/terminal/deactivateTerminal',
+        url: '/api/v1/terminal/deactivateTerminal',
         method: 'PUT',
         headers: headers,
         auth: true
@@ -365,14 +508,14 @@ export const endPoints: endPointlistTypes = {
 
     //merchant management
     getMerchantDetails: {
-        url: '/api/v1/virtualservice/merchant/getMerchants/user/',
+        url: '/api/v1/merchant/getMerchants/user/',
         method: 'GET',
         headers: headers,
         auth: true
     },
 
     getMerchant: {
-        url: '/api/v1/virtualservice/merchant/getMerchants/user/',
+        url: '/api/v1/merchant/getMerchants/user/',
         method: 'GET',
         headers: headers,
         auth: true
@@ -380,21 +523,21 @@ export const endPoints: endPointlistTypes = {
 
 
     getMerchantAdmins: {
-        url: '/api/v1/virtualservice/user/all',
+        url: '/api/v1/user/all',
         method: 'GET',
         headers: headers,
         auth: true
     },
 
     creaeteMerchantUser: {
-        url: '/api/v1/virtualservice/user/create',
+        url: '/api/v1/user/create',
         method: 'POST',
         headers: headers,
         auth: true
     },
 
     creaeteMerchantAdmins: {
-        url: '/api/v1/virtualservice/user/merchantAdmin',
+        url: '/api/v1/user/merchantAdmin',
         method: 'POST',
         headers: headers,
         auth: true
@@ -402,49 +545,42 @@ export const endPoints: endPointlistTypes = {
 
     //merchant management
     getInstitutionDetails: {
-        url: '/api/v1/virtualservice/merchant/getMerchants/user/',
+        url: '/api/v1/merchant/getMerchants/user/',
         method: 'GET',
         headers: headers,
         auth: true
     },
 
     getInstitutionAdmins: {
-        url: '/api/v1/virtualservice/user/all',
+        url: '/api/v1/user/all',
         method: 'GET',
         headers: headers,
         auth: true
     },
 
     creaeteInstitutionUser: {
-        url: '/api/v1/virtualservice/user/create',
+        url: '/api/v1/user/create',
         method: 'POST',
         headers: headers,
         auth: true
     },
 
-    deleteUser: {
-        url: '/api/v1/virtualservice/user/deleteUser',
-        method: 'PUT',
-        headers: headers,
-        auth: true
-    },
-
     deactivateUser: {
-        url: '/api/v1/virtualservice/user/deactivateUser',
+        url: '/api/v1/user/deactivateUser',
         method: 'PUT',
         headers: headers,
         auth: true
     },
 
     editUser: {
-        url: '/api/v1/virtualservice/merchant/updateProfile',
+        url: '/api/v1/merchant/updateProfile',
         method: 'PATCH',
         headers: headers,
         auth: true
     },
 
     creaeteInstitutionAdmins: {
-        url: '/api/v1/virtualservice/user/merchantAdmin',
+        url: '/api/v1/user/merchantAdmin',
         method: 'POST',
         headers: headers,
         auth: true
@@ -452,35 +588,35 @@ export const endPoints: endPointlistTypes = {
 
     //Transaction Management
     transSummary: {
-        url: '/api/v1/virtualservice/transaction/getMerchantBranchTransactionSummary',
+        url: '/api/v1/transaction/getMerchantBranchTransactionSummary',
         method: 'GET',
         headers: headers,
         auth: true
     },
 
     transHistory: {
-        url: '/api/v1/virtualservice/transaction/getMerchantTransactionHistory',
+        url: '/api/v1/transaction/getMerchantTransactionHistory',
         method: 'GET',
         headers: headers,
         auth: true
     },
 
     eodReport: {
-        url: '/api/v1/virtualservice/report/endOfDayReport',
+        url: '/api/v1/report/endOfDayReport',
         method: 'GET',
         headers: headers,
         auth: true
     },
 
     singleTrans: {
-        url: '/api/v1/virtualservice/transaction/getDetails',
+        url: '/api/v1/transaction/getDetails',
         method: 'GET',
         headers: headers,
         auth: true
     },
 
     disburseFunds: {
-        url: '/api/v1/virtualservice/fundsTransfer/disburse',
+        url: '/api/v1/fundsTransfer/disburse',
         method: 'POST',
         headers: headers,
         auth: true
@@ -488,14 +624,14 @@ export const endPoints: endPointlistTypes = {
 
     //roles management
     getRoles: {
-        url: '/api/v1/virtualservice/roles/all',
+        url: '/api/v1/roles/all',
         method: 'GET',
         headers: headers,
         auth: true
     },
 
     selfOnboarding: {
-        url: '/api/v1/virtualservice/merchant/selfOnboarding',
+        url: '/api/v1/merchant/selfOnboarding',
         method: 'POST',
         headers: headers,
     }

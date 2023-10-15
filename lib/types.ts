@@ -1,5 +1,5 @@
 import React from "react";
-import {LinkProps} from "next/link";
+import { LinkProps } from "next/link";
 
 export type MenuItems = {
     id: number,
@@ -43,3 +43,43 @@ export type SidebarContextProps = {
 }
 
 export type CardProviderProps = "mastercard" | "visa" | "verve"
+
+export type Gender = "MALE" | "FEMALE"
+
+export type UserDetailProps = {
+    id?: number,
+    uuid?: string,
+    country?: string,
+    firstName?: string,
+    lastName?: string,
+    email?: string,
+    phoneNumber?: string,
+    businessName?: string,
+    merchantId?: string,
+    referralCode?: string,
+    userType?: string,
+    createdAt?: Date | string,
+    updatedAt?: Date | string,
+    enabled?: boolean,
+    kycCompleted?: boolean,
+    username?: string,
+    authorities?: any[],
+    action?: string,
+    address?: string,
+}
+
+
+export type CreateUserProps = {
+    firstName: string,
+    lastName: string,
+    email: string,
+    phone: string,
+    gender: Gender | string,
+    address: string,
+    userRole: string,
+}
+
+export type SettingsNavProps = {
+    name: string,
+    href: string,
+}

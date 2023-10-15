@@ -1,12 +1,12 @@
 
 import React from 'react';
 import Image from "next/image";
-import {CardLogo, Cloud, MasterCard} from "@public/assets";
-import {RiVisaLine} from "react-icons/ri";
+import { CardLogo, Cloud, MasterCard } from "@reusables/images";
+import { RiVisaLine } from "react-icons/ri";
 
-const AtmCard = ({debitCardNumber="5789546256772847", cardHolder="Omonigho Isaiah", expiryDate="06/26", cardProvider = "", isActivated}) => {
+const AtmCard = ({ debitCardNumber = "000000000000", cardHolder = "Omonigho Isaiah", expiryDate = "00/00", cardProvider = "", isActivated=true }: any) => {
 
-    const groups:string[] = []
+    const groups: string[] = []
 
     for (let i = 0; i < debitCardNumber.length; i += 4) {
         groups.push(debitCardNumber.slice(i, i + 4))
@@ -20,7 +20,7 @@ const AtmCard = ({debitCardNumber="5789546256772847", cardHolder="Omonigho Isaia
 
     return (
         <div className={`flex relative w-[750px] h-[196px] ${isActivated ? "bg-slate-400" : "bg-selected"} rounded-xl flex-col p-5 drop-shadow-md`}>
-            <Image src={CardLogo} alt={"card-logo"} className="flex mb-0"/>
+            <Image src={CardLogo} alt={"card-logo"} className="flex mb-0" />
             <p className="opacity-50 text-card text-[8px]">PREMIUM ACCOUNT</p>
             <div className="flex gap-4 items-center justify-start tracking-widest">
                 {
@@ -40,11 +40,11 @@ const AtmCard = ({debitCardNumber="5789546256772847", cardHolder="Omonigho Isaia
                 </div>
                 {
                     cardProvider === "visa"
-                        ? <RiVisaLine size={30}/>
-                        : <Image src={MasterCard} alt={"mastercard"} className="z-20"/>
+                        ? <RiVisaLine size={30} />
+                        : <Image src={MasterCard} alt={"mastercard"} className="z-20" />
                 }
             </div>
-            <Image src={Cloud} alt={"cloud"} className="absolute right-0 bottom-0 z-0"/>
+            <Image src={Cloud} alt={"cloud"} className="absolute right-0 bottom-0 z-0" />
         </div>
     );
 };

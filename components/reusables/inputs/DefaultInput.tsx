@@ -30,6 +30,7 @@ const DefaultInput = forwardRef<any, any>(({
     compare,
     readOnly,
     checkNum,
+    info = "",
     isDisabled = false
 }: DefaultInputType) => {
 
@@ -92,12 +93,12 @@ const DefaultInput = forwardRef<any, any>(({
         <div className={containerVariant}>
             {label &&
                 <label htmlFor={`input${name}`} className={`text-blackish font-300 ${labelVariant}`}>
-                    {topLabel} {required ? <span className='text-red-100'>*</span> : ""}
+                    {topLabel} {required ? <span className='text-red-500'>*</span> : ""}
                 </label>
             }
 
             <div className={`relative group w-full leading-6 text-sm font-500 border px-6 py-0 rounded-lg 
-            ${type === 'password' ? "pr-[57.5px]" : validate ? "pr-[77.5px]" : ""} ${topLabel ? "mt-2" : ""}  ${!isDisabled ? "bg-gray-50" : "bg-gray-100"} 
+            ${type === 'password' ? "pr-[57.5px]" : validate ? "pr-[77.5px]" : ""} ${topLabel ? "mt-2" : ""}  ${!isDisabled ? "bg-gray-50" : "bg-gray-200 text-gray-300"} 
             ${error ? 'border-red-500 focus:border-red-500' : confirm ? ' border-green-500' : ''} ${variant}`}
             >
                 {icon}
@@ -129,10 +130,10 @@ const DefaultInput = forwardRef<any, any>(({
 
                     {!validate ? null :
                         <div className={`relative cursor-pointer flex items-center justify-center`}>
-                            <div className="absolute mb-1.5 bottom-4 right-4 flex flex-col items-center group">
+                            <div className="absolute mb-1.5 bottom-1 right-4 flex flex-col items-center group">
                                 <SmPasswordCheckIcon />
-                                <div className="absolute bottom-0 flex flex-col items-center  mb-6 hidden group-hover:flex min-w-[100%]">
-                                    <div className="relative z-10 p-2 text-xs leading-none  whitespace-no-wrap bg-[#181d32] shadow-lg rounded-md border-black-200  min-w-[260px] px-4 py-4">
+                                <div className="absolute bottom-0 flex flex-col items-center mb-6 hidden group-hover:flex min-w-[100%]">
+                                    <div className="relative z-10 p-2 -left-1 text-xs leading-none  whitespace-no-wrap bg-[#181d32] shadow-lg rounded-md border-black-200  min-w-[260px] px-4 py-4">
                                         <div>
                                             <div className='flex gap-2 items-center font-300 text-xs text-gray-200 py-2'>
                                                 <span>
@@ -175,6 +176,11 @@ const DefaultInput = forwardRef<any, any>(({
                         confirmPassword && compare == value && compare !== "" ?
                             (<p className="text-green-500 text-xs h-auto py-1">{"Your passwords match"}</p>)
                             : ""
+            }
+            {
+                info && info != "" ?
+                    (<p className="text-gray-500 text-xs h-auto -pt-2">{info}</p>)
+                    : ""
             }
         </div>
     );

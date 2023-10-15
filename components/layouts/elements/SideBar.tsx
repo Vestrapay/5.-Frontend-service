@@ -5,19 +5,19 @@ import Image from 'next/image'
 // import router from 'next/router'
 import { useRouter } from 'next/router'
 import { Storage } from 'Utils/inAppstorage'
-import { Logo, ProfileImage3 } from "@public/assets";
+import { Logo, ProfileImage3 } from "@reusables/images";
 import { MenuItems, SubMenuItems } from "@types";
 import ActiveLinks from "@/components/links/activeLinks";
 import { useSideBarContext } from "@context";
 import { BsArrowLeft } from "react-icons/bs";
 import { motion } from "framer-motion";
-import { ExchangeRectangle, LogoutOpen } from "react-huge-icons/bulk";
+import { ExchangeRectangle, LogoutOpen, UserCircle } from "react-huge-icons/bulk";
 import { userRoles } from "@/components/layouts/elements/SideBarItems";
 
 function SideBar() {
 
     const dropdownNavLinks = ["transactions", "payments", "settings"]
-    const [selectedSubMenuItem, setSelectedSubMenuItem] = useState<MenuItems | SubMenuItems | null>();
+    const [selectedSubMenuItem, setSelectedSubMenuItem] = useState<MenuItems | null>();
 
     const [isSubCategorySelected, setIsSubCategorySelected] = useState(false)
 
@@ -25,24 +25,39 @@ function SideBar() {
 
     const router = useRouter();
 
-    const [displayName, setDisplayName] = useState("")
+    const [displayName, setDisplayName] = useState({
+        name: "",
+        userType: "",
+    })
 
-    const { name } = Storage.getItem("merchantDetails") || {}
+    const { details } = Storage.getItem("userDetails") || {}
+
 
     const { sidebarItems, setSidebarItems } = useSideBarContext()
 
+    const handelSubmit = async () => {
+        await Storage.clearItem();
+        await router.push("/login");
+    }
+
     useEffect(() => {
-        setDisplayName(name || "")
-    }, [name])
+        setDisplayName({
+            ...displayName,
+            name: details?.businessName || "",
+            userType: details?.userType || ""
+        })
+    }, []);
 
     useEffect(() => {
         setActiveLink(router.asPath)
-        if (dropdownNavLinks.includes(router.asPath.split("/")[2])) {
+        console.log(router.asPath)
+        if (dropdownNavLinks.includes(router.asPath.split("/")[1])) {
             console.log("supposed to reload sidebar")
-            sidebarItems.filter((item: MenuItems | SubMenuItems) => {
-                if (item.name.toLowerCase() === router.asPath.split("/")[2]) {
-                    setSelectedSubMenuItem(prevState => item)
+            sidebarItems.filter((item: any) => {
+                if (item.name.toLowerCase() === router.asPath.split("/")[1]) {
+                    setSelectedSubMenuItem(item)
                     setIsSubCategorySelected(true)
+                    console.log(item)
                 }
             })
         }
@@ -55,7 +70,7 @@ function SideBar() {
             <aside
                 className="min-h-[100vh] h-[100%] pt-5 pb-10 xl:h-full bg-white lg:drop-shadow-lg drop-shadow-lg z-50 lg:inset-x-auto inset-x-0 lg:inset-y-0 | self-start top-0 w-full max-w-[230px]  flex transition-all duration-300 ease-in-out fixed s"
             >
-                
+
                 <div className=' w-full flex flex-col gap-10  justify-between overflow-y-auto text-slate-500 font-medium'>
                     <div className=' w-full flex flex-col gap-1 text-slate-500 font-medium'>
                         <div className="w-full justify-center flex my-3">
@@ -63,7 +78,7 @@ function SideBar() {
                         </div>
                         <div className="flex flex-col gap-2 px-8">
                             {
-                                dropdownNavLinks.includes(activeLink.split("/")[2])
+                                dropdownNavLinks.includes(activeLink.split("/")[1])
                                     && selectedSubMenuItem && isSubCategorySelected
                                     ? (
                                         <div className="relative text-base">
@@ -81,7 +96,9 @@ function SideBar() {
                                             <p className="text-selected text-base my-2">{selectedSubMenuItem.name}</p>
                                             {
                                                 selectedSubMenuItem?.subMenuItems?.map((item: SubMenuItems, index: number) => (
-                                                    <div className="relative text-base">
+                                                    <div
+                                                        key={index}
+                                                        className="relative text-base">
 
                                                         {
                                                             <motion.div
@@ -108,7 +125,7 @@ function SideBar() {
                                         </div>
                                     )
                                     :
-                                    sidebarItems?.map((item: MenuItems | SubMenuItems, index: number) => (
+                                    sidebarItems?.map((item: MenuItems | any, index: number) => (
                                         <div key={index} className="relative text-base">
                                             {
                                                 activeLink === item.route
@@ -163,15 +180,19 @@ function SideBar() {
                                 className="font-bold">Production</span></p>
                         </motion.div>
                     </div>
-                    <div className="flex gap-2 items-center bottom-8  px-5">
-                        <Image src={ProfileImage3} alt={"profile"}
-                            className="rounded-2xl bg-rose-300 cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out"
-                        />
-                        <div className="flex flex-col justify-center items-center">
-                            <p className="text-xs text-slate-900 font-bold my-0">Omonigho Isaiah</p>
-                            <p className="text-xs text-slate-500 uppercase my-0">T23456 - USER</p>
+                    <div className="flex gap-2 items-center bottom-8 ml-5">
+
+                        <div className="flex justify-center items-center rounded-xl p-1 bg-slate-100  cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out">
+                            <UserCircle className={"w-7 h-7 text-unselected rounded-full "} />
                         </div>
-                        <LogoutOpen style={{ width: 24, height: 24 }} className="text-selected cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out hover:text-ultraMarine " />
+                        {/* <Image src={ProfileImage3} alt={"profile"}
+                            className="rounded-2xl bg-rose-300 cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out"
+                        /> */}
+                        <div className="flex flex-col justify-center items-start">
+                            <p className="text-xs text-slate-900 font-bold my-0">{displayName?.name || ""}</p>
+                            <p className="text-xs text-slate-500 uppercase my-0">{`${displayName?.userType + " " || ""}`}</p>
+                        </div>
+                        <LogoutOpen style={{ width: 24, height: 24 }} onClick={handelSubmit} className="text-selected cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out hover:text-ultraMarine " />
                     </div>
                 </div>
             </aside>

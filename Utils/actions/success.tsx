@@ -4,12 +4,13 @@ import { notify } from "./toaster";
 import { SmSuccessModalIcon } from "@/components/reusables/icons";
 
 
-export default function successAlert(details: { title: any; text: any; icon: any; }, response: { data: any; errs: any; message: any; statusCode: any; }) {
+export default function successAlert(details: { title: any; text: any; icon: any; }, response: { data: any; errors: any; message: any; statusCode: any; status: any }) {
 
 
     const { title, text, icon } = details || {}
-    const { data, errs, message, statusCode } = response || {}
-
+    const { data, errors, message, statusCode, status } = response || {}
+ 
+    
     return notify({ header: `${title ? title : "Successful!"}`, details: text ? text : message ? message : null, icon: <SmSuccessModalIcon /> })
 
     // let parsedData = !(data instanceof Object && !(data instanceof Array)) ? []

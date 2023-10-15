@@ -16,18 +16,18 @@ export const notify = ({ header, details, icon, errors }: any) => {
     return toast.custom((t) => (
         <div
             className={`${t.visible ? 'animate-enter' : 'animate-leave'}
-            w-96 max-w-fit w-fit bg-gray-800 shadow-lg rounded-lg 
-            pointer-events-auto flex`}
+            w-96 max-w-fit w-fit bg-white shadow-lg rounded-lg 
+            pointer-events-auto flex items-center`}
         >
             <div className="flex-1 w-0 p-4">
-                <div className="flex items-start">
+                <div className="flex items-center">
                     <div className="flex-shrink-0 pt-0.5">
                         <span style={{ width: 10, height: 10 }}>
                             {icon || <HiLightningBolt />}
                         </span>
                     </div>
                     <div className="ml-3 flex-1">
-                        <p className="text-base font-medium text-primary-white">
+                        <p className="text-base font-medium text-black">
                             {header || ""}
                         </p>
                         <p className="mt-1 text-sm text-gray-500">
@@ -42,12 +42,12 @@ export const notify = ({ header, details, icon, errors }: any) => {
             <div className="flex ">
                 <button
                     onClick={() => toast.dismiss(t.id)}
-                    className="w-full border-transparent rounded-none
-                     p-4 flex items-center justify-center text-sm 
+                    className="w-full border-none rounded-none
+                     p-4 flex items-center justify-center text-sm  bg-white
                     font-medium text-indigo-600 hover:text-indigo-500 
                     focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
-                    <MdOutlineClose color="white" size={25} />
+                    <MdOutlineClose color="black" size={25} />
                 </button>
             </div>
         </div>

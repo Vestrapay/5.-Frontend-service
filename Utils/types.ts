@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from "react"
+import React, { InputHTMLAttributes, ReactElement, ReactNode } from "react"
 import { MouseEventHandler } from "react"
 import { AxiosRequestHeaders } from "axios";
 
@@ -15,18 +15,45 @@ export type endpointTypes = {
 }
 
 export type endPointlistTypes = {
+    createUser: endpointTypes;
     loginUser: endpointTypes;
     changePassword: endpointTypes;
     forgotPassword: endpointTypes;
     dashboardStats: endpointTypes;
+    dashboardAnalytics: endpointTypes;
+    dashboardNotif: endpointTypes;
+    dashboardTrans: endpointTypes;
+
     accountList: endpointTypes;
     createAccount: endpointTypes;
     updateAccount: endpointTypes;
     getAccount: endpointTypes;
+
     usersList: endpointTypes;
-    createUser: endpointTypes;
     updateUser: endpointTypes;
+    updateAUser: endpointTypes;
     getUser: endpointTypes;
+    getAUser: endpointTypes;
+
+    viewBusiness: endpointTypes;
+    updateBusiness: endpointTypes;
+    createBusiness: endpointTypes;
+    listSettlement: endpointTypes;
+    updateSettlement: endpointTypes;
+    makePrimarySettlement: endpointTypes;
+    removeSettlement: endpointTypes;
+    createSettlement: endpointTypes;
+    
+    getKeys: endpointTypes;
+    generateKeys: endpointTypes;
+
+    getWebHook: endpointTypes;
+    createHooks: endpointTypes;
+    
+    getTransactions: endpointTypes;
+
+    deleteMerchantUser: endpointTypes;
+    merchantCreateUser: endpointTypes;
     getAllRoles: endpointTypes;
     institutionsList: endpointTypes;
     createInstitution: endpointTypes;
@@ -95,12 +122,14 @@ export type urlPropTypes = {
     name?: string
     data?: any
     params?: any
+    customHeaders?: {}
     action?: (data: any) => string[] | undefined
     errorAction?: (err: any) => string[] | undefined
     successDetails?: { title: any; text: any; icon: any; }
 }
 
 export type lecPropTypes = {
+    children?: any
     textVariant?: string,
     containerVariant?: string,
     error?: string

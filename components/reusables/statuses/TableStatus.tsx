@@ -21,13 +21,13 @@ const TableStatus = ({ status, children, statusText }: StatusBarType) => {
             case "UN_SETTLED":
             case "UNSETTLED":
             case "Disabled":
+            case false:
                 return setStatusColor('bg-red-500 text-red-500')
                 break;
             case 'PENDING':
                 return setStatusColor('bg-orange-250 text-orange-200')
                 break;
             case 'false':
-            case false:
                 return setStatusColor('bg-gray-300 text-gray-300')
                 break;
             case 'Not Paid':
@@ -55,7 +55,7 @@ const TableStatus = ({ status, children, statusText }: StatusBarType) => {
         <>
             <div className={`flex items-center justify-center gap-2 cursor-pointer`}>
                 <div className={`w-2.5 h-2.5 rounded-full ${statusColor}`}></div>
-                <p className={`font-200 text-sm min-w-max py-2 opacity-75 ${" text-gray-200"}`}>{statusText || children || status}</p>
+                <p className={`font-200 text-sm min-w-max py-2 opacity-75 ${" text-unselected"}`}>{statusText || children || status}</p>
             </div>
         </>
     )

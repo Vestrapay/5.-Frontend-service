@@ -9,7 +9,7 @@ import { Storage } from "Utils/inAppstorage";
 
 
 
-const baseUrl = (): any => "https://6892-2001-569-52c4-d700-4dc7-8a86-fdb8-d6fd.ngrok-free.app";//process.env.REACT_APP_BASE_URL;
+const baseUrl = (): any => "https://c7cc-2001-569-52c4-d700-1d62-c32e-6529-369d.ngrok-free.app";//process.env.REACT_APP_BASE_URL;
 
 
 
@@ -27,7 +27,7 @@ export const _set_root_url = (newUrl: any): any => newUrl
  */
 
 
-export const apiCall = ({ urlExtra, name, data = {}, params = {}, action = () => undefined, errorAction = () => undefined, successDetails = { title: "", text: "", icon: "" } }: urlPropTypes) => new Promise((res, rej) => {
+export const apiCall = ({ urlExtra, name, data = {}, params = {}, action = () => undefined, errorAction = () => undefined, successDetails = { title: "", text: "", icon: "" }, customHeaders = {} }: urlPropTypes) => new Promise((res, rej) => {
 
     let theName = name as keyof typeof endPoints
     let userDetails: any = Storage?.getItem('userDetails') || '{}'
@@ -37,22 +37,24 @@ export const apiCall = ({ urlExtra, name, data = {}, params = {}, action = () =>
 
     if (endPoints[theName].auth) headers['Authorization'] = `Bearer ${token}`
 
+
+
     axios({
         url: `${baseUrl()}${endPoints[theName] ? endPoints[theName].url : ""}${urlExtra ? urlExtra : ""}`,
         method: endPoints[theName] ? endPoints[theName].method : "",
-        headers: endPoints[theName] ? endPoints[theName].headers : undefined,
+        headers: endPoints[theName] ? { ...customHeaders, ...endPoints[theName].headers } : { ...customHeaders },
         data,
         params
     })
         .then(async r => {
             const returned = await action(r.data)
-            if ((r.data.respCode === "00" || r.data.respCode === "SUCCESS") && !returned?.includes("skip")) {
+            if ((r.data.statusCode === 201 || r.data.statusCode === 200 || r.status === 200 || r.status === 201) && !returned?.includes("skip")) {
                 successAlert(successDetails, r.data)
-                r?.data?.respBody ? res(r.data.respBody) : res(r.data)
-            } else if (r.data.respCode === "00" || r.status === 200) {
-                r?.data?.respBody ? res(r.data.respBody) : res(r.data)
+                r?.data?.data ? res(r.data.data) : res(r.data)
+            } else if (r.data.statusCode === "00" || r.status === 200 || r.status === 201) {
+                r?.data?.data ? res(r.data.data) : res(r.data)
             }
-            else if (r.data.respCode !== "00" && r.status !== 200) {
+            else if (r.data.statusCode !== "00" && r.status !== 200 && r.status !== 201) {
                 errorHandler(r)
             } else if (returned?.includes("push")) {
                 successAlert(successDetails, r.data)

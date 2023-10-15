@@ -7,47 +7,26 @@ Chart.register(CategoryScale, LinearScale, LineController, LineElement, PointEle
 
 function DashTransReport({ data }: any) {
 
-    const { thisWeekGraphData, lastWeekGraphData } = data
+    const thisDayGraphData = data
 
     const chartData = {
-        labels: thisWeekGraphData?.axis?.map((each: any) => each?.day) || ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        labels: thisDayGraphData?.axis?.map((each: any) => each?.day) || ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
         datasets: [
             {
-                data: thisWeekGraphData?.axis?.map((each: any) => each?.total) || [0, 0, 0, 0, 0, 0, 0],
-                label: 'This week',
+                data: thisDayGraphData?.map((each: any) => each?.amount) || [0, 0, 0, 0, 0, 0, 0],
+                label: 'Today',
                 fill: 'origin',
                 lineTension: 0.4,
-                borderColor: "#007AF4",
+                borderColor: "#382C7C",
                 // borderCapStyle: "butt",
                 borderDash: [],
                 borderDashOffset: 0.0,
                 // borderJoinStyle: "miter",
-                pointBorderColor: "#007AF4",
-                pointBackgroundColor: "#007AF4",
+                pointBorderColor: "#382C7C",
+                pointBackgroundColor: "#382C7C",
                 pointBorderWidth: 5,
                 pointHoverRadius: 5,
-                pointHoverBackgroundColor: "#007AF4",
-                pointHoverBorderColor: "transparent",
-                pointHoverBorderWidth: 2,
-                pointRadius: 1,
-                pointHitRadius: 10,
-                borderWidth: 3
-            },
-            {
-                data: lastWeekGraphData?.axis?.map((each: any) => each?.total) || [0, 0, 0, 0, 0, 0, 0],
-                label: 'Last week',
-                fill: 'origin',
-                lineTension: 0.4,
-                borderColor: "#FFAA09",
-                //   borderCapStyle: "butt",
-                borderDash: [],
-                borderDashOffset: 0.0,
-                //   borderJoinStyle: "miter",
-                pointBorderColor: "#FFAA09",
-                pointBackgroundColor: "#FFAA09",
-                pointBorderWidth: 5,
-                pointHoverRadius: 5,
-                pointHoverBackgroundColor: "#FFAA09",
+                pointHoverBackgroundColor: "#382C7C",
                 pointHoverBorderColor: "transparent",
                 pointHoverBorderWidth: 2,
                 pointRadius: 1,

@@ -18,11 +18,17 @@ module.exports = {
         },
         extend: {
             colors: {
-                gray: "#fafafa",
+                grayer: "#fafafa",
+                blackish: "#030229",
                 text: "#030229",
                 mediumslateblue: "#605bff",
                 darkslateblue: "#382c7c",
                 white: "#fff",
+                redish: "#BB4430",
+                red: {
+                  light: '#FFF0F4',
+                  error: '#EB0B00'
+                }
             },
             textColor: {
                 unselected: "#97a3bb",
@@ -30,13 +36,16 @@ module.exports = {
                 ultraMarine: "#030229",
                 card: "rgba(255, 255, 255, 0.39)",
                 green: "#439A86",
-                red: "#BB4430"
             },
             backgroundColor: {
                 selected: "#382C7C",
                 unselected: "#97a3bb",
                 dashboard: "#FAFAFB",
                 cardBlue: "#0D3151",
+                red: {
+                  light: '#FFF0F4',
+                  error: '#EB0B00'
+                },
                 card: "linear-gradient(180deg, #0D3151 0%, #0D3151 100%)",
             },
             boxShadowColor: {

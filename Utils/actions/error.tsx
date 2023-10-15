@@ -6,10 +6,16 @@ import { SmErrorModalIcon } from "@/components/reusables/icons";
 
 
 
-export const LoginErrorCard = ({ textVariant = "", containerVariant = "", error = "", handleClick = () => undefined, handleClear = () => undefined }: lecPropTypes) => {
+export const LoginErrorCard = ({ children = null, textVariant = "", containerVariant = "", error = "", handleClick = () => undefined, handleClear = () => undefined }: lecPropTypes) => {
     return (
-        <div className={`relative w-full bg-red-100 rounded-md border-l-4 border-red-error px-4 py-5 flex items-center ${containerVariant}`}>
-            <p className={`text-gray-900  w-fit text-sm font-400 leading-5 pr-5 ${textVariant}`}> {error} </p>
+        <div className={`relative w-full bg-red-light rounded-md border-l-4 border-red-error px-4 py-3 my-5 flex items-center ${containerVariant}`}>
+            {children ?
+                <div className={`text-gray-900 w-fit text-sm font-400 leading-5 pr-5 ${textVariant}`}>
+                    {children}
+                </div>
+                :
+                <p className={`text-gray-900 w-fit text-sm font-400 leading-5 pr-5 ${textVariant}`}> {error} </p>
+            }
             <div onClick={handleClear} className='absolute right-0 pr-3 cursor-pointer' >
                 <BsX color="#EB0B00" size={30} />
             </div>

@@ -10,7 +10,7 @@ const DashNavbar = () => {
         <div className="flex justify-between">
             <p className="text-ultraMarine text-2xl flex justify-start">Dashboard</p>
             <div className="flex justify-end items-center gap-3 text-card">
-                <DateTimePicker
+                {/* <DateTimePicker
                     views={['year', 'month', 'day', 'hours', 'minutes']}
                     value={dateValue}
                     onChange={(date) => {
@@ -36,7 +36,7 @@ const DashNavbar = () => {
                         },
                     }}
                     className="flex items-center justify-center"
-                />
+                /> */}
                 <p className="text-sm w-[130px] h-[40px] flex justify-center items-center bg-selected p-4 rounded-md text-white">TEST</p>
             </div>
         </div>

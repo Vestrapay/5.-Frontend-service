@@ -23,14 +23,20 @@
       "@/components/*": [
         "components/*"
       ],
+      "@reusables/*": [
+        "components/reusables/*"
+      ],
       "@public/*": [
         "public/*"
+      ],
+      "@assets/*": [
+        "public/assets/*"
       ],
       "@styles/*": [
         "styles/*"
       ],
       "@utils/*": [
-        "utils/*"
+        "Utils/*"
       ],
       "@Utils/*": [
         "Utils/*"
