@@ -9,7 +9,7 @@ import router from 'next/router';
 
 
 //Fetching transaction list data 
-const fetchUsersData = (pageNo: any, pageSize: any, search: string) => {
+const fetchUsersData = (search: string) => {
 
     const func = async (): Promise<any> => {
         const response = await apiCall({
@@ -20,7 +20,7 @@ const fetchUsersData = (pageNo: any, pageSize: any, search: string) => {
     }
 
     const { isLoading, isError, error, isSuccess, data, refetch } = useQuery(
-        ["TRANSACTIONS_LIST_DATA", "stats", pageNo], () => func(),
+        ["TRANSACTIONS_LIST_DATA", "stats", search], () => func(),
         {
             refetchOnWindowFocus: false,
             // staleTime: 60000
@@ -29,13 +29,15 @@ const fetchUsersData = (pageNo: any, pageSize: any, search: string) => {
     return { isLoading, isError, error, isSuccess, data, refetch }
 }
 
-const TransactionController = (showDelete: any = false, showView: any = false, showCreate: any = false, pageNo: any = 0, pageSize: any = 20, search: string = "") => {
+const TransactionController = (search: string = "") => {
+    
+    //showDelete: any = false, showView: any = false, showCreate: any = false, pageNo: any = 0, pageSize: any = 20, 
 
-    const { isLoading, isError, error, isSuccess, data, refetch } = fetchUsersData(pageNo, pageSize, search);
+    const { isLoading, isError, error, isSuccess, data, refetch } = fetchUsersData(search);
 
     useEffect(() => {
         refetch()
-    }, [pageNo, pageSize, search, showView, showCreate, showDelete])
+    }, [search])
 
     return { isLoading, isError, error, isSuccess, data, refetch }
 
