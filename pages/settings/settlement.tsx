@@ -40,8 +40,6 @@ const Settlement = () => {
                             Settings - Settlement
                         </h1>
                     </header>
-
-
                     <div className="rounded-md bg-white h-full py-8 px-4 sm:px-16 w-full min-h-[100vh]">
 
                         {stateValues?.settementList && stateValues?.settementList?.length < 1 && !stateValues?.addSettlementCheck ?
