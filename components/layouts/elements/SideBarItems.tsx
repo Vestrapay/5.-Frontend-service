@@ -135,7 +135,7 @@ const topMenuItems: MenuItems[] = [
             },
             {
                 id: 4,
-                name: "Permission",
+                name: "Roles & Permissions",
                 route: '/settings/permission',
                 roles: ["USER", "ADMIN"]
             },
