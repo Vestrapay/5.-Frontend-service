@@ -31,6 +31,7 @@ export type DefaultInputType = {
     minLength: number,
     noLabel: boolean,
     confirm?: boolean,
+    textarea?: boolean,
     data?: any,
     checkNum?: boolean
 }

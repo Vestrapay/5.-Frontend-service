@@ -31,6 +31,7 @@ const DefaultInput = forwardRef<any, any>(({
     readOnly,
     checkNum,
     info = "",
+    textarea = false,
     isDisabled = false
 }: DefaultInputType) => {
 
@@ -102,22 +103,43 @@ const DefaultInput = forwardRef<any, any>(({
             ${error ? 'border-red-500 focus:border-red-500' : confirm ? ' border-green-500' : ''} ${variant}`}
             >
                 {icon}
-                <input
-                    id={`${label}-input${name}`}
-                    name={name}
-                    maxLength={maxLength}
-                    minLength={minLength}
-                    type={type === 'password' && passwordShown ? 'text' : type}
-                    onChange={onChange}
-                    onBlur={handleBlur}
-                    value={value}
-                    placeholder={placeHolder || topLabel}
-                    disabled={isDisabled}
-                    required={required || false}
-                    readOnly={readOnly || false}
-                    className={`outline-none placeholder:text-gray-300 text-blackish placeholder:text-sm placeholder:min-w-max w-full border-none
+                {!textarea ?
+                    <input
+                        id={`${label}-input${name}`}
+                        name={name}
+                        maxLength={maxLength}
+                        minLength={minLength}
+                        type={type === 'password' && passwordShown ? 'text' : type}
+                        onChange={onChange}
+                        onBlur={handleBlur}
+                        value={value}
+                        placeholder={placeHolder || topLabel}
+                        disabled={isDisabled}
+                        required={required || false}
+                        readOnly={readOnly || false}
+                        className={`outline-none placeholder:text-gray-300 text-blackish placeholder:text-sm placeholder:min-w-max w-full border-none
                     leading-6 text-sm font-300 px-0 py-3 bg-[#ffffff00] ${icon ? "pl-0" : ""} ${inputVariant}`}
-                />
+                    /> :
+                    <div>
+                        {maxLength &&
+                            <div className="right-5 top-[15px] absolute opacity-70 text-right text-slate-950 text-sm font-normal font-['Nunito']">{value?.length + "/" + maxLength}</div>}
+                        <textarea
+                            id={`${label}-input${name}`}
+                            rows={5}
+                            name={name}
+                            value={value}
+                            maxLength={maxLength}
+                            minLength={minLength}
+                            onChange={onChange}
+                            placeholder={placeHolder || topLabel}
+                            disabled={isDisabled}
+                            required={required || false}
+                            readOnly={readOnly || false}
+                            className={`h-36 py-2 outline-none placeholder:text-gray-300 text-blackish placeholder:text-sm w-full placeholder:min-w-max border-none
+                h-10 leading-6 text-sm font-300 px-0 py-3 bg-[#ffffff00] ${icon ? "pl-0" : ""} ${inputVariant}`}
+                        />
+                    </div>
+                }
                 {/* {label || name} */}
             </div>
             {type === 'password' ?
