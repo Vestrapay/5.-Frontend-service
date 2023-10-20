@@ -95,6 +95,7 @@ const CreateBusiness = () => {
                                 topLabel="Country"
                                 containerVariant="w-full py-2 col-span-2"
                                 data={CountriesJson}
+                                handleChange={handleChange}
                             />
 
                             <DefaultInput
