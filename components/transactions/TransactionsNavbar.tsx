@@ -1,14 +1,14 @@
 "use client"
-import React, {useState} from 'react';
-import {FaFileDownload} from "react-icons/fa";
-import {GridApiCommunity} from "@mui/x-data-grid/internals";
-import {GridValidRowModel} from "@mui/x-data-grid";
+import React, { useState } from 'react';
+import { FaFileDownload } from "react-icons/fa";
+import { GridApiCommunity } from "@mui/x-data-grid/internals";
+import { GridValidRowModel } from "@mui/x-data-grid";
 import XLSX from "sheetjs-style";
 import FileSaver from "file-saver";
-import {RiFileExcel2Fill} from "react-icons/ri"
-import {FaFileCsv} from "react-icons/fa"
+import { RiFileExcel2Fill } from "react-icons/ri"
+import { FaFileCsv } from "react-icons/fa"
 
-const TransactionsNavbar = ({apiRef, data}:{apiRef: React.MutableRefObject<GridApiCommunity>, data:any | GridValidRowModel[]}) => {
+const TransactionsNavbar = ({ apiRef, data, name }: { apiRef: React.MutableRefObject<GridApiCommunity>, data: any | GridValidRowModel[], name?: string }) => {
 
     const [isHovered, setIsHovered] = useState(false);
 
@@ -26,7 +26,7 @@ const TransactionsNavbar = ({apiRef, data}:{apiRef: React.MutableRefObject<GridA
     return (
         <div className="flex justify-between">
             <p className="text-ultraMarine text-2xl flex justify-start">
-                Transactions - Txn.
+                {`Transactions - ${name || "Txn."}`}
             </p>
             <div
                 onMouseEnter={() => setIsHovered(true)}
@@ -35,7 +35,7 @@ const TransactionsNavbar = ({apiRef, data}:{apiRef: React.MutableRefObject<GridA
             >
                 <p
                     className="text-sm w-[130px] h-[40px] flex justify-center items-center bg-selected p-4 rounded-md text-white gap-3 cursor-pointer hover:bg-opacity-95 active:bg-opacity-80">
-                    <FaFileDownload className="text-sm"/>
+                    <FaFileDownload className="text-sm" />
                     Export
                 </p>
                 {
@@ -48,7 +48,7 @@ const TransactionsNavbar = ({apiRef, data}:{apiRef: React.MutableRefObject<GridA
                                 }}
                                 className="hover:bg-black/70 gap-2 m-0 p-2 text-xs w-full rounded-t-md flex items-center"
                             >
-                                <FaFileCsv className="text-xs"/>
+                                <FaFileCsv className="text-xs" />
                                 Export as CSV
                             </p>
                             <p
@@ -57,7 +57,7 @@ const TransactionsNavbar = ({apiRef, data}:{apiRef: React.MutableRefObject<GridA
                                 }}
                                 className="hover:bg-black/70 text-xs gap-2 m-0 p-2 w-full rounded-b-md flex items-center"
                             >
-                                <RiFileExcel2Fill className="text-xs"/>
+                                <RiFileExcel2Fill className="text-xs" />
                                 Export as Excel
                             </p>
                         </div>
