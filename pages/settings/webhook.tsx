@@ -62,39 +62,23 @@ const Webhook = () => {
                             isDisabled={stateValues?.isDisabled}
                         />
 
+
                     </div>
                     <div className="w-fit h-fit flex-col justify-start items-start gap-5 inline-flex">
-                        <div className="text-black text-xl font-normal font-['Nunito']">Webhook preferences</div>
+                        <div className="text-black text-xl font-normal font-['Nunito']"> Note:</div>
                         <div className="flex-col justify-start items-start gap-3 flex">
                             <div className=" flex flex-row w-full self-stretch items-center gap-2 grow shrink basis-0 relative">
                                 <div className="w-4 h-4 ">
                                     <div className="w-4 h-4 bg-indigo-900 rounded-full" />
                                 </div>
-                                <div className="w-full h-fit text-neutral-700 text-sm font-normal font-['Nunito']">Receive Webhook response in JSON format</div>
+                                <div className="w-full h-fit text-neutral-700 text-sm font-normal font-['Nunito']">
+                                    webhook responses are in JSON format</div>
                             </div>
                             <div className=" flex flex-row w-full self-stretch items-center gap-2 grow shrink basis-0 relative">
                                 <div className="w-4 h-4 ">
                                     <div className="w-4 h-4 bg-indigo-900 rounded-full" />
                                 </div>
-                                <div className="w-full h-fit text-neutral-700 text-sm font-normal font-['Nunito']">Enable Webhook retries</div>
-                            </div>
-                            <div className=" flex flex-row w-full self-stretch items-center gap-2 grow shrink basis-0 relative">
-                                <div className="w-4 h-4 ">
-                                    <div className="w-4 h-4 bg-indigo-900 rounded-full" />
-                                </div>
-                                <div className="w-full h-fit text-neutral-700 text-sm font-normal font-['Nunito']">Enable webhook for failed transactions</div>
-                            </div>
-                            <div className=" flex flex-row w-full self-stretch items-center gap-2 grow shrink basis-0 relative">
-                                <div className="w-4 h-4 ">
-                                    <div className="w-4 h-4 bg-indigo-900 rounded-full" />
-                                </div>
-                                <div className="w-full h-fit text-neutral-700 text-sm font-normal font-['Nunito']">Enable V3 Webhooks</div>
-                            </div>
-                            <div className=" flex flex-row w-full self-stretch items-center gap-2 grow shrink basis-0 relative">
-                                <div className="w-4 h-4 ">
-                                    <div className="w-4 h-4 bg-indigo-900 rounded-full" />
-                                </div>
-                                <div className="w-full h-fit text-neutral-700 text-sm font-normal font-['Nunito']">Enable Resend Webhook from the Dashboard</div>
+                                <div className="w-full h-fit text-neutral-700 text-sm font-normal font-['Nunito']">Webhook responses are retried every 5 minutes after failure</div>
                             </div>
                         </div>
                     </div>
