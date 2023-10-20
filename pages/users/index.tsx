@@ -280,13 +280,13 @@ const Users = () => {
                         }}
                     />
 
-                    <div className={`w-full sm:w-2/3 xl:w-1/4 ${isViewUser && selected ? "flex flex-col flex-nowrap" : "hidden"} absolute right-0 bg-white rounded-tl-xl rounded-bl-xl z-200 min-h-full p-5 shadow-xl transition-all duration-300 ease-in-out`}>
+                    <div className={`w-full sm:w-2/3 xl:w-1/4 ${isViewUser && selected ? "flex flex-col flex-nowrap" : "hidden"} absolute right-0 bg-white rounded-tl-xl rounded-bl-xl z-[2000] min-h-full p-5 shadow-xl transition-all duration-300 ease-in-out`}>
                         <UserDetails data={selectedDetails} />
                     </div>
-                    <div className={`w-full sm:w-2/3 xl:w-1/4 ${isEditUser && selected ? "flex flex-col flex-nowrap" : "hidden"} absolute right-0 bg-white rounded-tl-xl rounded-bl-xl z-200 min-h-full p-5 shadow-xl transition-all duration-300 ease-in-out`}>
+                    <div className={`w-full sm:w-2/3 xl:w-1/4 ${isEditUser && selected ? "flex flex-col flex-nowrap" : "hidden"} absolute right-0 bg-white rounded-tl-xl rounded-bl-xl z-[2000] min-h-full p-5 shadow-xl transition-all duration-300 ease-in-out`}>
                         <EditUserDetails data={selectedDetails} id={selected} />
                     </div>
-                    <div className={`w-full sm:w-2/3 xl:w-1/4  ${isCreateUser ? "flex flex-col flex-nowrap" : "hidden"} absolute right-0 bg-white rounded-tl-xl rounded-bl-xl z-200 min-h-full p-5 shadow-xl transition-all duration-300 ease-in-out`}>
+                    <div className={`w-full sm:w-2/3 xl:w-1/4  ${isCreateUser ? "flex flex-col flex-nowrap" : "hidden"} absolute right-0 bg-white rounded-tl-xl rounded-bl-xl z-[2000] min-h-full p-5 shadow-xl transition-all duration-300 ease-in-out`}>
                         <CreateUser />
                     </div>
 
