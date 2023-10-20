@@ -43,14 +43,20 @@ export type endPointlistTypes = {
     makePrimarySettlement: endpointTypes;
     removeSettlement: endpointTypes;
     createSettlement: endpointTypes;
-    
+
     getKeys: endpointTypes;
     generateKeys: endpointTypes;
 
     getWebHook: endpointTypes;
     createHooks: endpointTypes;
-    
+
     getTransactions: endpointTypes;
+
+    listRoles: endpointTypes;
+    listPermission: endpointTypes;
+    addPermission: endpointTypes;
+    removePermission: endpointTypes;
+    createRole: endpointTypes;
 
     deleteMerchantUser: endpointTypes;
     merchantCreateUser: endpointTypes;

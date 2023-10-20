@@ -9,7 +9,7 @@ import { Storage } from "Utils/inAppstorage";
 
 
 
-const baseUrl = (): any => "https://c7cc-2001-569-52c4-d700-1d62-c32e-6529-369d.ngrok-free.app";//process.env.REACT_APP_BASE_URL;
+const baseUrl = (): any => "https://1b46-2001-569-52c4-d700-1192-bb06-7a1e-6968.ngrok-free.app";//process.env.REACT_APP_BASE_URL;
 
 
 
@@ -48,13 +48,13 @@ export const apiCall = ({ urlExtra, name, data = {}, params = {}, action = () =>
     })
         .then(async r => {
             const returned = await action(r.data)
-            if ((r.data.statusCode === 201 || r.data.statusCode === 200 || r.status === 200 || r.status === 201) && !returned?.includes("skip")) {
+            if ((r.data.statusCode === 201 || r.data.statusCode === 200 || r.status === 200 || r.status === 201 || r.status === 204) && !returned?.includes("skip")) {
                 successAlert(successDetails, r.data)
                 r?.data?.data ? res(r.data.data) : res(r.data)
-            } else if (r.data.statusCode === "00" || r.status === 200 || r.status === 201) {
+            } else if (r.data.statusCode === "00" || r.status === 200 || r.status === 201 || r.status === 204) {
                 r?.data?.data ? res(r.data.data) : res(r.data)
             }
-            else if (r.data.statusCode !== "00" && r.status !== 200 && r.status !== 201) {
+            else if (r.data.statusCode !== "00" && r.status !== 200 && r.status !== 201 || r.status === 204) {
                 errorHandler(r)
             } else if (returned?.includes("push")) {
                 successAlert(successDetails, r.data)

@@ -168,6 +168,42 @@ export const endPoints: endPointlistTypes = {
         auth: true
     },
 
+    //PERMISSIONS
+    listRoles: {
+        url: '/api/v1/roles/view-user-roles',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+
+    listPermission: {
+        url: '/api/v1/roles/view-all-permissions',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+
+    addPermission: {
+        url: '/api/v1/roles/add-permission-to-user',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+
+    createRole: {
+        url: '/api/v1/roles/create-role',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+
+    removePermission: {
+        url: '/api/v1/roles/remove-permission-from-user',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+
 
     //Users 
     usersList: {
