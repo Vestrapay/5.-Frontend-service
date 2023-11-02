@@ -148,7 +148,8 @@ const SignInController = (setPage: (val: string) => any, resetingPass: boolean, 
                 action: (res: any): any => {
                     localStorage.setItem('userDetails', JSON.stringify({
                         token: res?.message || "",
-                        details: res?.data || ""
+                        details: res?.data || "",
+                        isSuperAdmin: res?.data?.userType == "MERCHANT" || res?.data?.userType == "MERCHANTUSER" ? false : true
                     }))
                     console.log(res);
                     setState({
@@ -180,7 +181,7 @@ const SignInController = (setPage: (val: string) => any, resetingPass: boolean, 
                 .then(async (res: any) => {
                     if (resetingPass) {
                         setPage("createpass")
-                    } else if (signInStatus){
+                    } else if (signInStatus) {
                         setResetingPass(false);
                         router.push('/create-business');
                     }
@@ -417,7 +418,7 @@ const VerifySignInController = (setPage: (val: string) => any, passData: any) =>
             isSubmitting: true
         }))
         try {
-            const response:any = await apiCall({
+            const response: any = await apiCall({
                 name: "validateOtp",
                 data: {
                     email: passData?.email || "",
