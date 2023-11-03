@@ -214,7 +214,8 @@ export const endPoints: endPointlistTypes = {
     },
 
 
-    //Users 
+    //Users
+    //With Merchant Role
     usersList: {
         url: '/api/v1/user/view-all-merchant-users',
         method: 'GET',
@@ -271,6 +272,26 @@ export const endPoints: endPointlistTypes = {
     getAUser: {
         url: '/api/v1/user/view-user',
         method: 'GET',
+        headers: headers,
+        auth: true
+    },
+
+    //With Admin Role
+    adminMerchantUserList: {
+        url: '/api/v1/admin/view-all-merchants',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+    adminUserList: {
+        url: '/api/v1/admin/view-all-admin',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+    adminCreateUser: {
+        url: '/api/v1/admin/create-admin',
+        method: 'POST',
         headers: headers,
         auth: true
     },

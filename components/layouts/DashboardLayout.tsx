@@ -11,9 +11,11 @@ function DashboardLayout({ children }: LayoutProps) {
 
     const { sidebarItems, setSidebarItems } = useContext(SidebarContext);
 
+    const { isSuperAdmin } = Storage?.getItem('userDetails') || false;
+
     useEffect(() => {
-        const role = ["ADMIN"]
-        const topMenuItems = finalMenu(role)
+        const role = isSuperAdmin ? "ADMIN" : "USER"
+        const topMenuItems = finalMenu([role])
         setSidebarItems(topMenuItems)
         console.log(topMenuItems)
     }, []);

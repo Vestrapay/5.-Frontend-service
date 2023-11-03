@@ -8,10 +8,13 @@ import { Camera } from "react-huge-icons/bulk";
 import { DefaultButton, DefaultInput, DefaultSelect } from '../reusables';
 import { createUserController } from 'containers/usersApi';
 import { LoginErrorCard } from '@utils/actions/error';
+import {Storage} from "@utils/inAppstorage";
 
 const CreateUser = () => {
 
     const { setIsCreateUser } = useNewUserContext()
+
+    const {isSuperAdmin} = Storage.getItem("userDetails") || false
 
     const { stateValues, handleSubmit, handleClearError, handleChange, handleExtraChange } = createUserController();
 
@@ -21,7 +24,7 @@ const CreateUser = () => {
         <>
             <div className="flex flex-col items-center w-full relative">
                 <div className="flex justify-between w-full mb-5">
-                    <span className="flex justify-start text-left font-bold">Create User</span>
+                    <span className="flex justify-start text-left font-bold">Create {`${!isSuperAdmin ? "User" : "Admin"}`}</span>
                     <MdCancel
                         onClick={() => setIsCreateUser(false)}
                         width={15} height={15}
@@ -74,16 +77,6 @@ const CreateUser = () => {
                     value={phoneNumber}
                     handleChange={handleChange}
                 />
-                <DefaultSelect
-                    name="gender"
-                    label="Gender"
-                    topLabel="Gender"
-                    placeHolder="Enter Gender"
-                    containerVariant="w-full py-2"
-                    value={gender}
-                    handleChange={handleChange}
-                    data={[{ id: 1, name: "Male", value: "male" }, { id: 1, name: "Female", value: "female" }]}
-                />
                 <DefaultInput
                     type="text"
                     name="country"
@@ -94,6 +87,19 @@ const CreateUser = () => {
                     value={country}
                     handleChange={handleChange}
                 />
+                {
+                    !isSuperAdmin &&
+                    <DefaultSelect
+                        name="gender"
+                        label="Gender"
+                        topLabel="Gender"
+                        placeHolder="Enter Gender"
+                        containerVariant="w-full py-2"
+                        value={gender}
+                        handleChange={handleChange}
+                        data={[{ id: 1, name: "Male", value: "male" }, { id: 1, name: "Female", value: "female" }]}
+                    />
+                }
 
                 {/* <DefaultSelect
                     name="userRole"

@@ -15,8 +15,11 @@ import EditUserDetails from "@/components/users/EditUserDetails";
 import { UsersController } from 'containers/usersApi';
 import { PoperDropDown, TableStatus } from '@/components/reusables';
 import DeleteUser from '@/components/users/DeleteUser';
+import { Storage } from '@Utils/inAppstorage';
 
 const Users = () => {
+
+    const {isSuperAdmin} = Storage.getItem("userDetails") || {}
 
     const [isDropDownActive, setIsDropDownActive] = useState(false)
 
@@ -116,10 +119,10 @@ const Users = () => {
                     placeHolder="Sort by"
                     label=""
                     variant=''
-                    innerVariant="border-none py-1 h-10 rounded-xl outline-none focus:border font-normal"
+                    innerVariant="border-none py-1 h-fit rounded-xl outline-none focus:border font-normal"
                     containerVariant='w-max-content'
                     optionVariant="mr-0 pr-0 py-0"
-                    optionContainerVariant={`right-7 absolute w-max bg-white h-auto z-500 shadow-md text-sm rounded-lg p-2.5`}
+                    optionContainerVariant={`right-7 absolute w-max bg-white h-fit z-500 shadow-md text-sm rounded-lg p-2.5`}
                     onHandleChange={() => null}
                     checker={showDrop === id ? true : false}
                     list={true}
@@ -139,7 +142,7 @@ const Users = () => {
                                 {/* onClick={() => showDeactivateModal(item?.id)}> */}
                                 <BsFillEyeFill className="w-4 h-4" /> <p className="w-full font-semibold text-left justify-start">View</p>
                             </div>),
-                            (<div key={2} className='h-10 flex items-center text-center p-2 px-4 py-4 gap-2 rounded-md cursor-pointer min-w-max text-blue-600 bg-sky-100 hover:bg-sky-200'
+                            (<div key={2} className={`h-10 flex items-center text-center p-2 px-4 py-4 gap-2 rounded-md cursor-pointer min-w-max text-blue-600 bg-sky-100 hover:bg-sky-200 ${isSuperAdmin ? "hidden" : ""}`}
                                 onClick={() => {
                                     // Enable edit mode for the row
                                     console.log("Editing user with id: ", id) //TODO: Edit the user with this id
@@ -152,7 +155,7 @@ const Users = () => {
                                 }}>
                                 <BsPencilSquare className="w-4 h-4" /> <p className="w-full font-semibold text-left justify-start">Edit</p>
                             </div>),
-                            (<div key={3} className='h-10 flex items-center text-center p-2 px-4 py-4 gap-2 rounded-md cursor-pointer min-w-max text-red-500 bg-red-100 hover:bg-red-200'
+                            (<div key={3} className={`h-10 flex items-center text-center p-2 px-4 py-4 gap-2 rounded-md cursor-pointer min-w-max text-red-500 bg-red-100 hover:bg-red-200 ${isSuperAdmin ? "hidden" : ""}`}
                                 onClick={() => {
                                     // Enable edit mode for the row
                                     console.log("Editing user with id: ", id) //TODO: Edit the user with this id
@@ -168,9 +171,9 @@ const Users = () => {
                                 <p className="font-semibold text-left justify-start">Delete</p>
                             </div>)
                         ])}
-                    optionHeight={"h-auto top-10 "}
+                    optionHeight={"h-fit top-10 "}
                 >
-                    <div className={`rounded w-full flex justify-center items-center relative`}>
+                    <div className={`rounded w-full flex justify-center items-center relative z-0`}>
                         <BsThreeDots
                             onClick={() => {
                                 setIsDropDownActive(!isDropDownActive)
@@ -190,9 +193,8 @@ const Users = () => {
     return (
         <>
             <DashboardLayout>
-
                 <main
-                    className="relative flex flex-1 flex-col px-10 pb-4 h-screen w-full overflow-x-visible transition-all duration-300 ease-in-out px-10 sm:px-12 pb-10 h-full">
+                    className="relative flex flex-1 flex-col px-10 pb-4 h-screen w-full overflow-x-visible transition-all duration-300 ease-in-out sm:px-12 pb-10 h-full">
                     <UsersNavbar />
                     <DataGrid
                         initialState={{
