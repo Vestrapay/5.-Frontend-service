@@ -6,7 +6,7 @@ import { LoginErrorCard } from '@utils/actions/error';
 
 const Password = () => {
 
-    const { stateValues, handleChange, handelSubmit, handleClearError } = ResetedPasswordController((val: string) => null, (val: boolean) => null);
+    const { stateValues, handleChange, handleSubmit, handleClearError } = ResetedPasswordController((val: string) => null, (val: boolean) => null);
 
     const { submittingError, isDisabled, isSubmitting, errorMssg, oldPassword, password, confirmPassword } = stateValues || {};
 
@@ -79,7 +79,7 @@ const Password = () => {
                     containerVariant="w-full py-2 sm:col-span-3 col-span-2 max-w-fit"
                     variant="w-full px-5"
                     isLoading={isSubmitting}
-                    handleClick={handelSubmit}
+                    handleClick={handleSubmit}
                     isDisabled={isDisabled}
                 />
 

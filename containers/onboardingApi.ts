@@ -493,7 +493,7 @@ const ResetPasswordController = (setPage: (val: string) => any, setResetingPass:
         });
     }
 
-    const handelSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
 
         e.preventDefault();
         setState((state: any) => ({
@@ -549,7 +549,7 @@ const ResetPasswordController = (setPage: (val: string) => any, setResetingPass:
 
     const handleClearError = () => setState({ ...state, loginError: false })
 
-    return { stateValues: state, handleChange, handelSubmit, handleClearError }
+    return { stateValues: state, handleChange, handleSubmit, handleClearError }
 }
 
 
@@ -593,7 +593,7 @@ const ResetedPasswordController = (setPage: (val: string) => any, setResetingPas
         }
     }, [confirmPassword])
 
-    const handelSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setState((state: any) => ({
             ...state,
@@ -642,7 +642,7 @@ const ResetedPasswordController = (setPage: (val: string) => any, setResetingPas
 
     const handleClearError = () => setState({ ...state, loginError: false })
 
-    return { stateValues: state, handleChange, handelSubmit, handleClearError }
+    return { stateValues: state, handleChange, handleSubmit, handleClearError }
 }
 
 export { SignUpController, SignInController, VerifySignUpController, VerifySignInController, ResetPasswordController, ResetedPasswordController };

@@ -48,7 +48,7 @@ const createAccount = (state: any, setState: any, showModal: any) => {
 
     const { accountName, apiReference, bvn, time, submittingError, accountType, timeUnit, errorMssg, isSubmitting } = state
 
-    const handelSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setState((state: any) => ({
             ...state,
@@ -107,7 +107,7 @@ const createAccount = (state: any, setState: any, showModal: any) => {
         };
     }
 
-    return { handelSubmit }
+    return { handleSubmit }
 }
 
 const updateAccount = (state: any, setState: any, showModal: any, data: any) => {

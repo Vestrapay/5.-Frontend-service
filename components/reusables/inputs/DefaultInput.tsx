@@ -32,7 +32,8 @@ const DefaultInput = forwardRef<any, any>(({
     checkNum,
     info = "",
     textarea = false,
-    isDisabled = false
+    isDisabled = false,
+    payment = false
 }: DefaultInputType) => {
 
     const [passwordShown, setPasswordShown] = useState(false);
@@ -98,8 +99,8 @@ const DefaultInput = forwardRef<any, any>(({
                 </label>
             }
 
-            <div className={`relative group w-full leading-6 text-sm font-500 border px-6 py-0 rounded-lg 
-            ${type === 'password' ? "pr-[57.5px]" : validate ? "pr-[77.5px]" : ""} ${topLabel ? "mt-2" : ""}  ${!isDisabled ? "bg-gray-50" : "bg-gray-200 text-gray-300"} 
+            <div className={`${payment ? "" : "relative group w-full leading-6 text-sm font-500 border px-6 py-0 rounded-lg "}
+            ${type === 'password' ? "pr-[57.5px]" : validate ? "pr-[77.5px]" : ""} ${topLabel ? "mt-2" : ""}  ${payment ? "w-full" : !isDisabled ? "bg-gray-50" : "bg-gray-200 text-gray-300"} 
             ${error ? 'border-red-500 focus:border-red-500' : confirm ? ' border-green-500' : ''} ${variant}`}
             >
                 {icon}
@@ -117,8 +118,8 @@ const DefaultInput = forwardRef<any, any>(({
                         disabled={isDisabled}
                         required={required || false}
                         readOnly={readOnly || false}
-                        className={`outline-none placeholder:text-gray-300 text-blackish placeholder:text-sm placeholder:min-w-max w-full border-none
-                    leading-6 text-sm font-300 px-0 py-3 bg-[#ffffff00] ${icon ? "pl-0" : ""} ${inputVariant}`}
+                        className={` ${payment ? "rounded-none peer pl-12 pr-2 py-2.5 border-t-0 uppercase border-l-0 border-r-0 border-b border-slate-300 placeholder-gray-300" :
+                            "outline-none placeholder:text-gray-300 text-blackish placeholder:text-sm placeholder:min-w-max w-full border-none leading-6 text-sm font-300 px-0 py-3 bg-[#ffffff00]"} ${icon ? "pl-0" : ""} ${inputVariant}`}
                     /> :
                     <div>
                         {maxLength &&

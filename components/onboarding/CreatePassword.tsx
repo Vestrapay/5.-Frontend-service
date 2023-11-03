@@ -5,7 +5,7 @@ import { LoginErrorCard } from '@Utils/actions/error';
 
 const ChangePassword = ({ setPage, setResetingPass }: any) => {
     
-    const { stateValues, handleChange, handelSubmit, handleClearError } = ResetedPasswordController(setPage, setResetingPass);
+    const { stateValues, handleChange, handleSubmit, handleClearError } = ResetedPasswordController(setPage, setResetingPass);
 
     const { submittingError, isDisabled, isSubmitting, errorMssg, oldPassword, password, confirmPassword } = stateValues || {};
 
@@ -75,7 +75,7 @@ const ChangePassword = ({ setPage, setResetingPass }: any) => {
                     containerVariant="w-full my-5"
                     variant="w-full"
                     isLoading={isSubmitting}
-                    handleClick={handelSubmit}
+                    handleClick={handleSubmit}
                     isDisabled={isDisabled}
                 /></div>
 

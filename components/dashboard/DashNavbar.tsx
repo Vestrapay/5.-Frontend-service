@@ -7,7 +7,7 @@ const DashNavbar = () => {
 
     const [dateValue, setDateValue] = useState<Dayjs | null>();
 
-    const { isSuperAdmin } = Storage?.getItem('userDetails');
+    const { isSuperAdmin } = Storage?.getItem('userDetails') || { isSuperAdmin: false };
 
     return (
         <div className="flex justify-between">

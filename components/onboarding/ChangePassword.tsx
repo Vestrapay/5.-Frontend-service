@@ -54,7 +54,7 @@ const ChangePassword = ({ setPage }: any) => {
                 containerVariant="w-full"
                 variant="w-full"
             // isLoading={isSubmitting}
-            // handleClick={handelSubmit}
+            // handleClick={handleSubmit}
             />
 
             <div className="flex items-start my-6">

@@ -83,3 +83,27 @@ export type SettingsNavProps = {
     name: string,
     href: string,
 }
+
+//Payment gateway
+
+export type PayWithCardProps = {
+    id?: number,
+    uuid?: string,
+    country?: string,
+    firstName?: string,
+    lastName?: string,
+    email?: string,
+    phoneNumber?: string,
+    businessName?: string,
+    merchantId?: string,
+    referralCode?: string,
+    userType?: string,
+    createdAt?: Date | string,
+    updatedAt?: Date | string,
+    enabled?: boolean,
+    kycCompleted?: boolean,
+    username?: string,
+    authorities?: any[],
+    action?: string,
+    address?: string,
+}

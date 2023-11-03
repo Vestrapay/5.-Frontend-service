@@ -204,6 +204,15 @@ export const endPoints: endPointlistTypes = {
         auth: true
     },
 
+    //Payments
+    payWithCard: {
+        url: '/api/v1/pay/card',
+        method: 'POST',
+        headers: headers,
+        auth: true,
+        payment: true
+    },
+
 
     //Users 
     usersList: {

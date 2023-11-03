@@ -11,7 +11,8 @@ export type endpointTypes = {
     url: string;
     method: string;
     headers?: AxiosRequestHeaders | undefined;
-    auth?: boolean
+    auth?: boolean;
+    payment?: boolean;
 }
 
 export type endPointlistTypes = {
@@ -73,6 +74,8 @@ export type endPointlistTypes = {
     createBank: endpointTypes;
     updateBank: endpointTypes;
     getBank: endpointTypes;
+
+    payWithCard: endpointTypes;
 
     transactionVolumes: endpointTypes;
     listBranch: endpointTypes;
