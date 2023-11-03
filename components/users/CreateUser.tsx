@@ -1,30 +1,30 @@
 "use client"
 import React from 'react';
-import Image from "next/image";
-import { LineHorizontal, ProfileImage3 } from "@reusables/images";
-import { MdCancel } from "react-icons/md";
-import { useNewUserContext } from "../../context/newUserContext";
-import { Camera } from "react-huge-icons/bulk";
-import { DefaultButton, DefaultInput, DefaultSelect } from '../reusables';
-import { createUserController } from 'containers/usersApi';
-import { LoginErrorCard } from '@utils/actions/error';
-import {Storage} from "@utils/inAppstorage";
+import {MdCancel} from "react-icons/md";
+import {useNewUserContext} from "../../context/newUserContext";
+import {Camera} from "react-huge-icons/bulk";
+import {DefaultButton, DefaultInput, DefaultSelect} from '../reusables';
+import {createUserController} from 'containers/usersApi';
+import {LoginErrorCard} from '@utils/actions/error';
+import {useAuthContext} from "../../context/AuthContext";
 
 const CreateUser = () => {
 
-    const { setIsCreateUser } = useNewUserContext()
+    const {setIsCreateUser} = useNewUserContext()
 
-    const {isSuperAdmin} = Storage.getItem("userDetails") || false
+    const {userType} = useAuthContext()
 
-    const { stateValues, handleSubmit, handleClearError, handleChange, handleExtraChange } = createUserController();
+    const {stateValues, handleSubmit, handleClearError, handleChange, handleExtraChange} = createUserController();
 
-    const { country, firstName, lastName, email, gender, phoneNumber, password, submittingError, errorMssg, isSubmitting } = stateValues
+    const {country, firstName, lastName, email, gender, phoneNumber, password, submittingError, errorMssg, isSubmitting} = stateValues
+
 
     return (
         <>
             <div className="flex flex-col items-center w-full relative">
                 <div className="flex justify-between w-full mb-5">
-                    <span className="flex justify-start text-left font-bold">Create {`${!isSuperAdmin ? "User" : "Admin"}`}</span>
+                    <span
+                        className="flex justify-start text-left font-bold capitalize">Create {`${userType === "USER" ? "User" : "Admin"}`}</span>
                     <MdCancel
                         onClick={() => setIsCreateUser(false)}
                         width={15} height={15}
@@ -33,7 +33,7 @@ const CreateUser = () => {
                 </div>
 
                 <div className="flex justify-center items-center p-10 bg-slate-100 rounded-full">
-                    <Camera className={"w-10 h-10 text-unselected m-0"} />
+                    <Camera className={"w-10 h-10 text-unselected m-0"}/>
                 </div>
             </div>
             <div className="flex flex-col w-full">
@@ -88,7 +88,7 @@ const CreateUser = () => {
                     handleChange={handleChange}
                 />
                 {
-                    !isSuperAdmin &&
+                    userType === "USER" &&
                     <DefaultSelect
                         name="gender"
                         label="Gender"
@@ -97,7 +97,7 @@ const CreateUser = () => {
                         containerVariant="w-full py-2"
                         value={gender}
                         handleChange={handleChange}
-                        data={[{ id: 1, name: "Male", value: "male" }, { id: 1, name: "Female", value: "female" }]}
+                        data={[{id: 1, name: "Male", value: "male"}, {id: 1, name: "Female", value: "female"}]}
                     />
                 }
 
@@ -133,7 +133,8 @@ const CreateUser = () => {
                     />
                 </div>
 
-                <LoginErrorCard handleClear={handleClearError} error={stateValues?.errorMssg || ""} containerVariant={!stateValues?.submittingError ? "hidden" : ""} />
+                <LoginErrorCard handleClear={handleClearError} error={stateValues?.errorMssg || ""}
+                                containerVariant={!stateValues?.submittingError ? "hidden" : ""}/>
 
             </div>
         </>

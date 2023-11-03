@@ -6,18 +6,18 @@ import { finalMenu } from "@/components/layouts/elements/SideBarItems";
 import { Storage } from '@utils/inAppstorage';
 import router from 'next/router';
 import { apiCall } from '@utils/URLs';
+import {useAuthContext} from "../../context/AuthContext";
 
 function DashboardLayout({ children }: LayoutProps) {
 
     const { sidebarItems, setSidebarItems } = useContext(SidebarContext);
 
-    const { isSuperAdmin } = Storage?.getItem('userDetails') || false;
+    const {userType} = useAuthContext()
+
 
     useEffect(() => {
-        const role = isSuperAdmin ? "ADMIN" : "USER"
-        const topMenuItems = finalMenu([role])
+        const topMenuItems = finalMenu([userType])
         setSidebarItems(topMenuItems)
-        console.log(topMenuItems)
     }, []);
 
     return (

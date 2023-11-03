@@ -19,7 +19,7 @@ import DashTransReport from '@/components/charts/DashTransReport';
 import dayjs from 'dayjs';
 import {LoginErrorCard} from '@utils/actions/error';
 import router from 'next/router';
-import {Storage} from "@utils/inAppstorage";
+import {useAuthContext} from "../../context/AuthContext";
 
 
 const Dashboard = () => {
@@ -31,7 +31,7 @@ const Dashboard = () => {
     const [transactionType, setTransactionType] = useState("");
     const [isTransTypeDropDownActive, setIsTransTypeDropDownActive] = useState(false);
 
-    const { isSuperAdmin } = Storage?.getItem('userDetails');
+    const {userType} = useAuthContext()
 
     const {
         displayName,
@@ -67,7 +67,7 @@ const Dashboard = () => {
 
                 <DashNavbar/>
                 {
-                    !isSuperAdmin &&
+                    userType === "USER" &&
                     <LoginErrorCard
                         handleClear={handleClearError}
                         error={""}

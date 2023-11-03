@@ -1,29 +1,50 @@
 import {apiCall} from '@utils/URLs'
 import {useQuery} from 'react-query'
-import {Storage} from '@utils/inAppstorage';
 import {useEffect, useState} from 'react';
 import {UserDetailProps} from '@types';
+import {useAuthContext} from "../context/AuthContext";
 
-const {details, isSuperAdmin} = Storage.getItem("userDetails") || {}
 
-//Fetching accounts list data 
+//Fetching accounts list data
 const fetchUsersData = (pageNo: any, pageSize: any, search: string) => {
+
+    const {userType, userDetail} = useAuthContext()
+
+    console.log("User Details:", userDetail)
+    console.log("User Type:", userType)
 
     const func = async (): Promise<any> => {
         const response = await apiCall({
-            name: isSuperAdmin ? "adminMerchantUserList" : "usersList",
+            name: userType === "ADMIN" ? "adminMerchantUserList" : "usersList",
             // params: {
             //     pageNo,
             //     pageSize,
             // },
             action: (): any => (["skip"])
         }) as any[]
-        const response2 = isSuperAdmin && (await apiCall({
-            name: "adminUserList",
-            action: (): any => (["skip"])
-        }) as any[])
+        // const response2 = isSuperAdmin && (await apiCall({
+        //     name: "adminUserList",
+        //     action: (): any => (["skip"])
+        // }) as any[])
 
-        return [...response, ...response2];
+        if (userType === "ADMIN") {
+            const newResponse = [...response, ...await apiCall({
+                name: "adminUserList",
+                action: (): any => (["skip"])
+            }) as any[]]
+            console.log("Admin response:", newResponse)
+            return newResponse;
+        } else {
+            return response;
+        }
+
+        // if (isSuperAdmin && response2 !== false) {
+        //     console.log("Admin response:",[...response, ...response2])
+        //     return [...response, ...response2];
+        // } else {
+        //     console.log("Merchant response:",response)
+        //     return response;
+        // }
     }
 
     const {isLoading, isError, error, isSuccess, data, refetch} = useQuery(
@@ -49,6 +70,8 @@ const UsersController = (showDelete: any = false, showView: any = false, showCre
 }
 
 const createUserController = () => {
+
+    const {userType, userDetail} = useAuthContext()
 
 
     const [state, setState] = useState<any>({
@@ -87,9 +110,9 @@ const createUserController = () => {
         }))
         try {
             const response = await apiCall({
-                name: isSuperAdmin ? "adminCreateUser" : "createMerchantUser",
-                customHeaders: !isSuperAdmin && {merchantId: details?.id || ""},
-                data: !isSuperAdmin ? {
+                name: userType === "ADMIN" ? "adminCreateUser" : "createMerchantUser",
+                customHeaders: userType === "USER" && {merchantId: userDetail?.id || ""},
+                data: userType === "USER" ? {
                     country, firstName, lastName, email, gender, phoneNumber, password
                 } : {
                     firstName, lastName, email, country, phoneNumber, password
@@ -103,8 +126,8 @@ const createUserController = () => {
                     return []
                 },
                 successDetails: {
-                    title: !isSuperAdmin ? "New User Created" : "New Admin Created",
-                    text: !isSuperAdmin
+                    title: userType === "USER" ? "New User Created" : "New Admin Created",
+                    text: userType === "USER"
                         ? "Congratulations, Your have created a new user."
                         : "Congratulations, Your have created a new admin.",
                     icon: ""
