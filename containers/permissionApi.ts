@@ -72,7 +72,8 @@ const PermissionController = () => {
                         viewRolesList: newPerm || []
                     })
                     return ["skip"];
-                }
+                },
+                errorAction: (): any => (["skip"])
             })
             return response;
         }

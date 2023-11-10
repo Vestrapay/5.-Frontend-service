@@ -13,6 +13,9 @@ const paymentGatewayController = () => {
 
     const details = useNewTransContext()
 
+    const { secretKey } = Storage.getItem("apiKeys") || { secretKey: "" }
+    const { details: { merchantId: merchantsID } } = Storage.getItem("userDetails") || { details: { merchantId: "" } }
+
     const [state, setState] = useState<any>({
         transactionReference: "",
         amount: 0,
@@ -114,7 +117,7 @@ const paymentGatewayController = () => {
         setState({
             ...state,
             amount: state?.amount || details?.amount || "100",
-            secret: state?.secret || "VESTRA_TESTPrvK25CCB24A30F44E69BD00DA0010F5BDEF",//|| details?.secret 
+            secret: secretKey || state?.secret || "VESTRA_TESTPrvK25CCB24A30F44E69BD00DA0010F5BDEF",//|| details?.secret 
             currency: "NGN",
             name: "",
             number: "",
@@ -123,7 +126,7 @@ const paymentGatewayController = () => {
             expiryMonth: "",
             expiryYear: "",
             customerName: state?.business || details?.business || "Davids co",
-            merchantId: state?.merchantId || details?.merchant || "dee9f75a-70bf-4d44-8cc8-d0ce5d396998",
+            merchantId: merchantsID || state?.merchantId || details?.merchant || "dee9f75a-70bf-4d44-8cc8-d0ce5d396998",
             customerEmail: state?.customerEmail || details?.email || "davidayoo@mailinator.com",
         })
 

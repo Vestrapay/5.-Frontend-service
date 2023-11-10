@@ -142,7 +142,7 @@ const CardPaymentGateway: NextPage = () => {
                                                 }}
                                             />
                                         </div>
-                                    </> : stateValues?.isSubmitting ?
+                                    </> : stateValues?.isSubmitting || stateValues?.isSubmittingTrans ?
                                         <div className="w-full h-max bg-neutral-100 rounded-md border border-stone-500 border-opacity-20 flex-col justify-center items-center flex  pt-11 pb-5">
                                             <div className="h-max w-full p-10 pt-3 flex-col justify-center items-center gap-10 flex">
                                                 <PropagateLoader color="#3F2F7F50" />

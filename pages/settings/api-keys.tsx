@@ -5,6 +5,7 @@ import { DefaultButton, DefaultInput } from '@/components/reusables';
 import { BsCaretDown } from 'react-icons/bs';
 import { APIKEYSController } from 'containers/settingsApi';
 import successAlert from '@utils/actions/success';
+import { LoginErrorCard } from '@utils/actions/error';
 
 
 
@@ -37,7 +38,12 @@ const ApiKeys = () => {
                         <BsCaretDown />
                     </div>
 
+
+
                     <div className="grid grid-cols-2 lg:grid-cols-3 gap-5 my-10 w-full">
+                        <div className='flex flex-col sm:flex-row gap-3 col-span-2 sm:items-end items-start justify-start'>
+                            <LoginErrorCard handleClear={handleClearError} error={stateValues?.errorMssg || ""} containerVariant={!stateValues?.submittingError ? "hidden" : ""} />
+                        </div>
                         <div className='flex flex-col sm:flex-row gap-3 col-span-2 sm:items-end items-start justify-start'>
                             <DefaultInput
                                 type="password"

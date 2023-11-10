@@ -101,8 +101,7 @@ const DefaultInput = forwardRef<any, any>(({
 
             <div className={`${payment ? "" : "relative group w-full leading-6 text-sm font-500 border px-6 py-0 rounded-lg "}
             ${type === 'password' ? "pr-[57.5px]" : validate ? "pr-[77.5px]" : ""} ${topLabel ? "mt-2" : ""}  ${payment ? "w-full" : !isDisabled ? "bg-gray-50" : "bg-gray-200 text-gray-300"} 
-            ${error ? 'border-red-500 focus:border-red-500' : confirm ? ' border-green-500' : ''} ${variant}`}
-            >
+            ${error ? 'border-red-500 focus:border-red-500' : confirm ? ' border-green-500' : ''} ${variant}`}>
                 {icon}
                 {!textarea ?
                     <input

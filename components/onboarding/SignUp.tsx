@@ -6,7 +6,7 @@ import { SignUpController } from 'containers/onboardingApi';
 
 const SignUp = ({ setPage, setPassData }: any) => {
 
-  const { stateValues, handleSubmit, handleChange, handleClearError } = SignUpController(setPage, setPassData)
+  const { stateValues, handleSubmit, handleChange, handleClearError } = SignUpController(setPage, setPassData);
 
 
   const { country,
@@ -50,8 +50,8 @@ const SignUp = ({ setPage, setPassData }: any) => {
         topLabel="Email Address"
         placeHolder="Enter Email Address"
         containerVariant="w-full py-2"
-      value={email}
-      handleChange={handleChange}
+        value={email}
+        handleChange={handleChange}
       />
 
       <DefaultInput
@@ -85,7 +85,7 @@ const SignUp = ({ setPage, setPassData }: any) => {
         />
       </div>
 
-      <LoginErrorCard handleClear={handleClearError} error={stateValues?.loginErrorMssg || ""} containerVariant={!stateValues?.loginError ? "hidden" : ""} />
+      <LoginErrorCard handleClear={handleClearError} error={/*stateValues?.loginErrorMssg || ""*/ "An error occurred, please ensure that your business email and phone number values are unique and try again."} containerVariant={!stateValues?.loginError ? "hidden" : ""} />
 
       <div className="flex items-start my-6">
         <label htmlFor="remember" className="ml-2 text-base font-300 text-blackish text-center w-full">

@@ -265,11 +265,11 @@ const CardPaymentGateway: NextPage = () => {
                 <PaymentGatewayLayout>
                     <>
                         <div className="w-full h-6 justify-center items-center inline-flex">
-                            <p className="text-center text-neutral-600 text-lg font-normal font-['Roboto'] leading-normal py-12">Your card PIN is required</p>
+                            <p className="text-center text-neutral-600 text-lg font-normal font-['Roboto'] leading-normal pt-8">Your card PIN is required</p>
 
                         </div>
-                        <form className="flex flex-wrap justify-center items-center  gap-3 w-full p-14">
-                            <span className="text-center text-neutral-400 text-base font-normal font-['Roboto'] leading-normal py-12">Didn't get the OTP? Dial *322*0# on your phone (MTN, Etisalat, Airtel) Glo, use *805*0#.</span>
+                        <form className="flex flex-wrap justify-center items-center  gap-3 w-full px-14 py-5">
+                            <span className="text-center text-neutral-400 text-base font-normal font-['Roboto'] leading-normal pb-12">Didn't get the OTP? Dial *322*0# on your phone (MTN, Etisalat, Airtel) Glo, use *805*0#.</span>
                             <LoginErrorCard handleClear={handleClearError} error={stateValues?.errorMssg || ""} containerVariant={!stateValues?.submittingError ? "hidden" : "mx-14"} />
 
                             <OtpInput value={otp} type="password" valueLength={6} onChange={(val: any) => { onChangeOTP(val); handleExtraChange("cardPhoneOTP", val) }} />

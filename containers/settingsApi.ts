@@ -1138,7 +1138,16 @@ const APIKEYSController = (showDelete: any = false, showView: any = false, showC
         const response = await apiCall({
             name: "getKeys",
             urlExtra: `/${"TEST"}`,
-            action: (): any => (["skip"])
+            action: (): any => (["skip"]),
+            errorAction: (err?: any) => {
+                setState({
+                    ...state,
+                    submittingError: true,
+                    isSubmitting: false,
+                    errorMssg: "Please generate your API keys."
+                })
+                return ["skip"]
+            }
         })
         return response;
     }
@@ -1188,6 +1197,7 @@ const APIKEYSController = (showDelete: any = false, showView: any = false, showC
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        
         setState((state: any) => ({
             ...state,
             isSubmitting: true
@@ -1197,9 +1207,11 @@ const APIKEYSController = (showDelete: any = false, showView: any = false, showC
                 name: "generateKeys",
                 urlExtra: `/${"TEST"}`,
                 // params: {environment: "TEST"},
-                action: (): any => {
+                action: (res): any => {
+
                     setState({
                         ...state,
+                        apiKeys: res?.data || {},
                         isSubmitting: false,
                         submittingError: false,
                     })
@@ -1278,7 +1290,8 @@ const WebHooksController = (showDelete: any = false, showView: any = false, show
     const fetchHookData = async (): Promise<any> => {
         const response = await apiCall({
             name: "getWebHook",
-            action: (): any => (["skip"])
+            action: (): any => (["skip"]),
+            errorAction: (): any => (["skip"])
         })
         return response;
     }

@@ -4,12 +4,15 @@ import { OtpInput } from '../otpInput';
 import { VerifySignUpController } from 'containers/onboardingApi';
 import Countdown from 'react-countdown';
 import { LoginErrorCard } from '@Utils/actions/error';
+import { useAuthContext } from 'context/AuthContext';
 
 
 const VerifySignUp = ({ setPage, passData, setSignInStatus }: any) => {
 
+    const { passDataCTX, setPassDataCTX } = useAuthContext()
 
-    const { stateValues, handleSubmit, onChangeOTP, timeVal, setKey, handleClearError, generateOtp } = VerifySignUpController(setPage, passData, setSignInStatus);
+
+    const { stateValues, handleSubmit, onChangeOTP, timeVal, setKey, handleClearError, generateOtp } = VerifySignUpController(setPage, passDataCTX, setSignInStatus);
 
     const {
         otp,
@@ -20,7 +23,7 @@ const VerifySignUp = ({ setPage, passData, setSignInStatus }: any) => {
     } = timeVal || {};
 
     const { submittingError, isDisabled, isSubmitting, errorMssg, pin, confirmPin } = stateValues;
-    console.log(otp);
+
     return (
         <div className="w-full  ">
 
@@ -36,7 +39,7 @@ const VerifySignUp = ({ setPage, passData, setSignInStatus }: any) => {
                                 ${key == 0.017 ? "opacity-100" : "opacity-50"}`}
                     onClick={
                         key == 0.017 ?
-                        () => { generateOtp(true); setKey(Math.trunc(Math.random() * 10)) }
+                            () => { generateOtp(true); setKey(Math.trunc(Math.random() * 10)) }
                             : () => null
                     }>
                     Click to resend </span>
