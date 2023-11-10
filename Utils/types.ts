@@ -80,6 +80,12 @@ export type endPointlistTypes = {
     getBank: endpointTypes;
 
     payWithCard: endpointTypes;
+    payWithTransfer: endpointTypes;
+    transferStatusQuery: endpointTypes;
+    authPin: endpointTypes;
+    authPhone: endpointTypes;
+    authOtp: endpointTypes;
+    authAvs: endpointTypes;
 
     transactionVolumes: endpointTypes;
     listBranch: endpointTypes;
