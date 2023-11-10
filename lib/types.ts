@@ -1,5 +1,5 @@
 import React from "react";
-import { LinkProps } from "next/link";
+import {LinkProps} from "next/link";
 
 export type MenuItems = {
     id: number,
@@ -35,6 +35,13 @@ export type ActiveLinkProps = LinkProps & {
 
 export type RoleProps = {
     role: "USER" | "ADMIN"
+}
+
+export type AdminContextProps = {
+    userType: RoleProps["role"],
+    setUserType: React.Dispatch<React.SetStateAction<RoleProps["role"]>>
+    userDetail: UserDetailProps,
+    setUserDetail: React.Dispatch<React.SetStateAction<UserDetailProps>>
 }
 
 export type SidebarContextProps = {

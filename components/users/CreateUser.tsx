@@ -1,27 +1,30 @@
 "use client"
 import React from 'react';
-import Image from "next/image";
-import { LineHorizontal, ProfileImage3 } from "@reusables/images";
-import { MdCancel } from "react-icons/md";
-import { useNewUserContext } from "../../context/newUserContext";
-import { Camera } from "react-huge-icons/bulk";
-import { DefaultButton, DefaultInput, DefaultSelect } from '../reusables';
-import { createUserController } from 'containers/usersApi';
-import { LoginErrorCard } from '@utils/actions/error';
+import {MdCancel} from "react-icons/md";
+import {useNewUserContext} from "../../context/newUserContext";
+import {Camera} from "react-huge-icons/bulk";
+import {DefaultButton, DefaultInput, DefaultSelect} from '../reusables';
+import {createUserController} from 'containers/usersApi';
+import {LoginErrorCard} from '@utils/actions/error';
+import {useAuthContext} from "../../context/AuthContext";
 
 const CreateUser = () => {
 
-    const { setIsCreateUser } = useNewUserContext()
+    const {setIsCreateUser} = useNewUserContext()
 
-    const { stateValues, handleSubmit, handleClearError, handleChange, handleExtraChange } = createUserController();
+    const {userType} = useAuthContext()
 
-    const { country, firstName, lastName, email, gender, phoneNumber, password, submittingError, errorMssg, isSubmitting } = stateValues
+    const {stateValues, handleSubmit, handleClearError, handleChange, handleExtraChange} = createUserController();
+
+    const {country, firstName, lastName, email, gender, phoneNumber, password, submittingError, errorMssg, isSubmitting} = stateValues
+
 
     return (
         <>
             <div className="flex flex-col items-center w-full relative">
                 <div className="flex justify-between w-full mb-5">
-                    <span className="flex justify-start text-left font-bold">Create User</span>
+                    <span
+                        className="flex justify-start text-left font-bold capitalize">Create {`${userType === "USER" ? "User" : "Admin"}`}</span>
                     <MdCancel
                         onClick={() => setIsCreateUser(false)}
                         width={15} height={15}
@@ -30,7 +33,7 @@ const CreateUser = () => {
                 </div>
 
                 <div className="flex justify-center items-center p-10 bg-slate-100 rounded-full">
-                    <Camera className={"w-10 h-10 text-unselected m-0"} />
+                    <Camera className={"w-10 h-10 text-unselected m-0"}/>
                 </div>
             </div>
             <div className="flex flex-col w-full">
@@ -74,16 +77,6 @@ const CreateUser = () => {
                     value={phoneNumber}
                     handleChange={handleChange}
                 />
-                <DefaultSelect
-                    name="gender"
-                    label="Gender"
-                    topLabel="Gender"
-                    placeHolder="Enter Gender"
-                    containerVariant="w-full py-2"
-                    value={gender}
-                    handleChange={handleChange}
-                    data={[{ id: 1, name: "Male", value: "male" }, { id: 1, name: "Female", value: "female" }]}
-                />
                 <DefaultInput
                     type="text"
                     name="country"
@@ -94,6 +87,19 @@ const CreateUser = () => {
                     value={country}
                     handleChange={handleChange}
                 />
+                {
+                    userType === "USER" &&
+                    <DefaultSelect
+                        name="gender"
+                        label="Gender"
+                        topLabel="Gender"
+                        placeHolder="Enter Gender"
+                        containerVariant="w-full py-2"
+                        value={gender}
+                        handleChange={handleChange}
+                        data={[{id: 1, name: "Male", value: "male"}, {id: 1, name: "Female", value: "female"}]}
+                    />
+                }
 
                 {/* <DefaultSelect
                     name="userRole"
@@ -127,7 +133,8 @@ const CreateUser = () => {
                     />
                 </div>
 
-                <LoginErrorCard handleClear={handleClearError} error={stateValues?.errorMssg || ""} containerVariant={!stateValues?.submittingError ? "hidden" : ""} />
+                <LoginErrorCard handleClear={handleClearError} error={stateValues?.errorMssg || ""}
+                                containerVariant={!stateValues?.submittingError ? "hidden" : ""}/>
 
             </div>
         </>

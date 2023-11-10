@@ -1,28 +1,25 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import AtmCard from "@/components/cards/AtmCard";
 import DashNavbar from "@/components/dashboard/DashNavbar";
 import Image from "next/image";
-import { Delimiter, DivisionLine } from "@reusables/images";
-import Switch from "react-switch";
-import { MoneyRecive, MoneySend } from "iconsax-react";
-import { motion } from 'framer-motion';
+import {Delimiter, DivisionLine} from "@reusables/images";
 import {
     EmptyTransactionIcon,
     VestraDashDisputeLogsIcon,
     VestraDashNotificationIcon,
     VestraDashUsersIcon
 } from "@/components/reusables/icons";
-import { Store } from "react-huge-icons/bulk";
-import { BsBug, BsThreeDots } from 'react-icons/bs';
-import { DataGrid } from "@mui/x-data-grid";
-import { recentTransactionsData, recentTransactionsFields } from "@Utils/tableSchema";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import { fetchDashData } from 'containers/dashboardApi';
+import {Store} from "react-huge-icons/bulk";
+import {BsBug, BsThreeDots} from 'react-icons/bs';
+import {DataGrid} from "@mui/x-data-grid";
+import {recentTransactionsFields} from "@Utils/tableSchema";
+import {fetchDashData} from 'containers/dashboardApi';
 import DashTransReport from '@/components/charts/DashTransReport';
 import dayjs from 'dayjs';
-import { LoginErrorCard } from '@utils/actions/error';
+import {LoginErrorCard} from '@utils/actions/error';
 import router from 'next/router';
+import {useAuthContext} from "../../context/AuthContext";
 
 
 const Dashboard = () => {
@@ -33,6 +30,8 @@ const Dashboard = () => {
     const [selectedItem, setSelectedItem] = useState("");
     const [transactionType, setTransactionType] = useState("");
     const [isTransTypeDropDownActive, setIsTransTypeDropDownActive] = useState(false);
+
+    const {userType} = useAuthContext()
 
     const {
         displayName,
@@ -65,15 +64,26 @@ const Dashboard = () => {
     return (
         <DashboardLayout>
             <main className="mt-10 px-10 sm:px-12 pb-10 h-full">
-                
-                <DashNavbar />
-                <LoginErrorCard handleClear={handleClearError} error={""} containerVariant={!displayName?.kycStatus ? "hidden" : "max-w-fit pr-20"} >
-                    <p>Please note that your KYC process is incomplete. <span className="text-darkslateblue underline cursor-pointer" onClick={() => router.push('/settings/profile-settings/update-kyc')} >Complete KYC now. </span></p>
-                </LoginErrorCard>
+
+                <DashNavbar/>
+                {
+                    userType === "USER" &&
+                    <LoginErrorCard
+                        handleClear={handleClearError}
+                        error={""}
+                        containerVariant={!displayName?.kycStatus ? "hidden" : "max-w-fit pr-20"}
+                    >
+                        <p>Please note that your KYC process is incomplete. <span
+                            className="text-darkslateblue underline cursor-pointer"
+                            onClick={() => router.push('/settings/profile-settings/update-kyc')}>Complete KYC now. </span>
+                        </p>
+                    </LoginErrorCard>
+                }
                 <div className="w-full grid gap-4 grid-rows-2 grid-cols-6 h-full">
                     <div className="grid grid-rows-1 grid-cols-1 col-span-3 gap-4 h-full">
-                        <div className="flex bg-white p-3 rounded-2xl items-center w-full overflow-auto lg:flex-row flex-col h-fit ">
-                            <AtmCard isActivated={isCardDisabled} cardHolder={displayName?.name} />
+                        <div
+                            className="flex bg-white p-3 rounded-2xl items-center w-full overflow-auto lg:flex-row flex-col h-fit ">
+                            <AtmCard isActivated={isCardDisabled} cardHolder={displayName?.name}/>
                             <Image
                                 src={DivisionLine}
                                 alt={"division-line"}
@@ -131,28 +141,29 @@ const Dashboard = () => {
                         </div>
                         <div className="flex bg-white p-3 rounded-2xl">
 
-                            <div className=' overflow-x-auto relative h-[50vw] w-[70vw] xs:h-full xs:w-full ' >
+                            <div className=' overflow-x-auto relative h-[50vw] w-[70vw] xs:h-full xs:w-full '>
                                 <div className="flex flex-col w-full">
                                     <div className="flex w-full mb-2 items-center justify-between">
                                         <div className="flex items-center">
-                                            <p className="text-base font-bold m-0 whitespace-nowrap">Transaction Analytics</p>
-                                            <Image src={Delimiter} alt={"line"} className="mx-5" />
+                                            <p className="text-base font-bold m-0 whitespace-nowrap">Transaction
+                                                Analytics</p>
+                                            <Image src={Delimiter} alt={"line"} className="mx-5"/>
                                             <div className="flex items-center mr-5">
-                                                <p className="h-1 w-1 rounded-full bg-green-800" />
+                                                <p className="h-1 w-1 rounded-full bg-green-800"/>
                                                 <p className="text-xs text-unselected m-0 ml-2">Approved</p>
                                             </div>
                                             <div className="flex items-center mr-5">
-                                                <p className="h-1 w-1 rounded-full bg-red-800" />
+                                                <p className="h-1 w-1 rounded-full bg-red-800"/>
                                                 <p className="text-xs text-unselected m-0 ml-2">Failed</p>
                                             </div>
                                             <div className="flex items-center">
-                                                <p className="h-1 w-1 rounded-full bg-amber-500" />
+                                                <p className="h-1 w-1 rounded-full bg-amber-500"/>
                                                 <p className="text-xs text-unselected m-0 ml-2">Pending</p>
                                             </div>
                                         </div>
-                                        <BsThreeDots width={20} height={20} className="text-unselected" />
+                                        <BsThreeDots width={20} height={20} className="text-unselected"/>
                                     </div>
-                                    <DashTransReport data={lyticsData} />
+                                    <DashTransReport data={lyticsData}/>
                                 </div>
                             </div>
                         </div>
@@ -160,40 +171,40 @@ const Dashboard = () => {
                     <div className="grid grid-rows-4 col-span-1 gap-4 h-full justify-between">
                         <div className="bg-white rounded-2xl p-5 flex items-center">
                             <div className="flex h-7 items-center justify-center bg-blue-200 rounded-full mr-5 p-1">
-                                <VestraDashUsersIcon width={20} height={20} style={{ color: "#5B93FF", margin: 0 }} />
+                                <VestraDashUsersIcon width={20} height={20} style={{color: "#5B93FF", margin: 0}}/>
                             </div>
                             <div className="text-left flex m-0 flex-col justify-start">
                                 <p className="font-bold m-0">{statData?.systemUsers || ""}</p>
-                                <p className="m-0 text-xs text-unselected">System <br />Users</p>
+                                <p className="m-0 text-xs text-unselected">System <br/>Users</p>
                             </div>
                         </div>
                         <div className="bg-white rounded-2xl p-5 flex items-center">
                             <div className="flex h-7 items-center justify-center bg-amber-100 rounded-full mr-5 p-1">
                                 <VestraDashDisputeLogsIcon width={20} height={20}
-                                    style={{ color: "#dab60d", margin: 0 }} />
+                                                           style={{color: "#dab60d", margin: 0}}/>
                             </div>
                             <div className="text-left flex m-0 flex-col justify-start">
                                 <p className="font-bold m-0">{statData?.loggedIssues || ""}</p>
-                                <p className="m-0 text-xs text-unselected">Logged <br />Issues</p>
+                                <p className="m-0 text-xs text-unselected">Logged <br/>Issues</p>
                             </div>
                         </div>
                         <div className="bg-white rounded-2xl p-5 flex items-center">
                             <div className="flex h-7 items-center justify-center bg-orange-100 rounded-full mr-5 p-1">
-                                <Store width={20} height={20} style={{ color: "#fa8602", margin: 0 }} />
+                                <Store width={20} height={20} style={{color: "#fa8602", margin: 0}}/>
                             </div>
                             <div className="text-left flex m-0 flex-col justify-start">
                                 <p className="font-bold m-0">{statData?.recentTransactions || ""}</p>
-                                <p className="m-0 text-xs text-unselected">Recent <br />Transactions</p>
+                                <p className="m-0 text-xs text-unselected">Recent <br/>Transactions</p>
                             </div>
                         </div>
                         <div className="bg-white rounded-2xl p-5 flex items-center">
                             <div className="flex h-7 items-center justify-center bg-violet-200 rounded-full mr-5 p-1">
                                 <VestraDashNotificationIcon width={20} height={20}
-                                    style={{ color: "#382C7C", margin: 0 }} />
+                                                            style={{color: "#382C7C", margin: 0}}/>
                             </div>
                             <div className="text-left flex m-0 flex-col justify-start">
                                 <p className="font-bold m-0">{statData?.recentNotifications || ""}</p>
-                                <p className="m-0 text-xs text-unselected">Recent <br />Notifications</p>
+                                <p className="m-0 text-xs text-unselected">Recent <br/>Notifications</p>
                             </div>
                         </div>
                     </div>
@@ -201,23 +212,23 @@ const Dashboard = () => {
                         <div className="bg-white rounded-2xl p-5 flex flex-col gap-8">
                             <div className="flex justify-between">
                                 <p className="text-base font-bold m-0">Notifications</p>
-                                <BsThreeDots width={20} height={20} />
+                                <BsThreeDots width={20} height={20}/>
                             </div>
                             <div className="overflow-auto max-h-[350px]">
                                 {notifData && notifData?.length > 0 ? notifData?.map((each: any, index: any) => {
-                                    return (
-                                        <div className="flex w-full justify-start items-start gap-4" key={index}>
-                                            <div className="bg-red-600 p-1 flex text-white rounded-lg mt-1">
-                                                <BsBug width={20} height={20} />
-                                            </div>
-                                            <div className="m-0 text-sm">
-                                                <p className="m-0">{each?.message || ""}</p>
-                                                <p className="text-unselected mt-1 text-xs">
-                                                    {dayjs(each?.createdAt || new Date()).format('MMM DD, YYYY')}
-                                                </p>
-                                            </div>
-                                        </div>)
-                                })
+                                        return (
+                                            <div className="flex w-full justify-start items-start gap-4" key={index}>
+                                                <div className="bg-red-600 p-1 flex text-white rounded-lg mt-1">
+                                                    <BsBug width={20} height={20}/>
+                                                </div>
+                                                <div className="m-0 text-sm">
+                                                    <p className="m-0">{each?.message || ""}</p>
+                                                    <p className="text-unselected mt-1 text-xs">
+                                                        {dayjs(each?.createdAt || new Date()).format('MMM DD, YYYY')}
+                                                    </p>
+                                                </div>
+                                            </div>)
+                                    })
                                     : null
                                 }
                             </div>
@@ -229,17 +240,17 @@ const Dashboard = () => {
                                 <div className="flex w-full mb-2 items-center justify-between">
                                     <div className="flex items-center">
                                         <p className="text-base font-bold m-0 whitespace-nowrap">Recent Transactions</p>
-                                        <Image src={Delimiter} alt={"line"} className="mx-5" />
+                                        <Image src={Delimiter} alt={"line"} className="mx-5"/>
                                         <div className="flex items-center mr-5">
-                                            <p className="h-1 w-1 rounded-full bg-green-800" />
+                                            <p className="h-1 w-1 rounded-full bg-green-800"/>
                                             <p className="text-xs text-unselected m-0 ml-2">Approved</p>
                                         </div>
                                         <div className="flex items-center mr-5">
-                                            <p className="h-1 w-1 rounded-full bg-red-800" />
+                                            <p className="h-1 w-1 rounded-full bg-red-800"/>
                                             <p className="text-xs text-unselected m-0 ml-2">Failed</p>
                                         </div>
                                         <div className="flex items-center">
-                                            <p className="h-1 w-1 rounded-full bg-amber-500" />
+                                            <p className="h-1 w-1 rounded-full bg-amber-500"/>
                                             <p className="text-xs text-unselected m-0 ml-2">Pending</p>
                                         </div>
                                         {/* <Image src={Delimiter} alt={"line"} className="mx-5" />
@@ -320,7 +331,7 @@ const Dashboard = () => {
                                             </div>
                                         </button> */}
                                     </div>
-                                    <BsThreeDots width={20} height={20} className="text-unselected" />
+                                    <BsThreeDots width={20} height={20} className="text-unselected"/>
                                 </div>
                                 <div className="max-w-[100%] h-full justify-center items-center flex">
                                     <DataGrid
@@ -331,7 +342,7 @@ const Dashboard = () => {
                                                 <div
                                                     className="flex justify-center items-center w-full h-full"
                                                 >
-                                                    <EmptyTransactionIcon width={100} height={100} />
+                                                    <EmptyTransactionIcon width={100} height={100}/>
                                                 </div>,
                                         }}
                                         initialState={{

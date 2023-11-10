@@ -1,6 +1,6 @@
 "use client"
 
-import React, {createContext, useState, useContext} from 'react';
+import React, {createContext, useContext, useState} from 'react';
 import {MenuItems, SidebarContextProps, SubMenuItems} from "@types";
 
 export const SidebarContext = createContext<SidebarContextProps>({
@@ -8,7 +8,7 @@ export const SidebarContext = createContext<SidebarContextProps>({
     setSidebarItems: (): MenuItems[] | SubMenuItems => []
 });
 
-export const Context = ({ children }: { children: React.ReactNode }) => {
+export const Context = ({children}: { children: React.ReactNode }) => {
 
     const [sidebarItems, setSidebarItems] = useState<MenuItems[] | SubMenuItems[]>([]);
 
