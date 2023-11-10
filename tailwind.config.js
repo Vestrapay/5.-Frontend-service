@@ -26,9 +26,27 @@ module.exports = {
                 white: "#fff",
                 redish: "#BB4430",
                 red: {
-                  light: '#FFF0F4',
-                  error: '#EB0B00'
-                }
+                    light: '#FFF0F4',
+                    error: '#EB0B00'
+                },
+                text: "#030229",
+                mediumslateblue: "#605bff",
+                darkslateblue: "#382c7c",
+                white: "#fff",
+                blue: "rgba(33, 0, 235, 0.06)",
+                darkslategray: "#333",
+                linen: "rgba(245, 238, 229, 0)",
+                mediumblue: "rgba(103, 0, 235, 0.18)",
+                lavender: "rgba(235, 233, 247, 0)",
+                black: "#000",
+                aliceblue: "#e4ecf3",
+                dimgray: {
+                    "100": "#5a5a5a",
+                    "200": "#4f4f4f",
+                },
+                lightslategray: "#919dab",
+                darkgray: "#9f9f9f",
+                lightgray: "#d5d5d5",
             },
             textColor: {
                 unselected: "#97a3bb",
@@ -43,8 +61,8 @@ module.exports = {
                 dashboard: "#FAFAFB",
                 cardBlue: "#0D3151",
                 red: {
-                  light: '#FFF0F4',
-                  error: '#EB0B00'
+                    light: '#FFF0F4',
+                    error: '#EB0B00'
                 },
                 card: "linear-gradient(180deg, #0D3151 0%, #0D3151 100%)",
             },
@@ -56,6 +74,8 @@ module.exports = {
                 nunito: "Nunito",
                 quicksand: "Quicksand",
                 mitr: "Mitr",
+                roboto: "Roboto",
+                inter: "Inter",
             },
         },
         fontSize: {
@@ -73,6 +93,11 @@ module.exports = {
             '5xl': '48px',
             '6xl': '64px',
             '7xl': '80px',
+            "5xl-1": "24.1px",
+            "xl-2": "20.2px",
+            "lg-8": "18.8px",
+            "sm-7": "13.7px",
+            inherit: "inherit",
         },
         // fontWeight: {
         //     100: 100,

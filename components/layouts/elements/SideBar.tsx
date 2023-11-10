@@ -35,7 +35,7 @@ function SideBar() {
 
     const { sidebarItems, setSidebarItems } = useSideBarContext()
 
-    const handelSubmit = async () => {
+    const handleSubmit = async () => {
         await Storage.clearItem();
         await router.push("/login");
     }
@@ -192,7 +192,7 @@ function SideBar() {
                             <p className="text-xs text-slate-900 font-bold my-0">{displayName?.name || ""}</p>
                             <p className="text-xs text-slate-500 uppercase my-0">{`${displayName?.userType + " " || ""}`}</p>
                         </div>
-                        <LogoutOpen style={{ width: 24, height: 24 }} onClick={handelSubmit} className="text-selected cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out hover:text-ultraMarine " />
+                        <LogoutOpen style={{ width: 24, height: 24 }} onClick={handleSubmit} className="text-selected cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out hover:text-ultraMarine " />
                     </div>
                 </div>
             </aside>

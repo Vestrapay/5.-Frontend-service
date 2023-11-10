@@ -67,7 +67,7 @@ const createController = (state: any, setState: any, showModal: any) => {
         nipCode,
         enabled, submittingError, errorMssg, isSubmitting } = state
 
-    const handelSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setState((state: any) => ({
             ...state,
@@ -145,7 +145,7 @@ const createController = (state: any, setState: any, showModal: any) => {
     }
 
 
-    return { handelSubmit, handleChange, handleExtraChange }
+    return { handleSubmit, handleChange, handleExtraChange }
 }
 
 const updateController = (state: any, setState: any, showModal: any, data: any) => {

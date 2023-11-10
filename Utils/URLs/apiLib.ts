@@ -204,6 +204,63 @@ export const endPoints: endPointlistTypes = {
         auth: true
     },
 
+    //Payments
+    payWithCard: {
+        url: '/api/v1/pay/card',
+        method: 'POST',
+        headers: headers,
+        auth: true,
+        payment: true
+    },
+    payWithTransfer: {
+        url: '/api/v1/pay/transfer',
+        method: 'POST',
+        headers: headers,
+        auth: true,
+        payment: true
+    },
+    transferStatusQuery: {
+        url: '/api/v1/pay/transaction-status',
+        method: 'GET',
+        headers: headers,
+        auth: true,
+        payment: true
+    },
+
+    authPin: {
+        url: '/api/v1/pay/authorize-pin',
+        method: 'POST',
+        headers: headers,
+        auth: true,
+        payment: true
+    },
+
+    authPhone: {
+        url: '/api/v1/pay/authorize-phone',
+        method: 'POST',
+        headers: headers,
+        auth: true,
+        payment: true
+    },
+
+    authOtp: {
+        url: '/api/v1/pay/authorize-otp',
+        method: 'POST',
+        headers: headers,
+        auth: true,
+        payment: true
+
+    },
+
+    authAvs: {
+        url: '/api/v1/pay/authorize-avs',
+        method: 'POST',
+        headers: headers,
+        auth: true,
+        payment: true
+
+    },
+
 
     //Users 
     usersList: {
