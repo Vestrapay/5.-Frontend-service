@@ -85,7 +85,7 @@ const SignUp = ({ setPage, setPassData }: any) => {
         />
       </div>
 
-      <LoginErrorCard handleClear={handleClearError} error={/*stateValues?.loginErrorMssg || ""*/ "An error occurred, please ensure that your business email and phone number values are unique and try again."} containerVariant={!stateValues?.loginError ? "hidden" : ""} />
+      <LoginErrorCard handleClear={handleClearError} error={stateValues?.loginErrorMssg || ""} containerVariant={!stateValues?.loginError ? "hidden" : ""} />
 
       <div className="flex items-start my-6">
         <label htmlFor="remember" className="ml-2 text-base font-300 text-blackish text-center w-full">

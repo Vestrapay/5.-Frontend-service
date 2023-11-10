@@ -132,7 +132,8 @@ const CreateBusiness = () => {
                             /> */}
 
                             <div className="w-1/2 py-2 col-span-4 flex justify-center">
-                                <LoginErrorCard handleClear={handleClearError} error={stateValues?.errorMssg || ""} containerVariant={!stateValues?.submittingError ? "hidden" : ""} />
+                                {/* <LoginErrorCard handleClear={handleClearError} error={stateValues?.errorMssg || ""} containerVariant={!stateValues?.submittingError ? "hidden" : ""} /> */}
+                                <LoginErrorCard handleClear={handleClearError} error={/*stateValues?.errorMssg || ""*/ "An error occurred, please ensure that your business email and phone number values are unique and try again."} containerVariant={!stateValues?.submittingError ? "hidden" : ""} />
                             </div>
 
                             <DefaultButton
