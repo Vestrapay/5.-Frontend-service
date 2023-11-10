@@ -1,10 +1,13 @@
-import React, {useState} from 'react';
-import {DatePicker, DateTimePicker} from "@mui/x-date-pickers";
-import {Dayjs} from "dayjs";
+import React, { useState } from 'react';
+import { DatePicker, DateTimePicker } from "@mui/x-date-pickers";
+import { Dayjs } from "dayjs";
+import { Storage } from '@utils/inAppstorage';
 
 const DashNavbar = () => {
 
     const [dateValue, setDateValue] = useState<Dayjs | null>();
+
+    const { isSuperAdmin } = Storage?.getItem('userDetails') || { isSuperAdmin: false };
 
     return (
         <div className="flex justify-between">
@@ -37,7 +40,9 @@ const DashNavbar = () => {
                     }}
                     className="flex items-center justify-center"
                 /> */}
-                <p className="text-sm w-[130px] h-[40px] flex justify-center items-center bg-selected p-4 rounded-md text-white">TEST</p>
+                {!isSuperAdmin &&
+                    <p className="text-sm w-[130px] h-[40px] flex justify-center items-center bg-selected p-4 rounded-md text-white">TEST</p>
+                }
             </div>
         </div>
     );

@@ -12,9 +12,10 @@ export type Props = {
     value: string;
     valueLength: number;
     onChange: (value: string) => void;
+    type?: string
 };
 
-export function OtpInput({ value, valueLength, onChange }: Props) {
+export function OtpInput({ value, valueLength, onChange, type = "text" }: Props) {
 
     const valueItems = useMemo(() => {
         const valueArray = value.split('');
@@ -151,7 +152,7 @@ export function OtpInput({ value, valueLength, onChange }: Props) {
             {valueItems.map((digit, idx) => (
                 <div className=" w-12 h-12 sm:w-24 sm:h-20 terk" key={idx} >
                     <input className="w-full h-full flex flex-col items-center justify-center text-center outline-none rounded-lg border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-aqua"
-                        type="text"
+                        type={type}
                         inputMode="numeric"
                         autoComplete="one-time-code"
                         pattern="\d{1}"
