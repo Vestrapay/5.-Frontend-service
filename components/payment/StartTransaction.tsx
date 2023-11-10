@@ -35,7 +35,7 @@ export default function StartTransaction({
                         </div>
                         <div className="my-3 flex flex-col gap-5">
                             <p className=" w-full text-2xl font-700 text-center">
-                                Trying to make a transaction?
+                                Trying to make a payment?
                             </p>
                             <p className="text-gray-900 w-full text-base font-300 leading-7 mt-3 text-center">
                                 Enter the amount you would like to pay.
@@ -56,7 +56,7 @@ export default function StartTransaction({
                         <div className="my-3 flex flex-col sm:flex-row gap-5 justify-center items-center ">
                             <DefaultButton
                                 labelText="Continue"
-                                handleClick={() => router.push("/payment-gateway")}
+                                handleClick={() => router.push(data || "/payment-gateway")}
                             />
                             <button
                                 onClick={() => setShow(false)}
