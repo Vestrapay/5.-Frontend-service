@@ -320,7 +320,8 @@ const VerifySignUpController = (setPage: (val: string) => any, passData: any, se
                     })
                     // router.push("/dashboard");
                     setSignInStatus(true);
-                    setPage("login")
+                    setPage("login");
+                    router.push("/login?section=signin");
                     return [""]
 
                 },
