@@ -15,8 +15,6 @@ import {Storage} from 'Utils/inAppstorage'
 import {IconProps, MenuItems, RoleProps, SubMenuItems} from "@types";
 
 
-const { role } = Storage.getItem("userDetails") || {};
-
 const topMenuItems: MenuItems[] = [
     {
         id: 1,
@@ -32,7 +30,7 @@ const topMenuItems: MenuItems[] = [
         subMenuItems: [],
         route: '/users',
         icon: (prop: IconProps) => <VestraDashUsersIcon width={prop.width} height={prop.height} style={prop.style} />,
-        roles: ["ADMIN"]
+        roles: ["USER", "ADMIN"]
     },
     {
         id: 3,
@@ -70,29 +68,29 @@ const topMenuItems: MenuItems[] = [
                 id: 1,
                 name: "Transfer",
                 route: '/payments',
-                roles: ["USER", "ADMIN"]
+                roles: ["USER"]
             },
             {
                 id: 2,
                 name: "Card",
                 route: '/payments/card',
-                roles: ["USER", "ADMIN"]
+                roles: ["USER"]
             },
             {
                 id: 3,
                 name: "Payment Links",
                 route: '/payments/payment-links',
-                roles: ["USER", "ADMIN"]
+                roles: ["USER"]
             },
             {
                 id: 4,
                 name: "USSD",
                 route: '/payments/ussd',
-                roles: ["USER", "ADMIN"]
+                roles: ["USER"]
             }
         ],
         icon: (prop: IconProps) => <VestraDashPaymentsIcon width={prop.width} height={prop.height} style={prop.style} />,
-        roles: ["USER", "ADMIN"]
+        roles: ["USER"]
     },
     {
         id: 5,
@@ -125,31 +123,31 @@ const topMenuItems: MenuItems[] = [
                 id: 2,
                 name: 'Business',
                 route: '/settings/business/about',
-                roles: ["USER", "ADMIN"]
+                roles: ["USER"]
             },
             {
                 id: 3,
                 name: "Settlement",
                 route: '/settings/settlement',
-                roles: ["USER", "ADMIN"]
+                roles: ["USER"]
             },
             {
                 id: 4,
                 name: "Roles & Permissions",
                 route: '/settings/permission',
-                roles: ["USER", "ADMIN"]
+                roles: ["USER"]
             },
             {
                 id: 5,
                 name: "API Keys",
                 route: '/settings/api-keys',
-                roles: ["USER", "ADMIN"]
+                roles: ["USER"]
             },
             {
                 id: 6,
                 name: "Webhook",
                 route: '/settings/webhook',
-                roles: ["USER", "ADMIN"]
+                roles: ["USER"]
             }
         ],
         icon: (prop: IconProps) => <VestraDashSettingsIcon width={prop.width} height={prop.height} style={prop.style} />,

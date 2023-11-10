@@ -12,7 +12,6 @@ import { Storage } from "Utils/inAppstorage";
 const baseUrl = (): any => "https://2431-2001-569-52c4-d700-bd32-bae6-877f-698a.ngrok-free.app";//process.env.REACT_APP_BASE_URL;
 
 
-
 // For testing purposes only
 export const _set_root_url = (newUrl: any): any => newUrl
 

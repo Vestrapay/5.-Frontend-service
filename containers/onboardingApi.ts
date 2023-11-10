@@ -1,14 +1,9 @@
-
-import { apiCall } from '../Utils/URLs'
-import { useQuery } from 'react-query'
-import { LoginErrorCard } from '../Utils/actions/error';
-import { DefaultInput, DefaultButton } from "@/components/reusables";
-import { Storage } from 'Utils/inAppstorage';
-import { useEffect, useState } from 'react';
+import {apiCall} from '@utils/URLs'
+import React, {useEffect, useState} from 'react';
 import router from 'next/router';
+import {useAuthContext} from "../context/AuthContext";
 
 const SignUpController = (setPage: (val: string) => any, setPassData: (val: any) => any) => {
-
 
     const [state, setState] = useState<any>({
         country: "",
@@ -24,14 +19,16 @@ const SignUpController = (setPage: (val: string) => any, setPassData: (val: any)
         loginErrorMssg: ""
     })
 
-    const { country,
+    const {
+        country,
         firstName,
         lastName,
         email,
         businessName,
         referralCode,
         phoneNumber,
-        password, loginError, loginErrorMssg, isLoggingIn } = state
+        password, loginError, loginErrorMssg, isLoggingIn
+    } = state
 
     //Handle assertions functions
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,7 +39,7 @@ const SignUpController = (setPage: (val: string) => any, setPassData: (val: any)
         });
     }
 
-    const handleClearError = () => setState({ ...state, loginError: false })
+    const handleClearError = () => setState({...state, loginError: false})
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -102,10 +99,10 @@ const SignUpController = (setPage: (val: string) => any, setPassData: (val: any)
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
-        };
+        }
     }
 
-    return { stateValues: state, handleSubmit, handleChange, handleClearError }
+    return {stateValues: state, handleSubmit, handleChange, handleClearError}
 
 }
 
@@ -119,7 +116,9 @@ const SignInController = (setPage: (val: string) => any, resetingPass: boolean, 
         loginErrorMssg: ""
     })
 
-    const { email, password, loginError, loginErrorMssg, isLoggingIn } = state
+    const {setUserType, setUserDetail} = useAuthContext()
+
+    const {email, password, loginError, loginErrorMssg, isLoggingIn} = state
 
     //Handle assertions functions
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -130,7 +129,7 @@ const SignInController = (setPage: (val: string) => any, resetingPass: boolean, 
         });
     }
 
-    const handleClearError = () => setState({ ...state, loginError: false })
+    const handleClearError = () => setState({...state, loginError: false})
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -157,6 +156,8 @@ const SignInController = (setPage: (val: string) => any, resetingPass: boolean, 
                         isLoggingIn: false,
                         loginError: false,
                     })
+                    res?.data?.userType == "MERCHANT" || res?.data?.userType == "MERCHANTUSER" ? setUserType("USER") : setUserType("ADMIN")
+                    setUserDetail(res?.data)
                     return ["skip"]
                 },
                 errorAction: (err?: any) => {
@@ -184,8 +185,7 @@ const SignInController = (setPage: (val: string) => any, resetingPass: boolean, 
                     } else if (signInStatus) {
                         setResetingPass(false);
                         router.push('/create-business');
-                    }
-                    else {
+                    } else {
                         setResetingPass(false);
                         router.push('/dashboard');
                     }
@@ -193,10 +193,10 @@ const SignInController = (setPage: (val: string) => any, resetingPass: boolean, 
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
-        };
+        }
     }
 
-    return { stateValues: state, handleSubmit, handleChange, handleClearError }
+    return {stateValues: state, handleSubmit, handleChange, handleClearError}
 
 }
 
@@ -227,11 +227,14 @@ const VerifySignUpController = (setPage: (val: string) => any, passData: any, se
         errorMssg: ""
     })
 
-    const { submittingError, isDisabled, isSubmitting, errorMssg, pin } = state
+    const {submittingError, isDisabled, isSubmitting, errorMssg, pin} = state
 
-    const setKey = (val: number) => setTimeVal({ ...timeVal, key: val })
+    const setKey = (val: number) => setTimeVal({...timeVal, key: val})
 
-    const onChangeOTP = (value: string) => { setTimeVal({ ...timeVal, otp: value }); setState({ ...state, submittingError: false }) }
+    const onChangeOTP = (value: string) => {
+        setTimeVal({...timeVal, otp: value});
+        setState({...state, submittingError: false})
+    }
 
     const generateOtp = async (resent: any = false) => {
         await apiCall({
@@ -310,12 +313,12 @@ const VerifySignUpController = (setPage: (val: string) => any, passData: any, se
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
-        };
+        }
     }
 
-    const handleClearError = () => setState({ ...state, submittingError: false })
+    const handleClearError = () => setState({...state, submittingError: false})
 
-    return { stateValues: state, handleSubmit, onChangeOTP, timeVal, setKey, handleClearError, generateOtp }
+    return {stateValues: state, handleSubmit, onChangeOTP, timeVal, setKey, handleClearError, generateOtp}
 
 }
 
@@ -348,7 +351,7 @@ const VerifySignInController = (setPage: (val: string) => any, passData: any) =>
 
     // console.log(passData);
 
-    const { submittingError, isDisabled, isSubmitting, errorMssg, pin } = state
+    const {submittingError, isDisabled, isSubmitting, errorMssg, pin} = state
 
 
     // useEffect(() => {
@@ -384,9 +387,12 @@ const VerifySignInController = (setPage: (val: string) => any, passData: any) =>
     //     };
     // }, [clear]);
 
-    const setKey = (val: number) => setTimeVal({ ...timeVal, key: val })
+    const setKey = (val: number) => setTimeVal({...timeVal, key: val})
 
-    const onChangeOTP = (value: string) => { setTimeVal({ ...timeVal, otp: value }); setState({ ...state, submittingError: false }) }
+    const onChangeOTP = (value: string) => {
+        setTimeVal({...timeVal, otp: value});
+        setState({...state, submittingError: false})
+    }
 
     const generateOtp = async (resent: any = false) => {
         await apiCall({
@@ -464,12 +470,12 @@ const VerifySignInController = (setPage: (val: string) => any, passData: any) =>
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
-        };
+        }
     }
 
-    const handleClearError = () => setState({ ...state, submittingError: false })
+    const handleClearError = () => setState({...state, submittingError: false})
 
-    return { stateValues: state, handleSubmit, onChangeOTP, timeVal, setKey, handleClearError, generateOtp }
+    return {stateValues: state, handleSubmit, onChangeOTP, timeVal, setKey, handleClearError, generateOtp}
 
 }
 
@@ -483,7 +489,7 @@ const ResetPasswordController = (setPage: (val: string) => any, setResetingPass:
         errorMssg: ""
     })
 
-    const { submittingError, isDisabled, isSubmitting, errorMssg, pin, email } = state
+    const {submittingError, isDisabled, isSubmitting, errorMssg, pin, email} = state
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setState({
@@ -544,12 +550,12 @@ const ResetPasswordController = (setPage: (val: string) => any, setResetingPass:
         } catch (e) {
             console.log(e + " 'Caught Error.'");
             // setPage("createpass");
-        };
+        }
     }
 
-    const handleClearError = () => setState({ ...state, loginError: false })
+    const handleClearError = () => setState({...state, loginError: false})
 
-    return { stateValues: state, handleChange, handleSubmit, handleClearError }
+    return {stateValues: state, handleChange, handleSubmit, handleClearError}
 }
 
 
@@ -565,7 +571,7 @@ const ResetedPasswordController = (setPage: (val: string) => any, setResetingPas
         errorMssg: ""
     })
 
-    const { submittingError, isDisabled, isSubmitting, errorMssg, oldPassword, password, confirmPassword } = state
+    const {submittingError, isDisabled, isSubmitting, errorMssg, oldPassword, password, confirmPassword} = state
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setState({
@@ -637,12 +643,19 @@ const ResetedPasswordController = (setPage: (val: string) => any, setResetingPas
             })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
-        };
+        }
     }
 
-    const handleClearError = () => setState({ ...state, loginError: false })
+    const handleClearError = () => setState({...state, loginError: false})
 
-    return { stateValues: state, handleChange, handleSubmit, handleClearError }
+    return {stateValues: state, handleChange, handleSubmit, handleClearError}
 }
 
-export { SignUpController, SignInController, VerifySignUpController, VerifySignInController, ResetPasswordController, ResetedPasswordController };
+export {
+    SignUpController,
+    SignInController,
+    VerifySignUpController,
+    VerifySignInController,
+    ResetPasswordController,
+    ResetedPasswordController
+};

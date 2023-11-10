@@ -13,6 +13,7 @@ import { BsArrowLeft } from "react-icons/bs";
 import { motion } from "framer-motion";
 import { ExchangeRectangle, LogoutOpen, UserCircle } from "react-huge-icons/bulk";
 import { userRoles } from "@/components/layouts/elements/SideBarItems";
+import {useQueryClient} from "react-query";
 
 function SideBar() {
 
@@ -35,9 +36,12 @@ function SideBar() {
 
     const { sidebarItems, setSidebarItems } = useSideBarContext()
 
+    const queryClient = useQueryClient()
+
     const handleSubmit = async () => {
-        await Storage.clearItem();
+        Storage.clearItem();
         await router.push("/login");
+        queryClient.clear();
     }
 
     useEffect(() => {
