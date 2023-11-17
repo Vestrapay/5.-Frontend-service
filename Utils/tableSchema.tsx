@@ -94,6 +94,61 @@ export const recentTransactionsData: GridRowsProp = [
 ]
 
 
+export const paymentLinksFields: GridColDef[] = [
+    {
+        field: "id",
+        headerName: "#",
+        align: "center",
+        headerAlign: "center",
+    },
+    {
+        field: "path",
+        headerName: "Payment Link ID",
+        flex: 1,
+    },
+    {
+        field: "description",
+        headerName: "Description",
+        flex: 1,
+        cellClassName: "description",
+        headerAlign: "left",
+        align: "left",
+    },
+    {
+        field: "transactionId",
+        headerName: "Transaction ID",
+        flex: 1,
+    },
+    
+    {
+        field: "invoiceId",
+        headerName: "Invoice ID",
+        flex: 1,
+    },
+    {
+        field: "customerName",
+        headerName: "Customer Name",
+        flex: 1,
+    },
+    {
+        field: "status",
+        headerName: "Status",
+        flex: 1,
+    },
+    {
+        field: "amount",
+        headerName: "Total Amount",
+        flex: 1,
+        headerAlign: "left",
+        align: "left",
+        renderCell: ({row: {amount}}: { row: { amount: CardProviderProps } }) => {
+            return (
+                <CurrencyFormat value={amount || ""} displayType={'text'} thousandSeparator={true} fixedDecimalScale={true} decimalScale={2} prefix={"₦"} />
+            )
+        }
+    }
+]
+
 // export const usersListFields: GridColDef[] = [
 //     {
 //         field: "id",

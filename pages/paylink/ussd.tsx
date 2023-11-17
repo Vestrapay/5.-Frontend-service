@@ -9,7 +9,7 @@ import router from "react-router-dom";
 import CurrencyFormat from "react-currency-format";
 import { paymentGatewayController } from "containers/paymentGatewayApi";
 import { LayoutProps } from "@types";
-import PaymentGatewayLayout from "@/components/payment/PaymentGatewayLayout";
+import PayLinkLayout from "@/components/payment/PayLinkLayout";
 
 
 const CardPaymentGateway: NextPage = () => {
@@ -18,7 +18,7 @@ const CardPaymentGateway: NextPage = () => {
 
 
     return (
-        <PaymentGatewayLayout>
+        <PayLinkLayout>
 
             <form className="flex flex-wrap gap-3 w-full xl:px-14">
                 <LoginErrorCard handleClear={handleClearError} error={stateValues?.errorMssg || ""} containerVariant={!stateValues?.submittingError ? "hidden" : "mx-14"} />
@@ -200,7 +200,7 @@ const CardPaymentGateway: NextPage = () => {
 
             </form>
 
-        </PaymentGatewayLayout>
+        </PayLinkLayout>
     );
 };
 

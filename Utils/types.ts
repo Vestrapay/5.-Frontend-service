@@ -86,6 +86,9 @@ export type endPointlistTypes = {
     authPhone: endpointTypes;
     authOtp: endpointTypes;
     authAvs: endpointTypes;
+    paymentLink: endpointTypes;
+    paymentLinkDetail: endpointTypes;
+    paymentLinkList: endpointTypes;
 
     transactionVolumes: endpointTypes;
     listBranch: endpointTypes;

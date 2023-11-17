@@ -43,6 +43,15 @@ const paymentGatewayController = () => {
         cardAvsAddress: "",
         cardAvsZipCode: "",
 
+        payCustomerName: "",
+        payCustomerEmail: "",
+        payDescription: "",
+        payCustomizedLink: "",
+        linktransactionId: "",
+        linkId: "",
+
+        linkGenerated: false,
+
         isDisabled: false,
         submittingError: false,
         initiationError: false,
@@ -50,6 +59,7 @@ const paymentGatewayController = () => {
         transferSent: false,
         transferSentError: false,
         isSubmitting: false,
+        isFetchingLinkData: false,
         isSubmittingTrans: true,
         errorMssg: ""
     })
@@ -114,6 +124,18 @@ const paymentGatewayController = () => {
 
 
     useEffect(() => {
+        if (state?.paymentPath && window && window.location.href) {
+
+            let baseUrl = window.location.href.split("/payment-gateway/payment-link")[0];
+            let paymentLinkUrl = baseUrl + "/paylink/" + state?.paymentPath;
+            setState({
+                ...state,
+                paymentLinkUrl: paymentLinkUrl,
+            })
+        }
+    }, [state?.paymentPath])
+
+    useEffect(() => {
         setState({
             ...state,
             amount: state?.amount || details?.amount || "100",
@@ -125,12 +147,21 @@ const paymentGatewayController = () => {
             pin: "",
             expiryMonth: "",
             expiryYear: "",
+            payCustomerName: "",
+            payCustomerEmail: "",
+            payDescription: "",
+            payCustomizedLink: "",
+
+            linkGenerated: false,
+            isFetchingLinkError: false,
+
             customerName: state?.business || details?.business || "Davids co",
             merchantId: merchantsID || state?.merchantId || details?.merchant || "dee9f75a-70bf-4d44-8cc8-d0ce5d396998",
             customerEmail: state?.customerEmail || details?.email || "davidayoo@mailinator.com",
         })
 
     }, [details])
+
 
     const handleClearError = () => setState({ ...state, submittingError: false })
 
@@ -177,7 +208,6 @@ const paymentGatewayController = () => {
         }
     }
 
-
     const handleExtraChange = (name: any, value: any) => {
         setState({
             ...state,
@@ -185,7 +215,6 @@ const paymentGatewayController = () => {
             submittingError: false
         });
     }
-
 
     //Submit Card payments
 
@@ -518,7 +547,7 @@ const paymentGatewayController = () => {
                         customerName: state?.business || details?.business || "Davids co",
                         merchantId: state?.merchantId || details?.merchant || "a8c1bc11-11af-4bf4-aefc-a6d57c0b9ce8",
                         customerEmail: state?.customerEmail || details?.email || "davoone@mailinator.com",
-                        isSubmittingTrans: true,
+                        isSubmittingTrans: false,
                         submittingError: false,
                     })
                     return ["skip"]
@@ -530,7 +559,7 @@ const paymentGatewayController = () => {
                             ...state,
                             submittingError: false,
                             initiationError: false,
-                            isSubmittingTrans: true,
+                            isSubmittingTrans: false,
                             initiated: false,
                             errorMssg: err?.response?.data?.errors && err?.response?.data?.errors[0] || "Payment Failed, please try again"
                         })
@@ -540,7 +569,7 @@ const paymentGatewayController = () => {
                             ...state,
                             submittingError: false,
                             initiationError: false,
-                            isSubmittingTrans: true,
+                            isSubmittingTrans: false,
                             errorMssg: "Action failed, please try again"
                         })
                     }
@@ -557,6 +586,13 @@ const paymentGatewayController = () => {
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
+            setState({
+                ...state,
+                submittingError: false,
+                initiationError: false,
+                isSubmittingTrans: false,
+                errorMssg: "Action failed, please try again"
+            })
         };
     }
 
@@ -642,11 +678,111 @@ const paymentGatewayController = () => {
         };
     }
 
+    //Initiate Transfer payments
+    const handleInitiatePaymentLink = async (e: React.FormEvent | null) => {
+        e?.preventDefault();
+        setState((state: any) => ({
+            ...state,
+            isSubmitting: false,
+            isFetchingLinkData: true,
+            isFetchingLinkError: false,
+            initiated: false,
+            initiationError: false,
+            submittingError: false,
+            Error: false,
+            isSubmittingTrans: true,
+            transferSent: false,
+            transferSentError: false,
+        }))
+        try {
+            const response = await apiCall({
+                name: "paymentLinkDetail",
+                urlExtra: `/${details?.payPath || ""}`,
+                action: (res): any => {
+                    let { data } = res;
+
+                    setState({
+                        ...state,
+                        initiationError: false,
+                        isFetchingLinkData: false,
+                        amount: data[0]?.amount || state?.amount || "",
+                        customerName: data[0]?.customerName || state?.business || "",
+                        merchantId: data[0]?.merchantId || state?.merchantId || "",
+                        customerEmail: data[0]?.customerEmail || state?.customerEmail || "",
+                        linktransactionId: data[0]?.transactionId || state?.linktransactionId || "",
+                        linkId: data[0]?.uuid || state?.linkId || "",
+                        isSubmittingTrans: false,
+                        submittingError: false,
+                    })
+                    return ["skip"]
+                },
+                successDetails: { title: "Payment initiated", text: "Payment initiated successfully", icon: "" },
+                errorAction: (err?: any) => {
+                    if (err && err?.response?.data) {
+                        setState({
+                            ...state,
+                            submittingError: false,
+                            initiationError: false,
+                            isSubmittingTrans: false,
+                            isFetchingLinkData: false,
+                            isFetchingLinkError: true,
+                            initiated: false,
+                            errorMssg: err?.response?.data?.errors && err?.response?.data?.errors[0] || "Initiation Failed, please try again"
+                        })
+                        return ["skip"]
+                    } else {
+                        setState({
+                            ...state,
+                            submittingError: false,
+                            initiationError: false,
+                            isSubmittingTrans: false,
+                            isFetchingLinkData: false,
+                            isFetchingLinkError: true,
+                            errorMssg: "Action failed, please try again"
+                        })
+                    }
+                }
+            })
+                .then(async (res: any) => {
+                    // showModal();
+                    setState({
+                        ...state,
+                        secret: secretKey || state?.secret || "VESTRA_TESTPrvK25CCB24A30F44E69BD00DA0010F5BDEF",//|| details?.secret 
+                        amount: res[0]?.amount || state?.amount || "",
+                        customerName: res[0]?.customerName || state?.customerName || "",
+                        merchantId: res[0]?.merchantId || state?.merchantId || "",
+                        customerEmail: res[0]?.customerEmail || state?.customerEmail || "",
+                        linktransactionId: res[0]?.transactionId || state?.linktransactionId || "",
+                        linkId: res[0]?.uuid || state?.linkId || "",
+                        isFetchingLinkData: false,
+                        submittingError: false,
+                        isSubmitting: false,
+                        errorMssg: ""
+                    })
+                })
+        } catch (e) {
+            console.log(e + " 'Caught Error.'");
+            setState({
+                ...state,
+                submittingError: false,
+                initiationError: false,
+                isSubmittingTrans: false,
+                errorMssg: "Action failed, please try again"
+            })
+        };
+    }
     //Authorise payments
+    useEffect(() => {
+        if (details?.payPath) {
+            handleInitiatePaymentLink(null);
+        }
+
+    }, [details?.payPath])
 
     useEffect(() => {
         router?.asPath?.includes("transfer") && amount && !transferDetails?.account_name && handleInitiateTransfer(null);
     }, [amount])
+
 
     //Submit USSD payments
     const handleSubmitUSSD = async (e: React.FormEvent) => {
@@ -741,26 +877,24 @@ const paymentGatewayController = () => {
         }))
         try {
             const response = await apiCall({
-                name: "payWithCard",
+                name: "paymentLink",
                 customHeaders: {
                     merchantId: merchantId || "",
                     secret: secret || ""
                 },
                 data: {
-                    transactionReference,
                     amount: Number(amount || 0) || 0,
                     currency,
-                    card: {
-                        name,
-                        number,
-                        cvv,
-                        pin,
-                        expiryMonth,
-                        expiryYear,
+                    customer: {
+                        name: state?.payCustomerName,
+                        email: state?.payCustomerEmail,
                     },
-                    customerDetails: {
-                        name: customerName,
-                        email: customerEmail,
+                    invoiceId: String(10000000 * Math.random()).split(".")[1].replaceAll("0", "10") || "",
+                    description: state?.payDescription,
+                    customizedLink: state?.payCustomizedLink,
+                    daysActive: "",
+                    additionalData: {
+                        Duis_2_: "",
                     }
                 },
                 action: (): any => {
@@ -768,17 +902,18 @@ const paymentGatewayController = () => {
                         ...state,
                         isSubmitting: false,
                         submittingError: false,
+                        linkGenerated: true
                     })
                     return []
                 },
-                successDetails: { title: "Payment Successful!", text: "Congratulations, Your payment was successful.", icon: "" },
+                successDetails: { title: "Payment Link Generated!", text: "Congratulations, Your payment link generation was successful.", icon: "" },
                 errorAction: (err?: any) => {
                     if (err && err?.response?.data) {
                         setState({
                             ...state,
                             submittingError: true,
                             isSubmitting: false,
-                            errorMssg: err?.response?.data?.errors && err?.response?.data?.errors[0] || "Payment Failed, please try again"
+                            errorMssg: err?.response?.data?.errors && err?.response?.data?.errors[0] || "Generation Failed, please try again"
                         })
                         return ["skip"]
                     } else {
@@ -793,14 +928,25 @@ const paymentGatewayController = () => {
             })
                 .then(async (res: any) => {
                     // showModal();
+                    console.log(res);
+                    let baseUrl = window.location.href.split("/payment-gateway/payment-link")[0];
+                    let paymentLinkUrl = baseUrl + "/paylink/" + res?.path;
+
                     setState({
+                        payCustomerName: "",
+                        payCustomerEmail: "",
+                        payDescription: "",
+                        payCustomizedLink: "",
                         transactionReference: "",
+                        paymentPath: res?.path || "",
+                        paymentLinkUrl,
                         amount: 0,
                         currency: "NGN",
                         name: "",
                         number: "",
                         cvv: "",
                         pin: "",
+                        linkGenerated: true,
                         expiryMonth: "",
                         expiryYear: "",
                         customerName: "",
@@ -816,7 +962,46 @@ const paymentGatewayController = () => {
         };
     }
 
-    return { handleSubmitCard, handleCardPayAuth, timeVal, onChangeOTP, handleTSQ, handleInitiateTransfer, handleSubmitUSSD, handleSubmitLink, handleClearError, handleChange, handleExtraChange, transferDetails, stateValues: state }
+
+    const fetchUsersData = (search: string) => {
+
+        const func = async (): Promise<any> => {
+            const response = await apiCall({
+                name: "paymentLinkList", //"getTransactions",
+                customHeaders: {
+                    merchantId: merchantsID || "",
+                    secret: secretKey || ""
+                },
+                action: (): any => (["skip"])
+            })
+            return response;
+        }
+
+        const { isLoading, isError, error, isSuccess, data, refetch } = useQuery(
+            ["PAYMENT_LIST_DATA", "LIST", search], () => func(),
+            {
+                refetchOnWindowFocus: false,
+                // staleTime: 60000
+            }
+        );
+        return { isLoading, isError, error, isSuccess, data, refetch }
+    }
+
+    const PaymentLinkList = (search: string = "") => {
+
+        //showDelete: any = false, showView: any = false, showCreate: any = false, pageNo: any = 0, pageSize: any = 20, 
+
+        const { isLoading, isError, error, isSuccess, data, refetch } = fetchUsersData(search);
+
+        useEffect(() => {
+            refetch()
+        }, [search])
+
+        return { isLoading, isError, error, isSuccess, data, refetch }
+
+    }
+
+    return { handleSubmitCard, handleInitiatePaymentLink, PaymentLinkList, handleCardPayAuth, timeVal, onChangeOTP, handleTSQ, handleInitiateTransfer, handleSubmitUSSD, handleSubmitLink, handleClearError, handleChange, handleExtraChange, transferDetails, stateValues: state }
 }
 
 export { paymentGatewayController };

@@ -17,6 +17,14 @@ export const CreateTransContext = createContext({
 
     business: "",
     setBusiness: (amount: string) => {
+    },
+
+    payType: "",
+    setPayType: (amount: string) => {
+    },
+
+    payPath: "",
+    setPayPath: (value: string) => {
     }
 })
 
@@ -26,9 +34,11 @@ export const NewTransContext = ({ children }: { children: React.ReactNode }) => 
     const [email, setEmail] = useState("");
     const [merchant, setMerchant] = useState("");
     const [business, setBusiness] = useState("");
+    const [payType, setPayType] = useState("");
+    const [payPath, setPayPath] = useState("");
 
     return (
-        <CreateTransContext.Provider value={{ amount, setAmount, email, setEmail, merchant, setMerchant, business, setBusiness }}>
+        <CreateTransContext.Provider value={{ payType, setPayType, payPath, setPayPath, amount, setAmount, email, setEmail, merchant, setMerchant, business, setBusiness }}>
             {children}
         </CreateTransContext.Provider>
     );

@@ -254,6 +254,14 @@ const UpdateKYCController = () => {
             isSubmitting: true
         }))
         try {
+            // certificate_of_incorporation
+            // register_of_shareholder
+            // register_of_directors 
+            // memorandum_and_articles_of_association
+            // valid_id_of_directors
+            // valid_id_of_ultimate_beneficial_owners
+            // operating_license
+            // due_diligence_questionaire
             const response = await apiCall({
                 name: "uploadUtility",
                 data: formData,//params: { files: filesString },// { id: state?.id, country, firstName, lastName, email, phoneNumber, businessName, enabled, username, ...data },
@@ -1121,7 +1129,6 @@ const SettlmentController = (showDelete: any = false, showView: any = false, sho
 
 }
 
-
 const APIKEYSController = (showDelete: any = false, showView: any = false, showCreate: any = false, pageNo: any = 0, pageSize: any = 20, search: string = "") => {
 
     const [state, setState] = useState<any>({
@@ -1197,7 +1204,7 @@ const APIKEYSController = (showDelete: any = false, showView: any = false, showC
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        
+
         setState((state: any) => ({
             ...state,
             isSubmitting: true

@@ -4,6 +4,7 @@ import { BsFillCheckCircleFill, BsFillXCircleFill } from 'react-icons/bs';
 import React, { forwardRef, useState, useEffect } from 'react'
 import { DefaultInputType } from '../types';
 import { SmPasswordCheckIcon, SmCheckIcon } from '../icons'
+import CurrencyFormat from 'react-currency-format';
 
 const DefaultInput = forwardRef<any, any>(({
     type,
@@ -103,23 +104,7 @@ const DefaultInput = forwardRef<any, any>(({
             ${type === 'password' ? "pr-[57.5px]" : validate ? "pr-[77.5px]" : ""} ${topLabel ? "mt-2" : ""}  ${payment ? "w-full" : !isDisabled ? "bg-gray-50" : "bg-gray-200 text-gray-300"} 
             ${error ? 'border-red-500 focus:border-red-500' : confirm ? ' border-green-500' : ''} ${variant}`}>
                 {icon}
-                {!textarea ?
-                    <input
-                        id={`${label}-input${name}`}
-                        name={name}
-                        maxLength={maxLength}
-                        minLength={minLength}
-                        type={type === 'password' && passwordShown ? 'text' : type}
-                        onChange={onChange}
-                        onBlur={handleBlur}
-                        value={value}
-                        placeholder={placeHolder || topLabel}
-                        disabled={isDisabled}
-                        required={required || false}
-                        readOnly={readOnly || false}
-                        className={` ${payment ? "rounded-none peer pl-12 pr-2 py-2.5 border-t-0 uppercase border-l-0 border-r-0 border-b border-slate-300 placeholder-gray-300" :
-                            "outline-none placeholder:text-gray-300 text-blackish placeholder:text-sm placeholder:min-w-max w-full border-none leading-6 text-sm font-300 px-0 py-3 bg-[#ffffff00]"} ${icon ? "pl-0" : ""} ${inputVariant}`}
-                    /> :
+                {textarea ?
                     <div>
                         {maxLength &&
                             <div className="right-5 top-[15px] absolute opacity-70 text-right text-slate-950 text-sm font-normal font-['Nunito']">{value?.length + "/" + maxLength}</div>}
@@ -136,9 +121,44 @@ const DefaultInput = forwardRef<any, any>(({
                             required={required || false}
                             readOnly={readOnly || false}
                             className={`h-36 py-2 outline-none placeholder:text-gray-300 text-blackish placeholder:text-sm w-full placeholder:min-w-max border-none
-                h-10 leading-6 text-sm font-300 px-0 py-3 bg-[#ffffff00] ${icon ? "pl-0" : ""} ${inputVariant}`}
+         h-10 leading-6 text-sm font-300 px-0 py-3 bg-[#ffffff00] ${icon ? "pl-0" : ""} ${inputVariant}`}
                         />
-                    </div>
+                    </div> : type == 'currency' ?
+                        <CurrencyFormat
+                        className={` ${payment ? "rounded-none peer pl-12 pr-2 py-2.5 border-t-0 uppercase border-l-0 border-r-0 border-b border-slate-300 placeholder-gray-300" :
+                            "outline-none placeholder:text-gray-300 text-blackish placeholder:text-sm placeholder:min-w-max w-full border-none leading-6 text-sm font-300 px-0 py-3 bg-[#ffffff00]"} ${icon ? "pl-0" : ""} ${inputVariant}`}
+                            name="amount"
+                            value={value || "0"}
+                            onChange={onChange}
+                            maxLength={maxLength}
+                            minLength={minLength}
+                            placeholder={placeHolder || topLabel}
+                            displayType={'input'}
+                            disabled={isDisabled}
+                            required={required || false}
+                            readOnly={readOnly || false}
+                            thousandSeparator={true}
+                            prefix={'₦ '}
+                            decimalScale={2}
+                            fixedDecimalScale={true} />
+                        :
+
+                        <input
+                            id={`${label}-input${name}`}
+                            name={name}
+                            maxLength={maxLength}
+                            minLength={minLength}
+                            type={type === 'password' && passwordShown ? 'text' : type}
+                            onChange={onChange}
+                            onBlur={handleBlur}
+                            value={value}
+                            placeholder={placeHolder || topLabel}
+                            disabled={isDisabled}
+                            required={required || false}
+                            readOnly={readOnly || false}
+                            className={` ${payment ? "rounded-none peer pl-12 pr-2 py-2.5 border-t-0 uppercase border-l-0 border-r-0 border-b border-slate-300 placeholder-gray-300" :
+                                "outline-none placeholder:text-gray-300 text-blackish placeholder:text-sm placeholder:min-w-max w-full border-none leading-6 text-sm font-300 px-0 py-3 bg-[#ffffff00]"} ${icon ? "pl-0" : ""} ${inputVariant}`}
+                        />
                 }
                 {/* {label || name} */}
             </div>

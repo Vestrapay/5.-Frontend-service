@@ -9,11 +9,14 @@ import router from 'next/router';
 import StartTransaction from '@/components/payment/StartTransaction';
 import { TransactionController } from 'containers/transactionApi';
 import { Pagination } from '@mui/material';
-import { recentTransactionsFields } from '@utils/tableSchema';
+import { paymentLinksFields, recentTransactionsFields } from '@utils/tableSchema';
+import { paymentGatewayController } from 'containers/paymentGatewayApi';
 
 const Transfer = () => {
 
-    const { isLoading, isError, error, isSuccess, data, refetch } = TransactionController();
+    const { PaymentLinkList } = paymentGatewayController()
+
+    const { isLoading, isError, error, isSuccess, data, refetch } = PaymentLinkList();
 
     const [showDelete, setShowDelete] = useState<any>(false);
 
@@ -22,9 +25,11 @@ const Transfer = () => {
     const apiRef = useGridApiRef()
 
     useEffect(() => {
-        setShowActualData(data?.filter((each: any) => each.paymentType == "PAYMENTLINK"))
+        setShowActualData(data?.filter((each: any) => ({
+            ...each, path: `${window && window?.location &&
+                window?.location?.href?.split("/payment-gateway/payment-link")[0]}/paylink/${each?.path || ""}` || each?.path
+        })))
     }, [data])
-
 
     const [paginationModel, setPaginationModel] = useState({
         pageSize: 10,
@@ -71,7 +76,7 @@ const Transfer = () => {
                         <div className='my-10 '>
                             <DataGrid
                                 rows={actualData || []}
-                                columns={recentTransactionsFields}
+                                columns={paymentLinksFields}
                                 disableRowSelectionOnClick={true}
                                 initialState={{
                                     pagination: {

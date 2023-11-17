@@ -9,7 +9,7 @@ import router from "react-router-dom";
 import CurrencyFormat from "react-currency-format";
 import { paymentGatewayController } from "containers/paymentGatewayApi";
 import { LayoutProps } from "@types";
-import PaymentGatewayLayout from "@/components/payment/PaymentGatewayLayout";
+import PayLinkLayout from "@/components/payment/PayLinkLayout";
 import { useEffect, useState } from "react";
 import { PropagateLoader } from "react-spinners";
 import { BsFillExclamationTriangleFill } from "react-icons/bs";
@@ -31,7 +31,7 @@ const CardPaymentGateway: NextPage = () => {
 
 
     return (
-        <PaymentGatewayLayout>
+        <PayLinkLayout>
 
             <div className="w-full h-6 justify-center items-center inline-flex">
                 {!stateValues?.transferSent && <p className="text-center text-neutral-600 text-lg font-normal font-['Roboto'] leading-normal py-12">Complete this transfer on your bank app.</p>}
@@ -198,7 +198,7 @@ const CardPaymentGateway: NextPage = () => {
 
                 </form>
             }
-        </PaymentGatewayLayout>
+        </PayLinkLayout>
     );
 };
 

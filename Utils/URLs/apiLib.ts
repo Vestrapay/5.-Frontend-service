@@ -261,6 +261,33 @@ export const endPoints: endPointlistTypes = {
 
     },
 
+    paymentLink: {
+        url: '/api/v1/payment-link/generate',
+        method: 'POST',
+        headers: headers,
+        auth: true,
+        payment: true
+
+    },
+    
+    paymentLinkDetail: {
+        url: '/api/v1/payment-link/paylink',
+        method: 'GET',
+        headers: headers,
+        auth: true,
+        payment: true
+
+    },
+
+    paymentLinkList: {
+        url: '/api/v1/payment-link/view-all',
+        method: 'GET',
+        headers: headers,
+        auth: true,
+        payment: true
+
+    },
+
 
     //Users
     //With Merchant Role

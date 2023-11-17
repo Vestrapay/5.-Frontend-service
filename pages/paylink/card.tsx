@@ -9,13 +9,13 @@ import router from "react-router-dom";
 import CurrencyFormat from "react-currency-format";
 import { paymentGatewayController } from "containers/paymentGatewayApi";
 import { LayoutProps } from "@types";
-import PaymentGatewayLayout from "@/components/payment/PaymentGatewayLayout";
+import PayLinkLayout from "@/components/payment/PayLinkLayout";
 import { OtpInput } from "@/components/otpInput";
 
 
 const CardPaymentGateway: NextPage = () => {
 
-    const details = paymentGatewayController()
+    const details = paymentGatewayController();
 
     let { handleSubmitCard, handleCardPayAuth, handleClearError, handleChange, timeVal, onChangeOTP, handleExtraChange, stateValues } = details;
     const {
@@ -24,14 +24,14 @@ const CardPaymentGateway: NextPage = () => {
         minutes,
         seconds,
         key,
-    } = timeVal || {}
+    } = timeVal || {};
 
     switch (stateValues?.cardStatus) {
         case 'changepass':
             return ("Change Password");
         case 'CARD_ENROLL':
             return (
-                <PaymentGatewayLayout>
+                <PayLinkLayout>
                     <>
                         <div className="w-full h-6 justify-center items-center inline-flex">
                             <p className="text-center text-neutral-600 text-lg font-normal font-['Roboto'] leading-normal py-12">
@@ -93,10 +93,10 @@ const CardPaymentGateway: NextPage = () => {
 
                         </form>
                     </>
-                </PaymentGatewayLayout>);
+                </PayLinkLayout>);
         case 'AVS':
             return (
-                <PaymentGatewayLayout>
+                <PayLinkLayout>
                     <>
                         <div className="w-full h-6 justify-center items-center inline-flex">
                             <p className="text-center text-neutral-600 text-lg font-normal font-['Roboto'] leading-normal py-12">
@@ -258,11 +258,11 @@ const CardPaymentGateway: NextPage = () => {
 
                         </form>
                     </>
-                </PaymentGatewayLayout>
+                </PayLinkLayout>
             );
         case 'OTP':
             return (
-                <PaymentGatewayLayout>
+                <PayLinkLayout>
                     <>
                         <div className="w-full h-6 justify-center items-center inline-flex">
                             <p className="text-center text-neutral-600 text-lg font-normal font-['Roboto'] leading-normal pt-8">Your card PIN is required</p>
@@ -294,10 +294,10 @@ const CardPaymentGateway: NextPage = () => {
 
                         </form>
                     </>
-                </PaymentGatewayLayout>);
+                </PayLinkLayout>);
         case 'success':
             return (
-                <PaymentGatewayLayout>
+                <PayLinkLayout>
                     <>
                         <div className="w-full h-max rounded-md border border-stone-500 border-opacity-20 flex-col justify-center items-center flex  pt-11 pb-11">
                             <div className="h-max p-10 pt-5 flex-col justify-center items-center gap-2 flex">
@@ -317,11 +317,11 @@ const CardPaymentGateway: NextPage = () => {
                             </div>
                         </div>
                     </>
-                </PaymentGatewayLayout>
+                </PayLinkLayout>
             );
         case 'PIN':
             return (
-                <PaymentGatewayLayout>
+                <PayLinkLayout>
                     <>
                         <div className="w-full h-6 justify-center items-center inline-flex">
                             <p className="text-center text-neutral-600 text-lg font-normal font-['Roboto'] leading-normal py-12">Your card PIN is required</p>
@@ -351,11 +351,11 @@ const CardPaymentGateway: NextPage = () => {
 
                         </form>
                     </>
-                </PaymentGatewayLayout>
+                </PayLinkLayout>
             );
         default:
             return (
-                <PaymentGatewayLayout>
+                <PayLinkLayout>
                     <>
                         <div className="w-full h-6 justify-center items-center inline-flex">
                             <p className="text-center text-neutral-600 text-lg font-normal font-['Roboto'] leading-normal py-12">Enter your card details to pay</p>
@@ -541,7 +541,7 @@ const CardPaymentGateway: NextPage = () => {
 
                         </form>
                     </>
-                </PaymentGatewayLayout>
+                </PayLinkLayout>
             );
     }
 

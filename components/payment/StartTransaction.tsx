@@ -13,7 +13,7 @@ export default function StartTransaction({
     data
 }: any) {
 
-    const { amount, setAmount, setEmail, setMerchant, setBusiness } = useNewTransContext()
+    const { amount, setAmount, setEmail, setMerchant, setBusiness, setPayType } = useNewTransContext()
 
     const { details } = Storage.getItem("userDetails") || {}
 
@@ -23,6 +23,7 @@ export default function StartTransaction({
         setEmail(details?.email || "");
         setMerchant(details?.merchantId || "");
         setBusiness(details?.businessName || "")
+        setPayType(router?.asPath || "/payment-gateway")
     }
 
     return (
@@ -43,7 +44,7 @@ export default function StartTransaction({
                         </div>
 
                         <DefaultInput
-                            type="text"
+                            type="currency"
                             name="amount"
                             label="Amount"
                             topLabel="Amount"
@@ -53,6 +54,8 @@ export default function StartTransaction({
                             value={amount}
                             handleChange={handleChange}
                         />
+
+
                         <div className="my-3 flex flex-col sm:flex-row gap-5 justify-center items-center ">
                             <DefaultButton
                                 labelText="Continue"

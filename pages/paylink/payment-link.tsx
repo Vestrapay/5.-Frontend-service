@@ -9,7 +9,7 @@ import router from "react-router-dom";
 import CurrencyFormat from "react-currency-format";
 import { paymentGatewayController } from "containers/paymentGatewayApi";
 import { LayoutProps } from "@types";
-import PaymentGatewayLayout from "@/components/payment/PaymentGatewayLayout";
+import PayLinkLayout from "@/components/payment/PayLinkLayout";
 import successAlert from "@utils/actions/success";
 
 
@@ -19,7 +19,7 @@ const CardPaymentGateway: NextPage = () => {
 
 
     return (
-        <PaymentGatewayLayout>
+        <PayLinkLayout>
 
             {stateValues?.linkGenerated ?
                 <div className="w-full h-max rounded-md border border-stone-500 border-opacity-20 flex-col justify-center items-center flex  pt-11 pb-11">
@@ -200,7 +200,7 @@ const CardPaymentGateway: NextPage = () => {
 
                 </form>
             }
-        </PaymentGatewayLayout>
+        </PayLinkLayout>
     );
 };
 
