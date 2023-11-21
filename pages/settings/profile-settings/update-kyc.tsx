@@ -14,7 +14,7 @@ const UpdateKyc = () => {
     const { handleSubmit, handleClearError, handleChange, handleExtraChange, stateValues, files, setCategory,
         fileInputRef, handleFileInputClick, handleChangeFile, handleClearFiles } = UpdateKYCController()
 
-    const { stateValues: profileStateValues } = UsersProfileController()
+    const { stateValues: profileStateValues } = UsersProfileController(stateValues?.isSubmitting)
 
     return (
         <SettingsProfileLayout>
@@ -50,7 +50,7 @@ const UpdateKyc = () => {
                                 ${stateValues?.category == each?.name ? "bg-gray-200" : ""} `} onClick={() => { handleExtraChange("category", each?.name || ""); setCategory(each?.value || ""); }} >
                                     <div className="w-full sm:col-span-5 col-span-2 px-5 flex flex-row justify-between gap-2">
                                         <span className="text-neutral-700 text-base font-semibold font-['Nunito'] w-4/5">{each?.name || ""}</span>
-                                        {profileStateValues?.requiredDocuments.includes(each?.value) && <BsCheckCircleFill color={"green"} size={20} className='w-1/5' />}
+                                        {profileStateValues?.requiredDocuments?.includes(each?.value) && <BsCheckCircleFill color={"green"} size={20} className='w-1/5' />}
                                     </div>
                                 </div>
                             )
@@ -90,17 +90,19 @@ const UpdateKyc = () => {
                                 : null
                             }
                         </div>
-                        <div className='flex flex-col sm:flex-row gap-2 justify-center w-full'>
-                            <button onClick={handleClearFiles} className={`font-nunito  px-8 py-3 rounded-lg bg-[#ffffff] text-darkslateblue border border-darkslateblue cursor-pointer text-sm font-600 hover:opacity-80`}
-                                rel="noreferrer">Cancel
-                            </button>
-                            <DefaultButton
-                                labelText="Upload Document"
-                                isLoading={stateValues?.isSubmitting}
-                                handleClick={handleSubmit}
-                                variant={"bg-selected cursor-pointer w-1/2 sm:w-fit"}
-                            />
-                        </div>
+                        {stateValues?.category &&
+                            <div className='flex flex-col sm:flex-row gap-2 justify-center w-full'>
+                                <button onClick={handleClearFiles} className={`font-nunito  px-8 py-3 rounded-lg bg-[#ffffff] text-darkslateblue border border-darkslateblue cursor-pointer text-sm font-600 hover:opacity-80`}
+                                    rel="noreferrer">Cancel
+                                </button>
+                                <DefaultButton
+                                    labelText="Upload Document"
+                                    isLoading={stateValues?.isSubmitting}
+                                    handleClick={handleSubmit}
+                                    variant={"bg-selected cursor-pointer w-1/2 sm:w-fit"}
+                                />
+                            </div>
+                        }
                     </div>
                 </div>
 
