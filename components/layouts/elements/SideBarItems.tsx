@@ -100,14 +100,14 @@ const topMenuItems: MenuItems[] = [
         icon: (prop: IconProps) => <VestraDashDisputeLogsIcon width={prop.width} height={prop.height} style={prop.style} />,
         roles: ["USER", "ADMIN"]
     },
-    {
-        id: 6,
-        name: "Notifications",
-        route: '/notifications',
-        subMenuItems: [],
-        icon: (prop: IconProps) => <VestraDashNotificationIcon width={prop.width} height={prop.height} style={prop.style} />,
-        roles: ["USER", "ADMIN"]
-    },
+    // {
+    //     id: 6,
+    //     name: "Notifications",
+    //     route: '/notifications',
+    //     subMenuItems: [],
+    //     icon: (prop: IconProps) => <VestraDashNotificationIcon width={prop.width} height={prop.height} style={prop.style} />,
+    //     roles: ["USER", "ADMIN"]
+    // },
     {
         id: 7,
         name: "Settings",
