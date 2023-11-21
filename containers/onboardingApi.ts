@@ -111,7 +111,7 @@ const SignUpController = (setPage: (val: string) => any, setPassData: (val: any)
                             ...state,
                             loginError: true,
                             isLoggingIn: false,
-                            loginErrorMssg: err?.response?.data?.errors && err?.response?.data?.errors[0] || "Login Failed, please try again"
+                            loginErrorMssg: err?.response?.data?.errors && err?.response?.data?.errors[0] || "Sign Up Failed, please try again"
                         })
                         return ["skip"]
                     } else {
@@ -339,7 +339,7 @@ const VerifySignUpController = (setPage: (val: string) => any, passData: any, se
                             ...state,
                             submittingError: true,
                             isSubmitting: false,
-                            errorMssg: "Login Failed, please try again"
+                            errorMssg: "Action Failed, please try again"
                         })
                     }
                 }

@@ -1,20 +1,21 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import '../styles/globals.css'
-import type {AppProps} from 'next/app'
+import type { AppProps } from 'next/app'
 import Head from "next/head"
 import NProgress from "nprogress";
 
-import {QueryClient, QueryClientProvider} from "react-query";
-import {ReactQueryDevtools} from "react-query/devtools";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 import router from "next/router";
-import {Toaster} from "react-hot-toast";
-import {Context} from "@context";
+import { Toaster } from "react-hot-toast";
+import { Context } from "@context";
 import CalenderProvider from "../context/calenderContext";
-import {NewUserContext} from "../context/newUserContext";
-import {NewTransContext} from "context/transactionContext";
-import {AuthenticationContext} from "../context/AuthContext";
+import { NewUserContext } from "../context/newUserContext";
+import { NewTransContext } from "context/transactionContext";
+import { AuthenticationContext } from "../context/AuthContext";
+import { NewDisputeContext } from "context/disputeLogContext";
 
-export default function App({Component, pageProps}: AppProps) {
+export default function App({ Component, pageProps }: AppProps) {
 
     const [queryClient] = React.useState(() => new QueryClient());
 
@@ -40,7 +41,7 @@ export default function App({Component, pageProps}: AppProps) {
                     name="viewport"
                     content="minimum-scale=1, initial-scale=1, width=device-width"
                 />
-                <link rel="icon" type="image/png" href="../public/assets/logo/vestra.png" sizes="32x32"/>
+                <link rel="icon" type="image/png" href="../public/assets/logo/vestra.png" sizes="32x32" />
                 <link
                     rel="stylesheet"
                     href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css"
@@ -49,13 +50,15 @@ export default function App({Component, pageProps}: AppProps) {
             <AuthenticationContext>
                 <Context>
                     <CalenderProvider>
-                        <NewTransContext>
-                            <NewUserContext>
-                                <Toaster/>
-                                <Component {...pageProps} />
-                                <ReactQueryDevtools initialIsOpen={false}/>
-                            </NewUserContext>
-                        </NewTransContext>
+                        <NewDisputeContext>
+                            <NewTransContext>
+                                <NewUserContext>
+                                    <Toaster />
+                                    <Component {...pageProps} />
+                                    <ReactQueryDevtools initialIsOpen={false} />
+                                </NewUserContext>
+                            </NewTransContext>
+                        </NewDisputeContext>
                     </CalenderProvider>
                 </Context>
             </AuthenticationContext>

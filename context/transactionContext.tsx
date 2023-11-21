@@ -8,23 +8,34 @@ export const CreateTransContext = createContext({
     },
 
     email: "",
-    setEmail: (amount: string) => {
+    setEmail: (email: string) => {
     },
 
     merchant: "",
-    setMerchant: (amount: string) => {
+    setMerchant: (merchant: string) => {
     },
 
     business: "",
-    setBusiness: (amount: string) => {
+    setBusiness: (business: string) => {
     },
 
     payType: "",
-    setPayType: (amount: string) => {
+    setPayType: (payType: string) => {
     },
 
     payPath: "",
-    setPayPath: (value: string) => {
+    setPayPath: (payPath: string) => {
+    },
+
+    payment: "",
+    setPayment: (payment: string) => {
+    },
+
+    payLinkDetails: {
+        merchantId: "",
+        secret: "",
+    },
+    setPayLinkDetails: (value: any) => {
     }
 })
 
@@ -35,10 +46,18 @@ export const NewTransContext = ({ children }: { children: React.ReactNode }) => 
     const [merchant, setMerchant] = useState("");
     const [business, setBusiness] = useState("");
     const [payType, setPayType] = useState("");
+    const [payment, setPayment] = useState("");
     const [payPath, setPayPath] = useState("");
+    const [payLinkDetails, setPayLinkDetails] = useState({
+        merchantId: "",
+        secret: "",
+    });
 
     return (
-        <CreateTransContext.Provider value={{ payType, setPayType, payPath, setPayPath, amount, setAmount, email, setEmail, merchant, setMerchant, business, setBusiness }}>
+        <CreateTransContext.Provider value={{
+            payType, setPayType, payPath, setPayPath, amount, setAmount, payLinkDetails, setPayLinkDetails, payment,
+            email, setEmail, merchant, setMerchant, business, setBusiness, setPayment
+        }}>
             {children}
         </CreateTransContext.Provider>
     );

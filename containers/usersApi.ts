@@ -10,8 +10,6 @@ const fetchUsersData = (pageNo: any, pageSize: any, search: string) => {
 
     const {userType, userDetail} = useAuthContext()
 
-    console.log("User Details:", userDetail)
-    console.log("User Type:", userType)
 
     const func = async (): Promise<any> => {
         const response = await apiCall({

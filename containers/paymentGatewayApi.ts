@@ -138,8 +138,8 @@ const paymentGatewayController = () => {
     useEffect(() => {
         setState({
             ...state,
-            amount: state?.amount || details?.amount || "100",
-            secret: secretKey || state?.secret || "VESTRA_TESTPrvK25CCB24A30F44E69BD00DA0010F5BDEF",//|| details?.secret 
+            amount: state?.amount || details?.amount || "",
+            secret: secretKey || details?.payLinkDetails?.secret || state?.secret || "",//|| details?.secret 
             currency: "NGN",
             name: "",
             number: "",
@@ -155,11 +155,10 @@ const paymentGatewayController = () => {
             linkGenerated: false,
             isFetchingLinkError: false,
 
-            customerName: state?.business || details?.business || "Davids co",
-            merchantId: merchantsID || state?.merchantId || details?.merchant || "dee9f75a-70bf-4d44-8cc8-d0ce5d396998",
-            customerEmail: state?.customerEmail || details?.email || "davidayoo@mailinator.com",
+            customerName: state?.customerName || details?.business || "",
+            merchantId: details?.payLinkDetails?.merchantId || merchantsID || state?.merchantId || details?.merchant || "",
+            customerEmail: state?.customerEmail || details?.email || "",
         })
-
     }, [details])
 
 
@@ -228,8 +227,8 @@ const paymentGatewayController = () => {
             const response = await apiCall({
                 name: "payWithCard",
                 customHeaders: {
-                    merchantId: merchantId || "",
-                    secret: secret || ""
+                    merchantId: merchantId || details?.payLinkDetails?.merchantId || "",
+                    secret: secret || details?.payLinkDetails?.secret || ""
                 },
                 data: {
                     transactionReference,
@@ -269,7 +268,7 @@ const paymentGatewayController = () => {
                         setState({
                             ...state,
                             transactionReference: res?.data?.data?.transaction_reference || res?.data?.transaction_reference || "",
-                            cardStatus: res?.data?.data?.auth_model || "pay",
+                            cardStatus: res?.data?.data?.auth_model || res?.data?.data?.status || "pay",
                             isSubmitting: false,
                             submittingError: false,
                         })
@@ -278,7 +277,7 @@ const paymentGatewayController = () => {
                         setState({
                             ...state,
                             transactionReference: res?.data?.data?.transaction_reference || res?.data?.transaction_reference || "",
-                            cardStatus: res?.data?.data?.auth_model || "pay",
+                            cardStatus: res?.data?.data?.auth_model || res?.data?.data?.status || "pay",
                             submittingError: true,
                             isSubmitting: false,
                             errorMssg: "Your payment failed, please try again."
@@ -310,23 +309,30 @@ const paymentGatewayController = () => {
                 .then(async (res: any) => {
                     console.log(res)
                     // showModal();
-                    setState({
-                        ...state,
-                        transactionReference: res?.data?.transaction_reference || res?.data?.transaction_reference || state?.transactionReference,
-                        cardStatus: (res?.data?.status === "success") ? "success" : res?.data?.auth_model || "pay",
-                        currency: "NGN",
-                        name: "",
-                        number: "",
-                        cvv: "",
-                        pin: "",
-                        expiryMonth: "",
-                        expiryYear: "",
-                        customerName: "",
-                        customerEmail: "",
-                        submittingError: false,
-                        isSubmitting: false,
-                        errorMssg: ""
-                    })
+                    res?.data?.status === "success" ?
+                        setState({
+                            ...state,
+                            transactionReference: res?.data?.transaction_reference || res?.data?.transaction_reference || state?.transactionReference,
+                            cardStatus: (res?.data?.status === "success") ? "success" : res?.data?.auth_model || "pay",
+                            currency: "NGN",
+                            name: "",
+                            number: "",
+                            cvv: "",
+                            pin: "",
+                            expiryMonth: "",
+                            expiryYear: "",
+                            customerName: "",
+                            customerEmail: "",
+                            submittingError: false,
+                            isSubmitting: false,
+                            errorMssg: ""
+                        }) :
+                        setState({
+                            ...state,
+                            submittingError: true,
+                            isSubmitting: false,
+                            errorMssg: res?.data?.response_message || "Action failed, please try again" || ""
+                        })
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
@@ -390,8 +396,8 @@ const paymentGatewayController = () => {
             const response = await apiCall({
                 name: url,
                 customHeaders: {
-                    merchantId: merchantId || "",
-                    secret: secret || ""
+                    merchantId: merchantId || details?.payLinkDetails?.merchantId || "",
+                    secret: secret || details?.payLinkDetails?.secret || ""
                 },
                 data: data,
                 action: (res: any): any => {
@@ -516,8 +522,8 @@ const paymentGatewayController = () => {
             const response = await apiCall({
                 name: "payWithTransfer",
                 customHeaders: {
-                    merchantId: merchantId || "",
-                    secret: secret || ""
+                    merchantId: merchantId || details?.payLinkDetails?.merchantId || "",
+                    secret: secret || details?.payLinkDetails?.secret || ""
                 },
                 data: {
                     transactionReference,
@@ -610,8 +616,8 @@ const paymentGatewayController = () => {
                 name: "transferStatusQuery",
                 urlExtra: `/${transferDetails?.reference || ""}`,
                 customHeaders: {
-                    merchantId: merchantId || "",
-                    secret: secret || ""
+                    merchantId: details?.payLinkDetails?.merchantId || merchantId || "",
+                    secret: secret || details?.payLinkDetails?.secret || ""
                 },
                 data: {
                     transactionReference,
@@ -698,16 +704,23 @@ const paymentGatewayController = () => {
             const response = await apiCall({
                 name: "paymentLinkDetail",
                 urlExtra: `/${details?.payPath || ""}`,
-                action: (res): any => {
+                action: (res, returned): any => {
                     let { data } = res;
+                    details?.setPayLinkDetails({
+                        ...details?.payLinkDetails,
+                        merchantId: returned?.headers?.merchant_id || data[0]?.merchantId || state?.merchantId || "",
+                        secret: returned?.headers?.merchant_secret || secretKey || data[0]?.secret || state?.secret || "",
+                    })
 
                     setState({
                         ...state,
                         initiationError: false,
                         isFetchingLinkData: false,
+                        isFetchingLinkError: false,
                         amount: data[0]?.amount || state?.amount || "",
                         customerName: data[0]?.customerName || state?.business || "",
-                        merchantId: data[0]?.merchantId || state?.merchantId || "",
+                        merchantId: returned?.headers?.merchant_id || data[0]?.merchantId || state?.merchantId || "",
+                        secret: returned?.headers?.merchant_secret || secretKey || data[0]?.secret || state?.secret || "",
                         customerEmail: data[0]?.customerEmail || state?.customerEmail || "",
                         linktransactionId: data[0]?.transactionId || state?.linktransactionId || "",
                         linkId: data[0]?.uuid || state?.linkId || "",
@@ -745,21 +758,24 @@ const paymentGatewayController = () => {
             })
                 .then(async (res: any) => {
                     // showModal();
+
                     setState({
                         ...state,
-                        secret: secretKey || state?.secret || "VESTRA_TESTPrvK25CCB24A30F44E69BD00DA0010F5BDEF",//|| details?.secret 
+                        // secret: secretKey || state?.secret || "VESTRA_TESTPrvK25CCB24A30F44E69BD00DA0010F5BDEF",//|| details?.secret 
                         amount: res[0]?.amount || state?.amount || "",
                         customerName: res[0]?.customerName || state?.customerName || "",
-                        merchantId: res[0]?.merchantId || state?.merchantId || "",
+                        // merchantId: res[0]?.merchantId || state?.merchantId || "",
                         customerEmail: res[0]?.customerEmail || state?.customerEmail || "",
                         linktransactionId: res[0]?.transactionId || state?.linktransactionId || "",
                         linkId: res[0]?.uuid || state?.linkId || "",
                         isFetchingLinkData: false,
+                        isFetchingLinkError: false,
                         submittingError: false,
                         isSubmitting: false,
                         errorMssg: ""
                     })
                 })
+
         } catch (e) {
             console.log(e + " 'Caught Error.'");
             setState({
@@ -767,10 +783,12 @@ const paymentGatewayController = () => {
                 submittingError: false,
                 initiationError: false,
                 isSubmittingTrans: false,
+                isFetchingLinkError: true,
                 errorMssg: "Action failed, please try again"
             })
         };
     }
+
     //Authorise payments
     useEffect(() => {
         if (details?.payPath) {
@@ -780,8 +798,8 @@ const paymentGatewayController = () => {
     }, [details?.payPath])
 
     useEffect(() => {
-        router?.asPath?.includes("transfer") && amount && !transferDetails?.account_name && handleInitiateTransfer(null);
-    }, [amount])
+        (router?.asPath?.includes("transfer") || details?.payment == "transfer") && customerName && customerEmail && !transferDetails?.account_name && handleInitiateTransfer(null);
+    }, [details])
 
 
     //Submit USSD payments
@@ -795,8 +813,8 @@ const paymentGatewayController = () => {
             const response = await apiCall({
                 name: "payWithCard",
                 customHeaders: {
-                    merchantId: merchantId || "",
-                    secret: secret || ""
+                    merchantId: merchantId || details?.payLinkDetails?.merchantId || "",
+                    secret: secret || details?.payLinkDetails?.secret || ""
                 },
                 data: {
                     transactionReference,
@@ -879,8 +897,8 @@ const paymentGatewayController = () => {
             const response = await apiCall({
                 name: "paymentLink",
                 customHeaders: {
-                    merchantId: merchantId || "",
-                    secret: secret || ""
+                    merchantId: merchantId || details?.payLinkDetails?.merchantId || "",
+                    secret: secret || details?.payLinkDetails?.secret || ""
                 },
                 data: {
                     amount: Number(amount || 0) || 0,
@@ -969,8 +987,8 @@ const paymentGatewayController = () => {
             const response = await apiCall({
                 name: "paymentLinkList", //"getTransactions",
                 customHeaders: {
-                    merchantId: merchantsID || "",
-                    secret: secretKey || ""
+                    merchantId: merchantsID || details?.payLinkDetails?.merchantId || "",
+                    secret: secretKey || details?.payLinkDetails?.secret || ""
                 },
                 action: (): any => (["skip"])
             })
@@ -1001,9 +1019,10 @@ const paymentGatewayController = () => {
 
     }
 
-    return { handleSubmitCard, handleInitiatePaymentLink, PaymentLinkList, handleCardPayAuth, timeVal, onChangeOTP, handleTSQ, handleInitiateTransfer, handleSubmitUSSD, handleSubmitLink, handleClearError, handleChange, handleExtraChange, transferDetails, stateValues: state }
+    return {
+        handleSubmitCard, handleInitiatePaymentLink, PaymentLinkList, handleCardPayAuth, timeVal, onChangeOTP, handleTSQ, handleInitiateTransfer,
+        handleSubmitUSSD, handleSubmitLink, handleClearError, handleChange, handleExtraChange, transferDetails, stateValues: state
+    }
 }
 
 export { paymentGatewayController };
-
-

@@ -1177,6 +1177,7 @@ const APIKEYSController = (showDelete: any = false, showView: any = false, showC
             ...state,
             apiKeys: data
         })
+        data?.id && Storage.setItem("apiKeys", data || {});
     }, [data])
 
 
@@ -1246,11 +1247,15 @@ const APIKEYSController = (showDelete: any = false, showView: any = false, showC
             })
                 .then(async (res: any) => {
                     // showModal();
+                    refetch();
                     setState({
+                        ...state,
+                        apiKeys: res || {},
                         submittingError: false,
                         isSubmitting: false,
                         errorMssg: ""
                     })
+                    Storage.setItem("apiKeys", res || {});
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
