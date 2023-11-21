@@ -204,6 +204,20 @@ export const endPoints: endPointlistTypes = {
         auth: true
     },
 
+    // Dispute
+    listDisputes: {
+        url: '/api/v1/dispute/view-all',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+    logADispute: {
+        url: '/api/v1/dispute/log',
+        method: 'POST',
+        headers: FileHeaders,
+        auth: true
+    },
+
     //Payments
     payWithCard: {
         url: '/api/v1/pay/card',
@@ -269,7 +283,7 @@ export const endPoints: endPointlistTypes = {
         payment: true
 
     },
-    
+
     paymentLinkDetail: {
         url: '/api/v1/payment-link/paylink',
         method: 'GET',

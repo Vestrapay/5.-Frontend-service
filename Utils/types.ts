@@ -63,6 +63,10 @@ export type endPointlistTypes = {
     removePermission: endpointTypes;
     createRole: endpointTypes;
 
+    listDisputes: endpointTypes;
+    logADispute: endpointTypes;
+
+
     deleteMerchantUser: endpointTypes;
     merchantCreateUser: endpointTypes;
     getAllRoles: endpointTypes;
@@ -145,7 +149,7 @@ export type urlPropTypes = {
     data?: any
     params?: any
     customHeaders?: {}
-    action?: (data: any) => string[] | undefined
+    action?: (data: any, response: any) => string[] | undefined
     errorAction?: (err: any) => string[] | undefined
     successDetails?: { title: any; text: any; icon: any; }
 }
