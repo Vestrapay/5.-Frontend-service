@@ -199,7 +199,20 @@ const UpdateKYCController = () => {
 
     const [filesString, setFilesString] = useState<any>([]);
     const [files, setFiles] = useState<any>([]);
-    const [msg, setMsg] = useState("");
+    const [category, setCategory] = useState("");
+
+    useEffect(() => {
+        setFilesString([]);
+        setFiles([]);
+        setState({
+            ...state,
+            selectedFile: null,
+            submittingError: false,
+            isSubmitting: false,
+            errorMssg: ""
+        })
+    }, [category])
+
 
     const convertBase64 = (file: Blob) => {
         return new Promise((resolve, reject) => {
@@ -246,7 +259,7 @@ const UpdateKYCController = () => {
 
         let formData = new FormData();
         files && files?.length > 0 ?
-            files?.map((each: any, i: any) => formData.append('files', each))
+            files?.map((each: any, i: any) => formData.append(category || 'files', each))
             : null
 
         setState((state: any) => ({
@@ -254,14 +267,7 @@ const UpdateKYCController = () => {
             isSubmitting: true
         }))
         try {
-            // certificate_of_incorporation
-            // register_of_shareholder
-            // register_of_directors 
-            // memorandum_and_articles_of_association
-            // valid_id_of_directors
-            // valid_id_of_ultimate_beneficial_owners
-            // operating_license
-            // due_diligence_questionaire
+
             const response = await apiCall({
                 name: "uploadUtility",
                 data: formData,//params: { files: filesString },// { id: state?.id, country, firstName, lastName, email, phoneNumber, businessName, enabled, username, ...data },
@@ -317,7 +323,6 @@ const UpdateKYCController = () => {
         };
     }
 
-
     //Handle assertions functions
     const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
         setState({
@@ -335,8 +340,7 @@ const UpdateKYCController = () => {
         });
     }
 
-
-    return { handleSubmit, handleClearError, handleChange, handleExtraChange, stateValues: state, files, fileInputRef, handleFileInputClick, handleChangeFile, handleClearFiles }
+    return { handleSubmit, handleClearError, setCategory, handleChange, handleExtraChange, stateValues: state, files, fileInputRef, handleFileInputClick, handleChangeFile, handleClearFiles }
 
     // return { isLoading, isError, error, isSuccess, data, refetch }
 

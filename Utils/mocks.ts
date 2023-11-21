@@ -252,3 +252,36 @@ export const paymentMethods = [
         value: "USSD"
     }
 ]
+
+export const kyccategories = [
+    {
+        name: "Certificate of incorporation",
+        description: "Visa, Mastercard, Discover, Diners Club, Verve.",
+        value: "certificate_of_incorporation"
+    },
+    {
+        name: "Register of shareholder",
+        description: "Visa, Mastercard, Discover, Diners Club, Verve.",
+        value: "register_of_shareholder"
+    },
+    {
+        name: "Register of directors",
+        description: "A secure QR-code-based payments and collections platform for receiving and making payments",
+        value: "register_of_directors"
+    },
+    {
+        name: "Memorandum and articles of association",
+        description: "Allows you receive payments via a payment link.",
+        value: "memorandum_and_articles_of_association"
+    },
+    {
+        name: "Valid id of directors",
+        description: "GTB, Zenith bank, First bank, Stanbic IBTC, Access bank.",
+        value: "valid_id_of_directors"
+    },
+    {
+        name: "Due diligence questionaire",
+        description: "GTB, Zenith bank, First bank, Stanbic IBTC, Access bank.",
+        value: "due_diligence_questionaire"
+    }
+]
