@@ -10,7 +10,8 @@ import { default as UploadFileSmall } from '@assets/svg/uploadFileSmall.svg';
 
 const UpdateKyc = () => {
 
-    const { handleSubmit, handleClearError, handleChange, handleExtraChange, stateValues, files, fileInputRef, handleFileInputClick, handleChangeFile, handleClearFiles } = UpdateKYCController()
+    const { handleSubmit, handleClearError, handleChange, handleExtraChange, stateValues, files,
+        fileInputRef, handleFileInputClick, handleChangeFile, handleClearFiles } = UpdateKYCController()
 
     return (
         <SettingsProfileLayout>

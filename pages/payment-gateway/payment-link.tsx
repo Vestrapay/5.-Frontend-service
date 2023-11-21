@@ -28,11 +28,11 @@ const CardPaymentGateway: NextPage = () => {
                             <img className="w-28 h-28" src="/assets/successGif.gif" />
                         </div>
                         <div className="h-max pt-2 flex-col  justify-center items-center gap-1 flex">
-                            <div className="text-neutral-600 text-2xl font-normal font-['Roboto'] leading-tight tracking-wide text-center ">Transaction Successful</div>
+                            <div className="text-neutral-600 text-2xl font-normal font-['Roboto'] leading-tight tracking-wide text-center ">Generation Successful</div>
                             <div className="w-full pt-1 justify-center items-center inline-flex mb-5">
                                 <div className=" justify-center items-center flex">
                                     <div className=" font-base font-['Roboto'] leading-loose text-zinc-500 text-base text-center ">
-                                        Redirecting you back to the previous page.
+                                        {/* Redirecting you back to the previous page. */}
                                     </div>
                                 </div>
                             </div>
