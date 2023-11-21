@@ -44,7 +44,7 @@ export default function StartTransaction({
                         </div>
 
                         <DefaultInput
-                            type="currency"
+                            type="tel"
                             name="amount"
                             label="Amount"
                             topLabel="Amount"

@@ -15,7 +15,7 @@ const PayLinkLayout = ({ children }: LayoutProps) => {
     const router = useRouter()
     const { stateValues, handleInitiatePaymentLink } = paymentGatewayController();
 
-    const { payType: paymentType } = useNewTransContext()
+    const { payType: paymentType, setPayment, payment } = useNewTransContext()
 
     const [payType, setPayType] = useState("card");
 
@@ -25,19 +25,24 @@ const PayLinkLayout = ({ children }: LayoutProps) => {
         router.push(url)
     }
 
+    const changeThePaymentType = (url: string) => {
+        setPayment(url)
+    }
 
     useEffect(() => {
-        if (router.asPath.includes("card")) {
+        if (payment?.includes("card")) {
             setPayType("card");
-        } else if (router.asPath.includes("ussd")) {
+        } else if (payment?.includes("ussd")) {
             setPayType("ussd");
-        } else if (router.asPath.includes("transfer")) {
+        } else if (payment?.includes("transfer")) {
             setPayType("transfer");
-        } else if (router.asPath.includes("payment-link")) {
+        } else if (payment?.includes("payment-link")) {
             setPayType("payment-link");
+        } else {
+            setPayType("card");
         }
 
-    }, [router])
+    }, [payment])
 
 
     return (
@@ -112,7 +117,7 @@ const PayLinkLayout = ({ children }: LayoutProps) => {
                     <div className="text-zinc-800  px-5 lg:pl-10 xl:pl-20 lg:pr-5 pt-7 pb-6 text-xl font-semibold font-['Roboto'] uppercase leading-none">Pay with</div>
 
                     <div className={` ${payType == "card" ? "bg-white" : "bg-none"} w-5/6 h-max px-5 lg:pl-10 xl:pl-20 lg:pr-5 pt-7 pb-6 rounded-tr-lg rounded-br-lg justify-start items-center gap-6 inline-flex cursor-pointer`}
-                        onClick={() => changePaymentType("/paylink/card")}>
+                        onClick={() => changeThePaymentType("card")}>
                         <div className=" justify-center items-start flex">
                             <div className={` ${payType == "card" ? "bg-indigo-900" : " bg-gray-300"} w-10 h-10 relative rounded-full flex justify-center items-center`}>
                                 <HiCreditCard size={15} color={payType == "card" ? "white" : "gray"} />
@@ -125,7 +130,7 @@ const PayLinkLayout = ({ children }: LayoutProps) => {
                     </div>
 
                     {/* <div className={` ${payType == "ussd" ? "bg-white" : "bg-none"} w-5/6 h-max px-5 lg:pl-10 xl:pl-20 lg:pr-5 pt-7 pb-6 rounded-tr-lg rounded-br-lg justify-start items-center gap-6 inline-flex cursor-pointer`}
-                    onClick={() => changePaymentType("/paylink/ussd")}>
+                    onClick={() => changeThePaymentType("ussd")}>
                     <div className=" justify-center items-start flex">
                         <div className={` ${payType == "ussd" ? "bg-indigo-900" : " bg-gray-300"} w-10 h-10 relative rounded-full flex justify-center items-center`}>
                             <HiMiniHashtag size={20} color={payType == "ussd" ? "white" : "gray"} />
@@ -138,7 +143,7 @@ const PayLinkLayout = ({ children }: LayoutProps) => {
                 </div> */}
 
                     <div className={` ${payType == "transfer" ? "bg-white" : "bg-none"} w-5/6 h-max px-5 lg:pl-10 xl:pl-20 lg:pr-5 pt-7 pb-6 rounded-tr-lg rounded-br-lg justify-start items-center gap-6 inline-flex cursor-pointer`}
-                        onClick={() => changePaymentType("/paylink/transfer")}>
+                        onClick={() => changeThePaymentType("transfer")}>
                         <div className=" justify-center items-start flex">
                             <div className={` ${payType == "transfer" ? "bg-indigo-900" : " bg-gray-300"} w-10 h-10 relative rounded-full flex justify-center items-center`}>
                                 <HiBuildingLibrary size={20} color={payType == "transfer" ? "white" : "gray"} />
@@ -170,7 +175,7 @@ const PayLinkLayout = ({ children }: LayoutProps) => {
                         <div className="text-zinc-800  px-5 lg:pl-10 xl:pl-20 lg:pr-5 pt-7 pb-6 text-xl font-semibold font-['Roboto'] uppercase leading-none">Pay with</div>
 
                         <div className={` ${payType == "card" ? "bg-white" : "bg-none"} w-5/6 h-max px-5 lg:pl-10 xl:pl-20 lg:pr-5 pt-7 pb-6 rounded-tr-lg rounded-br-lg justify-start items-center gap-6 inline-flex cursor-pointer`}
-                            onClick={() => changePaymentType("/paylink/card")}>
+                            onClick={() => changeThePaymentType("card")}>
                             <div className=" justify-center items-start flex">
                                 <div className={` ${payType == "card" ? "bg-indigo-900" : " bg-gray-300"} w-10 h-10 relative rounded-full flex justify-center items-center`}>
                                     <HiCreditCard size={15} color={payType == "card" ? "white" : "gray"} />
@@ -183,7 +188,7 @@ const PayLinkLayout = ({ children }: LayoutProps) => {
                         </div>
 
                         {/* <div className={` ${payType == "ussd" ? "bg-white" : "bg-none"} w-5/6 h-max px-5 lg:pl-10 xl:pl-20 lg:pr-5 pt-7 pb-6 rounded-tr-lg rounded-br-lg justify-start items-center gap-6 inline-flex cursor-pointer`}
-                        onClick={() => changePaymentType("/paylink/ussd")}>
+                        onClick={() => changeThePaymentType("ussd")}>
                         <div className=" justify-center items-start flex">
                             <div className={` ${payType == "ussd" ? "bg-indigo-900" : " bg-gray-300"} w-10 h-10 relative rounded-full flex justify-center items-center`}>
                                 <HiMiniHashtag size={20} color={payType == "ussd" ? "white" : "gray"} />
@@ -196,7 +201,7 @@ const PayLinkLayout = ({ children }: LayoutProps) => {
                     </div> */}
 
                         <div className={` ${payType == "transfer" ? "bg-white" : "bg-none"} w-5/6 h-max px-5 lg:pl-10 xl:pl-20 lg:pr-5 pt-7 pb-6 rounded-tr-lg rounded-br-lg justify-start items-center gap-6 inline-flex cursor-pointer`}
-                            onClick={() => changePaymentType("/paylink/transfer")}>
+                            onClick={() => changeThePaymentType("transfer")}>
                             <div className=" justify-center items-start flex">
                                 <div className={` ${payType == "transfer" ? "bg-indigo-900" : " bg-gray-300"} w-10 h-10 relative rounded-full flex justify-center items-center`}>
                                     <HiBuildingLibrary size={20} color={payType == "transfer" ? "white" : "gray"} />

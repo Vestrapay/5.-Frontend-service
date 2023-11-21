@@ -23,7 +23,7 @@ const ErrorCard = ({ handleSubmit, loader }: any) => {
                 </div>
             </div>
             <DefaultButton
-                labelText={"Submit"}
+                labelText={"Re Initiate"}
                 containerVariant="w-max p-3 my-5 text-center text-neutral-50 text-lg font-extrabold font-['Roboto'] leading-tight"
                 variant="w-full p-3 text-center text-neutral-50 text-lg font-extrabold font-['Roboto'] leading-tight"
                 isLoading={loader}

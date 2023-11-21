@@ -127,7 +127,8 @@ const DefaultInput = forwardRef<any, any>(({
                         <CurrencyFormat
                         className={` ${payment ? "rounded-none peer pl-12 pr-2 py-2.5 border-t-0 uppercase border-l-0 border-r-0 border-b border-slate-300 placeholder-gray-300" :
                             "outline-none placeholder:text-gray-300 text-blackish placeholder:text-sm placeholder:min-w-max w-full border-none leading-6 text-sm font-300 px-0 py-3 bg-[#ffffff00]"} ${icon ? "pl-0" : ""} ${inputVariant}`}
-                            name="amount"
+                            
+                            name={name}
                             value={value || "0"}
                             onChange={onChange}
                             maxLength={maxLength}
