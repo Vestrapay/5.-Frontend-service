@@ -3,8 +3,8 @@ import SettingsProfileLayout from "@pages/settings/profile-settings";
 import { Camera } from "react-huge-icons/solid";
 import { DefaultButton, DefaultInput } from "@reusables/index";
 import Image from "next/image";
-import { UpdateKYCController } from 'containers/settingsApi';
-import { BsFileEarmarkImage } from 'react-icons/bs';
+import { UpdateKYCController, UsersProfileController } from 'containers/settingsApi';
+import { BsFileEarmarkImage, BsCheckCircleFill } from 'react-icons/bs';
 import { default as UploadFile } from '@assets/svg/uploadFile.svg';
 import { default as UploadFileSmall } from '@assets/svg/uploadFileSmall.svg';
 import { kyccategories } from '@utils/mocks';
@@ -13,6 +13,8 @@ const UpdateKyc = () => {
 
     const { handleSubmit, handleClearError, handleChange, handleExtraChange, stateValues, files, setCategory,
         fileInputRef, handleFileInputClick, handleChangeFile, handleClearFiles } = UpdateKYCController()
+
+    const { stateValues: profileStateValues } = UsersProfileController()
 
     return (
         <SettingsProfileLayout>
@@ -36,15 +38,19 @@ const UpdateKyc = () => {
                 <hr className="h-px mt-5 bg-[#382C7C50] border-0" />
                 <div className="flex flex-row my-5 gap-5 w-full items-center justify-center">
                     <div className="flex flex-col w-1/3 mb-10">
+                        <span className="text-base font-medium my-5">
+                            {`Please select a document to upload:`}
+                        </span>
                         {kyccategories && kyccategories?.map((each: any, i: any) => {
                             return (
                                 <div style={{
                                     borderRadius: "1px",
                                     border: "1px solid #F0F0F0"
-                                }} key={i} className={`grid grid-cols-2 lg:grid-cols-6 gap-10 w-full h-fit relative flex py-5 items-center hover:bg-gray-100 cursor-pointer
+                                }} key={i} className={` gap-10 w-full h-fit relative flex py-5 items-center hover:bg-gray-100 cursor-pointer
                                 ${stateValues?.category == each?.name ? "bg-gray-200" : ""} `} onClick={() => { handleExtraChange("category", each?.name || ""); setCategory(each?.value || ""); }} >
-                                    <div className="w-full sm:col-span-5 col-span-2 px-10 flex flex-col gap-2">
-                                        <span className="text-neutral-700 text-base font-semibold font-['Nunito']">{each?.name || ""}</span>
+                                    <div className="w-full sm:col-span-5 col-span-2 px-5 flex flex-row justify-between gap-2">
+                                        <span className="text-neutral-700 text-base font-semibold font-['Nunito'] w-4/5">{each?.name || ""}</span>
+                                        {profileStateValues?.requiredDocuments.includes(each?.value) && <BsCheckCircleFill color={"green"} size={20} className='w-1/5' />}
                                     </div>
                                 </div>
                             )

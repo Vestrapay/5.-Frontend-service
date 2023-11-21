@@ -26,6 +26,7 @@ const UsersProfileController = (showDelete: any = false, showView: any = false, 
         password: "",
         enabled: "",
         id: "",
+        requiredDocuments: "",
         submittingError: false,
         isSubmitting: false,
         errorMssg: ""
@@ -65,7 +66,8 @@ const UsersProfileController = (showDelete: any = false, showView: any = false, 
             username: state?.username || data?.username || "",
             password: state?.password || "",
             enabled: state?.enabled || data?.enabled || true,
-            id: state?.id || data?.id || ""
+            id: state?.id || data?.id || "",
+            requiredDocuments: state?.requiredDocuments || data?.requiredDocuments || "",
         })
 
     }, [data])
