@@ -9,6 +9,7 @@ import VerifySignUp from '@/components/onboarding/VerifySignUp'
 import VerifySignIn from '@/components/onboarding/VerifySignIn'
 import OnBoardingLayout from '@/components/layouts/OnBoardingLayout'
 import {useRouter} from "next/router";
+import { Storage } from '@utils/inAppstorage'
 
 
 export default function Home() {
@@ -37,6 +38,11 @@ export default function Home() {
         const {section} = router.query
 
         const page = typeof section === "string" ? sectionToPage[section] : "signup"
+
+        if (page === "signin" || page === "signup") {
+            Storage.clearItem()
+        }
+
         setPage(page)
     }, [router]);
 
