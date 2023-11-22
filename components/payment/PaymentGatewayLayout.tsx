@@ -92,7 +92,7 @@ const PaymentGateway = ({ children }: LayoutProps) => {
                             />
                         </div>
                         <div className="h-5 pr-2.5 justify-center items-center flex">
-                            <div className="text-indigo-900 text-xs font-bold font-['Roboto'] leading-tight tracking-wide">SECURED BY VESTRAYPAY</div>
+                            <div className="text-indigo-900 text-xs font-bold font-['Roboto'] leading-tight tracking-wide">SECURED BY VESTRAPAY</div>
                         </div>
                     </div>
                 </div>
