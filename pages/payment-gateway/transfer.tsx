@@ -17,13 +17,33 @@ import Countdown, { zeroPad, calcTimeDelta, formatTimeDelta } from 'react-countd
 
 
 // Random component
-const Completionist = () => <span>You are good to go!</span>;
+const Completionist = (value: any) => {
+    return (
+        <div className="w-full h-max bg-neutral-100 rounded-md border border-stone-500 border-opacity-20 flex-col justify-center items-center flex  pt-11 pb-11">
+            <div className="h-max p-10 pt-5 flex-col justify-center items-center gap-2 flex">
+                <div>
+                    <BsFillExclamationTriangleFill size={75} />
+                </div>
+                <div className="h-max pt-2 flex-col  justify-center items-center gap-1 flex">
+                    <div className="text-neutral-600 text-2xl font-normal font-['Roboto'] leading-tight tracking-wide  text-center ">{`Transaction ${value?.value?.toLowerCase() || "Unfulfilled"}`}</div>
+                    <div className="w-full pt-1 justify-center items-center inline-flex">
+                        <div className=" justify-center items-center flex">
+                            <div className=" font-base font-['Roboto'] leading-loose text-zinc-500 text-base text-center ">
+                                Your window to complete this transaction has elapsed.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>)
+};
 
 let second = 0;
 
-const CardPaymentGateway: NextPage = () => {
+const TransferPaymentGateway: NextPage = () => {
 
     const [first, setfirst] = useState<number>(0)
+    const [coutDone, setCountDone] = useState<boolean>(false)
 
     const { handleInitiateTransfer, transferDetails, handleClearError, handleChange, handleExtraChange, stateValues, handleTSQ } = paymentGatewayController()
 
@@ -78,71 +98,76 @@ const CardPaymentGateway: NextPage = () => {
                                     </div>
                                 </div> :
                                 stateValues?.initiated ?
-                                    <>
-                                        <div className="w-full h-max px-px pt-11 pb-5 bg-neutral-100 rounded-md border border-stone-500 border-opacity-20 flex-col justify-start items-start gap-7 inline-flex">
-                                            <div className="h-16 px-10 pt-2 flex-col justify-start items-start gap-1 flex">
-                                                <div className="text-zinc-500 text-base font-normal font-['Roboto'] leading-tight tracking-wide">AMOUNT</div>
-                                                <div className="w-full pt-1 justify-start items-start inline-flex">
-                                                    <div className="pr-1 justify-start items-start flex">
-                                                        <div className="text-neutral-600 text-2xl font-bold font-['Roboto'] leading-loose">
-                                                            <CurrencyFormat value={stateValues?.amount || ""} displayType={'text'} thousandSeparator={true} fixedDecimalScale={true} decimalScale={2} prefix={"NGN "} />
+                                    !coutDone ?
+                                        <>
+                                            <div className="w-full h-max px-px pt-11 pb-5 bg-neutral-100 rounded-md border border-stone-500 border-opacity-20 flex-col justify-start items-start gap-7 inline-flex">
+                                                <div className="h-16 px-10 pt-2 flex-col justify-start items-start gap-1 flex">
+                                                    <div className="text-zinc-500 text-base font-normal font-['Roboto'] leading-tight tracking-wide">AMOUNT</div>
+                                                    <div className="w-full pt-1 justify-start items-start inline-flex">
+                                                        <div className="pr-1 justify-start items-start flex">
+                                                            <div className="text-neutral-600 text-2xl font-bold font-['Roboto'] leading-loose">
+                                                                <CurrencyFormat value={stateValues?.amount || ""} displayType={'text'} thousandSeparator={true} fixedDecimalScale={true} decimalScale={2} prefix={"NGN "} />
+                                                            </div>
+                                                        </div>
+                                                        <div className="pl-5" />
+                                                    </div>
+                                                </div>
+                                                <div className="h-16 px-10 pt-2 flex-col justify-start items-start gap-1 flex">
+                                                    <div className="text-zinc-500 text-base font-normal font-['Roboto'] leading-tight tracking-wide">ACCOUNT NUMBER</div>
+                                                    <div className="w-full pt-1 justify-start items-start inline-flex">
+                                                        <div className=" justify-start items-start flex">
+                                                            <div className="text-neutral-600 text-2xl font-bold font-['Roboto'] leading-loose">{account_number || ""}</div>
                                                         </div>
                                                     </div>
-                                                    <div className="pl-5" />
                                                 </div>
-                                            </div>
-                                            <div className="h-16 px-10 pt-2 flex-col justify-start items-start gap-1 flex">
-                                                <div className="text-zinc-500 text-base font-normal font-['Roboto'] leading-tight tracking-wide">ACCOUNT NUMBER</div>
-                                                <div className="w-full pt-1 justify-start items-start inline-flex">
-                                                    <div className=" justify-start items-start flex">
-                                                        <div className="text-neutral-600 text-2xl font-bold font-['Roboto'] leading-loose">{account_number || ""}</div>
+                                                <div className="h-16 px-10 pt-2 flex-col justify-start items-start gap-2 flex">
+                                                    <div className="text-zinc-500 text-base font-normal font-['Roboto'] leading-tight tracking-wide">ACCOUNT NAME</div>
+                                                    <div className="text-neutral-600 text-2xl font-bold font-['Roboto'] leading-loose">{`${account_name}`}</div>
+                                                </div>
+                                                <div className="h-16 px-10 pt-2 flex-col justify-start items-start gap-2 flex">
+                                                    <div className="text-zinc-500 text-base font-normal font-['Roboto'] leading-tight tracking-wide">BANK NAME</div>
+                                                    <div className="text-neutral-600 text-2xl font-bold font-['Roboto'] leading-loose">{`${bank_name}`}</div>
+                                                </div>
+                                                <div className="w-full pt-5 border-t border-gray-200 justify-start items-start inline-flex">
+                                                    <div className="h-6 px-10 justify-start items-start flex">
+                                                        <div className="text-stone-500 text-lg font-normal font-['Roboto'] leading-normal">Use these details for this transaction only. </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="h-16 px-10 pt-2 flex-col justify-start items-start gap-2 flex">
-                                                <div className="text-zinc-500 text-base font-normal font-['Roboto'] leading-tight tracking-wide">ACCOUNT NAME</div>
-                                                <div className="text-neutral-600 text-2xl font-bold font-['Roboto'] leading-loose">{`${account_name}`}</div>
-                                            </div>
-                                            <div className="h-16 px-10 pt-2 flex-col justify-start items-start gap-2 flex">
-                                                <div className="text-zinc-500 text-base font-normal font-['Roboto'] leading-tight tracking-wide">BANK NAME</div>
-                                                <div className="text-neutral-600 text-2xl font-bold font-['Roboto'] leading-loose">{`${bank_name}`}</div>
-                                            </div>
-                                            <div className="w-full pt-5 border-t border-gray-200 justify-start items-start inline-flex">
-                                                <div className="h-6 px-10 justify-start items-start flex">
-                                                    <div className="text-stone-500 text-lg font-normal font-['Roboto'] leading-normal">Use these details for this transaction only. </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className=" w-full px-10 justify-center items-center flex">
-                                            <Countdown
-                                                key={stateValues?.countKey}
-                                                date={Date.now() + 598000}
-                                                onTick={(data: any) => {
-                                                    if (data?.minutes) {
-                                                        setfirst(data?.minutes);
-                                                        if (first > data?.minutes) {
-                                                            console.log(first);
-                                                            setfirst(data?.minutes);
-                                                            handleTSQ();
-                                                        }
-                                                    }
-                                                }}
-                                                renderer={({ hours, minutes, seconds, completed }: any) => {
 
-                                                    if (completed) {
-                                                        // Render a completed state
-                                                        return <Completionist />;
-                                                    } else {
-                                                        // Render a countdown
-                                                        return <>
-                                                            <span className="text-stone-500 text-lg font-normal font-['Roboto'] leading-normal">{`This will expire in: `}&nbsp;</span>
-                                                            <span className="text-stone-500 text-lg font-normal font-['Roboto'] leading-normal"> {zeroPad(minutes)}:{zeroPad(seconds)}</span>
-                                                        </>
-                                                    }
-                                                }}
-                                            />
-                                        </div>
-                                    </> : stateValues?.isSubmitting || stateValues?.isSubmittingTrans ?
+                                            <div className=" w-full px-10 justify-center items-center flex">
+                                                <Countdown
+                                                    key={stateValues?.countKey}
+                                                    date={Date.now() + 598000}
+                                                    onTick={(data: any) => {
+                                                        if (data?.minutes) {
+                                                            setfirst(data?.minutes);
+                                                            if (first > data?.minutes) {
+                                                                console.log(first);
+                                                                setfirst(data?.minutes);
+                                                                handleTSQ();
+                                                            }
+                                                        }
+                                                    }}
+                                                    renderer={({ hours, minutes, seconds, completed }: any) => {
+
+                                                        if (completed) {
+                                                            setCountDone(true);
+                                                            handleTSQ();
+                                                            // Render a completed state
+                                                            return <span></span>
+                                                        } else {
+                                                            // Render a countdown
+                                                            return <>
+                                                                <span className="text-stone-500 text-lg font-normal font-['Roboto'] leading-normal">{`This will expire in: `}&nbsp;</span>
+                                                                <span className="text-stone-500 text-lg font-normal font-['Roboto'] leading-normal"> {zeroPad(minutes)}:{zeroPad(seconds)}</span>
+                                                            </>
+                                                        }
+                                                    }}
+                                                />
+                                            </div>
+                                        </> : <Completionist value={stateValues?.transferingStatus || "Unfulfilled"} />
+                                    : stateValues?.isSubmitting || stateValues?.isSubmittingTrans ?
                                         <div className="w-full h-max bg-neutral-100 rounded-md border border-stone-500 border-opacity-20 flex-col justify-center items-center flex  pt-11 pb-5">
                                             <div className="h-max w-full p-10 pt-3 flex-col justify-center items-center gap-10 flex">
                                                 <PropagateLoader color="#3F2F7F50" />
@@ -202,4 +227,4 @@ const CardPaymentGateway: NextPage = () => {
     );
 };
 
-export default CardPaymentGateway;
+export default TransferPaymentGateway;

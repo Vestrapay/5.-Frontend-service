@@ -33,7 +33,7 @@ const TransactionsNavbar = ({ apiRef, data, name, setShowDelete = () => null }: 
             <div className="flex justify-end items-center gap-10">
                 <DefaultButton
                     icon={<BsPlus size={25} />}
-                    labelText={`Pay with ${name}`}
+                    labelText={`Pay with ${name||"Transfer"}`}
                     handleClick={setShowDelete}
                     variant={"bg-selected cursor-poNunito flex items-center p-0 min-w-max"}
                 />

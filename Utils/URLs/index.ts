@@ -9,7 +9,7 @@ import { Storage } from "Utils/inAppstorage";
 
 
 
-const baseUrl = (): any => "https://434e-2001-569-52c4-d700-e176-8444-6a16-ce47.ngrok-free.app";//process.env.REACT_APP_BASE_URL;
+const baseUrl = (): any => "https://754d-2001-569-52c4-d700-b485-3a1e-1c11-66c9.ngrok-free.app";//process.env.REACT_APP_BASE_URL;
 
 
 // For testing purposes only

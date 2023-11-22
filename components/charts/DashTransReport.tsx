@@ -2,15 +2,16 @@ import React from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart, LinearScale, PointElement, LineElement, LineController, CategoryScale, Tooltip, Legend } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import dayjs from 'dayjs';
 
 Chart.register(CategoryScale, LinearScale, LineController, LineElement, PointElement, Tooltip, Legend, ChartDataLabels);
 
 function DashTransReport({ data }: any) {
 
-    const thisDayGraphData = data
+    const thisDayGraphData = data?.map((each: any) => dayjs(each?.createdAt || new Date()).format('dd HH:mm'))
 
     const chartData = {
-        labels: thisDayGraphData?.axis?.map((each: any) => each?.day) || ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        labels: thisDayGraphData || ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
         datasets: [
             {
                 data: thisDayGraphData?.map((each: any) => each?.amount) || [0, 0, 0, 0, 0, 0, 0],

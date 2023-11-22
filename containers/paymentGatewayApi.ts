@@ -32,6 +32,7 @@ const paymentGatewayController = () => {
         customerName: "",
         customerEmail: "",
         merchantId: "",
+        transferingStatus: "",
 
         cardStatus: "pay",
         cardPin: "",
@@ -602,7 +603,7 @@ const paymentGatewayController = () => {
         };
     }
 
-    //Initiate Transfer payments
+    //Check Transfer payment status
     const handleTSQ = async () => {
 
         setState({
@@ -629,7 +630,31 @@ const paymentGatewayController = () => {
                     }
                 },
                 action: (res): any => {
-                    // let { data: { data } } = res
+                    console.log(res?.data?.transactionStatus, typeof (res?.data?.transactionStatus))
+                    if (res && res?.data && res?.data?.transactionStatus) {
+                        if (res?.data?.transactionStatus === "SUCCESSFUL") {
+                            setState({
+                                ...state,
+                                submittingError: false,
+                                isSubmitting: false,
+                                transferSent: true,
+                            })
+                            setTimeout(() => {
+                                window.history.back();
+                            }, 9999);
+                        } else {
+                            setState({
+                                ...state,
+                                isSubmitting: false,
+                                transferingStatus: res?.data?.transactionStatus
+                            })
+                        }
+                    }
+                    setState({
+                        ...state,
+                        submittingError: false,
+                        isSubmitting: false,
+                    })
                     // setTransferDetails({
                     //     account_name: data?.bank_account?.account_name || "",
                     //     account_number: data?.bank_account?.account_number || "",
@@ -646,15 +671,7 @@ const paymentGatewayController = () => {
                     //     isSubmitting: false,
                     //     submittingError: false,
                     // })
-                    setState({
-                        ...state,
-                        submittingError: false,
-                        isSubmitting: false,
-                        transferSent: true,
-                    })
-                    setTimeout(() => {
-                        window.history.back();
-                    }, 2000);
+
                     return ["skip"]
                 },
                 errorAction: (err?: any) => {
@@ -678,13 +695,19 @@ const paymentGatewayController = () => {
                         })
                     }
                 }
+            }).then(async (res: any) => {
+                setState({
+                    ...state,
+                    isSubmitting: false,
+                    transferingStatus: res?.transactionStatus
+                })
             })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
         };
     }
 
-    //Initiate Transfer payments
+    //Initiate Link payments generation
     const handleInitiatePaymentLink = async (e: React.FormEvent | null) => {
         e?.preventDefault();
         setState((state: any) => ({
@@ -798,8 +821,13 @@ const paymentGatewayController = () => {
     }, [details?.payPath])
 
     useEffect(() => {
-        (router?.asPath?.includes("transfer") || details?.payment == "transfer") && customerName && customerEmail && !transferDetails?.account_name && handleInitiateTransfer(null);
+        details?.payment == "transfer" && customerName && customerEmail && !transferDetails?.account_name && handleInitiateTransfer(null);
     }, [details])
+
+    useEffect(() => {
+        console.log(router?.asPath?.includes("transfer") && customerName && customerEmail && !transferDetails?.account_name)
+        router?.asPath?.includes("transfer") && customerName && customerEmail && !transferDetails?.account_name && handleInitiateTransfer(null);
+    }, [router, customerName])
 
 
     //Submit USSD payments

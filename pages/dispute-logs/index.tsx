@@ -44,7 +44,6 @@ const DisputeLogs = () => {
         return apiRef.current?.getRow(id);
     }
 
-    console.log("isCreateDispute: ", isCreateDispute);
 
     const apiRef = useGridApiRef();
 

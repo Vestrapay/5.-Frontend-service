@@ -56,12 +56,10 @@ function SideBar() {
         setActiveLink(router.asPath)
         console.log(router.asPath)
         if (dropdownNavLinks.includes(router.asPath.split("/")[1])) {
-            console.log("supposed to reload sidebar")
             sidebarItems.filter((item: any) => {
                 if (item.name.toLowerCase() === router.asPath.split("/")[1]) {
                     setSelectedSubMenuItem(item)
                     setIsSubCategorySelected(true)
-                    console.log(item)
                 }
             })
         }

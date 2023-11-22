@@ -1,16 +1,16 @@
-import {apiCall} from '@utils/URLs'
-import {useQuery} from 'react-query'
-import {useEffect, useRef, useState} from 'react';
-import {UserDetailProps} from '@types';
-import {useAuthContext} from "../context/AuthContext";
+import { apiCall } from '@utils/URLs'
+import { useQuery } from 'react-query'
+import { useEffect, useRef, useState } from 'react';
+import { UserDetailProps } from '@types';
+import { useAuthContext } from "../context/AuthContext";
 import { useNewDisputeContext } from 'context/disputeLogContext';
 
 
 
 //Fetching accounts list data
 const fetchDisputesData = (pageNo: any, pageSize: any, search: string) => {
-   
-    const {userType, userDetail} = useAuthContext()
+
+    const { userType, userDetail } = useAuthContext()
 
 
     const func = async (): Promise<any> => {
@@ -22,29 +22,29 @@ const fetchDisputesData = (pageNo: any, pageSize: any, search: string) => {
             // },
             action: (): any => (["skip"])
         }) as any[]
-        
-            return response;
+
+        return response;
     }
 
-    const {isLoading, isError, error, isSuccess, data, refetch} = useQuery(
+    const { isLoading, isError, error, isSuccess, data, refetch } = useQuery(
         ["DISPUTE_LIST_DATA", "DISPUTE", pageNo], () => func(),
         {
             refetchOnWindowFocus: false,
             // staleTime: 60000
         }
     );
-    return {isLoading, isError, error, isSuccess, data, refetch}
+    return { isLoading, isError, error, isSuccess, data, refetch }
 }
 
 const DisputesController = (showDelete: any = false, showView: any = false, showCreate: any = false, pageNo: any = 0, pageSize: any = 20, search: string = "") => {
 
-    const {isLoading, isError, error, isSuccess, data, refetch} = fetchDisputesData(pageNo, pageSize, search);
+    const { isLoading, isError, error, isSuccess, data, refetch } = fetchDisputesData(pageNo, pageSize, search);
 
     useEffect(() => {
         refetch()
     }, [pageNo, pageSize, search, showView, showCreate, showDelete])
 
-    return {isLoading, isError, error, isSuccess, data, refetch}
+    return { isLoading, isError, error, isSuccess, data, refetch }
 
 }
 
@@ -105,6 +105,8 @@ const createDisputesController = () => {
         let fileBase64 = await convertBase64(file);
 
         let fileLabel: Element | null = document.querySelector("p.name");
+        console.log(e, file, fileLabel);
+
         fileLabel ? fileLabel.innerHTML = file?.name : null;
         file && file?.size < 10000001 && setFilesString([...filesString, fileBase64]);
         file && file?.size < 10000001 && setFiles([...files, file]);
@@ -399,7 +401,7 @@ const deleteUsersController = (data: UserDetailProps) => {
         errorMssg: ""
     })
 
-    const handleClearError = () => setState({...state, submittingError: false})
+    const handleClearError = () => setState({ ...state, submittingError: false })
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -411,7 +413,7 @@ const deleteUsersController = (data: UserDetailProps) => {
             const response = await apiCall({
                 name: "deleteMerchantUser",
                 data: data?.uuid,
-                customHeaders: {merchantId: data?.uuid || ""},
+                customHeaders: { merchantId: data?.uuid || "" },
                 action: (): any => {
                     setState({
                         ...state,
@@ -465,7 +467,7 @@ const deleteUsersController = (data: UserDetailProps) => {
         ;
     }
 
-    return {stateValues: state, handleSubmit, handleClearError}
+    return { stateValues: state, handleSubmit, handleClearError }
 }
 
-export {fetchDisputesData, DisputesController, createDisputesController, updateDisputesController, deleteUsersController}
+export { fetchDisputesData, DisputesController, createDisputesController, updateDisputesController, deleteUsersController }
