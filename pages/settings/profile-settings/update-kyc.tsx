@@ -50,12 +50,19 @@ const UpdateKyc = () => {
                                 ${stateValues?.category == each?.name ? "bg-gray-200" : ""} `} onClick={() => { handleExtraChange("category", each?.name || ""); setCategory(each?.value || ""); }} >
                                     <div className="w-full sm:col-span-5 col-span-2 px-5 flex flex-row justify-between gap-2">
                                         <span className="text-neutral-700 text-base font-semibold font-['Nunito'] w-4/5">{each?.name || ""}</span>
-                                        {profileStateValues?.requiredDocuments?.includes(each?.value) && <BsCheckCircleFill color={"green"} size={20} className='w-1/5' />}
+                                        {profileStateValues?.requiredDocuments?.includes(each?.value||"certificate_of_incorporation") && <BsCheckCircleFill color={"green"} size={20} className='w-1/5' />}
                                     </div>
                                 </div>
                             )
                         })}
                     </div>
+                    
+                    {/*
+                    * Kyc not updating required document
+                    * Field for other documents
+                    * You can upload multiple documents for kyc, just need to handle it on the backend.
+                    */}
+
                     <div className="flex flex-col my-5 gap-5 w-full items-center justify-center">
                         <div>
                             <div className='flex flex-col my-5 w-full items-center justify-center'>

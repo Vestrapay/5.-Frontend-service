@@ -35,9 +35,9 @@ export default function Home() {
             signup: "signup",
         }
 
-        const {section} = router.query
+        const {section} = router.query;
 
-        const page = typeof section === "string" ? sectionToPage[section] : "signup"
+        const page = typeof section === "string" ? sectionToPage[section] : "signup";
 
         if (page === "signin" || page === "signup") {
             Storage.clearItem()
