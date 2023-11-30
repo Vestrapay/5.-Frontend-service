@@ -42,7 +42,7 @@ export const apiCall = async ({ urlExtra, name, data = {}, params = {}, action =
         if (endPoints[theName].auth) headers['Authorization'] = `Bearer ${token}`
 
         const response = await axios({
-            url: `${useUrl()}${endPoints[theName] ? endPoints[theName].url : ""}${urlExtra ? urlExtra : ""}`,
+            url: `${useUrl}${endPoints[theName] ? endPoints[theName].url : ""}${urlExtra ? urlExtra : ""}`,
             method: endPoints[theName] ? endPoints[theName].method : "",
             headers: endPoints[theName] ? { ...customHeaders, ...endPoints[theName].headers } : { ...customHeaders },
             data,
