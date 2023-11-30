@@ -9,8 +9,8 @@ import { Storage } from "Utils/inAppstorage";
 
 
 
-const baseUrl = (): any => "http://vp-loadbalancer-6c0b31aaec85910b.elb.eu-west-1.amazonaws.com:5334";//process.env.REACT_APP_BASE_URL;
-const paymentUrl= (): any => "http://vp-loadbalancer-6c0b31aaec85910b.elb.eu-west-1.amazonaws.com:5335";//process.env.REACT_APP_BASE_URL;
+const baseUrl = (): any => "https://077624e8c4d1.ngrok.app";//process.env.REACT_APP_BASE_URL;
+const paymentUrl= (): any => "https://98313969e5a5.ngrok.app";//process.env.REACT_APP_BASE_URL;
 
 // For testing purposes only
 export const _set_root_url = (newUrl: any): any => newUrl
