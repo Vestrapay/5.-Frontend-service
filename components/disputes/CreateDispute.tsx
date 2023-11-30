@@ -8,6 +8,7 @@ import { LoginErrorCard } from '@utils/actions/error';
 import { useAuthContext } from "../../context/AuthContext";
 import { BsFileEarmarkImage, BsFillTrashFill } from 'react-icons/bs';
 import { createDisputesController } from 'containers/disputeLogApi';
+import { UpdateKYCController } from 'containers/settingsApi';
 
 const CreateDispute = () => {
 
@@ -15,8 +16,10 @@ const CreateDispute = () => {
 
     const { userType } = useAuthContext()
 
+    const { files: filesk, handleChangeFile: handleChangeFilek } = UpdateKYCController()
+
     const { files, stateValues, handleSubmit, handleChangeFile, handleClearError,
-         handleClearFiles, handleChange, handleExtraChange } = createDisputesController();
+        handleClearFiles, handleChange, handleExtraChange } = createDisputesController();
 
     const { comment, reference, lastName, submittingError, errorMssg, isSubmitting } = stateValues
 
@@ -59,34 +62,33 @@ const CreateDispute = () => {
                 <label className={`text-blackish font-300 my-5 `}>
                     Select Transaction Receipt
                 </label>
-                <div className="flex items-center justify-center w-full mb-8">
-                    <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-fit h-fit rounded-lg cursor-pointer flex-wrap">
-                        <div className='flex flex-row justify-between items-center w-full gap-5'>
-                            <div className='h-fit w-fit m-0 p-0 rounded-xl shadow-[0px_2px_20px_rgba(100,108,156,0.125)] bg-[#ffffff00] flex flex-col justify-between'>
-                                {<img src={'/assets/svg/uploadFileSmall.svg'} alt="" className="h-auto max-w-full" />}
+                <div>
+                    <div className="flex items-center justify-center w-full mb-8">
+                            <div className='flex flex-row justify-around items-start w-full gap-5'>
+                                {/* <div className='h-fit w-fit m-0 p-0 rounded-xl shadow-[0px_2px_20px_rgba(100,108,156,0.125)] bg-[#ffffff00] flex flex-col justify-between'>
+                                    {<img src={'/assets/svg/uploadFileSmall.svg'} alt="" className="h-auto max-w-full" />}
+                                </div> */}
+                                <input id="dropzone-file" type="file" className="w-full" onChange={handleChangeFile} />
+                                <div>
+                                    <BsFillTrashFill size={25} onClick={handleClearFiles} />
+                                </div>
                             </div>
-                            <div>
-                                <BsFillTrashFill size={25} onClick={handleClearFiles} />
+                    </div>
+
+                    {files && files?.length > 0 ?
+                        files?.map((each: any, i: any) => {
+
+                            return <div className='h-fit rounded-lg flex flex-row gap-1 justify-between border border-gray-200' key={i}>
+                                <div className=' w-fit text-base font-400 flex gap-5 items-center px-5 py-0'>
+                                    <span><BsFileEarmarkImage color="382C7C" size={25} /></span>
+                                    {each?.name || "File"}</div>
+                                <div className='text-gray-400 w-fit text-base font-400 flex gap-5 items-center px-5 py-0'>{
+                                    (each?.size / 1000000 || 0).toFixed(2)} MB</div>
                             </div>
-                        </div>
-                        <input id="dropzone-file" type="file" className="hidden" onChange={handleChangeFile} />
-                    </label>
+                        })
+                        : null
+                    }
                 </div>
-
-                {files && files?.length > 0 ?
-                    files?.map((each: any, i: any) => {
-
-                        return <div className='h-fit rounded-lg flex flex-col gap-1 justify-between border border-gray-200' key={i}>
-                            <div className=' w-fit text-base font-400 flex gap-5 items-center px-5 py-0'>
-                                <span><BsFileEarmarkImage color="382C7C" size={25} /></span>
-                                {each?.name || "File"}</div>
-                            <div className='text-gray-400 w-fit text-base font-400 flex gap-5 items-center px-5 py-0'>{
-                                (each?.size / 1000000 || 0).toFixed(2)} MB</div>
-                        </div>
-                    })
-                    : null
-                }
-
                 <div className=" flex flex-col-reverse gap-5 mt-8 sm sm:flex-row justify-between items-center">
                     <DefaultButton
                         labelText="Log a dispute"

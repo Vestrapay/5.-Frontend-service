@@ -42,10 +42,10 @@ let second = 0;
 
 const TransferPaymentGateway: NextPage = () => {
 
-    const [first, setfirst] = useState<number>(0)
-    const [coutDone, setCountDone] = useState<boolean>(false)
+    const [first, setfirst] = useState<number>(0);
+    const [countDone, setCountDone] = useState<boolean>(false);
 
-    const { handleInitiateTransfer, transferDetails, handleClearError, handleChange, handleExtraChange, stateValues, handleTSQ } = paymentGatewayController()
+    const { handleInitiateTransfer, transferDetails, handleClearError, handleChange, handleExtraChange, stateValues, handleTSQ } = paymentGatewayController("transfer");
 
     const { account_name, account_number, bank_code, bank_name } = transferDetails;
 
@@ -98,7 +98,7 @@ const TransferPaymentGateway: NextPage = () => {
                                     </div>
                                 </div> :
                                 stateValues?.initiated ?
-                                    !coutDone ?
+                                    !countDone ?
                                         <>
                                             <div className="w-full h-max px-px pt-11 pb-5 bg-neutral-100 rounded-md border border-stone-500 border-opacity-20 flex-col justify-start items-start gap-7 inline-flex">
                                                 <div className="h-16 px-10 pt-2 flex-col justify-start items-start gap-1 flex">

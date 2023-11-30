@@ -459,6 +459,20 @@ export const endPoints: endPointlistTypes = {
         auth: true
     },
 
+    settlementDuration: {
+        url: '/api/v1/settlement/configure-settlement-duration',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+
+    migrateToProd: {
+        url: '/api/v1/user/migrate-to-prod',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+
     //Institutions
     banksList: {
         url: '/api/v1/bank/view',

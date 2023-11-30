@@ -14,7 +14,8 @@ const UpdateKyc = () => {
     const { handleSubmit, handleClearError, handleChange, handleExtraChange, stateValues, files, setCategory,
         fileInputRef, handleFileInputClick, handleChangeFile, handleClearFiles } = UpdateKYCController()
 
-    const { stateValues: profileStateValues } = UsersProfileController(stateValues?.isSubmitting)
+    const { stateValues: profileStateValues, refetch } = UsersProfileController(stateValues?.submittingError)
+
 
     return (
         <SettingsProfileLayout>
@@ -25,18 +26,17 @@ const UpdateKyc = () => {
                     <h1 className="text-xl font-medium">
                         Download the KYC document here
                     </h1>
-                    <a href={""} className={`font-nunito bg-darkslateblue px-8 py-3 rounded-lg border-none text-white text-sm font-600 ${stateValues?.isDisabled && "cursor-not-allowed"
+                    <a href={"/assets/VestraPay_Merchant_Due_Diligence_Questionnaire.pdf"} className={`font-nunito bg-darkslateblue px-8 py-3 rounded-lg border-none text-white text-sm font-600 ${stateValues?.isDisabled && "cursor-not-allowed"
                         } hover:opacity-80`}
-                        download="Download-file"
+                        download="VestraPay Merchant Due Diligence Questionnaire"
                         rel="noreferrer">Download Questionnaire
                     </a>
-
                 </div>
                 <p className="text-sm font-semibold">
                     {`To facilitate a seamless onboarding process for your business on our finance platform, we kindly request the following documents (Certificate of Incorporation, Register of Shareholders, Register of Directors, Memorandum and Articles of Association, Valid Identification of Directors, Valid Identification of Ultimate Beneficial owner, Operating License  (if applicable) and Vestrapay Due Diligence Questionnaire) and information. Please ensure that you provide all necessary documentation to expedite the setup of your account and access to our financial services.`}
                 </p>
                 <hr className="h-px mt-5 bg-[#382C7C50] border-0" />
-                <div className="flex flex-row my-5 gap-5 w-full items-center justify-center">
+                <div className="flex flex-row my-5 gap-5 w-full items-center justify-start">
                     <div className="flex flex-col w-1/3 mb-10">
                         <span className="text-base font-medium my-5">
                             {`Please select a document to upload:`}
@@ -47,16 +47,16 @@ const UpdateKyc = () => {
                                     borderRadius: "1px",
                                     border: "1px solid #F0F0F0"
                                 }} key={i} className={` gap-10 w-full h-fit relative flex py-5 items-center hover:bg-gray-100 cursor-pointer
-                                ${stateValues?.category == each?.name ? "bg-gray-200" : ""} `} onClick={() => { handleExtraChange("category", each?.name || ""); setCategory(each?.value || ""); }} >
+                                ${stateValues?.category == each?.name ? "bg-gray-200" : ""} `} onClick={() => { handleExtraChange("category", each?.name || "", "categoryDesc", each?.description || ""); setCategory(each?.value || ""); }} >
                                     <div className="w-full sm:col-span-5 col-span-2 px-5 flex flex-row justify-between gap-2">
                                         <span className="text-neutral-700 text-base font-semibold font-['Nunito'] w-4/5">{each?.name || ""}</span>
-                                        {profileStateValues?.requiredDocuments?.includes(each?.value||"certificate_of_incorporation") && <BsCheckCircleFill color={"green"} size={20} className='w-1/5' />}
+                                        {profileStateValues?.requiredDocuments?.includes(each?.value || "certificate_of_incorporation") && <BsCheckCircleFill color={"green"} size={20} className='w-1/5' />}
                                     </div>
                                 </div>
                             )
                         })}
                     </div>
-                    
+
                     {/*
                     * Kyc not updating required document
                     * Field for other documents
@@ -69,7 +69,7 @@ const UpdateKyc = () => {
                                 <h1 className="text-xl font-medium m-0">
                                     {`Please Upload ${stateValues?.category || "KYC"}`}
                                 </h1>
-                                <p className="text-sm text-[#03022950] font-extralight">Upload your filled Vestrapay Due Diligence Questionnaire and all other required document here</p>
+                                <p className="text-sm text-[#03022950] font-extralight">{`Upload ${stateValues?.categoryDesc || "your required KYC documents"} here`}</p>
                             </div>
 
                             <div className="flex items-center justify-center w-full mb-5">
@@ -86,7 +86,6 @@ const UpdateKyc = () => {
 
                             {files && files?.length > 0 ?
                                 files?.map((each: any, i: any) => {
-
                                     return <div className='h-fit rounded-lg flex flex-row justify-between border border-gray-200' key={i}>
                                         <p className=' w-fit text-base font-400 flex gap-5 items-center px-5 py-0'>
                                             <span><BsFileEarmarkImage color="382C7C" size={25} /></span>
@@ -105,7 +104,12 @@ const UpdateKyc = () => {
                                 <DefaultButton
                                     labelText="Upload Document"
                                     isLoading={stateValues?.isSubmitting}
-                                    handleClick={handleSubmit}
+                                    handleClick={(e) => {
+                                        handleSubmit(e);
+                                        setTimeout(() => {
+                                            refetch();
+                                        }, 5000);
+                                    }}
                                     variant={"bg-selected cursor-pointer w-1/2 sm:w-fit"}
                                 />
                             </div>

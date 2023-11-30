@@ -9,7 +9,7 @@ import router from 'next/router';
 import { PayWithCardProps } from '@types';
 import { useNewTransContext } from 'context/transactionContext';
 
-const paymentGatewayController = () => {
+const paymentGatewayController = (paymentType: any = "") => {
 
     const details = useNewTransContext()
 
@@ -56,6 +56,7 @@ const paymentGatewayController = () => {
         isDisabled: false,
         submittingError: false,
         initiationError: false,
+        initiatingStarted: false,
         initiated: false,
         transferSent: false,
         transferSentError: false,
@@ -505,7 +506,6 @@ const paymentGatewayController = () => {
         };
     }
 
-
     //Initiate Transfer payments
     const handleInitiateTransfer = async (e: React.FormEvent | null) => {
         e?.preventDefault();
@@ -516,6 +516,7 @@ const paymentGatewayController = () => {
             initiationError: false,
             submittingError: false,
             isSubmittingTrans: true,
+            initiatingStarted: true,
             transferSent: false,
             transferSentError: false,
         }))
@@ -550,6 +551,7 @@ const paymentGatewayController = () => {
                         ...state,
                         initiated: true,
                         initiationError: false,
+                        initiatingStarted: false,
                         amount: state?.amount || details?.amount || "100",
                         customerName: state?.business || details?.business || "Davids co",
                         merchantId: state?.merchantId || details?.merchant || "a8c1bc11-11af-4bf4-aefc-a6d57c0b9ce8",
@@ -567,6 +569,7 @@ const paymentGatewayController = () => {
                             submittingError: false,
                             initiationError: false,
                             isSubmittingTrans: false,
+                            initiatingStarted: false,
                             initiated: false,
                             errorMssg: err?.response?.data?.errors && err?.response?.data?.errors[0] || "Payment Failed, please try again"
                         })
@@ -577,6 +580,7 @@ const paymentGatewayController = () => {
                             submittingError: false,
                             initiationError: false,
                             isSubmittingTrans: false,
+                            initiatingStarted: false,
                             errorMssg: "Action failed, please try again"
                         })
                     }
@@ -598,6 +602,7 @@ const paymentGatewayController = () => {
                 submittingError: false,
                 initiationError: false,
                 isSubmittingTrans: false,
+                initiatingStarted: false,
                 errorMssg: "Action failed, please try again"
             })
         };
@@ -817,17 +822,16 @@ const paymentGatewayController = () => {
         if (details?.payPath) {
             handleInitiatePaymentLink(null);
         }
-
     }, [details?.payPath])
 
     useEffect(() => {
-        details?.payment == "transfer" && customerName && customerEmail && !transferDetails?.account_name && handleInitiateTransfer(null);
-    }, [details])
-
-    useEffect(() => {
-        console.log(router?.asPath?.includes("transfer") && customerName && customerEmail && !transferDetails?.account_name)
-        router?.asPath?.includes("transfer") && customerName && customerEmail && !transferDetails?.account_name && handleInitiateTransfer(null);
-    }, [router, customerName])
+        console.log("transferDetails : ", state?.initiatingStarted)
+        if (details?.payment == "transfer" && customerName && customerEmail && !transferDetails?.account_name && !state?.initiatingStarted && paymentType === "transfer") {
+            handleInitiateTransfer(null);
+        } else if (router?.asPath?.includes("transfer") && customerName && customerEmail && !transferDetails?.account_name && !state?.initiatingStarted && paymentType === "transfer") {
+            handleInitiateTransfer(null);
+        }
+    }, [router, customerName, details])
 
 
     //Submit USSD payments

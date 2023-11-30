@@ -109,6 +109,15 @@ const CreateBusiness = () => {
                                 handleChange={handleChange}
                             />
 
+                            <DefaultSelect
+                                name="settlementTime"
+                                label="Settlement Time"
+                                topLabel="Settlement Time"
+                                containerVariant="w-full py-2 col-span-2"
+                                value={stateValues?.settlementTime}
+                                handleChange={handleChange}
+                                data={stateValues?.settlementDuration?.map((each: string, i: any) => ({ id: i + 1, value: each, name: each }))}
+                            />
                             {/* <DefaultInput
                                 type="text"
                                 name="paymentMethod"
@@ -145,7 +154,7 @@ const CreateBusiness = () => {
 
                             <DefaultButton
                                 labelText="Cancel"
-                                handleClick={()=>router.push("/dashboard")}
+                                handleClick={() => router.push("/dashboard")}
                                 type={"secondary"}
                                 variant={" text-darkslateblue border border-darkslateblue cursor-pointer sm:w-1/2  mb-10"}
                             />

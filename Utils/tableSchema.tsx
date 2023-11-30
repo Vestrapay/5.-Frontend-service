@@ -29,7 +29,7 @@ export const recentTransactionsFields: GridColDef[] = [
     },
     {
         field: "uuid",
-        headerName: "Order ID (UUID)",
+        headerName: "Txn ID (UUID)",
         flex: 1,
     },
     

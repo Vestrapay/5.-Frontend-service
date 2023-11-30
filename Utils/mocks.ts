@@ -256,32 +256,42 @@ export const paymentMethods = [
 export const kyccategories = [
     {
         name: "Certificate of incorporation",
-        description: "Visa, Mastercard, Discover, Diners Club, Verve.",
+        description: "your certificate of incorporation document",
         value: "certificate_of_incorporation"
     },
     {
         name: "Register of shareholder",
-        description: "Visa, Mastercard, Discover, Diners Club, Verve.",
+        description: "the documents showing your register of shareholder",
         value: "register_of_shareholder"
     },
     {
         name: "Register of directors",
-        description: "A secure QR-code-based payments and collections platform for receiving and making payments",
+        description: "the documents showing your register of directors",
         value: "register_of_directors"
     },
     {
         name: "Memorandum and articles of association",
-        description: "Allows you receive payments via a payment link.",
+        description: "the documents showing your memorandum and articles of association",
         value: "memorandum_and_articles_of_association"
     },
     {
         name: "Valid id of directors",
-        description: "GTB, Zenith bank, First bank, Stanbic IBTC, Access bank.",
+        description: "the valid id of your directors",
         value: "valid_id_of_directors"
     },
     {
+        name: "Valid ID of Ultimate Beneficial owner",
+        description: "a valid identification of your ultimate beneficial owner",
+        value: "valid_id_of_ultimate_beneficial_owners"
+    },
+    {
+        name: "Operating License (if applicable)",
+        description: "your official Operating License (if this applies to your business)",
+        value: "operating_license"
+    },
+    {
         name: "Due diligence questionaire",
-        description: "GTB, Zenith bank, First bank, Stanbic IBTC, Access bank.",
+        description: "your filled Vestrapay Due Diligence Questionnaire",
         value: "due_diligence_questionaire"
     }
 ]

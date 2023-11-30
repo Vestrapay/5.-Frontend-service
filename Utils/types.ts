@@ -78,10 +78,12 @@ export type endPointlistTypes = {
     transactionList: endpointTypes;
     settlementList: endpointTypes;
     settlementTransactionList: endpointTypes;
+    settlementDuration: endpointTypes;
     banksList: endpointTypes;
     createBank: endpointTypes;
     updateBank: endpointTypes;
     getBank: endpointTypes;
+    migrateToProd: endpointTypes;
 
     payWithCard: endpointTypes;
     payWithTransfer: endpointTypes;

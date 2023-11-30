@@ -26,14 +26,6 @@ const topMenuItems: MenuItems[] = [
     },
     {
         id: 2,
-        name: 'Users',
-        subMenuItems: [],
-        route: '/users',
-        icon: (prop: IconProps) => <VestraDashUsersIcon width={prop.width} height={prop.height} style={prop.style} />,
-        roles: ["USER", "ADMIN"]
-    },
-    {
-        id: 3,
         name: 'Transactions',
         route: '/transactions',
         subMenuItems: [
@@ -60,7 +52,7 @@ const topMenuItems: MenuItems[] = [
         roles: ["USER", "ADMIN"]
     },
     {
-        id: 4,
+        id: 3,
         name: 'Payments',
         route: '/payments',
         subMenuItems: [
@@ -87,10 +79,24 @@ const topMenuItems: MenuItems[] = [
                 name: "USSD",
                 route: '/payments/ussd',
                 roles: ["USER"]
-            }
+            },
+            {
+                id: 5,
+                name: "Settlement",
+                route: '/payments/settlement',
+                roles: ["USER"]
+            },
         ],
         icon: (prop: IconProps) => <VestraDashPaymentsIcon width={prop.width} height={prop.height} style={prop.style} />,
         roles: ["USER"]
+    },
+    {
+        id: 4,
+        name: 'Users',
+        subMenuItems: [],
+        route: '/users',
+        icon: (prop: IconProps) => <VestraDashUsersIcon width={prop.width} height={prop.height} style={prop.style} />,
+        roles: ["USER", "ADMIN"]
     },
     {
         id: 5,
@@ -123,12 +129,6 @@ const topMenuItems: MenuItems[] = [
                 id: 2,
                 name: 'Business',
                 route: '/settings/business/about',
-                roles: ["USER"]
-            },
-            {
-                id: 3,
-                name: "Settlement",
-                route: '/settings/settlement',
                 roles: ["USER"]
             },
             {

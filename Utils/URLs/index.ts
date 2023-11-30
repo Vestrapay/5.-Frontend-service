@@ -9,11 +9,13 @@ import { Storage } from "Utils/inAppstorage";
 
 
 
-const baseUrl = (): any => "https://754d-2001-569-52c4-d700-b485-3a1e-1c11-66c9.ngrok-free.app";//process.env.REACT_APP_BASE_URL;
-
+const baseUrl = (): any => "http://vp-loadbalancer-6c0b31aaec85910b.elb.eu-west-1.amazonaws.com:5334";//process.env.REACT_APP_BASE_URL;
+const paymentUrl= (): any => "http://vp-loadbalancer-6c0b31aaec85910b.elb.eu-west-1.amazonaws.com:5335";//process.env.REACT_APP_BASE_URL;
 
 // For testing purposes only
 export const _set_root_url = (newUrl: any): any => newUrl
+
+
 
 /**
  * All data returned by the following functions follow the format
@@ -35,10 +37,12 @@ export const apiCall = async ({ urlExtra, name, data = {}, params = {}, action =
 
         let headers: any = endPoints[theName] ? endPoints[theName].headers ? endPoints[theName].headers : {} : {}
 
+        let useUrl: any = endPoints[theName] ? endPoints[theName].payment ? paymentUrl() : baseUrl() : baseUrl()
+
         if (endPoints[theName].auth) headers['Authorization'] = `Bearer ${token}`
 
         const response = await axios({
-            url: `${baseUrl()}${endPoints[theName] ? endPoints[theName].url : ""}${urlExtra ? urlExtra : ""}`,
+            url: `${useUrl()}${endPoints[theName] ? endPoints[theName].url : ""}${urlExtra ? urlExtra : ""}`,
             method: endPoints[theName] ? endPoints[theName].method : "",
             headers: endPoints[theName] ? { ...customHeaders, ...endPoints[theName].headers } : { ...customHeaders },
             data,

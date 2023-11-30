@@ -8,6 +8,10 @@ export const businessNavLinks: SettingsNavProps[] = [
         href: "/settings/business/about"
     },
     {
+        name: "Settlement",
+        href: "/settings/business/settlement"
+    },
+    {
         name: "Notifications",
         href: "/settings/business/notifications"
     },
@@ -21,6 +25,7 @@ export const businessNavLinks: SettingsNavProps[] = [
     }
 ]
 
+    // settlementTime settlementDuration settlement
 
 const Business = () => {
     return (

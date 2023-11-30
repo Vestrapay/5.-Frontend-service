@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import TransactionsNavbar from "@/components/transactions/TransactionsNavbar";
@@ -10,7 +9,7 @@ import StartTransaction from '@/components/payment/StartTransaction';
 import { TransactionController } from 'containers/transactionApi';
 import { Pagination } from '@mui/material';
 import { recentTransactionsFields } from '@utils/tableSchema';
-
+ 
 const Transfer = () => {
 
     const { isLoading, isError, error, isSuccess, data, refetch } = TransactionController();

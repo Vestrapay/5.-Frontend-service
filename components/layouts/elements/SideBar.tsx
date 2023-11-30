@@ -13,13 +13,15 @@ import { BsArrowLeft } from "react-icons/bs";
 import { motion } from "framer-motion";
 import { ExchangeRectangle, LogoutOpen, UserCircle } from "react-huge-icons/bulk";
 import { userRoles } from "@/components/layouts/elements/SideBarItems";
-import {useQueryClient} from "react-query";
+import { useQueryClient } from "react-query";
+import MigrateToProd from '@/components/settings/MigrateToProd'
 
 function SideBar() {
 
     const dropdownNavLinks = ["transactions", "payments", "settings"]
     const [selectedSubMenuItem, setSelectedSubMenuItem] = useState<MenuItems | null>();
 
+    const [isMigrate, setIsMigrate] = useState(false)
     const [isSubCategorySelected, setIsSubCategorySelected] = useState(false)
 
     const [activeLink, setActiveLink] = useState("")
@@ -176,6 +178,7 @@ function SideBar() {
                         <motion.div
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.9 }}
+                            onClick={() => setIsMigrate(!isMigrate)}
                             className="flex gap-3 items-center top-[450px] cursor-pointer px-8 ">
                             <ExchangeRectangle style={{ width: 24, height: 24 }} />
                             <p className="text-sm text-slate-500">Migrate to <br /><span
@@ -198,6 +201,7 @@ function SideBar() {
                     </div>
                 </div>
             </aside>
+            <MigrateToProd show={isMigrate} setShow={() => setIsMigrate(!isMigrate)} />
         </>
     )
 }

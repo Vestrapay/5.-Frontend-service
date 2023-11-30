@@ -1,14 +1,17 @@
-import {apiCall} from '@utils/URLs'
-import {useQuery} from 'react-query'
-import {useEffect, useState} from 'react';
-import {UserDetailProps} from '@types';
-import {useAuthContext} from "../context/AuthContext";
+import { apiCall } from '@utils/URLs'
+import { useQuery } from 'react-query'
+import { useEffect, useState } from 'react';
+import { UserDetailProps } from '@types';
+import { useAuthContext } from "../context/AuthContext";
+import { Storage } from 'Utils/inAppstorage'
 
+
+const { merchantId, uuid } = Storage.getItem("userDetails") || { merchantId: "", uuid: "" }
 
 //Fetching accounts list data
 const fetchUsersData = (pageNo: any, pageSize: any, search: string) => {
 
-    const {userType, userDetail} = useAuthContext()
+    const { userType, userDetail } = useAuthContext()
 
 
     const func = async (): Promise<any> => {
@@ -45,31 +48,31 @@ const fetchUsersData = (pageNo: any, pageSize: any, search: string) => {
         // }
     }
 
-    const {isLoading, isError, error, isSuccess, data, refetch} = useQuery(
+    const { isLoading, isError, error, isSuccess, data, refetch } = useQuery(
         ["USER_LIST_DATA", "stats", pageNo], () => func(),
         {
             refetchOnWindowFocus: false,
             // staleTime: 60000
         }
     );
-    return {isLoading, isError, error, isSuccess, data, refetch}
+    return { isLoading, isError, error, isSuccess, data, refetch }
 }
 
 const UsersController = (showDelete: any = false, showView: any = false, showCreate: any = false, pageNo: any = 0, pageSize: any = 20, search: string = "") => {
 
-    const {isLoading, isError, error, isSuccess, data, refetch} = fetchUsersData(pageNo, pageSize, search);
+    const { isLoading, isError, error, isSuccess, data, refetch } = fetchUsersData(pageNo, pageSize, search);
 
     useEffect(() => {
         refetch()
     }, [pageNo, pageSize, search, showView, showCreate, showDelete])
 
-    return {isLoading, isError, error, isSuccess, data, refetch}
+    return { isLoading, isError, error, isSuccess, data, refetch }
 
 }
 
 const createUserController = () => {
 
-    const {userType, userDetail} = useAuthContext()
+    const { userType, userDetail } = useAuthContext()
 
 
     const [state, setState] = useState<any>({
@@ -98,7 +101,7 @@ const createUserController = () => {
         isSubmitting
     } = state
 
-    const handleClearError = () => setState({...state, submittingError: false})
+    const handleClearError = () => setState({ ...state, submittingError: false })
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -109,7 +112,7 @@ const createUserController = () => {
         try {
             const response = await apiCall({
                 name: userType === "ADMIN" ? "adminCreateUser" : "createMerchantUser",
-                customHeaders: userType === "USER" && {merchantId: userDetail?.id || ""},
+                customHeaders: userType === "USER" && { merchantId: userDetail?.id || "" },
                 data: userType === "USER" ? {
                     country, firstName, lastName, email, gender, phoneNumber, password
                 } : {
@@ -188,7 +191,7 @@ const createUserController = () => {
     }
 
 
-    return {handleSubmit, handleClearError, handleChange, handleExtraChange, stateValues: state}
+    return { handleSubmit, handleClearError, handleChange, handleExtraChange, stateValues: state }
 }
 
 const updateUserController = (data: UserDetailProps, id: number | string) => {
@@ -244,7 +247,7 @@ const updateUserController = (data: UserDetailProps, id: number | string) => {
         isSubmitting
     } = state
 
-    const handleClearError = () => setState({...state, submittingError: false})
+    const handleClearError = () => setState({ ...state, submittingError: false })
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -255,7 +258,7 @@ const updateUserController = (data: UserDetailProps, id: number | string) => {
         try {
             const response = await apiCall({
                 name: "updateUser",
-                customHeaders: {merchantId: state?.id || id || ""},
+                customHeaders: { merchantId: state?.id || id || "" },
                 data: {
                     id, country, firstName, lastName, email, phoneNumber, businessName, enabled, username
                 },
@@ -330,7 +333,7 @@ const updateUserController = (data: UserDetailProps, id: number | string) => {
     }
 
 
-    return {handleSubmit, handleClearError, handleChange, handleExtraChange, stateValues: state}
+    return { handleSubmit, handleClearError, handleChange, handleExtraChange, stateValues: state }
 }
 
 const deleteUsersController = (data: UserDetailProps) => {
@@ -342,7 +345,7 @@ const deleteUsersController = (data: UserDetailProps) => {
         errorMssg: ""
     })
 
-    const handleClearError = () => setState({...state, submittingError: false})
+    const handleClearError = () => setState({ ...state, submittingError: false })
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -354,7 +357,7 @@ const deleteUsersController = (data: UserDetailProps) => {
             const response = await apiCall({
                 name: "deleteMerchantUser",
                 data: data?.uuid,
-                customHeaders: {merchantId: data?.uuid || ""},
+                customHeaders: { merchantId: data?.uuid || "" },
                 action: (): any => {
                     setState({
                         ...state,
@@ -408,7 +411,91 @@ const deleteUsersController = (data: UserDetailProps) => {
         ;
     }
 
-    return {stateValues: state, handleSubmit, handleClearError}
+    return { stateValues: state, handleSubmit, handleClearError }
 }
 
-export {fetchUsersData, UsersController, createUserController, updateUserController, deleteUsersController}
+const migrateToProductionController = () => {
+
+    const [state, setState] = useState<any>({
+        enabled: false,
+        submittingError: false,
+        isSubmitting: false,
+        errorMssg: ""
+    })
+
+    const handleClearError = () => setState({ ...state, submittingError: false })
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setState((state: any) => ({
+            ...state,
+            isSubmitting: true
+        }))
+        try {
+            const response = await apiCall({
+                name: "migrateToProd",
+                params: {
+                    merchantId: merchantId,
+                    userId: uuid
+                },
+                customHeaders: {
+                    merchantId: merchantId,
+                    userId: uuid
+                },
+                action: (): any => {
+                    setState({
+                        ...state,
+                        isSubmitting: false,
+                        submittingError: false,
+                    })
+                    return []
+                },
+                successDetails: {
+                    title: "Migration Successful!",
+                    text: "Congratulations, Your have completed this migration.",
+                    icon: ""
+                },
+                errorAction: (err?: any) => {
+                    if (err && err?.response?.data) {
+                        setState({
+                            ...state,
+                            submittingError: true,
+                            isSubmitting: false,
+                            errorMssg: err?.response?.data?.errors && err?.response?.data?.errors[0] || "Migration Failed, please try again"
+                        })
+                        return ["skip"]
+                    } else {
+                        setState({
+                            ...state,
+                            submittingError: true,
+                            isSubmitting: false,
+                            errorMssg: "Action failed, please try again"
+                        })
+                    }
+                }
+            })
+                .then(async (res: any) => {
+                    // showModal();
+                    setState({
+                        country: "",
+                        firstName: "",
+                        lastName: "",
+                        email: "",
+                        gender: "",
+                        phoneNumber: "",
+                        password: "",
+                        submittingError: false,
+                        isSubmitting: false,
+                        errorMssg: ""
+                    })
+                })
+        } catch (e) {
+            console.log(e + " 'Caught Error.'");
+        }
+        ;
+    }
+
+    return { stateValues: state, handleSubmit, handleClearError }
+}
+
+export { fetchUsersData, UsersController, createUserController, updateUserController, deleteUsersController, migrateToProductionController }

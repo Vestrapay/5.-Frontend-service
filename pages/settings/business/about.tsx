@@ -16,7 +16,7 @@ const About = () => {
             <form
                 className="flex flex-col w-full mb-20"
             >
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 w-full">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 w-full">
 
                     <DefaultInput
                         type="text"
@@ -105,6 +105,16 @@ const About = () => {
                         handleChange={handleChange}
                     />
 
+                    <DefaultSelect
+                        name="settlementTime"
+                        label="Settlement Time"
+                        topLabel="Settlement Time"
+                        containerVariant="w-full py-2 col-span-2"
+                        value={stateValues?.settlementTime}
+                        handleChange={handleChange}
+                        data={stateValues?.settlementDuration?.map((each: string, i: any) => ({ id: i + 1, value: each, name: each }))}
+                    />
+                    <div className="flex flex-col col-span-2"></div>
                     <div className="flex flex-col col-span-2">
                         <h4 className="m-0">Who should pay the transaction fees?</h4>
                         <div className="flex items-start mt-2">

@@ -6,9 +6,26 @@ import { DefaultInput, DefaultButton } from "@/components/reusables";
 import { Storage } from 'Utils/inAppstorage';
 import { useEffect, useRef, useState } from 'react';
 import router from 'next/router';
+import CollectionsVolumeChart from '@/components/charts/CollVolumeChart';
 
 
 const { firstName: fName } = Storage.getItem("userDetails") || { firstName: "" }
+
+const fetchBusinessData = async (): Promise<any> => {
+    const response = await apiCall({
+        name: "viewBusiness",
+        action: (): any => (["skip"])
+    })
+    return response;
+}
+
+const fetchSettlementDurationData = async (): Promise<any> => {
+    const response = await apiCall({
+        name: "settlementDuration",
+        action: (): any => (["skip"])
+    })
+    return response;
+}
 
 
 const UsersProfileController = (showDelete: any = false, showView: any = false, showCreate: any = false, pageNo: any = 0, pageSize: any = 20, search: string = "") => {
@@ -49,7 +66,9 @@ const UsersProfileController = (showDelete: any = false, showView: any = false, 
     );
 
     useEffect(() => {
-        refetch()
+        setTimeout(() => {
+            refetch();
+        }, 5000);
     }, [pageNo, pageSize, search, showView, showCreate, showDelete])
 
 
@@ -67,7 +86,7 @@ const UsersProfileController = (showDelete: any = false, showView: any = false, 
             password: state?.password || "",
             enabled: state?.enabled || data?.enabled || true,
             id: state?.id || data?.id || "",
-            requiredDocuments: state?.requiredDocuments || data?.requiredDocuments || "",
+            requiredDocuments: data?.requiredDocuments || state?.requiredDocuments || "",
         })
 
     }, [data])
@@ -173,7 +192,7 @@ const UsersProfileController = (showDelete: any = false, showView: any = false, 
     }
 
 
-    return { handleSubmit, handleClearError, handleChange, handleExtraChange, stateValues: state, file, fileInputRef, handleFileInputClick, handleChangeFile }
+    return { refetch, handleSubmit, handleClearError, handleChange, handleExtraChange, stateValues: state, file, fileInputRef, handleFileInputClick, handleChangeFile }
 
     // return { isLoading, isError, error, isSuccess, data, refetch }
 
@@ -334,12 +353,21 @@ const UpdateKYCController = () => {
         });
     }
 
-    const handleExtraChange = (name: any, value: any) => {
-        setState({
-            ...state,
-            [name]: value,
-            submittingError: false
-        });
+    const handleExtraChange = (name: any, value: any, name2?: any, value2?: any) => {
+        if (name2) {
+            setState({
+                ...state,
+                [name2]: value2,
+                [name]: value,
+                submittingError: false
+            });
+        } else {
+            setState({
+                ...state,
+                [name]: value,
+                submittingError: false
+            });
+        }
     }
 
     return { handleSubmit, handleClearError, setCategory, handleChange, handleExtraChange, stateValues: state, files, fileInputRef, handleFileInputClick, handleChangeFile, handleClearFiles }
@@ -361,6 +389,8 @@ const AboutBusinessController = (showDelete: any = false, showView: any = false,
         chargeBackEmail: "",
         sendToSpecificUsers: "",
         paymentMethod: "",
+        settlementDuration: [],
+        settlementTime: "",
 
         customerPayTransactionFee: false,
         emailNotification: false,
@@ -379,14 +409,6 @@ const AboutBusinessController = (showDelete: any = false, showView: any = false,
         errorMssg: ""
     })
 
-    const fetchBusinessData = async (): Promise<any> => {
-        const response = await apiCall({
-            name: "viewBusiness",
-            action: (): any => (["skip"])
-        })
-        return response;
-    }
-
     const { isLoading, isError, error, isSuccess, data, refetch } = useQuery(
         ["BUSINESS_VALUE_DATA", "values", fName], () => fetchBusinessData(),
         {
@@ -395,10 +417,31 @@ const AboutBusinessController = (showDelete: any = false, showView: any = false,
         }
     );
 
+
+    const { isLoading: isLoadingSettlementDur, isError: isErrorSettlementDur, error: errorSettlementDur, isSuccess: isSuccessSettlementDur, data: dataSettlementDur, refetch: refetchSettlementDur } = useQuery(
+        ["SETTLEMENT_VALUE_DATA", "values", fName], () => fetchSettlementDurationData(),
+        {
+            refetchOnWindowFocus: false,
+            // staleTime: 60000
+        }
+    );
+
     useEffect(() => {
-        refetch()
+        refetch();
+        setTimeout(() => {
+            refetchSettlementDur();
+        }, 5000);
     }, [pageNo, pageSize, search, showView, showCreate, showDelete])
 
+    useEffect(() => {
+        setTimeout(() => {
+            setState({
+                ...state,
+                settlementDuration: dataSettlementDur || state?.settlementDuration || "",
+            })
+
+        }, 5000);
+    }, [dataSettlementDur])
 
     useEffect(() => {
         setState({
@@ -413,7 +456,7 @@ const AboutBusinessController = (showDelete: any = false, showView: any = false,
             chargeBackEmail: data?.chargeBackEmail || state?.chargeBackEmail || "",
             sendToSpecificUsers: data?.sendToSpecificUsers || state?.sendToSpecificUsers || "",
             paymentMethod: data?.paymentMethod || state?.paymentMethod || "",
-
+            settlementTime: data?.settlementTime || state?.settlementTime || "",
             customerPayTransactionFee: data?.customerPayTransactionFee || state?.customerPayTransactionFee || false,
             emailNotification: data?.emailNotification || state?.emailNotification || false,
             customerNotification: data?.customerNotification || state?.customerNotification || false,
@@ -503,6 +546,7 @@ const AboutBusinessController = (showDelete: any = false, showView: any = false,
                     transfersViaAPI,
                     transfersViaDashboard,
                     disableAllTransfers,
+                    settlementTime: state?.settlementTime || ""
                 },
                 action: (): any => {
                     setState({
@@ -533,6 +577,7 @@ const AboutBusinessController = (showDelete: any = false, showView: any = false,
                 }
             })
                 .then(async (res: any) => {
+                    refetch();
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
@@ -586,6 +631,8 @@ const CreateBusinessController = () => {
         chargeBackEmail: "",
         sendToSpecificUsers: "",
         paymentMethod: "",
+        settlementDuration: [],
+        settlementTime: "",
 
         customerPayTransactionFee: false,
         emailNotification: false,
@@ -614,6 +661,26 @@ const CreateBusinessController = () => {
         fileInputRef.current.click();
     }
 
+    const { isLoading: isLoadingSettlementDur, isError: isErrorSettlementDur, error: errorSettlementDur, isSuccess: isSuccessSettlementDur, data: dataSettlementDur, refetch: refetchSettlementDur } = useQuery(
+        ["SETTLEMENT_VALUE_DATA", "values", fName], () => fetchSettlementDurationData(),
+        {
+            refetchOnWindowFocus: false,
+            // staleTime: 60000
+        }
+    );
+
+    useEffect(() => {
+        setTimeout(() => {
+            refetchSettlementDur();
+        }, 500);
+    }, [])
+
+    useEffect(() => {
+        setState({
+            ...state,
+            settlementDuration: dataSettlementDur || state?.settlementDuration || "",
+        })
+    }, [dataSettlementDur])
 
     const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement> | any) => {
         const file = e?.target?.files[0] || null;
@@ -642,7 +709,10 @@ const CreateBusinessController = () => {
         twoFAForTransfer,
         transfersViaAPI,
         transfersViaDashboard,
-        disableAllTransfers, } = state
+        disableAllTransfers,
+        settlementDuration,
+        settlementTime
+    } = state
 
     const handleClearError = () => setState({ ...state, submittingError: false })
 
@@ -666,7 +736,7 @@ const CreateBusinessController = () => {
                     chargeBackEmail,
                     paymentMethod,
                     sendToSpecificUsers: "false",
-
+                    settlementTime,
                     customerPayTransactionFee,
                     emailNotification,
                     customerNotification,
