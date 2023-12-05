@@ -72,7 +72,7 @@ const Dashboard = () => {
 
     return (
         <DashboardLayout>
-            <main className="mt-10 px-10 sm:px-12 pb-10 h-full">
+            <main className="mt-10 px-8 md:px-12 pb-10 h-full">
 
                 <DashNavbar />
                 {
@@ -88,17 +88,19 @@ const Dashboard = () => {
                         </p>
                     </LoginErrorCard>
                 }
-                <div className="w-full grid gap-4 grid-rows-2 grid-cols-6 h-full">
-                    <div className="grid grid-rows-1 grid-cols-1 col-span-3 gap-4 h-full">
+                <div className="w-full grid gap-4 grid-cols-6 h-full">
+
+                    {/* ATM and Analytics section */}
+                    <div className="grid grid-rows-1 grid-cols-1 col-span-6 xl:col-span-3 gap-4 h-full">
                         <div
                             className="flex bg-white p-3 rounded-2xl items-center w-full overflow-auto lg:flex-row flex-col h-fit ">
                             <AtmCard isActivated={isCardDisabled} cardHolder={displayName?.name} />
                             <Image
                                 src={DivisionLine}
                                 alt={"division-line"}
-                                className="mx-12"
+                                className="mx-12 hidden lg:block"
                             />
-                            <div className="flex text-right flex-col justify-center ml-2 mr-8">
+                            <div className="flex text-right mt-5 lg:mt-0 flex-col sm:flex-row lg:flex-col justify-center ml-2 mr-8">
                                 <span className="m-0 py-2 flex flex-row-reverse items-center gap-4">
                                     <p className="text-lg font-bold m-0">₦0.00</p>
                                     <p className="text-sm whitespace-nowrap m-0 text-unselected">Current balance</p>
@@ -177,8 +179,11 @@ const Dashboard = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="grid grid-rows-4 col-span-1 gap-4 h-full justify-between">
-                        <div className="bg-white rounded-2xl p-5 flex items-center">
+
+                    {/* Cards section */}
+                    <div className="flex flex-row xl:flex-col md:col-span-6 xl:col-span-1 col-span-6 grid grid-cols-2 xl:grid-cols-1
+                    gap-2 xl:gap-4 h-full justify-between h-fit">
+                        <div className="bg-white rounded-2xl p-5 flex items-center min-h-fit h-full w-full xl:w-full col-span-1">
                             <div className="flex h-7 items-center justify-center bg-blue-200 rounded-full mr-5 p-1">
                                 <VestraDashUsersIcon width={20} height={20} style={{ color: "#5B93FF", margin: 0 }} />
                             </div>
@@ -187,7 +192,7 @@ const Dashboard = () => {
                                 <p className="m-0 text-xs text-unselected">System <br />Users</p>
                             </div>
                         </div>
-                        <div className="bg-white rounded-2xl p-5 flex items-center">
+                        <div className="bg-white rounded-2xl p-5 flex items-center min-h-fit h-full w-full xl:w-full col-span-1">
                             <div className="flex h-7 items-center justify-center bg-amber-100 rounded-full mr-5 p-1">
                                 <VestraDashDisputeLogsIcon width={20} height={20}
                                     style={{ color: "#dab60d", margin: 0 }} />
@@ -197,7 +202,7 @@ const Dashboard = () => {
                                 <p className="m-0 text-xs text-unselected">Logged <br />Issues</p>
                             </div>
                         </div>
-                        <div className="bg-white rounded-2xl p-5 flex items-center">
+                        <div className="bg-white rounded-2xl p-5 flex items-center min-h-fit h-full w-full xl:w-full col-span-1">
                             <div className="flex h-7 items-center justify-center bg-orange-100 rounded-full mr-5 p-1">
                                 <Store width={20} height={20} style={{ color: "#fa8602", margin: 0 }} />
                             </div>
@@ -206,7 +211,7 @@ const Dashboard = () => {
                                 <p className="m-0 text-xs text-unselected">Recent <br />Transactions</p>
                             </div>
                         </div>
-                        <div className="bg-white rounded-2xl p-5 flex items-center">
+                        <div className="bg-white rounded-2xl p-5 flex items-center min-h-fit h-full w-full xl:w-full col-span-1">
                             <div className="flex h-7 items-center justify-center bg-violet-200 rounded-full mr-5 p-1">
                                 <VestraDashNotificationIcon width={20} height={20}
                                     style={{ color: "#382C7C", margin: 0 }} />
@@ -217,7 +222,9 @@ const Dashboard = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="grid grid-rows-1 col-span-2 h-full">
+
+                    {/* Notification section */}
+                    <div className="grid grid-rows-1 xl:col-span-2 col-span-full h-full w-full min-h-20">
                         <div className="bg-white rounded-2xl p-5 flex flex-col gap-8">
                             <div className="flex justify-between">
                                 <p className="text-base font-bold m-0">Notifications</p>
@@ -243,6 +250,8 @@ const Dashboard = () => {
                             </div>
                         </div>
                     </div>
+
+                    {/* Trans section */}
                     <div className="grid grid-rows-1 col-span-full overflow-auto max-w-full row-span-1 h-full">
                         <div className="bg-white rounded-2xl p-5 flex">
                             <div className="flex flex-col w-full">

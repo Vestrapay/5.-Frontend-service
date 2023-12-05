@@ -43,7 +43,7 @@ const SettingsProfileLayout = ({ children, navLinks, pageName = "Profile" }: {
                     </h1>
                 </header>
                 <div
-                    className="rounded-md bg-white h-full py-3 px-16 w-full"
+                    className="rounded-md bg-white h-full py-3 px-3 md:px-16 w-full"
                 >
                     <nav
                         style={{

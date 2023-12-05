@@ -35,7 +35,7 @@ const Refunds = () => {
 
     return (
         <DashboardLayout>
-            <main className="relative flex flex-1 flex-col px-10 pb-4 h-screen w-full overflow-x-visible transition-all duration-300 ease-in-out px-10 sm:px-12 pb-10 h-full">
+            <main className="relative flex flex-1 flex-col px-8 pb-4 h-screen w-full overflow-x-visible transition-all duration-300 ease-in-out px-10 sm:px-8 pb-10 h-full">
 
                 <nav>
                     <TransactionsNavbar apiRef={apiRef} data={recentTransactionsData} name={"Refunds"} />
@@ -48,12 +48,6 @@ const Refunds = () => {
                         <div className="w-full lg:w-2/3 text-black text-base sm:text-xl font-bold font-['Nunito'] sm:p-5">
                             This is where you'll see the record of all your refunds to your customers.
                         </div>
-                        <DefaultButton
-                            icon={<BsPlus size={25} />}
-                            labelText="Log a refund"
-                            handleClick={() => null}
-                            variant={"bg-selected cursor-poNunito flex items-center p-0 min-w-max sm:m-5"}
-                        />
                     </> : <DataGrid
                         rows={data || []}
                         columns={recentTransactionsFields}

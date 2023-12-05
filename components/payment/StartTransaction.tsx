@@ -28,7 +28,7 @@ export default function StartTransaction({
 
     return (
         <Modal show={show} clicked={setShow}>
-            <div className="flex flex-row gap-8 justify-around items-start max-w-[50vw] mb-10">
+            <div className="flex flex-row gap-8 justify-around items-start max-w-[75vw] mb-10">
                 <div className=" min-w-[25vw] overflow-none w-11/12 relative">
                     <div className=" flex flex-col my-5 w-full justify-center items-center">
                         <div className="my-3 flex justify-center items-center">

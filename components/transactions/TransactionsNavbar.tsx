@@ -26,7 +26,7 @@ const TransactionsNavbar = ({ apiRef, data, name, setShowDelete = () => null }: 
     }
 
     return (
-        <div className="flex justify-between">
+        <div className="flex md:justify-between flex-col md:flex-row md:items-center items-start">
             <p className="text-ultraMarine text-2xl flex justify-start">
                 {`Transactions - ${name || "Txn."}`}
             </p>

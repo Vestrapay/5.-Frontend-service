@@ -17,7 +17,7 @@ const CreateBusiness = () => {
                 <div className="flex animate__animated animate__fadeIn h-max-content bg-blue-darker items-start justify-start">
 
                     {/* Main */}
-                    <div className="relative flex flex-col py-10 pb-4 h-screen w-full my-10  transition-all duration-300 ease-in-out px-10 sm:p-12 pb-10 h-full bg-white ">
+                    <div className="relative py-10 pb-4 h-screen w-full my-10  transition-all duration-300 ease-in-out px-10 sm:p-12 pb-10 h-full bg-white ">
 
                         <p className="text-ultraMarine text-2xl text-left">Create Business</p>
 
@@ -29,7 +29,7 @@ const CreateBusiness = () => {
                                 label="Business Name"
                                 topLabel="Business Name"
                                 placeHolder="Update business name"
-                                containerVariant="w-full py-2 col-span-2"
+                                containerVariant="w-full py-2 col-span-3 lg:col-span-2"
                                 value={stateValues?.businessName}
                                 handleChange={handleChange}
                             />
@@ -40,7 +40,7 @@ const CreateBusiness = () => {
                                 label="Business Address"
                                 topLabel="Business Address"
                                 placeHolder="Update business address"
-                                containerVariant="w-full py-2 col-span-2"
+                                containerVariant="w-full py-2 col-span-3 lg:col-span-2"
                                 value={stateValues?.businessAddress}
                                 handleChange={handleChange}
                             />
@@ -51,7 +51,7 @@ const CreateBusiness = () => {
                                 label="business phone number"
                                 topLabel="Business Phone Number"
                                 placeHolder="Update business phone number"
-                                containerVariant="w-full py-2 col-span-2"
+                                containerVariant="w-full py-2 col-span-3 lg:col-span-2"
                                 value={stateValues?.businessPhoneNumber}
                                 handleChange={handleChange}
                             />
@@ -62,7 +62,7 @@ const CreateBusiness = () => {
                                 label="business email address"
                                 topLabel="Business Email Address"
                                 placeHolder="Update business email address"
-                                containerVariant="w-full py-2 col-span-2"
+                                containerVariant="w-full py-2 col-span-3 lg:col-span-2"
                                 value={stateValues?.businessEmail}
                                 handleChange={handleChange}
                             />
@@ -73,7 +73,7 @@ const CreateBusiness = () => {
                                 label="support phone number"
                                 topLabel="Support Phone Number"
                                 placeHolder="Update support phone number"
-                                containerVariant="w-full py-2 col-span-2"
+                                containerVariant="w-full py-2 col-span-3 lg:col-span-2"
                                 value={stateValues?.businessSupportPhoneNumber}
                                 handleChange={handleChange}
                             />
@@ -84,7 +84,7 @@ const CreateBusiness = () => {
                                 label="support email address"
                                 topLabel="Support Email Address"
                                 placeHolder="Update support email address"
-                                containerVariant="w-full py-2 col-span-2"
+                                containerVariant="w-full py-2 col-span-3 lg:col-span-2"
                                 value={stateValues?.businessSupportEmailAddress}
                                 handleChange={handleChange}
                             />
@@ -93,7 +93,7 @@ const CreateBusiness = () => {
                                 name="country"
                                 label="Country"
                                 topLabel="Country"
-                                containerVariant="w-full py-2 col-span-2"
+                                containerVariant="w-full py-2 col-span-3 lg:col-span-2"
                                 data={CountriesJson}
                                 handleChange={handleChange}
                             />
@@ -104,7 +104,7 @@ const CreateBusiness = () => {
                                 label="chargeback email address"
                                 topLabel="Chargeback Email Address"
                                 placeHolder="Update chargeback email address"
-                                containerVariant="w-full py-2 col-span-2"
+                                containerVariant="w-full py-2 col-span-3 lg:col-span-2"
                                 value={stateValues?.chargeBackEmail}
                                 handleChange={handleChange}
                             />
@@ -113,7 +113,7 @@ const CreateBusiness = () => {
                                 name="settlementTime"
                                 label="Settlement Time"
                                 topLabel="Settlement Time"
-                                containerVariant="w-full py-2 col-span-2"
+                                containerVariant="w-full py-2 col-span-3 lg:col-span-2"
                                 value={stateValues?.settlementTime}
                                 handleChange={handleChange}
                                 data={stateValues?.settlementDuration?.map((each: string, i: any) => ({ id: i + 1, value: each, name: each }))}
@@ -124,7 +124,7 @@ const CreateBusiness = () => {
                                 label="Payment Method"
                                 topLabel="Chargeback Payment Method"
                                 placeHolder="Update chargeback payment method"
-                                containerVariant="w-full py-2 col-span-2"
+                                containerVariant="w-full py-2 col-span-3 lg:col-span-2"
                                 value={stateValues?.paymentMethod}
                                 handleChange={handleChange}
                             />
@@ -135,7 +135,7 @@ const CreateBusiness = () => {
                                 label="Send to specific users"
                                 topLabel="Send To Specific Users"
                                 placeHolder="Update Send to specific users"
-                                containerVariant="w-full py-2 col-span-2"
+                                containerVariant="w-full py-2 col-span-3 lg:col-span-2"
                                 value={stateValues?.sendToSpecificUsers}
                                 handleChange={handleChange}
                             /> */}

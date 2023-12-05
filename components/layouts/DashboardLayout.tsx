@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import SideBar from './elements/SideBar'
 import { LayoutProps } from "@types";
 import { SidebarContext } from "@context";
@@ -14,7 +14,6 @@ function DashboardLayout({ children }: LayoutProps) {
 
     const {userType} = useAuthContext()
 
-
     useEffect(() => {
         const topMenuItems = finalMenu([userType])
         setSidebarItems(topMenuItems)
@@ -27,7 +26,7 @@ function DashboardLayout({ children }: LayoutProps) {
             {/* Sidebar */}
             <SideBar />
             {/* Main */}
-            <main className="w-full min-h-[100vh] bg-dashboard ml-[220px] overflow-x-hidden 2xl:flex  2xl:flex-col  2xl:items-center">
+            <main className="w-full min-h-[100vh] bg-dashboard md:pt-0 pt-10 md:ml-[220px] overflow-x-hidden 2xl:flex  2xl:flex-col  2xl:items-center">
                 < div className=' w-full max-w-[1800px] ' >
                     {children}
                 </div >

@@ -33,6 +33,7 @@ const PermissionController = () => {
         id: "",
         submittingError: false,
         isSubmitting: false,
+        isFetching: false,
         addPermissionCheck: false,
         setDeleting: false,
         viewCheck: "list",
@@ -91,10 +92,31 @@ const PermissionController = () => {
 
 
     const fetchPermissionData = async (): Promise<any> => {
+        setState({
+            ...state,
+            isFetching: true
+        })
         const response = await apiCall({
             name: "listPermission",
-            action: (): any => (["skip"])
+            action: (): any => {
+                setState({
+                    ...state,
+                    isFetching: false
+                });
+                return ["skip"];
+            },
+            errorAction: (): any => {
+                setState({
+                    ...state,
+                    isFetching: false
+                });
+                return ["skip"];
+            }
         })
+        setState({
+            ...state,
+            isFetching: false
+        });
         return response;
     }
 
@@ -311,9 +333,9 @@ const PermissionController = () => {
                         isSubmitting: false,
                         submittingError: false,
                     });
-
-                    refetch();
-                    fetchUsersRolesData(userId);
+                    location.reload();
+                    // refetch();
+                    // fetchUsersRolesData(userId);
                     return [""]
                 },
                 successDetails: { title: "Role Updated Successfully!", text: "Congratulations, Your have updated this permission.", icon: "" },
@@ -337,8 +359,8 @@ const PermissionController = () => {
                 }
             })
                 .then(async (res: any) => {
-                    refetch();
-                    fetchUsersRolesData(userId);
+                    // refetch();
+                    // fetchUsersRolesData(userId);
                     setState({
                         userId: "",
                         submittingError: false,

@@ -22,7 +22,7 @@
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
-    width: 95%;
+    width: 100%;
     max-height: 95vh;
     pointer-events: auto;
     background-color: #f7f7f7;
@@ -58,13 +58,13 @@
 .modaldialog {
     position: relative;
     width: max-content;
-    margin: 1.75rem auto;
+    margin: 1.5rem auto;
     pointer-events: none;
 
     width: max-content;
     min-width: fit-content;
     max-width: 75vw;
-    margin: 1.75rem auto;
+    margin: 1.5rem auto;
 }
 
 .modaldialogcentered {

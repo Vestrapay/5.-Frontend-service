@@ -28,16 +28,14 @@ export default function EditPermission({ usePermissionController, users }: any) 
             </div>
 
 
-            <div className="w-full h-7 mt-10 justify-start items-center gap-4 inline-flex">
+            <div className="w-full h-7 mt-10 justify-start items-start lg:items-center gap-4 flex lg:flex-row flex-col">
                 <div className="px-2 py-1 bg-indigo-900 rounded-lg flex-col justify-start items-start inline-flex">
                     <div className="text-white text-xs font-medium font-['Nunito'] leading-none">Step 2 of 2</div>
                 </div>
-                <div className="flex-col justify-start items-start inline-flex">
-                    <div className="text-zinc-800 text-2xl font-medium font-['Nunito'] leading-7">{`Edit ${stateValues?.selectedUser?.username + " " || ""}permissions`}</div>
-                </div>
+                <div className="text-zinc-800 text-2xl font-medium font-['Nunito'] leading-7 h-max w-full">{`Edit ${stateValues?.selectedUser?.username + " " || ""}permissions`}</div>
             </div>
 
-            <div className="w-full  mt-10 md:w-1/2">
+            <div className="w-full mt-16 md:mt-10 md:w-1/2">
                 <div className="text-slate-950 text-sm font-normal font-['Nunito'] leading-none py-2 ">
                     Define and assign the permissions and access for team members with
                     this role. You can make changes to this much later.
@@ -62,7 +60,7 @@ export default function EditPermission({ usePermissionController, users }: any) 
                 <div className="flex flex-col justify-between h-full gap-5 col-span-2 lg:col-span-4 ">
                     <div style={{
                         border: "1px solid #F0F0F0"
-                    }} className="w-full h-fit relative rounded border border-neutral-200 p-[25px] grid grid-cols-1 lg:grid-cols-2">
+                    }} className="w-full h-fit relative rounded border border-neutral-200 p-[25px] grid grid-cols-1 xl:grid-cols-2">
                         <div className="w-full h-fit pb-4 border-b border-neutral-200 col-span-2">
                             <div className="text-slate-950 text-2xl font-medium font-['Nunito'] leading-7 w-full">All permissions</div>
                             <hr className="h-px my-5 bg-neutral-200 border-0" />
@@ -72,10 +70,8 @@ export default function EditPermission({ usePermissionController, users }: any) 
                         </div>
 
                         {stateValues?.viewRolesList?.map((each: any, i: any) => {
-                            console.log(each);
-
                             return (
-                                <div className="w-fit h-9 flex items-center gap-3 col-span-1" key={i}>
+                                <div className="w-fit h-9 flex items-center gap-3 col-span-2 lg:col-span-1" key={i}>
                                     <div className="flex items-center rounded-full w-fit">
                                         {/* <input id="notifyDashboardUsers" type="checkbox"
                                             name="notifyDashboardUsers"
@@ -113,7 +109,7 @@ export default function EditPermission({ usePermissionController, users }: any) 
                 <DefaultButton
                     labelText="Cancel"
                     handleClick={() => handleExtraChange("addSteps", "one")}
-                    isLoading={stateValues?.isSubmitting}
+                    isLoading={stateValues?.isSubmitting || stateValues?.isFetching}
                     type={"secondary"}
                     variant={" text-white border-none border-white cursor-pointer min-w-max  items-end"}
                 />
