@@ -5,10 +5,11 @@ import Image from "next/image";
 import { Camera } from "react-huge-icons/solid";
 import { DefaultButton, DefaultInput, DefaultSelect } from "@reusables/index";
 import { AboutBusinessController } from 'containers/settingsApi';
+import { CountriesJson } from '@utils/helpers/CountriesJson';
 
 const About = () => {
 
-    const { handleSubmit, handleClearError, handleChange, handleExtraChange, stateValues, file, fileInputRef, handleFileInputClick, handleChangeFile } = AboutBusinessController()
+    const { handleSubmit, handleClearError, handleChange, settlementDuration, handleExtraChange, stateValues, file, fileInputRef, handleFileInputClick, handleChangeFile } = AboutBusinessController()
 
 
     return (
@@ -88,10 +89,12 @@ const About = () => {
                         name="country"
                         label="Country"
                         topLabel="Country"
+                        value={stateValues?.country}
                         containerVariant="w-full py-2 col-span-2"
-                        data={[
-                            { value: "Nigeria", name: "Nigeria" },
-                        ]}
+                        data={CountriesJson}
+                        // data={[
+                        //     { value: "Nigeria", name: "Nigeria" },
+                        // ]}
                     />
 
                     <DefaultInput
@@ -112,7 +115,7 @@ const About = () => {
                         containerVariant="w-full py-2 col-span-2"
                         value={stateValues?.settlementTime}
                         handleChange={handleChange}
-                        data={stateValues?.settlementDuration?.map((each: string, i: any) => ({ id: i + 1, value: each, name: each }))}
+                        data={(settlementDuration || stateValues?.settlementDuration)?.map((each: string, i: any) => ({ id: i + 1, value: each, name: each }))}
                     />
                     <div className="flex flex-col col-span-2"></div>
                     <div className="flex flex-col col-span-2">

@@ -75,16 +75,16 @@ const UsersProfileController = (showDelete: any = false, showView: any = false, 
     useEffect(() => {
         setState({
             ...state,
-            country: state?.country || data?.country || "",
-            firstName: state?.firstName || data?.firstName || "",
-            lastName: state?.lastName || data?.lastName || "",
-            email: state?.email || data?.email || "",
+            country: data?.country || state?.country || "",
+            firstName: data?.firstName || state?.firstName || "",
+            lastName: data?.lastName || state?.lastName || "",
+            email: data?.email || state?.email || "",
             gender: state?.gender || "",
-            phoneNumber: state?.phoneNumber || data?.phoneNumber || "",
-            businessName: state?.businessName || data?.businessName || "",
-            username: state?.username || data?.username || "",
+            phoneNumber: data?.phoneNumber || state?.phoneNumber || "",
+            businessName: data?.businessName || state?.businessName || "",
+            username: data?.username || state?.username || "",
             password: state?.password || "",
-            enabled: state?.enabled || data?.enabled || true,
+            enabled: data?.enabled || state?.enabled || true,
             id: state?.id || data?.id || "",
             requiredDocuments: data?.requiredDocuments || state?.requiredDocuments || "",
         })
@@ -155,6 +155,7 @@ const UsersProfileController = (showDelete: any = false, showView: any = false, 
                 .then(async (res: any) => {
                     // showModal();
                     setState({
+                        ...state,
                         country: res?.country || "",
                         firstName: res?.firstName || "",
                         lastName: res?.lastName || "",
@@ -325,6 +326,7 @@ const UpdateKYCController = () => {
                     setFilesString([]);
                     setFiles([]);
                     setState({
+                        ...state,
                         country: "",
                         firstName: "",
                         lastName: "",
@@ -409,6 +411,8 @@ const AboutBusinessController = (showDelete: any = false, showView: any = false,
         errorMssg: ""
     })
 
+    const [settDuration, setSettDuration] = useState([]);
+
     const { isLoading, isError, error, isSuccess, data, refetch } = useQuery(
         ["BUSINESS_VALUE_DATA", "values", fName], () => fetchBusinessData(),
         {
@@ -416,7 +420,6 @@ const AboutBusinessController = (showDelete: any = false, showView: any = false,
             // staleTime: 60000
         }
     );
-
 
     const { isLoading: isLoadingSettlementDur, isError: isErrorSettlementDur, error: errorSettlementDur, isSuccess: isSuccessSettlementDur, data: dataSettlementDur, refetch: refetchSettlementDur } = useQuery(
         ["SETTLEMENT_VALUE_DATA", "values", fName], () => fetchSettlementDurationData(),
@@ -435,11 +438,7 @@ const AboutBusinessController = (showDelete: any = false, showView: any = false,
 
     useEffect(() => {
         setTimeout(() => {
-            setState({
-                ...state,
-                settlementDuration: dataSettlementDur || state?.settlementDuration || "",
-            })
-
+            setSettDuration(dataSettlementDur || state?.settlementDuration || "",)
         }, 5000);
     }, [dataSettlementDur])
 
@@ -612,7 +611,7 @@ const AboutBusinessController = (showDelete: any = false, showView: any = false,
     }
 
 
-    return { handleSubmit, handleClearError, handleChange, handleUpdatePM, handleExtraChange, stateValues: state, file, fileInputRef, handleFileInputClick, handleChangeFile }
+    return { handleSubmit, handleClearError, handleChange, handleUpdatePM, handleExtraChange, stateValues: state, settlementDuration: settDuration, file, fileInputRef, handleFileInputClick, handleChangeFile }
 
     // return { isLoading, isError, error, isSuccess, data, refetch }
 

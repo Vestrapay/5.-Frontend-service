@@ -50,8 +50,7 @@ const SettingsProfileLayout = ({ children, navLinks, pageName = "Profile" }: {
                             borderRadius: "10px",
                             border: "1px solid #F0F0F0"
                         }}
-                        className="h-full w-full flex rounded-md px-10 overflow-x-scroll lg:overflow-x-hidden scrollbar-hide"
-                    >
+                        className="h-full w-full flex rounded-md px-10 overflow-x-scroll lg:overflow-x-hidden scrollbar-hide">
                         <ul className="list-none p-0 flex gap-10 w-full min-w-max">
                             {
                                 navLinks ? navLinks.map((item, index) => (
