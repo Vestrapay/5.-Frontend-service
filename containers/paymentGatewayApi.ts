@@ -620,7 +620,7 @@ const paymentGatewayController = (paymentType: any = "") => {
         try {
             const response = await apiCall({
                 name: "transferStatusQuery",
-                urlExtra: `/${transferDetails?.reference || ""}`,
+                urlExtra: `/${transferDetails?.reference || transferDetails?.payment_reference || ""}`,
                 customHeaders: {
                     merchantId: details?.payLinkDetails?.merchantId || merchantId || "",
                     secret: secret || details?.payLinkDetails?.secret || ""
