@@ -5,14 +5,16 @@ import {
     DashTerminalIcon,
     DashTransIcon,
     DashUserIcon,
+    VestraDashAdminIcon,
     VestraDashDisputeLogsIcon,
+    VestraDashDocsIcon,
     VestraDashHomeIcon, VestraDashNotificationIcon,
     VestraDashPaymentsIcon, VestraDashSettingsIcon,
     VestraDashTransactionIcon,
     VestraDashUsersIcon
 } from '@/components/reusables/icons'
-import {Storage} from 'Utils/inAppstorage'
-import {IconProps, MenuItems, RoleProps, SubMenuItems} from "@types";
+import { Storage } from 'Utils/inAppstorage'
+import { IconProps, MenuItems, RoleProps, SubMenuItems } from "@types";
 
 
 const topMenuItems: MenuItems[] = [
@@ -21,7 +23,7 @@ const topMenuItems: MenuItems[] = [
         name: 'Dashboard',
         route: '/dashboard',
         subMenuItems: [],
-        icon: (prop: IconProps) => <VestraDashHomeIcon width={prop.width} height={prop.height} style={prop.style}/>,
+        icon: (prop: IconProps) => <VestraDashHomeIcon width={prop.width} height={prop.height} style={prop.style} />,
         roles: ["USER", "ADMIN"]
     },
     {
@@ -99,6 +101,22 @@ const topMenuItems: MenuItems[] = [
         roles: ["USER", "ADMIN"]
     },
     {
+        id: 6,
+        name: 'Admins',
+        subMenuItems: [],
+        route: '/admins',
+        icon: (prop: IconProps) => <VestraDashAdminIcon width={prop.width} height={prop.height} style={prop.style} />,
+        roles: ["ADMIN"]
+    },
+    {
+        id: 6,
+        name: 'Compliance',
+        subMenuItems: [],
+        route: '/compliance',
+        icon: (prop: IconProps) => <VestraDashDocsIcon width={prop.width} height={prop.height} style={prop.style} />,
+        roles: ["ADMIN"]
+    },
+    {
         id: 5,
         name: 'Dispute Logs',
         route: '/dispute-logs',
@@ -168,7 +186,7 @@ export const finalMenu = (userRoles: string[]): MenuItems[] => {
         });
 
         // Check if the main menu item should be included based on the filtered sub-menu items.
-        if (filteredSubMenuItems.length > 0 || !each.roles || each.roles.some((role:any) => userRoles.includes(role))) {
+        if (filteredSubMenuItems.length > 0 || !each.roles || each.roles.some((role: any) => userRoles.includes(role))) {
             return { ...each, subMenuItems: filteredSubMenuItems };
         }
 

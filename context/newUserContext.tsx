@@ -1,6 +1,6 @@
 "use client"
 
-import React, {createContext, useContext, useState} from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 export const CreateUserContext = createContext({
     isCreateUser: false,
@@ -12,9 +12,12 @@ export const CreateUserContext = createContext({
     isViewUser: false,
     setIsViewUser: (isViewUser: boolean) => {
     },
+    isViewKyc: false,
+    setIsViewKyc: (isViewUser: boolean) => {
+    },
 })
 
-export const NewUserContext = ({children}: { children: React.ReactNode }) => {
+export const NewUserContext = ({ children }: { children: React.ReactNode }) => {
 
     const [isCreateUser, setIsCreateUser] = useState(false);
 
@@ -22,8 +25,10 @@ export const NewUserContext = ({children}: { children: React.ReactNode }) => {
 
     const [isViewUser, setIsViewUser] = useState(false);
 
+    const [isViewKyc, setIsViewKyc] = useState(false);
+
     return (
-        <CreateUserContext.Provider value={{isCreateUser, setIsCreateUser, isEditUser, setIsEditUser, isViewUser, setIsViewUser}}>
+        <CreateUserContext.Provider value={{ isViewKyc, setIsViewKyc, isCreateUser, setIsCreateUser, isEditUser, setIsEditUser, isViewUser, setIsViewUser }}>
             {children}
         </CreateUserContext.Provider>
     );

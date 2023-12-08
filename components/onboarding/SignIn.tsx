@@ -12,7 +12,7 @@ const SignIn = ({ setPage, resetingPass, setResetingPass, signInStatus }: any) =
 
 
     return (
-        <div className='w-full'>
+        <div className='w-2/3'>
 
             <DefaultInput
                 type="email"

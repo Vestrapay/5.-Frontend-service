@@ -103,7 +103,7 @@ const PopDropDown = ({
                                         key={`${index}`}
                                         className={`relative cursor-default 
                                 ${index < options.length - 1 ? "border-b" : ""} 
-                                border-gray-600 select-none py-2
+                                border-gray-600 select-none
                                  ${optionVariant}`}
                                     // value={item}
                                     // onClick={(e: any) => onHandleShowOption}

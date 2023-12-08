@@ -52,11 +52,13 @@ function SideBar() {
     }
 
     useEffect(() => {
-        setDisplayName({
-            ...displayName,
-            name: details?.businessName || "",
-            userType: details?.userType || ""
-        })
+        if (details) {
+            setDisplayName({
+                ...displayName,
+                name: details?.businessName || "",
+                userType: details?.userType || ""
+            })
+        }
     }, []);
 
     useEffect(() => {
@@ -224,12 +226,12 @@ function SideBar() {
             >
                 <Backdrop show={dialog} closeModal={() => setDialog(false)} />
                 <div
-                    className={` ${dialog?"block":"hidden"} z-[200] min-h-[100vh] h-[100%] pt-5 pb-10 xl:h-full bg-white lg:drop-shadow-lg drop-shadow-lg z-50 lg:inset-x-auto inset-x-0 lg:inset-y-0 | self-start top-0 w-full max-w-2/3  flex transition-all duration-300 ease-in-out fixed s`}
+                    className={` ${dialog ? "block" : "hidden"} z-[200] min-h-[100vh] h-[100%] pt-5 pb-10 xl:h-full bg-white lg:drop-shadow-lg drop-shadow-lg z-50 lg:inset-x-auto inset-x-0 lg:inset-y-0 | self-start top-0 w-full max-w-2/3  flex transition-all duration-300 ease-in-out fixed s`}
                 >
 
-                <div className="w-8 h-8 absolute bg-gray-500  z-[2000] rounded-full flex justify-center items-center top-5 right-10 lg:right-20 cursor-pointer" onClick={() =>  setDialog(false)}>
-                    <HiMiniXMark size={40} color={"white"} />
-                </div>
+                    <div className="w-8 h-8 absolute bg-gray-500  z-[2000] rounded-full flex justify-center items-center top-5 right-10 lg:right-20 cursor-pointer" onClick={() => setDialog(false)}>
+                        <HiMiniXMark size={40} color={"white"} />
+                    </div>
 
 
                     <div className=' w-full flex flex-col gap-10  justify-between overflow-y-auto text-slate-500 font-medium'>

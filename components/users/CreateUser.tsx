@@ -1,5 +1,5 @@
 "use client"
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {MdCancel} from "react-icons/md";
 import {useNewUserContext} from "../../context/newUserContext";
 import {Camera} from "react-huge-icons/bulk";
@@ -14,6 +14,12 @@ const CreateUser = () => {
 
     const {userType} = useAuthContext()
 
+    const [userTypeValue, setUserTypeValue] = useState("USER")
+
+    useEffect(() => {
+        setUserTypeValue(userType)
+    }, [userType])
+
     const {stateValues, handleSubmit, handleClearError, handleChange, handleExtraChange} = createUserController();
 
     const {country, firstName, lastName, email, gender, phoneNumber, password, submittingError, errorMssg, isSubmitting} = stateValues
@@ -24,7 +30,7 @@ const CreateUser = () => {
             <div className="flex flex-col items-center w-full relative">
                 <div className="flex justify-between w-full mb-5">
                     <span
-                        className="flex justify-start text-left font-bold capitalize">Create {`${userType === "USER" ? "User" : "Admin"}`}</span>
+                        className="flex justify-start text-left font-bold capitalize">Create {`${userTypeValue === "USER" ? "User" : "Admin"}`}</span>
                     <MdCancel
                         onClick={() => setIsCreateUser(false)}
                         width={15} height={15}
@@ -88,7 +94,7 @@ const CreateUser = () => {
                     handleChange={handleChange}
                 />
                 {
-                    userType === "USER" &&
+                    userTypeValue === "USER" &&
                     <DefaultSelect
                         name="gender"
                         label="Gender"

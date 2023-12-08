@@ -25,7 +25,7 @@ const VerifySignUp = ({ setPage, passData, setSignInStatus }: any) => {
     const { submittingError, isDisabled, isSubmitting, errorMssg, pin, confirmPin } = stateValues;
 
     return (
-        <div className="w-full  ">
+        <div className='w-2/3'>
 
             <p className='w-fit text-base font-500 my-10'>Enter OTP code sent to your email and phone number below</p>
 

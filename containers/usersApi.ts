@@ -6,7 +6,7 @@ import { useAuthContext } from "../context/AuthContext";
 import { Storage } from 'Utils/inAppstorage'
 
 
-const { merchantId, uuid } = Storage.getItem("userDetails") || { merchantId: "", uuid: "" }
+const { details: { merchantId, uuid } } = Storage.getItem("userDetails") || { details: { merchantId: "", uuid: "" } }
 
 //Fetching accounts list data
 const fetchUsersData = (pageNo: any, pageSize: any, search: string) => {
@@ -58,9 +58,44 @@ const fetchUsersData = (pageNo: any, pageSize: any, search: string) => {
     return { isLoading, isError, error, isSuccess, data, refetch }
 }
 
+const fetchAdminsData = (pageNo: any, pageSize: any, search: string) => {
+
+    const { userType, userDetail } = useAuthContext()
+
+
+    const func = async (): Promise<any> => {
+        const response = await apiCall({
+            name: "adminUserList", //"getTransactions",
+            action: (): any => (["skip"])
+        })
+        return response;
+    }
+
+    const { isLoading, isError, error, isSuccess, data, refetch } = useQuery(
+        ["ADMIN_LIST_DATA", "stats", pageNo], () => func(),
+        {
+            refetchOnWindowFocus: false,
+            // staleTime: 60000
+        }
+    );
+    return { isLoading, isError, error, isSuccess, data, refetch }
+}
+
 const UsersController = (showDelete: any = false, showView: any = false, showCreate: any = false, pageNo: any = 0, pageSize: any = 20, search: string = "") => {
 
     const { isLoading, isError, error, isSuccess, data, refetch } = fetchUsersData(pageNo, pageSize, search);
+
+    useEffect(() => {
+        refetch()
+    }, [pageNo, pageSize, search, showView, showCreate, showDelete])
+
+    return { isLoading, isError, error, isSuccess, data, refetch }
+
+}
+
+const AdminController = (showDelete: any = false, showView: any = false, showCreate: any = false, pageNo: any = 0, pageSize: any = 20, search: string = "") => {
+
+    const { isLoading, isError, error, isSuccess, data, refetch } = fetchAdminsData(pageNo, pageSize, search);
 
     useEffect(() => {
         refetch()
@@ -74,6 +109,7 @@ const createUserController = () => {
 
     const { userType, userDetail } = useAuthContext()
 
+    const { refetch } = AdminController(false, false, false);
 
     const [state, setState] = useState<any>({
         country: "",
@@ -119,6 +155,7 @@ const createUserController = () => {
                     firstName, lastName, email, country, phoneNumber, password
                 },
                 action: (): any => {
+                    refetch();
                     setState({
                         ...state,
                         isSubmitting: false,
@@ -134,6 +171,7 @@ const createUserController = () => {
                     icon: ""
                 },
                 errorAction: (err?: any) => {
+                    refetch();
                     if (err && err?.response?.data) {
                         setState({
                             ...state,
@@ -196,6 +234,7 @@ const createUserController = () => {
 
 const updateUserController = (data: UserDetailProps, id: number | string) => {
 
+    const { userType, userDetail } = useAuthContext()
 
     const [state, setState] = useState<any>({
         country: "",
@@ -257,7 +296,7 @@ const updateUserController = (data: UserDetailProps, id: number | string) => {
         }))
         try {
             const response = await apiCall({
-                name: "updateUser",
+                name: userType === "ADMIN" ? "adminCreateUser" : "createMerchantUser",
                 customHeaders: { merchantId: state?.id || id || "" },
                 data: {
                     id, country, firstName, lastName, email, phoneNumber, businessName, enabled, username
@@ -414,6 +453,167 @@ const deleteUsersController = (data: UserDetailProps) => {
     return { stateValues: state, handleSubmit, handleClearError }
 }
 
+const enableUsersController = (data: UserDetailProps) => {
+
+    const { isLoading, isError, error, isSuccess, refetch } = fetchUsersData(0, 10, "");
+
+    const [state, setState] = useState<any>({
+        enabled: false,
+        submittingError: false,
+        isSubmitting: false,
+        errorMssg: ""
+    })
+
+    useEffect(() => {
+        if (!state?.isSubmitting) {
+            refetch()
+        }
+    }, [!state?.isSubmitting])
+
+    const handleClearError = () => setState({ ...state, submittingError: false })
+    // disableUser
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setState((state: any) => ({
+            ...state,
+            isSubmitting: true
+        }))
+        try {
+            const response = await apiCall({
+                name: data?.enabled ? "disableUser" : "enableUser",
+                urlExtra: `/${data?.merchantId}`,//data?.uuid || 
+                // data: data?.uuid,
+                action: (): any => {
+                    setState({
+                        ...state,
+                        isSubmitting: false,
+                        submittingError: false,
+                    })
+                    return []
+                },
+                successDetails: {
+                    title: "User updated Successfully!",
+                    text: "Congratulations, Your have updated this user.",
+                    icon: ""
+                },
+                errorAction: (err?: any) => {
+                    if (err && err?.response?.data) {
+                        setState({
+                            ...state,
+                            submittingError: true,
+                            isSubmitting: false,
+                            errorMssg: err?.response?.data?.errors && err?.response?.data?.errors[0] || "Updated Failed, please try again"
+                        })
+                        return ["skip"]
+                    } else {
+                        setState({
+                            ...state,
+                            submittingError: true,
+                            isSubmitting: false,
+                            errorMssg: "Action failed, please try again"
+                        })
+                    }
+                }
+            })
+                .then(async (res: any) => {
+                    // showModal();
+                    setState({
+                        submittingError: false,
+                        isSubmitting: false,
+                        errorMssg: ""
+                    })
+                })
+        } catch (e) {
+            console.log(e + " 'Caught Error.'");
+        }
+        ;
+    }
+
+    return { stateValues: state, handleSubmit, handleClearError }
+}
+
+const enableAdminController = (data: UserDetailProps) => {
+
+    const { isLoading, isError, error, isSuccess, refetch } = fetchAdminsData(0, 10, "");
+
+    const [state, setState] = useState<any>({
+        enabled: false,
+        submittingError: false,
+        isSubmitting: false,
+        errorMssg: ""
+    })
+
+    useEffect(() => {
+        if (!state?.isSubmitting) {
+            refetch()
+        }
+    }, [!state?.isSubmitting])
+
+    const handleClearError = () => setState({ ...state, submittingError: false })
+    // disableUser
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setState((state: any) => ({
+            ...state,
+            isSubmitting: true
+        }))
+        try {
+            const response = await apiCall({
+                name: "enableAdmin",
+                // urlExtra: `/${data?.merchantId}`,//data?.uuid || 
+                data: {
+                    adminUUID: uuid,
+                    value: !data?.enabled
+                },
+                action: (): any => {
+                    setState({
+                        ...state,
+                        isSubmitting: false,
+                        submittingError: false,
+                    })
+                    return []
+                },
+                successDetails: {
+                    title: "Admin User Updated Successfully!",
+                    text: "Congratulations, You have updated this admin user.",
+                    icon: ""
+                },
+                errorAction: (err?: any) => {
+                    if (err && err?.response?.data) {
+                        setState({
+                            ...state,
+                            submittingError: true,
+                            isSubmitting: false,
+                            errorMssg: err?.response?.data?.errors && err?.response?.data?.errors[0] || "Updated Failed, please try again"
+                        })
+                        return ["skip"]
+                    } else {
+                        setState({
+                            ...state,
+                            submittingError: true,
+                            isSubmitting: false,
+                            errorMssg: "Action failed, please try again"
+                        })
+                    }
+                }
+            })
+                .then(async (res: any) => {
+                    // showModal();
+                    setState({
+                        submittingError: false,
+                        isSubmitting: false,
+                        errorMssg: ""
+                    })
+                })
+        } catch (e) {
+            console.log(e + " 'Caught Error.'");
+        }
+        ;
+    }
+
+    return { stateValues: state, handleSubmit, handleClearError }
+}
+
 const migrateToProductionController = () => {
 
     const [state, setState] = useState<any>({
@@ -434,10 +634,11 @@ const migrateToProductionController = () => {
         try {
             const response = await apiCall({
                 name: "migrateToProd",
-                params: {
-                    merchantId: merchantId,
-                    userId: uuid
-                },
+                urlExtra: `/${uuid}`,
+                // data: {
+                //     // merchantId: merchantId,
+                //     userId: uuid
+                // },
                 customHeaders: {
                     merchantId: merchantId,
                     userId: uuid
@@ -452,7 +653,7 @@ const migrateToProductionController = () => {
                 },
                 successDetails: {
                     title: "Migration Successful!",
-                    text: "Congratulations, Your have completed this migration.",
+                    text: "Migration in progress. migration would be completed in 24 hours. contact admin for support related issues",
                     icon: ""
                 },
                 errorAction: (err?: any) => {
@@ -498,4 +699,4 @@ const migrateToProductionController = () => {
     return { stateValues: state, handleSubmit, handleClearError }
 }
 
-export { fetchUsersData, UsersController, createUserController, updateUserController, deleteUsersController, migrateToProductionController }
+export { fetchUsersData, UsersController, AdminController, enableAdminController, createUserController, updateUserController, deleteUsersController, enableUsersController, migrateToProductionController }

@@ -19,7 +19,7 @@ const AtmCard = ({ debitCardNumber = "000000000000", cardHolder = "Omonigho Isai
     }
 
     return (
-        <div className={`flex relative w-full mx-10 lg:mx-0 lg:w-[750px] h-[196px] ${isActivated ? "bg-slate-400" : "bg-selected"} rounded-xl flex-col p-5 drop-shadow-md`}>
+        <div className={`flex relative w-full mx-10 lg:mx-0 lg:w-[750px] h-[196px] max-w-[400px] ${isActivated ? "bg-slate-400" : "bg-selected"} rounded-xl flex-col p-5 drop-shadow-md`}>
             <Image src={CardLogo} alt={"card-logo"} className="flex mb-0" />
             <p className="opacity-50 text-card text-[8px]">PREMIUM ACCOUNT</p>
             <div className="flex gap-4 items-center justify-start tracking-widest">

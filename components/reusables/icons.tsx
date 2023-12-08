@@ -12,7 +12,7 @@ import {
 } from "@reusables/images";
 import { Category, TwoUsers, Chart, Notification, Setting } from "react-iconly";
 import { Transfer } from "react-huge-icons/bulk"
-import { HiMiniUserGroup } from "react-icons/hi2";
+import { HiClipboardDocumentList, HiMiniUserGroup, HiUserCircle } from "react-icons/hi2";
 
 
 
@@ -35,6 +35,12 @@ export const VestraDashUsersIcon = ({ width = 24, height = 24, style }: IconProp
     )
 }
 
+export const VestraDashDocsIcon = ({ width = 24, height = 24, style }: IconProps) => {
+    return (
+        <HiClipboardDocumentList style={{ ...style, width: width, height: height }} />
+    )
+}
+
 export const VestraDashTransactionIcon = ({ width = 24, height = 24, style }: IconProps) => {
     return (
         <Chart set="bulk" stroke="bold" filled={true} style={{ ...style, width: width, height: height }} />
@@ -44,6 +50,11 @@ export const VestraDashTransactionIcon = ({ width = 24, height = 24, style }: Ic
 export const VestraDashPaymentsIcon = ({ width = 24, height = 24, style }: IconProps) => {
     return (
         <Transfer style={{ ...style, width: width, height: height }} className="rotate-90" />
+    )
+}
+export const VestraDashAdminIcon = ({ width = 24, height = 24, style }: IconProps) => {
+    return (
+        <HiUserCircle style={{ ...style, width: width, height: height }} />
     )
 }
 

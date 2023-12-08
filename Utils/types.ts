@@ -38,8 +38,12 @@ export type endPointlistTypes = {
     adminMerchantUserList: endpointTypes;
     adminUserList: endpointTypes;
     adminCreateUser: endpointTypes;
-
-
+    enableUser: endpointTypes;
+    disableUser: endpointTypes;
+    enableAdmin: endpointTypes;
+    complianceList: endpointTypes;
+    downloadComplianceDocs: endpointTypes;
+    validateComplianceDocs: endpointTypes;
     viewBusiness: endpointTypes;
     updateBusiness: endpointTypes;
     createBusiness: endpointTypes;

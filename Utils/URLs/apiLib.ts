@@ -384,6 +384,45 @@ export const endPoints: endPointlistTypes = {
         headers: headers,
         auth: true
     },
+    enableUser: {
+        url: '/api/v1/admin/enable-merchant',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+    disableUser: {
+        url: '/api/v1/admin/disable-merchant',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+    enableAdmin: {
+        url: '/api/v1/admin/enable-disable-admin',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+
+    //compliance
+    complianceList: {
+        url: '/api/v1/compliance/view-pending-kyc',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+    downloadComplianceDocs: {
+        url: '/api/v1/compliance',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+    validateComplianceDocs: {
+        url: '/api/v1/compliance/validate',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+
 
     //Accounts
     accountList: {

@@ -3,7 +3,7 @@ import { DefaultButton, DefaultInput } from "@/components/reusables";
 
 const ChangePassword = ({ setPage }: any) => {
     return (
-        <div className="w-full">
+        <div className='w-2/3'>
 
             <DefaultInput
                 type="password"

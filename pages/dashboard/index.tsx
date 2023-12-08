@@ -35,6 +35,12 @@ const Dashboard = () => {
 
     const { userType } = useAuthContext()
 
+    const [userTypeValue, setUserTypeValue] = useState("USER")
+
+    useEffect(() => {
+        setUserTypeValue(userType)
+    }, [userType])
+
     const {
         displayName,
         statsLoading,
@@ -76,7 +82,7 @@ const Dashboard = () => {
 
                 <DashNavbar />
                 {
-                    userType === "USER" &&
+                    userTypeValue === "USER" &&
                     <LoginErrorCard
                         handleClear={handleClearError}
                         error={""}

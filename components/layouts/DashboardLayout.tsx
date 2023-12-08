@@ -17,7 +17,7 @@ function DashboardLayout({ children }: LayoutProps) {
     useEffect(() => {
         const topMenuItems = finalMenu([userType])
         setSidebarItems(topMenuItems)
-    }, []);
+    }, [userType]);
 
     return (
         <div

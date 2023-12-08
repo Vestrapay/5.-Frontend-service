@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Dayjs} from "dayjs";
 import {useAuthContext} from "../../context/AuthContext";
 
@@ -8,6 +8,12 @@ const DashNavbar = () => {
 
     const {userType} = useAuthContext()
 
+    const [userTypeValue, setUserTypeValue] = useState("USER")
+    
+    useEffect(() => {
+        setUserTypeValue(userType)
+    }, [userType])
+    
     return (
         <div className="flex justify-between">
             <p className="text-ultraMarine text-2xl flex justify-start">Dashboard</p>
@@ -39,7 +45,7 @@ const DashNavbar = () => {
                     }}
                     className="flex items-center justify-center"
                 /> */}
-                {userType === "USER" &&
+                {userTypeValue === "USER" &&
                     <p className="text-sm w-[130px] h-[40px] flex justify-center items-center bg-selected p-4 rounded-md text-white">TEST</p>
                 }
             </div>

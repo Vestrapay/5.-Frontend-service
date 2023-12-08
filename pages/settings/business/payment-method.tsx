@@ -26,7 +26,7 @@ const Notifications = () => {
                                 <span className="text-neutral-700 text-base font-semibold font-['Nunito']">{each?.name || ""}</span>
                                 <span className="text-neutral-700 text-base font-light font-['Nunito']">{each?.description || ""}</span>
                             </div>
-                            <div className="w-full sm:col-span-1 col-span-2">
+                            <div className="w-full flex justify-center sm:col-span-1 col-span-2">
                                 <div style={{
                                     borderRadius: "10px",
                                     border: "1px solid #382C7C"

@@ -10,7 +10,7 @@ const ResetPassword = ({ setPage, setResetingPass }: any) => {
     const { submittingError, isDisabled, isSubmitting, errorMssg, pin, email } = stateValues || {};
 
     return (
-        <div className="w-full ">
+        <div className='w-2/3'>
             <DefaultInput
                 type="email"
                 name="email"

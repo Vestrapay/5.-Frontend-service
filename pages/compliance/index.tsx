@@ -4,19 +4,21 @@ import DashboardLayout from "@/components/layouts/DashboardLayout";
 import { DataGrid, GridColDef, GridRowId, useGridApiRef } from "@mui/x-data-grid";
 import { BsFillEyeFill, BsFillTrash3Fill, BsPencilSquare, BsThreeDots } from "react-icons/bs";
 
-import DisputesNavbar from "@/components/disputes/DisputesNavbar";
+import UsersNavbar from "@/components/users/UsersNavbar";
 import { UserDetailProps } from "@types";
-import { useNewDisputeContext } from "../../context/disputeLogContext";
-import DisputeDetails from "@/components/disputes/DisputeDetails";
-import CreateDispute from "@/components/disputes/CreateDispute";
-import EditDisputeDetails from "@/components/disputes/EditDisputeDetails";
-import { DisputesController } from 'containers/disputeLogApi';
+import { useNewUserContext } from "../../context/newUserContext";
+import UserDetails from "@/components/users/UserDetails";
+import CreateUser from "@/components/users/CreateUser";
+import EditUserDetails from "@/components/users/EditUserDetails";
 import { PoperDropDown, TableStatus } from '@/components/reusables';
-import DeleteDispute from '@/components/disputes/DeleteDispute';
+import DeleteUser from '@/components/users/DeleteUser';
 import { useAuthContext } from "../../context/AuthContext";
-import dayjs from 'dayjs';
+import EnableAdmin from '@/components/users/EnableAdmin';
+import { ComplianceController } from 'containers/complianceApi';
+import ViewKyc from '@/components/users/ViewKyc';
+import KycModal from '@/components/users/KycModal';
 
-const DisputeLogs = () => {
+const Compliance = () => {
 
     const { userType } = useAuthContext()
 
@@ -28,6 +30,8 @@ const DisputeLogs = () => {
 
     const [isDropDownActive, setIsDropDownActive] = useState(false)
 
+    const [isViewKycModal, setIsViewKycModal] = useState(false)
+
     const [selected, setSelected] = useState<number | string>("");
 
     const [selectedDetails, setSelectedDetails] = useState<UserDetailProps | any>();
@@ -36,24 +40,25 @@ const DisputeLogs = () => {
 
     const [showDelete, setShowDelete] = useState<any>(false);
 
+    const [showEnable, setShowEnable] = useState<any>(false);
+
     const handleShowDrop = (id: number, off?: boolean) => {
         setShowDrop((prev: number) => off ? null : !prev ? id : (prev === id) ? null : id)
     }
 
     // const [isEditable, setIsEditable] = useState(false);
 
-    const { isCreateDispute, setIsCreateDispute, isEditDispute, setIsEditDispute, isViewDispute, setIsViewDispute } = useNewDisputeContext();
+    const { isViewKyc, setIsViewKyc } = useNewUserContext();
 
-    const { isLoading, isError, error, isSuccess, data, refetch } = DisputesController(showDelete, isEditDispute, isCreateDispute)
+    const { isLoading, isError, error, isSuccess, data, refetch } = ComplianceController("")
 
     const getRowData = (id: GridRowId) => {
         return apiRef.current?.getRow(id);
     }
 
-
     const apiRef = useGridApiRef();
 
-    const DisputeLogListFields: GridColDef[] = [
+    const usersListFields: GridColDef[] = [
         {
             field: "id",
             headerName: "ID",
@@ -62,60 +67,40 @@ const DisputeLogs = () => {
             flex: 0.5,
         },
         {
-            field: "comment",
-            headerName: "Comment",
+            field: "name",
+            headerName: "Name",
             flex: 1,
             headerAlign: "left",
-            align: "left"
+            align: "left",
+            valueGetter: ({ row: { firstName, lastName } }: { row: { firstName: string, lastName: string } }) => `${firstName} ${lastName}`,
         },
         {
-            field: "transactionReference",
-            headerName: "Transaction Reference",
+            field: "email",
+            headerName: "Email",
             flex: 1,
             headerAlign: "left",
             align: "left",
         },
         {
-            field: "dateCreated",
-            headerName: "Date Created",
-            flex: 1,
-            headerAlign: "center",
-            align: "center",
-            renderCell: ({ row: { dateCreated } }: { row: { dateCreated: string } }) => {
-                return (
-                    <div className="flex items-center">
-                        {dayjs(dateCreated || new Date()).format('MMM DD, YYYY')}
-                    </div>
-                )
-            }
-        },
-        {
-            field: "dateUpdated",
-            headerName: "Date Updated",
-            flex: 1,
-            headerAlign: "center",
-            align: "center",
-            renderCell: ({ row: { dateUpdated } }: { row: { dateUpdated: string } }) => {
-                return (
-                    <div className="flex items-center">
-                        {dayjs(dateUpdated || new Date()).format('MMM DD, YYYY')}
-                    </div>
-                )
-            }
-        },
-        {
-            field: "status",
-            headerName: "Status",
+            field: "businessName",
+            headerName: "Business Name",
             flex: 1,
             headerAlign: "center",
             align: "center",
         },
         {
-            field: "fileUrl",
-            headerName: "File",
+            field: "userType",
+            headerName: "User Type",
             flex: 1,
             headerAlign: "left",
             align: "left",
+        },
+        {
+            field: "requiredDocuments",
+            headerName: "Uploaded Documents",
+            flex: 1,
+            headerAlign: "center",
+            align: "center",
         },
         {
             field: "action",
@@ -124,15 +109,16 @@ const DisputeLogs = () => {
             headerAlign: "center",
             align: "center",
             cellClassName: "action",
-            renderCell: ({ row: { id } }: { row: { id: number } }) => {
+            renderCell: ({ row: { id, enabled } }: { row: { id: number, enabled: boolean } }) => {
+
                 return (<PoperDropDown
                     placeHolder="Sort by"
                     label=""
-                    variant=''
-                    innerVariant="border-none py-1 h-fit rounded-xl outline-none focus:border font-normal"
-                    containerVariant='w-max-content'
-                    optionVariant="mr-0 pr-0 py-0"
-                    optionContainerVariant={`right-7 absolute w-max bg-white h-fit z-500 shadow-md text-sm rounded-lg p-2.5`}
+                    variant=' z-1000 '
+                    innerVariant="border-none py-1 h-fit rounded-xl outline-none focus:border font-normal z-1000"
+                    containerVariant='w-max-content z-1000'
+                    optionVariant="mr-0 pr-0 py-0 my-2"
+                    optionContainerVariant={`right-7 absolute w-max bg-white h-fit z-500 shadow-md text-sm rounded-lg p-2.5 z-1000`}
                     onHandleChange={() => null}
                     checker={showDrop === id ? true : false}
                     list={true}
@@ -143,31 +129,41 @@ const DisputeLogs = () => {
                     options={
                         ([
                             (<div key={1}
-                                className={`h-10 flex items-center text-center p-2 px-4 py-4 gap-2 rounded-md cursor-pointer min-w-max text-blue-600 bg-sky-100 hover:bg-sky-200 ${userTypeValue === "ADMIN" ? "hidden" : ""}`}
+                                className='h-10 flex items-center text-center p-2 px-4 py-4 my-2 my-2 gap-2 rounded-md cursor-pointer min-w-max text-slate-700 bg-slate-100 hover:bg-slate-200'
                                 onClick={() => {
                                     // Enable edit mode for the row
-                                    console.log("Editing user with id: ", id) //TODO: Edit the user with this id
-                                    setSelected(id)
-                                    setSelectedDetails(getRowData(id))
+                                    console.log("View user with id: ", id) //TODO: Edit the user with this id
                                     setIsDropDownActive(false)
-                                    setIsEditDispute(true)
-                                    setIsCreateDispute(false)
-                                    setIsViewDispute(false)
+                                    setIsViewKyc(true)
                                 }}>
-                                <BsPencilSquare className="w-4 h-4" />
-                                <p className="w-full font-semibold text-left justify-start">Update Dispute</p>
+                                {/* onClick={() => showDeactivateModal(item?.id)}> */}
+                                <BsFillEyeFill className="w-4 h-4" /> <p
+                                    className="w-full font-semibold text-left justify-start">View</p>
+                            </div>),
+                            (<div key={2}
+                                className='h-10 flex items-center text-center p-2 px-4 py-4 my-2 my-2 gap-2 rounded-md cursor-pointer min-w-max text-slate-700 bg-slate-100 hover:bg-slate-200'
+                                onClick={() => {
+                                    // Enable edit mode for the row
+                                    console.log("View user with id: ", id) //TODO: Edit the user with this id
+                                    setIsDropDownActive(false)
+                                    setIsViewKyc(false)
+                                    setIsViewKycModal(true)
+                                }}>
+                                {/* onClick={() => showDeactivateModal(item?.id)}> */}
+                                <p className="w-full font-semibold text-left justify-start">Complete</p>
                             </div>)
                         ])}
                     optionHeight={"h-fit top-10 "}
                 >
                     <div className={`rounded w-full flex justify-center items-center relative z-0`}>
-                        <BsThreeDots
-                            onClick={() => {
-                                setIsDropDownActive(!isDropDownActive)
-                                setSelected(id)
-                            }}
-                            className="text-2xl cursor-pointer"
-                        />
+                        {(!showDrop || showDrop === id) ?
+                            < BsThreeDots
+                                onClick={() => {
+                                    setIsDropDownActive(!isDropDownActive)
+                                    setSelected(id)
+                                }}
+                                className={`text-2xl cursor-pointer`}
+                            /> : ""}
                     </div>
                 </PoperDropDown>
                 )
@@ -182,7 +178,7 @@ const DisputeLogs = () => {
             <DashboardLayout>
                 <main
                     className="relative flex flex-1 flex-col px-10 pb-4 h-screen w-full overflow-x-visible transition-all duration-300 ease-in-out sm:px-12 pb-10 h-full">
-                    <DisputesNavbar />
+                    <UsersNavbar type="Compliance and Documents" />
                     <DataGrid
                         initialState={{
                             columns: {
@@ -192,7 +188,7 @@ const DisputeLogs = () => {
                                 }
                             }
                         }}
-                        columns={DisputeLogListFields}
+                        columns={usersListFields}
                         rows={data || []}
                         apiRef={apiRef}
                         // checkboxSelection={true}
@@ -270,27 +266,18 @@ const DisputeLogs = () => {
                     />
 
                     <div
-                        className={`w-full sm:w-2/3 xl:w-2/4 ${isViewDispute && selected ? "flex flex-col flex-nowrap" : "hidden"} absolute right-0 bg-white rounded-tl-xl rounded-bl-xl z-[2000] min-h-full p-5 shadow-xl transition-all duration-300 ease-in-out`}>
-                        <DisputeDetails data={selectedDetails} />
+                        className={`w-full sm:w-2/3 xl:w-2/4 ${isViewKyc && selected ? "flex flex-col flex-nowrap" : "hidden"} absolute right-0 bg-white rounded-tl-xl rounded-bl-xl z-[2000] min-h-full p-5 shadow-xl transition-all duration-300 ease-in-out`}>
+                        <ViewKyc data={selectedDetails} />
                     </div>
-                    <div
-                        className={`w-full sm:w-2/3 xl:w-2/4 ${isEditDispute && selected ? "flex flex-col flex-nowrap" : "hidden"} absolute right-0 bg-white rounded-tl-xl rounded-bl-xl z-[2000] min-h-full p-5 shadow-xl transition-all duration-300 ease-in-out`}>
-                        <EditDisputeDetails data={selectedDetails} id={selected} />
-                    </div>
-                    <div
-                        className={`w-full sm:w-2/3 xl:w-2/5  ${isCreateDispute ? "flex flex-col flex-nowrap" : "hidden"} absolute right-0 bg-white rounded-tl-xl rounded-bl-xl z-[2000] min-h-full p-5 shadow-xl transition-all duration-300 ease-in-out`}>
-                        <CreateDispute />
-                    </div>
-
                 </main>
             </DashboardLayout>
-            <DeleteDispute
-                show={showDelete}
-                setShow={setShowDelete}
+            <KycModal
+                show={isViewKycModal}
+                setShow={setIsViewKycModal}
                 data={selectedDetails}
             />
         </>
     );
 };
 
-export default DisputeLogs;
+export default Compliance;

@@ -75,6 +75,7 @@ export type UserDetailProps = {
     authorities?: any[],
     action?: string,
     address?: string,
+    requiredDocuments?: string,
 }
 
 
