@@ -13,6 +13,7 @@ const fetchUsersData = (pageNo: any, pageSize: any, search: string) => {
 
     const { userType, userDetail } = useAuthContext()
 
+    console.log(userType);
 
     const func = async (): Promise<any> => {
         const response = await apiCall({
@@ -21,13 +22,9 @@ const fetchUsersData = (pageNo: any, pageSize: any, search: string) => {
             //     pageNo,
             //     pageSize,
             // },
-            action: (): any => (["skip"])
+            action: (): any => (["skip"]),
+            errorAction: (): any => (["skip"])
         }) as any[]
-        // const response2 = isSuperAdmin && (await apiCall({
-        //     name: "adminUserList",
-        //     action: (): any => (["skip"])
-        // }) as any[])
-
         if (userType === "ADMIN") {
             const newResponse = [...response, ...await apiCall({
                 name: "adminUserList",
@@ -38,14 +35,6 @@ const fetchUsersData = (pageNo: any, pageSize: any, search: string) => {
         } else {
             return response;
         }
-
-        // if (isSuperAdmin && response2 !== false) {
-        //     console.log("Admin response:",[...response, ...response2])
-        //     return [...response, ...response2];
-        // } else {
-        //     console.log("Merchant response:",response)
-        //     return response;
-        // }
     }
 
     const { isLoading, isError, error, isSuccess, data, refetch } = useQuery(
@@ -147,7 +136,7 @@ const createUserController = () => {
         }))
         try {
             const response = await apiCall({
-                name: userType === "ADMIN" ? "adminCreateUser" : "createMerchantUser",
+                name: userType === "ADMIN" ? "adminCreateUser" : "merchantCreateUser",
                 customHeaders: userType === "USER" && { merchantId: userDetail?.id || "" },
                 data: userType === "USER" ? {
                     country, firstName, lastName, email, gender, phoneNumber, password
