@@ -25,7 +25,7 @@ const VerifySignUp = ({ setPage, passData, setSignInStatus }: any) => {
     const { submittingError, isDisabled, isSubmitting, errorMssg, pin, confirmPin } = stateValues;
 
     return (
-        <div className='w-2/3'>
+        <div className='w-2/3 flex flex-col items-center'>
 
             <p className='w-fit text-base font-500 my-10'>Enter OTP code sent to your email and phone number below</p>
 
@@ -59,6 +59,7 @@ const VerifySignUp = ({ setPage, passData, setSignInStatus }: any) => {
                 variant="w-full"
                 isLoading={isSubmitting}
                 handleClick={handleSubmit}
+                isDisabled={otp?.length < 6}
             />
 
             <LoginErrorCard handleClear={handleClearError} error={stateValues?.errorMssg || ""} containerVariant={!stateValues?.submittingError ? "hidden" : ""} />

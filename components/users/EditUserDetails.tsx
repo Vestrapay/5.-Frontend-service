@@ -92,6 +92,9 @@ const CreateUser = ({ data, id }: { data: UserDetailProps, id: number | string }
                     topLabel="Phone Number"
                     placeHolder="Enter Phone Number"
                     containerVariant="w-full py-2"
+                    maxLength={13}
+                    minLength={11}
+                    checkNum={true}
                     value={phoneNumber}
                     handleChange={handleChange}
                 />
@@ -139,7 +142,7 @@ const CreateUser = ({ data, id }: { data: UserDetailProps, id: number | string }
                 /> */}
 
                 <LoginErrorCard handleClear={handleClearError} error={stateValues?.errorMssg || ""} containerVariant={!stateValues?.submittingError ? "hidden" : ""} />
-                
+
                 <div className=" flex flex-col-reverse gap-5 my-5  sm sm:flex-row justify-between items-center">
                     <DefaultButton
                         labelText="Edit User"

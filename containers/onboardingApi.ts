@@ -15,6 +15,7 @@ const SignUpController = (setPage: (val: string) => any, setPassData: (val: any)
         referralCode: "",
         phoneNumber: "",
         password: "",
+        acceptTerms: false,
         loginError: false,
         isLoggingIn: false,
         loginErrorMssg: ""
@@ -68,6 +69,10 @@ const SignUpController = (setPage: (val: string) => any, setPassData: (val: any)
                 loginError: false
             });
         }
+    }
+
+    const handleExtraChange = (status: string, value: any) => {
+        setState({ ...state, [status]: value })
     }
 
     const handleClearError = () => setState({ ...state, loginError: false })
@@ -137,7 +142,7 @@ const SignUpController = (setPage: (val: string) => any, setPassData: (val: any)
         }
     }
 
-    return { stateValues: state, handleSubmit, handleChange, handleClearError }
+    return { stateValues: state, handleSubmit, handleChange, handleClearError, handleExtraChange }
 
 }
 
@@ -162,6 +167,10 @@ const SignInController = (setPage: (val: string) => any, resetingPass: boolean, 
             [e.target.name]: e.target.value,
             loginError: false
         });
+    }
+
+    const handleExtraChange = (status: string, value: string) => {
+        setState({ ...state, [status]: value })
     }
 
     const handleClearError = () => setState({ ...state, loginError: false })

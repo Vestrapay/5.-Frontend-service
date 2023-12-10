@@ -93,6 +93,7 @@ const Settlement = () => {
                                                 name="accountNumber"
                                                 value={stateValues?.accountNumber}
                                                 handleChange={handleChange}
+                                                checkNum={true}
                                                 label="Account number"
                                                 topLabel="Account number"
                                                 placeHolder="Enter account number"
@@ -189,6 +190,7 @@ const Settlement = () => {
                                                 <DefaultInput
                                                     type="text"
                                                     name="accountNumber"
+                                                    checkNum={true}
                                                     value={stateValues?.accountNumber}
                                                     handleChange={handleChange}
                                                     label="Account number"

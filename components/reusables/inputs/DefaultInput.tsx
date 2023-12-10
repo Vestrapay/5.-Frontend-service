@@ -31,6 +31,7 @@ const DefaultInput = forwardRef<any, any>(({
     compare,
     readOnly,
     checkNum,
+    checkEmail,
     info = "",
     textarea = false,
     isDisabled = false,
@@ -125,9 +126,9 @@ const DefaultInput = forwardRef<any, any>(({
                         />
                     </div> : type == 'currency' ?
                         <CurrencyFormat
-                        className={` ${payment ? "rounded-none peer pl-12 pr-2 py-2.5 border-t-0 uppercase border-l-0 border-r-0 border-b border-slate-300 placeholder-gray-300" :
-                            "outline-none placeholder:text-gray-300 text-blackish placeholder:text-sm placeholder:min-w-max w-full border-none leading-6 text-sm font-300 px-0 py-3 bg-[#ffffff00]"} ${icon ? "pl-0" : ""} ${inputVariant}`}
-                            
+                            className={` ${payment ? "rounded-none peer pl-12 pr-2 py-2.5 border-t-0 uppercase border-l-0 border-r-0 border-b border-slate-300 placeholder-gray-300" :
+                                "outline-none placeholder:text-gray-300 text-blackish placeholder:text-sm placeholder:min-w-max w-full border-none leading-6 text-sm font-300 px-0 py-3 bg-[#ffffff00]"} ${icon ? "pl-0" : ""} ${inputVariant}`}
+
                             name={name}
                             value={value || "0"}
                             onChange={onChange}
@@ -143,23 +144,29 @@ const DefaultInput = forwardRef<any, any>(({
                             decimalScale={2}
                             fixedDecimalScale={true} />
                         :
-
-                        <input
-                            id={`${label}-input${name}`}
-                            name={name}
-                            maxLength={maxLength}
-                            minLength={minLength}
-                            type={type === 'password' && passwordShown ? 'text' : type}
-                            onChange={onChange}
-                            onBlur={handleBlur}
-                            value={value}
-                            placeholder={placeHolder || topLabel}
-                            disabled={isDisabled}
-                            required={required || false}
-                            readOnly={readOnly || false}
-                            className={` ${payment ? "rounded-none peer pl-12 pr-2 py-2.5 border-t-0 uppercase border-l-0 border-r-0 border-b border-slate-300 placeholder-gray-300" :
-                                "outline-none placeholder:text-gray-300 text-blackish placeholder:text-sm placeholder:min-w-max w-full border-none leading-6 text-sm font-300 px-0 py-3 bg-[#ffffff00]"} ${icon ? "pl-0" : ""} ${inputVariant}`}
-                        />
+                        <>
+                            <input
+                                id={`${label}-input${name}`}
+                                name={name}
+                                maxLength={maxLength}
+                                minLength={minLength}
+                                type={type === 'password' && passwordShown ? 'text' : type}
+                                onChange={onChange}
+                                onBlur={handleBlur}
+                                value={value}
+                                placeholder={placeHolder || topLabel || ""}
+                                disabled={isDisabled}
+                                required={required || false}
+                                readOnly={readOnly || false}
+                                pattern={type == "email" || name == "email" ? "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" : type == "password" || name == "password" ? "(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" : ".*"}
+                                className={` ${payment ? "rounded-none peer pl-12 pr-2 py-2.5 border-t-0 uppercase border-l-0 border-r-0 border-b border-slate-300 placeholder-gray-300" :
+                                    "outline-none placeholder:text-gray-300 text-blackish placeholder:text-sm placeholder:min-w-max w-full border-none leading-6 text-sm font-300 px-0 py-3 bg-[#ffffff00]"} 
+                                ${icon ? "pl-0" : ""} ${inputVariant} invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer `}
+                            />
+                            <span className="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                                {`Please enter a valid ${name.replace(/[A-Z-_\&](?=[a-z0-9]+)|[A-Z-_\&]+(?![a-z0-9])/g,' $&').trim().toLowerCase()}`}
+                            </span>
+                        </>
                 }
                 {/* {label || name} */}
             </div>
@@ -213,11 +220,11 @@ const DefaultInput = forwardRef<any, any>(({
                 : ''}
             {
                 error && error != "" ?
-                    (<p className="text-red-500 text-xs h-auto py-1">{error}</p>) :
+                    (<span className="text-red-500 text-xs h-auto py-1">{error}</span>) :
                     confirmPassword && compare !== value && compare !== "" ?
-                        (<p className="text-red-500 text-xs h-auto py-1">{"Your passwords do not match"}</p>) :
+                        (<span className="text-red-500 text-xs h-auto py-1">{"Your passwords do not match"}</span>) :
                         confirmPassword && compare == value && compare !== "" ?
-                            (<p className="text-green-500 text-xs h-auto py-1">{"Your passwords match"}</p>)
+                            (<span className="text-green-500 text-xs h-auto py-1">{"Your passwords match"}</span>)
                             : ""
             }
             {

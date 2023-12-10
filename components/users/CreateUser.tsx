@@ -1,18 +1,18 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import {MdCancel} from "react-icons/md";
-import {useNewUserContext} from "../../context/newUserContext";
-import {Camera} from "react-huge-icons/bulk";
-import {DefaultButton, DefaultInput, DefaultSelect} from '../reusables';
-import {createUserController} from 'containers/usersApi';
-import {LoginErrorCard} from '@utils/actions/error';
-import {useAuthContext} from "../../context/AuthContext";
+import { MdCancel } from "react-icons/md";
+import { useNewUserContext } from "../../context/newUserContext";
+import { Camera } from "react-huge-icons/bulk";
+import { DefaultButton, DefaultInput, DefaultSelect } from '../reusables';
+import { createUserController } from 'containers/usersApi';
+import { LoginErrorCard } from '@utils/actions/error';
+import { useAuthContext } from "../../context/AuthContext";
 
 const CreateUser = () => {
 
-    const {setIsCreateUser} = useNewUserContext()
+    const { setIsCreateUser } = useNewUserContext()
 
-    const {userType} = useAuthContext()
+    const { userType } = useAuthContext()
 
     const [userTypeValue, setUserTypeValue] = useState("USER")
 
@@ -20,9 +20,9 @@ const CreateUser = () => {
         setUserTypeValue(userType)
     }, [userType])
 
-    const {stateValues, handleSubmit, handleClearError, handleChange, handleExtraChange} = createUserController();
+    const { stateValues, handleSubmit, handleClearError, handleChange, handleExtraChange } = createUserController();
 
-    const {country, firstName, lastName, email, gender, phoneNumber, password, submittingError, errorMssg, isSubmitting} = stateValues
+    const { country, firstName, lastName, email, gender, phoneNumber, password, submittingError, errorMssg, isSubmitting } = stateValues;
 
 
     return (
@@ -39,7 +39,7 @@ const CreateUser = () => {
                 </div>
 
                 <div className="flex justify-center items-center p-10 bg-slate-100 rounded-full">
-                    <Camera className={"w-10 h-10 text-unselected m-0"}/>
+                    <Camera className={"w-10 h-10 text-unselected m-0"} />
                 </div>
             </div>
             <div className="flex flex-col w-full">
@@ -64,10 +64,10 @@ const CreateUser = () => {
                     handleChange={handleChange}
                 />
                 <DefaultInput
-                    type="text"
+                    type="email"
                     name="email"
-                    label="Email"
-                    topLabel="Email"
+                    label="Email Address"
+                    topLabel="Email Address"
                     placeHolder="Enter Email Address"
                     containerVariant="w-full py-2"
                     value={email}
@@ -80,6 +80,9 @@ const CreateUser = () => {
                     topLabel="Phone Number"
                     placeHolder="Enter Phone Number"
                     containerVariant="w-full py-2"
+                    checkNum={true}
+                    maxLength={13}
+                    minLength={11}
                     value={phoneNumber}
                     handleChange={handleChange}
                 />
@@ -103,7 +106,7 @@ const CreateUser = () => {
                         containerVariant="w-full py-2"
                         value={gender}
                         handleChange={handleChange}
-                        data={[{id: 1, name: "Male", value: "male"}, {id: 1, name: "Female", value: "female"}]}
+                        data={[{ id: 1, name: "Male", value: "male" }, { id: 1, name: "Female", value: "female" }]}
                     />
                 }
 
@@ -136,11 +139,12 @@ const CreateUser = () => {
                         variant="w-full"
                         isLoading={isSubmitting}
                         handleClick={handleSubmit}
+                        isDisabled={!country || !firstName || !lastName || !email || !gender || !phoneNumber || !password}
                     />
                 </div>
 
                 <LoginErrorCard handleClear={handleClearError} error={stateValues?.errorMssg || ""}
-                                containerVariant={!stateValues?.submittingError ? "hidden" : ""}/>
+                    containerVariant={!stateValues?.submittingError ? "hidden" : ""} />
 
             </div>
         </>

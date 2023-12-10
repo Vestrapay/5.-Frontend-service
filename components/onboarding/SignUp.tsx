@@ -6,7 +6,7 @@ import { SignUpController } from 'containers/onboardingApi';
 
 const SignUp = ({ setPage, setPassData }: any) => {
 
-  const { stateValues, handleSubmit, handleChange, handleClearError } = SignUpController(setPage, setPassData);
+  const { stateValues, handleSubmit, handleChange, handleClearError, handleExtraChange } = SignUpController(setPage, setPassData);
 
 
   const { country,
@@ -16,6 +16,7 @@ const SignUp = ({ setPage, setPassData }: any) => {
     businessName,
     referralCode,
     phoneNumber,
+    acceptTerms,
     password, loginError, loginErrorMssg, isLoggingIn } = stateValues
 
   return (
@@ -39,6 +40,9 @@ const SignUp = ({ setPage, setPassData }: any) => {
         topLabel="Phone Number"
         placeHolder="Enter Phone Number"
         containerVariant="w-full py-2"
+        checkNum={true}
+        maxLength={13}
+        minLength={11}
         value={phoneNumber}
         handleChange={handleChange}
       />
@@ -68,7 +72,10 @@ const SignUp = ({ setPage, setPassData }: any) => {
 
       <div className="flex items-start my-6">
         <div className="flex items-center h-5">
-          <input id="remember" type="checkbox" value="" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" required />
+          <input id="remember" type="checkbox" value="" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" required
+            name="acceptTerms"
+            checked={stateValues?.acceptTerms}
+            onChange={() => handleExtraChange("acceptTerms", !stateValues?.acceptTerms)} />
         </div>
         <label htmlFor="remember" className="ml-2 text-base font-300 text-blackish">
           By creating an account you agree to the <span className="text-darkslateblue underline">terms of use</span> and our <span className="text-darkslateblue underline">privacy policy</span>.</label>
@@ -82,6 +89,7 @@ const SignUp = ({ setPage, setPassData }: any) => {
           variant="w-full"
           isLoading={stateValues?.isLoggingIn}
           handleClick={handleSubmit}
+          isDisabled={!email || !businessName || !phoneNumber || !password || !acceptTerms}
         />
       </div>
 

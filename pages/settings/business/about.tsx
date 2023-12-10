@@ -48,6 +48,9 @@ const About = () => {
                         topLabel="Business Phone Number"
                         placeHolder="Update business phone number"
                         containerVariant="w-full py-2 col-span-2"
+                        checkNum={true}
+                        maxLength={13}
+                        minLength={11}
                         value={stateValues?.businessPhoneNumber}
                         handleChange={handleChange}
                     />
@@ -70,6 +73,9 @@ const About = () => {
                         topLabel="Support Phone Number"
                         placeHolder="Update support phone number"
                         containerVariant="w-full py-2 col-span-2"
+                        checkNum={true}
+                        maxLength={13}
+                        minLength={11}
                         value={stateValues?.businessSupportPhoneNumber}
                         handleChange={handleChange}
                     />

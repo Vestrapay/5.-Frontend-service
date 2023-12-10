@@ -97,6 +97,9 @@ const ProfileSettings = () => {
                         name="phoneNumber"
                         value={stateValues?.phoneNumber}
                         handleChange={handleChange}
+                        checkNum={true}
+                        maxLength={13}
+                        minLength={11}
                         label="phone number"
                         topLabel="Phone Number"
                         placeHolder="Update phone number"
