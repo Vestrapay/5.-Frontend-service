@@ -179,21 +179,8 @@ const Dashboard = () => {
                                 <div className="flex flex-col w-full">
                                     <div className="flex w-full mb-2 items-center justify-between">
                                         <div className="flex items-center">
-                                            <p className="text-base font-bold m-0 whitespace-nowrap">Transaction
-                                                Analytics</p>
+                                            <p className="text-base font-bold m-0 whitespace-nowrap">Transaction Analytics</p>
                                             <Image src={Delimiter} alt={"line"} className="mx-5" />
-                                            <div className="flex items-center mr-5">
-                                                <p className="h-1 w-1 rounded-full bg-green-800" />
-                                                <p className="text-xs text-unselected m-0 ml-2">Approved</p>
-                                            </div>
-                                            <div className="flex items-center mr-5">
-                                                <p className="h-1 w-1 rounded-full bg-red-800" />
-                                                <p className="text-xs text-unselected m-0 ml-2">Failed</p>
-                                            </div>
-                                            <div className="flex items-center">
-                                                <p className="h-1 w-1 rounded-full bg-amber-500" />
-                                                <p className="text-xs text-unselected m-0 ml-2">Pending</p>
-                                            </div>
                                         </div>
                                         <BsThreeDots width={20} height={20} className="text-unselected" />
                                     </div>
