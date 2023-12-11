@@ -15,6 +15,8 @@ const fetchDashData = () => {
     kycStatus: false
   })
 
+  const [updateProfile, setUpdateProfile] = useState(false)
+
   const { details } = Storage.getItem("userDetails") || {}
 
 
@@ -24,9 +26,14 @@ const fetchDashData = () => {
       userType: details?.userType || "",
       kycStatus: details?.kycStatus ? false : true,
     })
+
+    setUpdateProfile(details?.businessName && details?.firstName && details?.lastName && details?.email && true || false);
+
   }, [])
 
   const handleClearError = () => setDisplayName({ ...displayName, kycStatus: false })
+
+  const handleClearUpdateError = () => setUpdateProfile(false)
 
   const func4 = async (): Promise<any> => {
     const response = await apiCall({
@@ -99,6 +106,7 @@ const fetchDashData = () => {
 
   return {
     displayName,
+    updateProfile,
 
     statsLoading,
     statsErrorCheck,
@@ -123,7 +131,8 @@ const fetchDashData = () => {
     transError,
     transSuccess,
     transData,
-    handleClearError
+    handleClearError,
+    handleClearUpdateError
   };
 }
 

@@ -24,6 +24,27 @@ const SignUp = ({ setPage, setPassData }: any) => {
 
       <DefaultInput
         type="text"
+        name="firstName"
+        label="First Name"
+        topLabel="First Name"
+        value={firstName}
+        handleChange={handleChange}
+        placeHolder="Enter First Name"
+        containerVariant="w-full py-2"
+      />
+
+      <DefaultInput
+        type="text"
+        name="lastName"
+        label="Last Name"
+        topLabel="Last Name"
+        value={lastName}
+        handleChange={handleChange}
+        placeHolder="Enter Last Name"
+        containerVariant="w-full py-2"
+      />
+      <DefaultInput
+        type="text"
         name="businessName"
         label="Business Name"
         topLabel="Business Name"
@@ -78,7 +99,8 @@ const SignUp = ({ setPage, setPassData }: any) => {
             onChange={() => handleExtraChange("acceptTerms", !stateValues?.acceptTerms)} />
         </div>
         <label htmlFor="remember" className="ml-2 text-base font-300 text-blackish">
-          By creating an account you agree to the <span className="text-darkslateblue underline">terms of use</span> and our <span className="text-darkslateblue underline">privacy policy</span>.</label>
+          By creating an account you agree to the <span className="text-darkslateblue underline">terms of use</span> and our <span className="text-darkslateblue underline">privacy policy</span>.
+          <span className='text-red-500'>*</span></label>
       </div>
 
 

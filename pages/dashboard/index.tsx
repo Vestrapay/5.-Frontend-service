@@ -43,6 +43,7 @@ const Dashboard = () => {
 
     const {
         displayName,
+        updateProfile,
         statsLoading,
         statsErrorCheck,
         statsError,
@@ -66,7 +67,8 @@ const Dashboard = () => {
         transError,
         transSuccess,
         transData,
-        handleClearError
+        handleClearError,
+        handleClearUpdateError
     } = fetchDashData();
 
     const { stateValues } = APIKEYSController()
@@ -91,6 +93,19 @@ const Dashboard = () => {
                         <p>Please note that your KYC process is incomplete. <span
                             className="text-darkslateblue underline cursor-pointer"
                             onClick={() => router.push('/settings/profile-settings/update-kyc')}>Complete KYC now. </span>
+                        </p>
+                    </LoginErrorCard>
+                }
+                {
+                    userTypeValue === "USER" &&
+                    <LoginErrorCard
+                        handleClear={handleClearUpdateError}
+                        error={""}
+                        containerVariant={updateProfile ? "hidden" : "max-w-fit pr-20"}
+                    >
+                        <p>Please note that your profile is missing some details. <span
+                            className="text-darkslateblue underline cursor-pointer"
+                            onClick={() => router.push('/settings/profile-settings')}>Complete your profile. </span>
                         </p>
                     </LoginErrorCard>
                 }
