@@ -58,9 +58,9 @@ const TransactionsIndex = () => {
                         }}
                         apiRef={apiRef}
                         // hideFooter={true}
-                        slots={{
-                            footer: Toolbar,
-                        }}
+                        // slots={{
+                        //     footer: Toolbar,
+                        // }}
                         getRowClassName={() => "transactions-table--row"}
                         sx={{
                             '&.MuiDataGrid-root .MuiDataGrid-row': {

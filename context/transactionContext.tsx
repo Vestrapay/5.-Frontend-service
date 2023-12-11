@@ -34,6 +34,7 @@ export const CreateTransContext = createContext({
     payLinkDetails: {
         merchantId: "",
         secret: "",
+        userId: ""
     },
     setPayLinkDetails: (value: any) => {
     }
@@ -51,6 +52,7 @@ export const NewTransContext = ({ children }: { children: React.ReactNode }) => 
     const [payLinkDetails, setPayLinkDetails] = useState({
         merchantId: "",
         secret: "",
+        userId: ""
     });
 
     return (

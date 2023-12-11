@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaFileDownload } from "react-icons/fa";
 import { GridApiCommunity } from "@mui/x-data-grid/internals";
 import { GridValidRowModel } from "@mui/x-data-grid";
@@ -9,10 +9,20 @@ import { RiFileExcel2Fill } from "react-icons/ri"
 import { FaFileCsv } from "react-icons/fa"
 import { BsPlus } from 'react-icons/bs';
 import { DefaultButton } from '../reusables';
+import { useAuthContext } from 'context/AuthContext';
 
 const TransactionsNavbar = ({ apiRef, data, name, setShowDelete = () => null }: { apiRef: React.MutableRefObject<GridApiCommunity>, data: any | GridValidRowModel[], name?: string, setShowDelete?: any }) => {
 
     const [isHovered, setIsHovered] = useState(false);
+
+    const { userType } = useAuthContext()
+
+    const [userTypeValue, setUserTypeValue] = useState("USER")
+
+    useEffect(() => {
+        setUserTypeValue(userType)
+    }, [userType])
+
 
     const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=UTF-8';
     const fileExtension = '.xlsx';
@@ -31,12 +41,13 @@ const TransactionsNavbar = ({ apiRef, data, name, setShowDelete = () => null }: 
                 {`Transactions - ${name || "Txn."}`}
             </p>
             <div className="flex justify-end items-center gap-10">
-                <DefaultButton
-                    icon={<BsPlus size={25} />}
-                    labelText={`Pay with ${name||"Transfer"}`}
-                    handleClick={setShowDelete}
-                    variant={"bg-selected cursor-poNunito flex items-center p-0 min-w-max"}
-                />
+                {userTypeValue === "USER" &&
+                    <DefaultButton
+                        icon={<BsPlus size={25} />}
+                        labelText={`Pay with ${name || "Transfer"}`}
+                        handleClick={setShowDelete}
+                        variant={"bg-selected cursor-poNunito flex items-center p-0 min-w-max"}
+                    />}
                 <div
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}

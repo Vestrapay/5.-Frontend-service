@@ -14,7 +14,7 @@ const paymentGatewayController = (paymentType: any = "") => {
     const details = useNewTransContext()
 
     const { secretKey } = Storage.getItem("apiKeys") || { secretKey: "" }
-    const { details: { merchantId: merchantsID } } = Storage.getItem("userDetails") || { details: { merchantId: "" } }
+    const { details: { merchantId: merchantsID, uuid: uuID } } = Storage.getItem("userDetails") || { details: { merchantId: "", uuid: "" } }
 
     const [state, setState] = useState<any>({
         transactionReference: "",
@@ -159,6 +159,7 @@ const paymentGatewayController = (paymentType: any = "") => {
 
             customerName: state?.customerName || details?.business || "",
             merchantId: details?.payLinkDetails?.merchantId || merchantsID || state?.merchantId || details?.merchant || "",
+            userId: details?.payLinkDetails?.userId || uuID || state?.userId || "",
             customerEmail: state?.customerEmail || details?.email || "",
         })
     }, [details])
@@ -217,7 +218,7 @@ const paymentGatewayController = (paymentType: any = "") => {
         });
     }
 
-    //Submit Card payments
+    //Submit Card payments 
 
     const handleSubmitCard = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -230,7 +231,8 @@ const paymentGatewayController = (paymentType: any = "") => {
                 name: "payWithCard",
                 customHeaders: {
                     merchantId: merchantId || details?.payLinkDetails?.merchantId || "",
-                    secret: secret || details?.payLinkDetails?.secret || ""
+                    secret: secret || details?.payLinkDetails?.secret || "",
+                    userId: uuID || details?.payLinkDetails?.userId || state?.userId
                 },
                 data: {
                     transactionReference,
@@ -399,7 +401,8 @@ const paymentGatewayController = (paymentType: any = "") => {
                 name: url,
                 customHeaders: {
                     merchantId: merchantId || details?.payLinkDetails?.merchantId || "",
-                    secret: secret || details?.payLinkDetails?.secret || ""
+                    secret: secret || details?.payLinkDetails?.secret || "",
+                    userId: uuID || details?.payLinkDetails?.userId || state?.userId
                 },
                 data: data,
                 action: (res: any): any => {
@@ -525,7 +528,8 @@ const paymentGatewayController = (paymentType: any = "") => {
                 name: "payWithTransfer",
                 customHeaders: {
                     merchantId: merchantId || details?.payLinkDetails?.merchantId || "",
-                    secret: secret || details?.payLinkDetails?.secret || ""
+                    secret: secret || details?.payLinkDetails?.secret || "",
+                    userId: uuID || details?.payLinkDetails?.userId || state?.userId
                 },
                 data: {
                     transactionReference,
@@ -623,7 +627,8 @@ const paymentGatewayController = (paymentType: any = "") => {
                 urlExtra: `/${transferDetails?.reference || transferDetails?.payment_reference || ""}`,
                 customHeaders: {
                     merchantId: details?.payLinkDetails?.merchantId || merchantId || "",
-                    secret: secret || details?.payLinkDetails?.secret || ""
+                    secret: secret || details?.payLinkDetails?.secret || "",
+                    userId: uuID || details?.payLinkDetails?.userId || state?.userId
                 },
                 data: {
                     transactionReference,
@@ -734,10 +739,12 @@ const paymentGatewayController = (paymentType: any = "") => {
                 urlExtra: `/${details?.payPath || ""}`,
                 action: (res, returned): any => {
                     let { data } = res;
+                    console.log("userId: ", data[0]?.userId);
                     details?.setPayLinkDetails({
                         ...details?.payLinkDetails,
                         merchantId: returned?.headers?.merchant_id || data[0]?.merchantId || state?.merchantId || "",
                         secret: returned?.headers?.merchant_secret || secretKey || data[0]?.secret || state?.secret || "",
+                        userId: data[0]?.userId || uuID || data[0]?.uuid || state?.userId || "",
                     })
 
                     setState({
@@ -747,6 +754,7 @@ const paymentGatewayController = (paymentType: any = "") => {
                         isFetchingLinkError: false,
                         amount: data[0]?.amount || state?.amount || "",
                         customerName: data[0]?.customerName || state?.business || "",
+                        userId: data[0]?.userId || state?.userId || "",
                         merchantId: returned?.headers?.merchant_id || data[0]?.merchantId || state?.merchantId || "",
                         secret: returned?.headers?.merchant_secret || secretKey || data[0]?.secret || state?.secret || "",
                         customerEmail: data[0]?.customerEmail || state?.customerEmail || "",
@@ -846,7 +854,8 @@ const paymentGatewayController = (paymentType: any = "") => {
                 name: "payWithCard",
                 customHeaders: {
                     merchantId: merchantId || details?.payLinkDetails?.merchantId || "",
-                    secret: secret || details?.payLinkDetails?.secret || ""
+                    secret: secret || details?.payLinkDetails?.secret || "",
+                    userId: uuID || details?.payLinkDetails?.userId || state?.userId
                 },
                 data: {
                     transactionReference,
@@ -930,7 +939,8 @@ const paymentGatewayController = (paymentType: any = "") => {
                 name: "paymentLink",
                 customHeaders: {
                     merchantId: merchantId || details?.payLinkDetails?.merchantId || "",
-                    secret: secret || details?.payLinkDetails?.secret || ""
+                    secret: secret || details?.payLinkDetails?.secret || "",
+                    userId: uuID || details?.payLinkDetails?.userId || state?.userId
                 },
                 data: {
                     amount: Number(amount || 0) || 0,
@@ -1020,7 +1030,8 @@ const paymentGatewayController = (paymentType: any = "") => {
                 name: "paymentLinkList", //"getTransactions",
                 customHeaders: {
                     merchantId: merchantsID || details?.payLinkDetails?.merchantId || "",
-                    secret: secretKey || details?.payLinkDetails?.secret || ""
+                    secret: secretKey || details?.payLinkDetails?.secret || "",
+                    userId: uuID || details?.payLinkDetails?.userId || state?.userId
                 },
                 action: (): any => (["skip"])
             })

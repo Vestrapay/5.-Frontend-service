@@ -71,7 +71,9 @@ const Dashboard = () => {
         handleClearUpdateError
     } = fetchDashData();
 
-    const { stateValues } = APIKEYSController()
+    const { stateValues } = userType === "USER" ? APIKEYSController() : { stateValues: { apiKeys: { id: 0 } } }
+
+    console.log(userTypeValue, userType);
 
     useEffect(() => {
         stateValues?.apiKeys?.id && Storage.setItem("apiKeys", stateValues?.apiKeys || {});
@@ -278,9 +280,9 @@ const Dashboard = () => {
                             <div className="flex flex-col w-full">
                                 <div className="flex w-full mb-2 items-center justify-between">
                                     <div className="flex items-center">
-                                        <p className="text-base font-bold m-0 whitespace-nowrap">Recent Transactions</p>
+                                        <p className="text-base font-bold m-0 whitespace-nowrap">Daily Transactions</p>
                                         <Image src={Delimiter} alt={"line"} className="mx-5" />
-                                        <div className="flex items-center mr-5">
+                                        {/* <div className="flex items-center mr-5">
                                             <p className="h-1 w-1 rounded-full bg-green-800" />
                                             <p className="text-xs text-unselected m-0 ml-2">Approved</p>
                                         </div>
@@ -291,7 +293,7 @@ const Dashboard = () => {
                                         <div className="flex items-center">
                                             <p className="h-1 w-1 rounded-full bg-amber-500" />
                                             <p className="text-xs text-unselected m-0 ml-2">Pending</p>
-                                        </div>
+                                        </div> */}
                                         {/* <Image src={Delimiter} alt={"line"} className="mx-5" />
                                         <button
                                             onMouseLeave={() => setIsDropDownActive(false)}
@@ -383,7 +385,7 @@ const Dashboard = () => {
                                                 >
                                                     <EmptyTransactionIcon width={100} height={100} />
                                                 </div>,
-                                        }}
+                                        }} 
                                         initialState={{
                                             pagination: {
                                                 paginationModel: {
