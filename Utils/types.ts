@@ -1,6 +1,6 @@
 import React, { InputHTMLAttributes, ReactElement, ReactNode } from "react"
 import { MouseEventHandler } from "react"
-import { AxiosRequestHeaders } from "axios";
+import { AxiosRequestHeaders, ResponseType } from "axios";
 
 
 export type DefaultButtonType = {
@@ -13,6 +13,7 @@ export type endpointTypes = {
     headers?: AxiosRequestHeaders | undefined;
     auth?: boolean;
     payment?: boolean;
+    responseType?: ResponseType | undefined;
 }
 
 export type endPointlistTypes = {

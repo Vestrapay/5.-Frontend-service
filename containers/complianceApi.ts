@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { UserDetailProps } from '@types';
 import { useAuthContext } from "../context/AuthContext";
 import { Storage } from 'Utils/inAppstorage'
+import fileDownload from 'js-file-download';
 
 
 const { details: { merchantId, uuid } } = Storage.getItem("userDetails") || { details: { merchantId: "", uuid: "" } }
@@ -68,7 +69,9 @@ const ComplianceController = (kycData: any) => {
             const response = await apiCall({
                 name: "downloadComplianceDocs",
                 urlExtra: `/${kycData?.merchantId || ""}`,
-                action: (): any => {
+                customHeaders: { 'responseType': "blob" },
+                action: (res): any => {
+                    fileDownload(res, `${(kycData?.merchantId || "") + " "}kyc files.zip`);
                     setState({
                         ...state,
                         isSubmitting: false,

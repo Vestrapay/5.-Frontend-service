@@ -45,6 +45,7 @@ export const apiCall = async ({ urlExtra, name, data = {}, params = {}, action =
             url: `${useUrl}${endPoints[theName] ? endPoints[theName].url : ""}${urlExtra ? urlExtra : ""}`,
             method: endPoints[theName] ? endPoints[theName].method : "",
             headers: endPoints[theName] ? { ...customHeaders, ...endPoints[theName].headers } : { ...customHeaders },
+            responseType: endPoints[theName] ? endPoints[theName]?.responseType || "json" : "json",
             data,
             params
         })

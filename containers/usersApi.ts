@@ -269,7 +269,7 @@ const updateUserController = (data: UserDetailProps, id: number | string) => {
         }))
         try {
             const response = await apiCall({
-                name: userType === "ADMIN" ? "adminCreateUser" : "createMerchantUser",
+                name: "updateUser",
                 customHeaders: { merchantId: state?.id || id || "" },
                 data: {
                     id, country, firstName, lastName, email, phoneNumber, businessName, enabled, username

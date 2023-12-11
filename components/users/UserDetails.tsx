@@ -32,7 +32,7 @@ const UserDetails = ({ data }: { data: UserDetailProps }) => {
                 <p className="text-base text-unselected m-0">{data?.userType || ""}</p>
 
             </div>
-            <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+            <hr className="h-px my-8 bg-gray-200 border-0 " />
             <div className="flex flex-col">
                 <p>User Info</p>
                 <div className="">
@@ -40,34 +40,34 @@ const UserDetails = ({ data }: { data: UserDetailProps }) => {
                         <MailFast className={"w-5 h-5 text-unselected m-0"} />
                         <p className="text-sm text-unselected ml-2">{data?.email}</p>
                     </div>
-                    <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700" />
+                    <hr className="h-px my-4 bg-gray-200 border-0 " />
                     <div className="flex items-center">
                         <CallUser className={"w-5 h-5 text-unselected m-0"} />
                         <p className="text-sm text-unselected ml-2">{data?.phoneNumber}</p>
                     </div>
-                    <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700" />
+                    <hr className="h-px my-4 bg-gray-200 border-0 " />
                     <div className="flex items-center">
                         <MapBig className={"w-5 h-5 text-unselected m-0"} />
                         <p className="text-sm text-unselected ml-2">{data?.country || ""}</p>
                     </div>
-                    <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700" />
+                    <hr className="h-px my-4 bg-gray-200 border-0 " />
                     <div className="flex items-center">
                         <Warehouse className={"w-5 h-5 text-unselected m-0"} />
                         <p className="text-sm text-unselected ml-2">{"Merchant Id - " + data?.merchantId || ""}</p>
                     </div>
-                    <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700" />
+                    <hr className="h-px my-4 bg-gray-200 border-0 " />
                     <div className="flex items-center">
                         <BarcodeBorder className={"w-5 h-5 text-unselected m-0"} />
                         <p className="text-sm text-unselected ml-2">{"Referral Code - " + data?.referralCode || ""}</p>
                     </div>
-                    <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700" />
+                    <hr className="h-px my-4 bg-gray-200 border-0 " />
                     <div className="flex items-center gap-5">
                         <p className="text-sm text-unselected ml-2">{"KYC: "}</p>
                         <p className={`${data?.kycCompleted ? "bg-green-50 text-white-600" : "bg-red-50 text-red-400"} w-fit px-5 py-3 h-1/2 text-center capitalize rounded-lg flex items-center justify-center`}>
                             {`${data?.kycCompleted ? "Complete" : "Incomplete"}` || ""}
                         </p>
                     </div>
-                    {/* <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700" /> */}
+                    {/* <hr className="h-px my-4 bg-gray-200 border-0 " /> */}
 
                 </div>
             </div>

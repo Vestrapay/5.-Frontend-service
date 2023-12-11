@@ -13,6 +13,10 @@ let FileHeaders = {
     crossDomain: true,
 } as unknown as AxiosRequestHeaders;
 
+let BlobHeaders = {
+    'Content-Type': 'application/octet-stream',
+    crossDomain: true,
+} as unknown as AxiosRequestHeaders;
 
 export const endPoints: endPointlistTypes = {
 
@@ -413,8 +417,9 @@ export const endPoints: endPointlistTypes = {
     downloadComplianceDocs: {
         url: '/api/v1/compliance',
         method: 'GET',
-        headers: headers,
-        auth: true
+        headers: BlobHeaders,
+        auth: true,
+        responseType: 'blob'
     },
     validateComplianceDocs: {
         url: '/api/v1/compliance/validate',
