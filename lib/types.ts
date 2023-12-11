@@ -92,7 +92,7 @@ export type CreateUserProps = {
 export type SettingsNavProps = {
     name: string,
     href: string,
-    roles: string[],
+    roles?: string[],
 }
 
 //Payment gateway

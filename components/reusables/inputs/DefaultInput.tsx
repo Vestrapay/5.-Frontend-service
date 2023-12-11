@@ -163,7 +163,7 @@ const DefaultInput = forwardRef<any, any>(({
                                     "outline-none placeholder:text-gray-300 text-blackish placeholder:text-sm placeholder:min-w-max w-full border-none leading-6 text-sm font-300 px-0 py-3 bg-[#ffffff00]"} 
                                 ${icon ? "pl-0" : ""} ${inputVariant} invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer `}
                             />
-                            <span className="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                            <span className="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block absolute -bottom-6">
                                 {`Please enter a valid ${name.replace(/[A-Z-_\&](?=[a-z0-9]+)|[A-Z-_\&]+(?![a-z0-9])/g,' $&').trim().toLowerCase()}`}
                             </span>
                         </>
