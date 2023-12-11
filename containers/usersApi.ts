@@ -11,30 +11,13 @@ const { details: { merchantId, uuid } } = Storage.getItem("userDetails") || { de
 //Fetching accounts list data
 const fetchUsersData = (pageNo: any, pageSize: any, search: string) => {
 
-    const { userType, userDetail } = useAuthContext()
-
-    console.log(userType);
-
     const func = async (): Promise<any> => {
         const response = await apiCall({
-            name: userType === "ADMIN" ? "adminMerchantUserList" : "usersList",
-            // params: {
-            //     pageNo,
-            //     pageSize,
-            // },
+            name: "usersList",
             action: (): any => (["skip"]),
             errorAction: (): any => (["skip"])
-        }) as any[]
-        if (userType === "ADMIN") {
-            const newResponse = [...response, ...await apiCall({
-                name: "adminUserList",
-                action: (): any => (["skip"])
-            }) as any[]]
-            console.log("Admin response:", newResponse)
-            return newResponse;
-        } else {
-            return response;
-        }
+        })
+        return response;
     }
 
     const { isLoading, isError, error, isSuccess, data, refetch } = useQuery(
@@ -73,7 +56,7 @@ const fetchAdminsData = (pageNo: any, pageSize: any, search: string) => {
 const UsersController = (showDelete: any = false, showView: any = false, showCreate: any = false, pageNo: any = 0, pageSize: any = 20, search: string = "") => {
 
     const { isLoading, isError, error, isSuccess, data, refetch } = fetchUsersData(pageNo, pageSize, search);
-
+    console.log("fetchUsersData: inner") 
     useEffect(() => {
         refetch()
     }, [pageNo, pageSize, search, showView, showCreate, showDelete])
@@ -82,10 +65,11 @@ const UsersController = (showDelete: any = false, showView: any = false, showCre
 
 }
 
+
 const AdminController = (showDelete: any = false, showView: any = false, showCreate: any = false, pageNo: any = 0, pageSize: any = 20, search: string = "") => {
 
     const { isLoading, isError, error, isSuccess, data, refetch } = fetchAdminsData(pageNo, pageSize, search);
-
+    console.log("fetchAdminsData: inner") 
     useEffect(() => {
         refetch()
     }, [pageNo, pageSize, search, showView, showCreate, showDelete])

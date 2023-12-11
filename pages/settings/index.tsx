@@ -1,21 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import { LayoutProps, SettingsNavProps } from "@types";
 import ActiveLinks from "@/components/links/activeLinks";
 import ProfileSettings from './profile-settings';
+import { useAuthContext } from 'context/AuthContext';
+
 
 const navItems: SettingsNavProps[] = [
     {
         name: "Profile Settings",
-        href: "/settings/profile-settings"
+        href: "/settings/profile-settings",
+        roles: ["USER", "ADMIN"]
     },
     {
         name: "Update KYC",
-        href: "/settings/profile-settings/update-kyc"
+        href: "/settings/profile-settings/update-kyc",
+        roles: ["USER"]
     },
     {
         name: "Password",
-        href: "/settings/profile-settings/password"
+        href: "/settings/profile-settings/password",
+        roles: ["USER", "ADMIN"]
     },
     // {
     //     name: "Change PIN",
@@ -32,6 +37,16 @@ const SettingsProfileLayout = ({ children, navLinks, pageName = "Profile" }: {
     navLinks?: SettingsNavProps[],
     pageName?: string
 }) => {
+
+    const { userType } = useAuthContext()
+
+    const [userTypeValue, setUserTypeValue] = useState("USER")
+
+    useEffect(() => {
+        setUserTypeValue(userType)
+        console.log(userType)
+    }, [userType])
+
     return (
         <DashboardLayout>
             <main
@@ -53,37 +68,38 @@ const SettingsProfileLayout = ({ children, navLinks, pageName = "Profile" }: {
                         className="h-full w-full flex rounded-md px-10 overflow-x-scroll lg:overflow-x-hidden scrollbar-hide">
                         <ul className="list-none p-0 flex gap-10 w-full min-w-max">
                             {
-                                navLinks ? navLinks.map((item, index) => (
-                                    <li
-                                        key={index}
-                                        className='w-full min-w-max'
-                                    >
-                                        <ActiveLinks
-                                            href={item.href}
-                                            activeClassName="text-selected"
+                                navLinks ? navLinks.filter((each: any, i: any) => each?.roles.includes(userTypeValue))
+                                    .map((item, index) => (
+                                        <li
+                                            key={index}
+                                            className='w-full min-w-max'
                                         >
-                                            <span className='min-w-max w-full'>
-                                                {item.name}
-                                            </span>
-                                        </ActiveLinks>
-                                    </li>
-                                )
-                                ) : navItems.map((item, index) => (
-                                    <li
-                                        key={index}
-                                        className='w-full min-w-max'
-                                    >
-                                        <ActiveLinks
-                                            href={item.href}
-                                            activeClassName="text-selected"
+                                            <ActiveLinks
+                                                href={item.href}
+                                                activeClassName="text-selected"
+                                            >
+                                                <span className='min-w-max w-full'>
+                                                    {item.name}
+                                                </span>
+                                            </ActiveLinks>
+                                        </li>
+                                    )
+                                    ) : navItems.map((item, index) => (
+                                        <li
+                                            key={index}
+                                            className='w-full min-w-max'
                                         >
-                                            <span className='min-w-max w-full'>
-                                                {item.name}
-                                            </span>
-                                        </ActiveLinks>
-                                    </li>
-                                )
-                                )}
+                                            <ActiveLinks
+                                                href={item.href}
+                                                activeClassName="text-selected"
+                                            >
+                                                <span className='min-w-max w-full'>
+                                                    {item.name}
+                                                </span>
+                                            </ActiveLinks>
+                                        </li>
+                                    )
+                                    )}
                         </ul>
                     </nav>
                     <div className="mt-10">

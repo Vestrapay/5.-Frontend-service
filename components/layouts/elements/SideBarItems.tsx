@@ -98,7 +98,15 @@ const topMenuItems: MenuItems[] = [
         subMenuItems: [],
         route: '/users',
         icon: (prop: IconProps) => <VestraDashUsersIcon width={prop.width} height={prop.height} style={prop.style} />,
-        roles: ["USER", "ADMIN"]
+        roles: ["USER"]
+    },
+    {
+        id: 4,
+        name: 'Merchants',
+        subMenuItems: [],
+        route: '/merchants',
+        icon: (prop: IconProps) => <VestraDashUsersIcon width={prop.width} height={prop.height} style={prop.style} />,
+        roles: ["ADMIN"]
     },
     {
         id: 6,
