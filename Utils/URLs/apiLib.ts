@@ -428,6 +428,67 @@ export const endPoints: endPointlistTypes = {
         auth: true
     },
 
+    //Admin Payments
+    getAllPaymentMethods: {
+        url: '/api/v1/payment-service/get-all-methods',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+    createPaymentMethod: {
+        url: '/api/v1/payment-service/create-payment-method',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+
+    //Admin Payments Providers
+    getAllPaymentProviders: {
+        url: '/api/v1/payment-service/view-all-providers',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+    createPaymentProvider: {
+        url: '/api/v1/payment-service/create-payment-provider',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+    updatePaymentProvider: {
+        url: '/api/v1/payment-service/update-payment-provider',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+
+    //Admin Payments Providers
+    getAllRoutingRules: {
+        url: '/api/v1/payment-service/view-all-routes',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+    createRoutingRules: {
+        url: '/api/v1/payment-service/create-routing-rule',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+    updateRoutingRules: {
+        url: '/api/v1/payment-service/update-routing-rule',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+    viewProvidersByMethod: {
+        url: '/api/v1/payment-service/view-providers-by-method',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+
+
 
     //Accounts
     accountList: {

@@ -110,7 +110,7 @@ const DefaultInput = forwardRef<any, any>(({
                         {maxLength &&
                             <div className="right-5 top-[15px] absolute opacity-70 text-right text-slate-950 text-sm font-normal font-['Nunito']">{value?.length + "/" + maxLength}</div>}
                         <textarea
-                            id={`${label}-input${name}`}
+                            id={`${label}-input${name}-${Math.random()}`}
                             rows={5}
                             name={name}
                             value={value}
@@ -146,7 +146,7 @@ const DefaultInput = forwardRef<any, any>(({
                         :
                         <>
                             <input
-                                id={`${label}-input${name}`}
+                                id={`${label}-input${name}-${Math.random()}`}
                                 name={name}
                                 maxLength={maxLength}
                                 minLength={minLength}

@@ -21,7 +21,8 @@ import { HiMiniXMark } from 'react-icons/hi2'
 
 function SideBar() {
 
-    const dropdownNavLinks = ["transactions", "payments", "settings"]
+    const dropdownNavLinks = ["transactions", "payments", "settings", "admin-payments"]
+
     const [selectedSubMenuItem, setSelectedSubMenuItem] = useState<MenuItems | null>();
 
     const [isMigrate, setIsMigrate] = useState(false)
@@ -63,10 +64,10 @@ function SideBar() {
 
     useEffect(() => {
         setActiveLink(router.asPath)
-        console.log(router.asPath)
+        
         if (dropdownNavLinks.includes(router.asPath.split("/")[1])) {
             sidebarItems.filter((item: any) => {
-                if (item.name.toLowerCase() === router.asPath.split("/")[1]) {
+                if (item.route.toLowerCase() === router.asPath) {
                     setSelectedSubMenuItem(item)
                     setIsSubCategorySelected(true)
                 }

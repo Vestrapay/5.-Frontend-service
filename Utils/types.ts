@@ -71,6 +71,17 @@ export type endPointlistTypes = {
     listDisputes: endpointTypes;
     logADispute: endpointTypes;
 
+    getAllPaymentMethods: endpointTypes;
+    createPaymentMethod: endpointTypes;
+
+    getAllPaymentProviders: endpointTypes;
+    createPaymentProvider: endpointTypes;
+    updatePaymentProvider: endpointTypes;
+
+    getAllRoutingRules: endpointTypes;
+    createRoutingRules: endpointTypes;
+    updateRoutingRules: endpointTypes;
+    viewProvidersByMethod: endpointTypes;
 
     deleteMerchantUser: endpointTypes;
     merchantCreateUser: endpointTypes;

@@ -35,7 +35,8 @@ export type DefaultInputType = {
     data?: any,
     checkNum?: boolean,
     checkEmail?: boolean,
-    payment?: boolean
+    payment?: boolean,
+    multiple?: boolean,
 }
 export type DefaultTextAreaType = {
     name: string,

@@ -55,6 +55,33 @@ const topMenuItems: MenuItems[] = [
     },
     {
         id: 3,
+        name: 'Admin Payments',
+        route: '/admin-payments',
+        subMenuItems: [
+            {
+                id: 1,
+                name: "Payment Methods",
+                route: '/admin-payments',
+                roles: ["ADMIN"]
+            },
+            {
+                id: 2,
+                name: "Payment Providers",
+                route: '/admin-payments/payment-providers',
+                roles: ["ADMIN"]
+            },
+            {
+                id: 3,
+                name: "Routing Rules",
+                route: '/admin-payments/routing-rules',
+                roles: ["ADMIN"]
+            }
+        ],
+        icon: (prop: IconProps) => <VestraDashPaymentsIcon width={prop.width} height={prop.height} style={prop.style} />,
+        roles: ["ADMIN"]
+    },
+    {
+        id: 4,
         name: 'Payments',
         route: '/payments',
         subMenuItems: [
@@ -93,7 +120,7 @@ const topMenuItems: MenuItems[] = [
         roles: ["USER"]
     },
     {
-        id: 4,
+        id: 5,
         name: 'Users',
         subMenuItems: [],
         route: '/users',
@@ -101,7 +128,7 @@ const topMenuItems: MenuItems[] = [
         roles: ["USER"]
     },
     {
-        id: 4,
+        id: 6,
         name: 'Merchants',
         subMenuItems: [],
         route: '/merchants',
@@ -109,7 +136,7 @@ const topMenuItems: MenuItems[] = [
         roles: ["ADMIN"]
     },
     {
-        id: 6,
+        id: 7,
         name: 'Admins',
         subMenuItems: [],
         route: '/admins',
@@ -117,7 +144,7 @@ const topMenuItems: MenuItems[] = [
         roles: ["ADMIN"]
     },
     {
-        id: 6,
+        id: 8,
         name: 'Compliance',
         subMenuItems: [],
         route: '/compliance',
@@ -125,7 +152,7 @@ const topMenuItems: MenuItems[] = [
         roles: ["ADMIN"]
     },
     {
-        id: 5,
+        id: 9,
         name: 'Dispute Logs',
         route: '/dispute-logs',
         subMenuItems: [],
@@ -141,7 +168,7 @@ const topMenuItems: MenuItems[] = [
     //     roles: ["USER", "ADMIN"]
     // },
     {
-        id: 7,
+        id: 10,
         name: "Settings",
         route: '/settings/profile-settings',
         subMenuItems: [

@@ -15,7 +15,7 @@ const fetchDashData = () => {
     kycStatus: false
   })
 
-  const [updateProfile, setUpdateProfile] = useState(false)
+  const [updateProfile, setUpdateProfile] = useState(true)
 
   const { details } = Storage.getItem("userDetails") || {}
 

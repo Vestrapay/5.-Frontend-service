@@ -118,3 +118,20 @@ export type PayWithCardProps = {
     action?: string,
     address?: string,
 }
+
+export type PayMethodProps = {
+    id?: number,
+    payMethod?: string,
+}
+
+export type PayProvidersProps = {
+    id?: number,
+    name?: string,
+    supportedPaymentMethods?: string[],
+}
+
+export type RoutingRulesProps = {
+    id?: number,
+    provider?: string,
+    paymentMethod?: string,
+}

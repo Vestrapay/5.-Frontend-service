@@ -18,6 +18,7 @@ const DefaultSelect = forwardRef<any, any>(({
     placeHolder,
     variant,
     inputVariant,
+    multiple = false,
     labelVariant,
     containerVariant,
     icon,
@@ -61,6 +62,7 @@ const DefaultSelect = forwardRef<any, any>(({
                     placeholder={placeHolder || topLabel}
                     disabled={isDisabled}
                     required={required || false}
+                    multiple={multiple}
                     className={`outline-none placeholder:text-gray-300 text-blackish placeholder:text-sm placeholder:min-w-max w-full border-none
                     leading-6 text-sm font-300 px-0 py-3 bg-[#ffffff00] ${icon ? "pl-0" : ""} ${inputVariant}`}
                 >
