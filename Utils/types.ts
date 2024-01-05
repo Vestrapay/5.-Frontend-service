@@ -70,6 +70,8 @@ export type endPointlistTypes = {
 
     listDisputes: endpointTypes;
     logADispute: endpointTypes;
+    listAdminDisputes: endpointTypes;
+    updateDipute: endpointTypes;
 
     getAllPaymentMethods: endpointTypes;
     createPaymentMethod: endpointTypes;

@@ -222,6 +222,20 @@ export const endPoints: endPointlistTypes = {
         auth: true
     },
 
+    // Admin Dispute
+    listAdminDisputes: {
+        url: '/api/v1/admin/dispute/view-all',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
+    updateDipute: {
+        url: '/api/v1/admin/dispute/update',
+        method: 'POST',
+        headers: headers,
+        auth: true
+    },
+
     //Payments
     payWithCard: {
         url: '/api/v1/pay/card',

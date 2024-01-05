@@ -55,25 +55,25 @@ const topMenuItems: MenuItems[] = [
     },
     {
         id: 3,
-        name: 'Admin Payments',
-        route: '/admin-payments',
+        name: 'Payments Settings',
+        route: '/payment-settings',
         subMenuItems: [
             {
                 id: 1,
                 name: "Payment Methods",
-                route: '/admin-payments',
+                route: '/payment-settings',
                 roles: ["ADMIN"]
             },
             {
                 id: 2,
                 name: "Payment Providers",
-                route: '/admin-payments/payment-providers',
+                route: '/payment-settings/payment-providers',
                 roles: ["ADMIN"]
             },
             {
                 id: 3,
                 name: "Routing Rules",
-                route: '/admin-payments/routing-rules',
+                route: '/payment-settings/routing-rules',
                 roles: ["ADMIN"]
             }
         ],
@@ -158,6 +158,14 @@ const topMenuItems: MenuItems[] = [
         subMenuItems: [],
         icon: (prop: IconProps) => <VestraDashDisputeLogsIcon width={prop.width} height={prop.height} style={prop.style} />,
         roles: ["USER", "ADMIN"]
+    },
+    {
+        id: 9,
+        name: 'Dispute Resolution',
+        route: '/dispute-resolution',
+        subMenuItems: [],
+        icon: (prop: IconProps) => <VestraDashDisputeLogsIcon width={prop.width} height={prop.height} style={prop.style} />,
+        roles: ["ADMIN"]
     },
     // {
     //     id: 6,

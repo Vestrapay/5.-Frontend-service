@@ -7,10 +7,11 @@ import { MdCancel } from "react-icons/md";
 import { UserDetailProps } from "@types";
 import { BarcodeBorder, CallUser, MailFast, MapBig, Warehouse, UserCircle } from "react-huge-icons/bulk";
 import { TableStatus } from '../reusables';
+import { useNewDisputeContext } from 'context/disputeLogContext';
 
-const UserDetails = ({ data }: { data: UserDetailProps }) => {
+const DisputeDetails = ({ data }: { data: UserDetailProps }) => {
 
-    const { setIsViewUser } = useNewUserContext();
+    const { setIsViewDispute } = useNewDisputeContext();
 
     return (
         <div className="mx-5">
@@ -23,7 +24,7 @@ const UserDetails = ({ data }: { data: UserDetailProps }) => {
                     <UserCircle className={"w-10 h-10 text-unselected rounded-full "} />
                 </div>
                 <MdCancel
-                    onClick={() => setIsViewUser(false)}
+                    onClick={() => setIsViewDispute(false)}
                     width={15} height={15}
                     className="text-red text-2xl opacity-40 absolute top-0 right-2 cursor-pointer hover:opacity-100 hover:scale-105 transition-all active:opacity-80 active:scale-100"
                 />
@@ -75,4 +76,4 @@ const UserDetails = ({ data }: { data: UserDetailProps }) => {
     );
 };
 
-export default UserDetails;
+export default DisputeDetails;

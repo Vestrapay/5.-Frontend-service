@@ -15,8 +15,9 @@ import { PoperDropDown, TableStatus } from '@/components/reusables';
 import DeleteDispute from '@/components/disputes/DeleteDispute';
 import { useAuthContext } from "../../context/AuthContext";
 import dayjs from 'dayjs';
+import UpdateLoggedDispute from '@/components/payment/updateLoggedDispute';
 
-const DisputeResolution = () => {
+const DisputeLogs = () => {
 
     const { userType } = useAuthContext()
 
@@ -34,17 +35,17 @@ const DisputeResolution = () => {
 
     const [showDrop, setShowDrop] = useState<any>(false)
 
-    const [showDelete, setShowDelete] = useState<any>(false);
+    const [showEdit, setShowEdit] = useState<any>(false);
 
     const handleShowDrop = (id: number, off?: boolean) => {
         setShowDrop((prev: number) => off ? null : !prev ? id : (prev === id) ? null : id)
     }
- 
-    // const [isEditable, setIsEditable] = useState(false);
+
+    // const [isEditable, setIsEditable] = useState(false); 
 
     const { isCreateDispute, setIsCreateDispute, isEditDispute, setIsEditDispute, isViewDispute, setIsViewDispute } = useNewDisputeContext();
 
-    const { isLoading, isError, error, isSuccess, data, refetch } = DisputesController(showDelete, isEditDispute, isCreateDispute)
+    const { isLoading, isError, error, isSuccess, data, refetch } = DisputesController(showEdit, isEditDispute, isCreateDispute)
 
     const getRowData = (id: GridRowId) => {
         return apiRef.current?.getRow(id);
@@ -142,6 +143,21 @@ const DisputeResolution = () => {
                     value={""}
                     options={
                         ([
+                            // (<div key={1}
+                            //     className={`h-10 flex items-center text-center p-2 px-4 py-4 my-2 gap-2 rounded-md cursor-pointer min-w-max text-gray-600 bg-sky-100 hover:bg-sky-200`}
+                            //     onClick={() => {
+                            //         // Enable edit mode for the row
+                            //         console.log("Editing user with id: ", id) //TODO: Edit the user with this id
+                            //         setSelected(id)
+                            //         setSelectedDetails(getRowData(id))
+                            //         setIsDropDownActive(false)
+                            //         setIsEditDispute(false)
+                            //         setIsCreateDispute(false)
+                            //         setIsViewDispute(true)
+                            //     }}>
+                            //     <BsPencilSquare className="w-4 h-4" />
+                            //     <p className="w-full font-semibold text-left justify-start">View Dispute</p>
+                            // </div>),
                             (<div key={1}
                                 className={`h-10 flex items-center text-center p-2 px-4 py-4 gap-2 rounded-md cursor-pointer min-w-max text-blue-600 bg-sky-100 hover:bg-sky-200`}
                                 onClick={() => {
@@ -150,7 +166,7 @@ const DisputeResolution = () => {
                                     setSelected(id)
                                     setSelectedDetails(getRowData(id))
                                     setIsDropDownActive(false)
-                                    setIsEditDispute(true)
+                                    setShowEdit(true)
                                     setIsCreateDispute(false)
                                     setIsViewDispute(false)
                                 }}>
@@ -182,7 +198,7 @@ const DisputeResolution = () => {
             <DashboardLayout>
                 <main
                     className="relative flex flex-1 flex-col px-10 pb-4 h-screen w-full overflow-x-visible transition-all duration-300 ease-in-out sm:px-12 pb-10 h-full">
-                    <DisputesNavbar />
+                    <DisputesNavbar name={"Pending Disputes"}/>
                     <DataGrid
                         initialState={{
                             columns: {
@@ -284,14 +300,14 @@ const DisputeResolution = () => {
 
                 </main>
             </DashboardLayout>
-            <DeleteDispute
-                show={showDelete}
-                setShow={setShowDelete}
+            <UpdateLoggedDispute
+                show={showEdit}
+                setShow={setShowEdit}
                 data={selectedDetails}
             />
         </>
     );
 };
 
-export default DisputeResolution;
-// dispute-resolution
+export default DisputeLogs;
+// ONGOING,PENDING,FAILED,SUCCESSFUL,REFUNDED,PROCESSING,REVERSED,INITIATED

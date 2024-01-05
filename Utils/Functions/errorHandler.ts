@@ -15,7 +15,7 @@ export default function errorHandler(err: any) {
             else if (err?.response?.status == 502) {
                 errorAlert({ title: err?.response?.data?.statusText || err?.response?.data?.message || "An error occured", text: err?.response?.data?.statusText || err?.response?.data?.message || err?.response?.data?.status, errors: err?.response?.data?.errors || [] })
             }
-            else if (err?.response?.status == 401) {
+            else if (err?.response?.status == 4001) {
                 window.location.href.includes("/login") ? null : window.location.href = '/login'
             } else {
                 errorAlert({ title: "An error occured", text: "Something went wrong, please try again later.", errors: err?.response?.data?.errors || [] })

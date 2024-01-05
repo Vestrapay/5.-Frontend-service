@@ -21,7 +21,7 @@ import { HiMiniXMark } from 'react-icons/hi2'
 
 function SideBar() {
 
-    const dropdownNavLinks = ["transactions", "payments", "settings", "admin-payments"]
+    const dropdownNavLinks = ["transactions", "payments", "settings", "payment-settings"]
 
     const [selectedSubMenuItem, setSelectedSubMenuItem] = useState<MenuItems | null>();
 
