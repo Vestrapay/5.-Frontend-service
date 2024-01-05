@@ -73,8 +73,6 @@ const Dashboard = () => {
 
     const { stateValues } = userType === "USER" ? APIKEYSController() : { stateValues: { apiKeys: { id: 0 } } }
 
-    console.log(userTypeValue, userType);
-
     useEffect(() => {
         stateValues?.apiKeys?.id && Storage.setItem("apiKeys", stateValues?.apiKeys || {});
     }, [stateValues])

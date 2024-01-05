@@ -10,7 +10,7 @@ import { useNewDisputeContext } from "../../context/disputeLogContext";
 import DisputeDetails from "@/components/disputes/DisputeDetails";
 import CreateDispute from "@/components/disputes/CreateDispute";
 import EditDisputeDetails from "@/components/disputes/EditDisputeDetails";
-import { DisputesController } from 'containers/disputeResolutionApi';
+import { DisputesController } from 'containers/disputeLogApi';
 import { PoperDropDown, TableStatus } from '@/components/reusables';
 import DeleteDispute from '@/components/disputes/DeleteDispute';
 import { useAuthContext } from "../../context/AuthContext";
@@ -49,7 +49,6 @@ const DisputeResolution = () => {
     const getRowData = (id: GridRowId) => {
         return apiRef.current?.getRow(id);
     }
-
 
     const apiRef = useGridApiRef();
 
