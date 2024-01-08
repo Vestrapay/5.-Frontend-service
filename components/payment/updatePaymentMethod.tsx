@@ -3,6 +3,7 @@ import Modal from "../modal/Modal";
 import { DefaultButton, DefaultInput } from "../reusables";
 import { Storage } from "@utils/inAppstorage";
 import { createPayMethodController } from "containers/paymentMethodApi";
+import { LoginErrorCard } from "@utils/actions/error";
 
 export default function UpdatePaymentMethod({
     show,
@@ -10,7 +11,7 @@ export default function UpdatePaymentMethod({
     data
 }: any) {
 
-    const {  stateValues, handleChange, handleSubmit } = createPayMethodController(data);
+    const { stateValues, handleChange, handleSubmit, handleClearError } = createPayMethodController(data);
 
     return (
         <Modal show={show} clicked={setShow}>
@@ -19,7 +20,7 @@ export default function UpdatePaymentMethod({
                     <div className=" flex flex-col my-5 w-full justify-center items-center">
                         <div className="my-3 flex flex-col gap-5">
                             <p className=" w-full text-2xl font-700 text-center">
-                            Create a new Payment Method
+                                Create a new Payment Method
                             </p>
                         </div>
 
@@ -34,10 +35,13 @@ export default function UpdatePaymentMethod({
                             handleChange={handleChange}
                         />
 
+                        <LoginErrorCard handleClear={handleClearError} error={stateValues?.errorMssg || ""}
+                            containerVariant={!stateValues?.submittingError ? "hidden" : ""} />
+
                         <div className="my-3 flex flex-col sm:flex-row gap-5 justify-center items-center ">
-                            <DefaultButton
+                        <DefaultButton
                                 labelText="Submit"
-                                handleClick={handleSubmit}
+                                handleClick={(e: any) => { handleSubmit(e); () => setShow(false); }}
                                 isLoading={stateValues?.isSubmitting}
                             />
                             <button

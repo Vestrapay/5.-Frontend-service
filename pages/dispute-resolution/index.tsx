@@ -15,9 +15,9 @@ import { PoperDropDown, TableStatus } from '@/components/reusables';
 import DeleteDispute from '@/components/disputes/DeleteDispute';
 import { useAuthContext } from "../../context/AuthContext";
 import dayjs from 'dayjs';
-import UpdateLoggedDispute from '@/components/payment/updateLoggedDispute';
+import UpdateLoggedDispute from '@/components/disputes/updateLoggedDispute';
 
-const DisputeLogs = () => {
+const DisputeResolution = () => {
 
     const { userType } = useAuthContext()
 
@@ -309,5 +309,5 @@ const DisputeLogs = () => {
     );
 };
 
-export default DisputeLogs;
+export default DisputeResolution;
 // ONGOING,PENDING,FAILED,SUCCESSFUL,REFUNDED,PROCESSING,REVERSED,INITIATED

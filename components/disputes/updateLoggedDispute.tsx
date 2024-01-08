@@ -19,7 +19,7 @@ export default function UpdateLoggedDispute({
 
     const { data: payMethodData } = PayMethodController("");
 
-    let statusList =[
+    let statusList = [
         {
             name: "OPENED",
             value: "OPENED"
@@ -66,14 +66,14 @@ export default function UpdateLoggedDispute({
                             handleChange={handleChange}//handleChange
                             data={statusList}
                         />
-                        
+
                         <LoginErrorCard handleClear={handleClearError} error={stateValues?.errorMssg || ""}
                             containerVariant={!stateValues?.submittingError ? "hidden" : ""} />
 
                         <div className="my-3 w-full flex flex-col sm:flex-row gap-5 justify-center items-center ">
                             <DefaultButton
                                 labelText="Submit"
-                                handleClick={handleSubmit}
+                                handleClick={(e: any) => { handleSubmit(e); () => setShow(false); }}
                                 isLoading={stateValues?.isSubmitting}
                             />
                             <button

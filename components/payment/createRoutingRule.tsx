@@ -65,9 +65,9 @@ export default function CreateRoutingRule({
                             containerVariant={!stateValues?.submittingError ? "hidden" : ""} />
 
                         <div className="my-3 w-full flex flex-col sm:flex-row gap-5 justify-center items-center ">
-                            <DefaultButton
+                        <DefaultButton
                                 labelText="Submit"
-                                handleClick={handleSubmit}
+                                handleClick={(e: any) => { handleSubmit(e); () => setShow(false); }}
                                 isLoading={stateValues?.isSubmitting}
                             />
                             <button

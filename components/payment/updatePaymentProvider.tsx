@@ -4,6 +4,7 @@ import { DefaultButton, DefaultInput, DefaultSelect } from "../reusables";
 import { Storage } from "@utils/inAppstorage";
 import { PayMethodController, createPayMethodController } from "containers/paymentMethodApi";
 import { updatePayProvidersController } from "containers/paymentProvidersApi";
+import { LoginErrorCard } from "@utils/actions/error";
 
 export default function UpdatePaymentProvider({
     show,
@@ -13,7 +14,7 @@ export default function UpdatePaymentProvider({
 
     const { details } = Storage.getItem("userDetails") || {}
 
-    const { stateValues, handleChange, handleSubmit, selectMethod, payMethods } = updatePayProvidersController(data);
+    const { stateValues, handleChange, handleSubmit, selectMethod, payMethods, handleClearError } = updatePayProvidersController(data);
 
     const { data: payMethodData } = PayMethodController("")
 
@@ -56,10 +57,15 @@ export default function UpdatePaymentProvider({
                             {payMethods?.length > 0 ? "Selected:" : ""} {payMethods?.map((each: any) => (
                                 <span>{each} &nbsp; </span>
                             ))}</div>
+
+
+                        <LoginErrorCard handleClear={handleClearError} error={stateValues?.errorMssg || ""}
+                            containerVariant={!stateValues?.submittingError ? "hidden" : ""} />
+
                         <div className="my-3 w-full flex flex-col sm:flex-row gap-5 justify-center items-center ">
-                            <DefaultButton
+                        <DefaultButton
                                 labelText="Submit"
-                                handleClick={handleSubmit}
+                                handleClick={(e: any) => { handleSubmit(e); () => setShow(false); }}
                                 isLoading={stateValues?.isSubmitting}
                             />
                             <button

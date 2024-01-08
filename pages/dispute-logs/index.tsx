@@ -16,7 +16,7 @@ import DeleteDispute from '@/components/disputes/DeleteDispute';
 import { useAuthContext } from "../../context/AuthContext";
 import dayjs from 'dayjs';
 
-const DisputeResolution = () => {
+const DisputeLogs = () => {
 
     const { userType } = useAuthContext()
 
@@ -292,5 +292,5 @@ const DisputeResolution = () => {
     );
 };
 
-export default DisputeResolution;
+export default DisputeLogs;
 // dispute-resolution
