@@ -26,7 +26,7 @@ function OnBoardingLayout({ page, children }: any) {
         return () => {
             window.removeEventListener('resize', () =>
                 setWindowWidowWidth(window.innerWidth),
-            ) 
+            )
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [page])
@@ -80,6 +80,11 @@ function OnBoardingLayout({ page, children }: any) {
                         />
 
                         {children}
+
+                        <div className="text-gray-900 text-xs font-normal font-['Roboto'] leading-tight tracking-wide text-center mt-5">
+                            <p>VestraPay &copy; {new Date().getFullYear()}</p>
+                            <p className="text-indigo-700 p-0 font-normal">licenced by Central Bank of Nigeria</p>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -6,13 +6,13 @@ import { finalMenu } from "@/components/layouts/elements/SideBarItems";
 import { Storage } from '@utils/inAppstorage';
 import router from 'next/router';
 import { apiCall } from '@utils/URLs';
-import {useAuthContext} from "../../context/AuthContext";
+import { useAuthContext } from "../../context/AuthContext";
 
 function DashboardLayout({ children }: LayoutProps) {
 
     const { sidebarItems, setSidebarItems } = useContext(SidebarContext);
 
-    const {userType} = useAuthContext()
+    const { userType } = useAuthContext()
 
     useEffect(() => {
         const topMenuItems = finalMenu([userType])
@@ -30,6 +30,11 @@ function DashboardLayout({ children }: LayoutProps) {
                 < div className=' w-full max-w-[1800px] ' >
                     {children}
                 </div >
+
+                <div className="text-gray-900 text-xs font-normal font-['Roboto'] leading-tight tracking-wide text-center mt-5">
+                    <p>VestraPay &copy; {new Date().getFullYear()}</p>
+                    <p className="text-indigo-700 p-0 font-normal">licenced by Central Bank of Nigeria</p>
+                </div>
             </main>
         </div>
 
