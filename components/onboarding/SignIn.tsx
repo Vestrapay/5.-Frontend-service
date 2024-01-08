@@ -12,7 +12,7 @@ const SignIn = ({ setPage, resetingPass, setResetingPass, signInStatus }: any) =
 
 
     return (
-        <div className='w-2/3'>
+        <div className='md:w-2/3'>
 
             <DefaultInput
                 type="email"
@@ -36,7 +36,7 @@ const SignIn = ({ setPage, resetingPass, setResetingPass, signInStatus }: any) =
                 handleChange={handleChange}
             />
 
-            <div className="flex items-center w-full my-6 justify-between">
+            <div className="flex items-start sm:items-center w-full my-6 justify-between flex-col sm:flex-row gap-y-2">
                 <div className="flex items-center h-5">
                     <input id="remember" type="checkbox" value="" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" required />
                     <label htmlFor="remember" className="ml-2 text-base font-300 text-blackish">

@@ -10,7 +10,7 @@ const ChangePassword = ({ setPage, setResetingPass }: any) => {
     const { submittingError, isDisabled, isSubmitting, errorMssg, oldPassword, password, confirmPassword } = stateValues || {};
 
     return (
-        <div className='w-2/3'>
+        <div className='md:w-2/3'>
 
             <DefaultInput
                 type="password"

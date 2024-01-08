@@ -20,7 +20,7 @@ const SignUp = ({ setPage, setPassData }: any) => {
     password, loginError, loginErrorMssg, isLoggingIn } = stateValues
 
   return (
-    <div className='w-2/3'>
+    <div className='md:w-2/3'>
 
       <DefaultInput
         type="text"

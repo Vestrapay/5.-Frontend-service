@@ -72,7 +72,7 @@ function OnBoardingLayout({ page, children }: any) {
 
                     </div>
 
-                    <div className=" flex flex-col justify-center items-center w-full px-10 ">
+                    <div className=" flex flex-col justify-center items-center w-full md:px-10 ">
                         <img
                             className="mb-10 w-full h-px"
                             alt=""
