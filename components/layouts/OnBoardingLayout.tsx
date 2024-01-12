@@ -83,7 +83,7 @@ function OnBoardingLayout({ page, children }: any) {
 
                         <div className="text-gray-900 text-xs font-normal font-['Roboto'] leading-tight tracking-wide text-center mt-5">
                             <p>VestraPay &copy; {new Date().getFullYear()}</p>
-                            <p className="text-indigo-700 p-0 font-normal">licenced by Central Bank of Nigeria</p>
+                            <p className="text-indigo-700 p-0 font-normal">VestraPay Nigeria Limited is a Payment Solutions Service Provider(PSSP) duly licenced by the Central Bank of Nigeria(CBN).</p>
                         </div>
                     </div>
                 </div>
