@@ -10,11 +10,10 @@ import { Storage } from "Utils/inAppstorage";
 
 
 const baseUrl = (): any => "https://42661c368c60.ngrok.app";//process.env.REACT_APP_BASE_URL;
-const paymentUrl= (): any => "https://3d4cb08173b3.ngrok.app";//process.env.REACT_APP_BASE_URL;
+const paymentUrl= (): any => "https://dd52a73cb86e.ngrok.app";//process.env.REACT_APP_BASE_URL;
 
 // For testing purposes only
 export const _set_root_url = (newUrl: any): any => newUrl
-
 
 
 /**
