@@ -10,6 +10,7 @@ import VerifySignIn from '@/components/onboarding/VerifySignIn'
 import OnBoardingLayout from '@/components/layouts/OnBoardingLayout'
 import { useRouter } from "next/router";
 import { Storage } from '@utils/inAppstorage'
+import ValidateLogin from '@/components/onboarding/ValidateLogin'
 
 
 export default function Home() {
@@ -19,8 +20,11 @@ export default function Home() {
     const [signInStatus, setSignInStatus] = useState(false);
     const [passData, setPassData] = useState({
         email: "",
-        phoneNumber: ""
+        phoneNumber: "",
+        password: ""
     });
+
+    console.log("pass data: ", passData);
 
     const router = useRouter()
 
@@ -30,6 +34,7 @@ export default function Home() {
             reset: "reset",
             verifySignUp: "verifySignUp",
             verifySignIn: "verifySignIn",
+            validatelogin: "validatelogin",
             createpass: "createpass",
             signin: "signin",
             signup: "signup",
@@ -53,7 +58,7 @@ export default function Home() {
     const renderPages = () => {
         switch (page) {
             case 'signin':
-                return <SignIn setPage={setPageFunc} resetingPass={resetingPass}
+                return <SignIn setPage={setPageFunc} resetingPass={resetingPass} setPassData={setPassData}
                     signInStatus={signInStatus} setResetingPass={setResetingPass} />;
             case 'forgotpass':
                 return <ChangePassword setPage={setPageFunc} />;
@@ -67,9 +72,13 @@ export default function Home() {
                 return <VerifySignUp setPage={setPageFunc} passData={passData} setSignInStatus={setSignInStatus} />;
             case 'verifySignIn':
                 return <VerifySignIn setPage={setPageFunc} />;
+            case 'validatelogin':
+                return <ValidateLogin setPage={setPageFunc} resetingPass={resetingPass} setPassData={setPassData}
+                    signInStatus={signInStatus} setResetingPass={setResetingPass} passData={passData} />;
 
             default:
-                return <SignUp setPage={setPageFunc} />;
+                return <SignUp setPage={setPageFunc} resetingPass={resetingPass}
+                    signInStatus={signInStatus} setResetingPass={setResetingPass} />;
         }
     }
 

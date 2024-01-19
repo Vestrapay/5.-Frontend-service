@@ -8,8 +8,7 @@ import successAlert from "Utils/actions/success";
 import { Storage } from "Utils/inAppstorage";
 
 
-
-const baseUrl = (): any => "https://42661c368c60.ngrok.app";//process.env.REACT_APP_BASE_URL;
+const baseUrl = (): any => "https://431ba59ccab6.ngrok.app";//process.env.REACT_APP_BASE_URL;
 const paymentUrl= (): any => "https://dd52a73cb86e.ngrok.app";//process.env.REACT_APP_BASE_URL;
 // const baseUrl = (): any => "https://dd52a73cb86e.ngrok.app";//process.env.REACT_APP_BASE_URL;
 // const paymentUrl= (): any => "https://e2edbdebbb2f.ngrok.app";//process.env.REACT_APP_BASE_URL;

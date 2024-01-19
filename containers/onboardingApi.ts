@@ -146,9 +146,27 @@ const SignUpController = (setPage: (val: string) => any, setPassData: (val: any)
 
 }
 
-const SignInController = (setPage: (val: string) => any, resetingPass: boolean, setResetingPass: (val: boolean) => any, signInStatus: boolean) => {
+const SignInController = (setPage: (val: string) => any, resetingPass: boolean, setResetingPass: (val: boolean) => any, signInStatus: boolean, passData: any, setPassData: (val: any) => any) => {
+
+    const [timeVal, setTimeVal] = useState({
+        otp: '',
+        clear: false,
+        minutes: 0,
+        seconds: 150,
+        key: 0,
+    })
+
+    const {
+        otp,
+        clear,
+        minutes,
+        seconds,
+        key,
+    } = timeVal || {}
 
     const [state, setState] = useState<any>({
+        pin: "",
+        confirmPin: "",
         email: "",
         password: "",
         loginError: false,
@@ -159,6 +177,90 @@ const SignInController = (setPage: (val: string) => any, resetingPass: boolean, 
     const { setUserType, setUserDetail } = useAuthContext()
 
     const { email, password, loginError, loginErrorMssg, isLoggingIn } = state
+
+    const setKey = (val: number) => setTimeVal({ ...timeVal, key: val })
+
+    const onChangeOTP = (value: string) => {
+        setTimeVal({ ...timeVal, otp: value });
+        setState({ ...state, submittingError: false })
+    }
+
+    const generateOtp = async () => {
+        console.log("login generator initiated...");
+
+        setState((state: any) => ({
+            ...state,
+            isLoggingIn: true
+        }))
+        try {
+            const response = await apiCall({
+                name: "preLoginUser",
+                data: {
+                    email: passData?.email,
+                    password: passData?.password,
+                },
+                action: (res: any): any => {
+                    if (!res?.data?.enabled) {
+                        localStorage.setItem('userDetails', JSON.stringify({
+                            token: res?.message || "",
+                            details: res?.data?.user || "",
+                            isSuperAdmin: res?.data?.user?.userType == "MERCHANT" || res?.data?.user?.userType == "MERCHANTUSER" ? false : true
+                        }))
+
+                        setState({
+                            ...state,
+                            isLoggingIn: false,
+                            loginError: false,
+                        })
+                        res?.data?.user?.userType == "MERCHANT" || res?.data?.user?.userType == "MERCHANTUSER" ? setUserType("USER") : setUserType("ADMIN")
+                        setUserDetail(res?.data?.user)
+                    }
+                    return [""]
+                },
+                successDetails: {
+                    title: "Successful",
+                    text: `Your OTP has been resent.`,
+                    icon: ""
+                },
+                errorAction: (err?: any) => {
+                    if (err && err?.response?.data) {
+                        setState({
+                            ...state,
+                            loginError: true,
+                            isLoggingIn: false,
+                            loginErrorMssg: err?.response?.data?.errors && err?.response?.data?.errors[0] || "Generation Failed, please try again"
+                        })
+                        return [""]
+                    } else {
+                        setState({
+                            ...state,
+                            loginError: true,
+                            isLoggingIn: false,
+                            loginErrorMssg: "Generation Failed, please try again"
+                        })
+                    }
+                }
+            })
+                .then(async (res: any) => {
+                    if (res?.data?.enabled) {
+                        setPage("validatelogin")
+                    } else {
+                        if (resetingPass) {
+                            setPage("createpass")
+                        } else if (signInStatus) {
+                            setResetingPass(false);
+                            router.push('/create-business');
+                        } else {
+                            setResetingPass(false);
+                            router.push('/dashboard');
+                        }
+                    }
+                    // setPage("verifySignIn"); 
+                })
+        } catch (e) {
+            console.log(e + " 'Caught Error.'");
+        }
+    }
 
     //Handle assertions functions
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -176,6 +278,9 @@ const SignInController = (setPage: (val: string) => any, resetingPass: boolean, 
     const handleClearError = () => setState({ ...state, loginError: false })
 
     const handleSubmit = async (e: React.FormEvent) => {
+        // console.log("login final initiated...");
+        console.log("data: ", passData, "email: " + email, "password: " + password, passData);
+
         e.preventDefault();
         setState((state: any) => ({
             ...state,
@@ -185,8 +290,9 @@ const SignInController = (setPage: (val: string) => any, resetingPass: boolean, 
             const response = await apiCall({
                 name: "loginUser",
                 data: {
-                    email,
-                    password,
+                    email: passData?.email || email,
+                    password: passData?.password || password,
+                    otp
                 },
                 action: (res: any): any => {
                     localStorage.setItem('userDetails', JSON.stringify({
@@ -240,7 +346,90 @@ const SignInController = (setPage: (val: string) => any, resetingPass: boolean, 
         }
     }
 
-    return { stateValues: state, handleSubmit, handleChange, handleClearError }
+    const handlePreLogin = async (e: React.FormEvent) => {
+        console.log("login validation initiated...");
+
+        e.preventDefault();
+        setState((state: any) => ({
+            ...state,
+            isLoggingIn: true
+        }))
+        try {
+            const response = await apiCall({
+                name: "preLoginUser",
+                data: {
+                    email,
+                    password,
+                },
+                action: (res: any): any => {
+                    setPassData({ ...passData, email: email, password: password });
+
+                    console.log("data: ", res?.data, passData);
+
+                    if (!res?.data?.enabled) {
+                        localStorage.setItem('userDetails', JSON.stringify({
+                            token: res?.message || "",
+                            details: res?.data?.user || "",
+                            isSuperAdmin: res?.data?.user?.userType == "MERCHANT" || res?.data?.user?.userType == "MERCHANTUSER" ? false : true
+                        }))
+
+                        res?.data?.user?.userType == "MERCHANT" || res?.data?.user?.userType == "MERCHANTUSER" ? setUserType("USER") : setUserType("ADMIN")
+                        setUserDetail(res?.data?.user)
+                    } else {
+                        console.log("enabled: ", res?.data);
+                        setPage("validatelogin");
+                        setState({
+                            ...state,
+                            isLoggingIn: false,
+                            loginError: false,
+                        })
+                    }
+                    return ["skip"]
+                },
+                errorAction: (err?: any) => {
+                    if (err && err?.response?.data) {
+                        setState({
+                            ...state,
+                            loginError: true,
+                            isLoggingIn: false,
+                            loginErrorMssg: err?.response?.data?.errors && err?.response?.data?.errors[0] || "Login Failed, please try again"
+                        })
+                        return ["skip"]
+                    } else {
+                        setState({
+                            ...state,
+                            loginError: true,
+                            isLoggingIn: false,
+                            loginErrorMssg: "Login Failed, please try again"
+                        })
+                    }
+                }
+            })
+                .then(async (res: any) => {
+                    console.log("data: ", res?.data, "email: " + email, "password: " + password, "data: ", passData);
+                    setPassData({ ...passData, email: email, password: password });
+                    if (res?.data?.enabled) {
+                        console.log("enabled: ", res?.data);
+                        setPage("validatelogin");
+                    } else {
+                        if (resetingPass) {
+                            setPage("createpass")
+                        } else if (signInStatus) {
+                            setResetingPass(false);
+                            router.push('/create-business');
+                        } else {
+                            setResetingPass(false);
+                            // router.push('/dashboard');
+                        }
+                    }
+                    // setPage("verifySignIn");
+                })
+        } catch (e) {
+            console.log(e + " 'Caught Error.'");
+        }
+    }
+
+    return { stateValues: state, handleSubmit, handleChange, handleClearError, onChangeOTP, timeVal, setKey, handlePreLogin, generateOtp }
 
 }
 
@@ -602,7 +791,6 @@ const ResetPasswordController = (setPage: (val: string) => any, setResetingPass:
 
     return { stateValues: state, handleChange, handleSubmit, handleClearError }
 }
-
 
 const ResetedPasswordController = (setPage: (val: string) => any, setResetingPass: (val: boolean) => any) => {
 

@@ -26,6 +26,11 @@ export const endPoints: endPointlistTypes = {
         method: 'POST',
         headers: headers,
     },
+    preLoginUser: {
+        url: '/api/v1/auth/2fa-login',
+        method: 'POST',
+        headers: headers,
+    },
     changePassword: {
         url: '/api/v1/auth/change-password',
         method: 'POST',

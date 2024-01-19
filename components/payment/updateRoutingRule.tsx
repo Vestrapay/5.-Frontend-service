@@ -3,7 +3,8 @@ import Modal from "../modal/Modal";
 import { DefaultButton, DefaultInput, DefaultSelect } from "../reusables";
 import { Storage } from "@utils/inAppstorage";
 import { PayMethodController, createPayMethodController } from "containers/paymentMethodApi";
-import { updatePayProvidersController } from "containers/paymentProvidersApi";
+import { PayProvidersController, updatePayProvidersController } from "containers/paymentProvidersApi";
+import { ProvidersByMethodController, updateRoutingRulesController } from "containers/routingRulesApi";
 
 export default function UpdateRoutingRule({
     show,
@@ -13,11 +14,17 @@ export default function UpdateRoutingRule({
 
     const { details } = Storage.getItem("userDetails") || {}
 
-    const { stateValues, handleChange, handleSubmit, selectMethod, payMethods } = updatePayProvidersController(data);
+    const { stateValues, handleChange, handleSubmit, selectMethod, payMethods } = updateRoutingRulesController(data);
 
     const { data: payMethodData } = PayMethodController("")
 
+    const { data: payProvidersData } = PayProvidersController("")
+
+    const { data: providersByMethodData } = ProvidersByMethodController(data?.paymentMethod || stateValues?.paymentMethod);
+
     let methodList = payMethodData?.map((each: any, i: any) => ({ id: i + 1, name: each?.name, value: each?.name }))
+    let providerList = providersByMethodData?.length > 0 ? providersByMethodData?.map((each: any, i: any) => ({ id: i + 1, name: each?.name, value: each?.name })) :
+        payProvidersData?.map((each: any, i: any) => ({ id: i + 1, name: each?.name, value: each?.name }));
 
     return (
         <Modal show={show} clicked={setShow}>
@@ -32,6 +39,28 @@ export default function UpdateRoutingRule({
 
                         <DefaultInput
                             type="tel"
+                            name="paymentMethod"
+                            label="Payment Method"
+                            topLabel="Payment Method"
+                            placeHolder="Enter Payment Method"
+                            containerVariant="w-full py-2"
+                            value={stateValues?.paymentMethod}
+                            handleChange={handleChange}
+                        />
+
+                        <DefaultSelect
+                            name="provider"
+                            label="Select Provider"
+                            topLabel="Select Provider"
+                            placeHolder="Provider"
+                            containerVariant="w-full py-2"
+                            value={stateValues?.provider}
+                            handleChange={handleChange}
+                            data={providerList}
+                        />
+
+                        {/* <DefaultInput
+                            type="tel"
                             name="payProvider"
                             label="Payment Provider"
                             topLabel="Provider Name"
@@ -39,25 +68,28 @@ export default function UpdateRoutingRule({
                             containerVariant="w-full py-2"
                             value={stateValues?.payProvider}
                             handleChange={handleChange}
-                        />
+                        /> */}
 
-                        <DefaultSelect
-                            name="payMethod"
+                        {/* <DefaultSelect
+                            name="paymentMethod"
                             multiple={true}
                             label="Select Payment Method"
                             topLabel="Select Payment Method"
                             placeHolder="Payment Methods"
                             containerVariant="w-full py-2"
-                            value={stateValues?.payMethod}
+                            value={stateValues?.paymentMethod}
                             handleChange={(e: any) => selectMethod(e?.target?.value)}//handleChange
                             data={methodList}
                         />
+
                         <div className="text-gray-500 text-xs">
                             {payMethods?.length > 0 ? "Selected:" : ""} {payMethods?.map((each: any) => (
                                 <span>{each} &nbsp; </span>
-                            ))}</div>
+                            ))}
+                        </div> */}
+
                         <div className="my-3 w-full flex flex-col sm:flex-row gap-5 justify-center items-center ">
-                        <DefaultButton
+                            <DefaultButton
                                 labelText="Submit"
                                 handleClick={(e: any) => { handleSubmit(e); () => setShow(false); }}
                                 isLoading={stateValues?.isSubmitting}

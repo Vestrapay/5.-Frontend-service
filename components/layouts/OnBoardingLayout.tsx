@@ -53,14 +53,11 @@ function OnBoardingLayout({ page, children }: any) {
 
     }
 
-
     return (
-
         <>
-
             <div className="relative bg-grayer w-full h-[100%] min-h-[100vh] overflow-y-auto text-left text-base text-text flex justify-center font-nunito">
-                <div className="sm:w-2/3 lg:w-2/3 xl:w-2/4 w-full bg-white h-full py-10 px-5 flex flex-col items-center">
-                    <div className=" flex flex-col justify-center items-center py-20 w-full">
+                <div className="sm:w-2/3 lg:w-2/3 xl:w-2/4 w-full bg-white h-[100%] min-h-[100vh] py-10 px-5 flex flex-col items-center justify-between ">
+                    <div className=" flex flex-col justify-center items-center py-10 w-full">
                         <img
                             className="w-[92px] h-[92px]"
                             alt=""
@@ -69,22 +66,22 @@ function OnBoardingLayout({ page, children }: any) {
                         <p className="top-[0px] left-[0px] font-semibold inline-block w-[100%] text-center h-7 text-[25px] font-nunito">
                             {findTitle(page) || ""}
                         </p>
-
                     </div>
 
-                    <div className=" flex flex-col justify-center items-center w-full md:px-10 ">
+                    <div className=" flex flex-col h-full justify-between items-center w-full md:px-10 ">
                         <img
-                            className="mb-10 w-full h-px"
+                            className="mb-10 w-full h-px w-full"
                             alt=""
                             src="/or.svg"
                         />
 
                         {children}
 
-                        <div className="text-gray-900 text-xs font-normal font-['Roboto'] leading-tight tracking-wide text-center mt-5">
-                            <p>VestraPay &copy; {new Date().getFullYear()}</p>
-                            <p className="text-indigo-700 p-0 font-normal">VestraPay Nigeria Limited is a Payment Solutions Service Provider(PSSP) duly licenced by the Central Bank of Nigeria(CBN).</p>
-                        </div>
+                    </div>
+
+                    <div className="text-gray-900 text-xs font-normal font-['Roboto'] leading-tight tracking-wide text-center mt-10 ">
+                        <p>VestraPay &copy; {new Date().getFullYear()}</p>
+                        <p className="text-indigo-700 p-0 font-normal">VestraPay Nigeria Limited is a Payment Solutions Service Provider(PSSP) duly licenced by the Central Bank of Nigeria(CBN).</p>
                     </div>
                 </div>
             </div>

@@ -229,10 +229,11 @@ const updateRoutingRulesController = (data: RoutingRulesProps) => {
 
     useEffect(() => {
 
-        // setState({
-        //     ...state,
-        //     RoutingRule: data?.name || state?.RoutingRule || "",
-        // })
+        setState({
+            ...state,
+            paymentMethod: data?.paymentMethod || state?.paymentMethod || "",
+            provider: data?.provider || state?.provider || "",
+        })
 
 
         // setPayMethods(listMethods);
@@ -252,6 +253,7 @@ const updateRoutingRulesController = (data: RoutingRulesProps) => {
 
     const {
         RoutingRule,
+        payMethod,
         provider,
         submittingError,
         errorMssg,
@@ -270,8 +272,8 @@ const updateRoutingRulesController = (data: RoutingRulesProps) => {
             const response = await apiCall({
                 name: "updateRoutingRules",
                 data: {
-                    name: RoutingRule,
-                    supportedPaymentMethods: payMethods
+                    provider: provider,
+                    paymentMethod: payMethod
                 },
                 action: (): any => {
                     refetch();
