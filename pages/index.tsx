@@ -24,7 +24,7 @@ export default function Home() {
         password: ""
     });
 
-    console.log("pass data: ", passData);
+   
 
     const router = useRouter()
 

@@ -419,7 +419,7 @@ const SignInController = (setPage: (val: string) => any, resetingPass: boolean, 
                             router.push('/create-business');
                         } else {
                             setResetingPass(false);
-                            // router.push('/dashboard');
+                            router.push('/dashboard');
                         }
                     }
                     // setPage("verifySignIn");
