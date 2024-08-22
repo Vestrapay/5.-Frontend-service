@@ -8,8 +8,8 @@ import successAlert from "Utils/actions/success";
 import { Storage } from "Utils/inAppstorage";
 
 
-const baseUrl = (): any => "https://233e-2001-569-52c4-d700-59e4-76b2-13ba-83ad.ngrok-free.app/portal";//process.env.REACT_APP_BASE_URL;
-const paymentUrl= (): any => "https://233e-2001-569-52c4-d700-59e4-76b2-13ba-83ad.ngrok-free.app/gateway";//process.env.REACT_APP_BASE_URL;
+const baseUrl = (): any => "https://fdbe-2001-569-52c4-d700-c499-3001-d32a-a62c.ngrok-free.app/portal";//process.env.REACT_APP_BASE_URL;
+const paymentUrl= (): any => "https://fdbe-2001-569-52c4-d700-c499-3001-d32a-a62c.ngrok-free.app/gateway";//process.env.REACT_APP_BASE_URL;
 // const baseUrl = (): any => "https://dd52a73cb86e.ngrok.app";//process.env.REACT_APP_BASE_URL;
 // const paymentUrl= (): any => "https://e2edbdebbb2f.ngrok.app";//process.env.REACT_APP_BASE_URL;
 

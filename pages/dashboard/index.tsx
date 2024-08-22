@@ -267,7 +267,7 @@ const Dashboard = () => {
                                     <div className="flex items-center">
                                         <p className="text-base font-bold m-0 whitespace-nowrap">Daily Transactions</p>
                                         <Image src={Delimiter} alt={"line"} className="mx-5" />
-                                        {/* <div className="flex items-center mr-5">
+                                        <div className="flex items-center mr-5">
                                             <p className="h-1 w-1 rounded-full bg-green-800" />
                                             <p className="text-xs text-unselected m-0 ml-2">Approved</p>
                                         </div>
@@ -277,9 +277,9 @@ const Dashboard = () => {
                                         </div>
                                         <div className="flex items-center">
                                             <p className="h-1 w-1 rounded-full bg-amber-500" />
-                                            <p className="text-xs text-unselected m-0 ml-2">Pending</p>
-                                        </div> */}
-                                        {/* <Image src={Delimiter} alt={"line"} className="mx-5" />
+                                            <p className="text-xs text-unselected m-0 ml-2">Processing</p>
+                                        </div>
+                                        <Image src={Delimiter} alt={"line"} className="mx-5" />
                                         <button
                                             onMouseLeave={() => setIsDropDownActive(false)}
                                             className="text-xs font-nunito text-unselected border-none outline-none active:border-none active:outline-none bg-transparent relative flex items-center w-full"
@@ -287,20 +287,10 @@ const Dashboard = () => {
                                             <p className="px-2 w-full">
                                                 {selectedItem ? selectedItem : "Merchant"}
                                             </p>
-                                            {isDropDownActive
-                                                ? <IoIosArrowUp
-                                                    onClick={() => setIsDropDownActive(false)}
-                                                    width={20} height={20}
-                                                    className="text-selected cursor-pointer" />
-                                                : <IoIosArrowDown
-                                                    onClick={() => setIsDropDownActive(true)}
-                                                    width={20} height={20}
-                                                    className="text-unselected cursor-pointer" />
-                                            }
                                             <div
                                                 className={`absolute rounded-md bg-selected/70 backdrop-blur-sm z-20 inset-x-0 top-10 w-full`}>
                                                 <ul className={`list-none px-2 text-xs font-nunito text-white flex-col gap-1 ${isDropDownActive ? "flex justify-center items-center" : "hidden"}`}>
-                                                    {/*TODO: Fetch this from an API or from an array
+                                                    {/*TODO: Fetch this from an API or from an array*/}
                                                     <li
                                                         onClick={() => {
                                                             setSelectedItem("Merchant")
@@ -330,16 +320,6 @@ const Dashboard = () => {
                                             <p className="px-2 w-full whitespace-nowrap">
                                                 Transaction Type: {transactionType ? transactionType : "Cards"}
                                             </p>
-                                            {isTransTypeDropDownActive
-                                                ? <IoIosArrowUp
-                                                    onClick={() => setIsTransTypeDropDownActive(false)}
-                                                    width={20} height={20}
-                                                    className="text-selected cursor-pointer" />
-                                                : <IoIosArrowDown
-                                                    onClick={() => setIsTransTypeDropDownActive(true)}
-                                                    width={20} height={20}
-                                                    className="text-unselected cursor-pointer" />
-                                            }
                                             <div
                                                 className={`absolute rounded-md bg-selected/70 backdrop-blur-sm z-20 inset-x-0 top-10 w-full`}>
                                                 <ul className={` text-xs px-2 py-0 font-nunito text-white flex-col gap-2 ${isTransTypeDropDownActive ? "flex justify-center items-center" : "hidden"}`}>
@@ -355,7 +335,7 @@ const Dashboard = () => {
                                                     </li>
                                                 </ul>
                                             </div>
-                                        </button> */}
+                                        </button>
                                     </div>
                                     <BsThreeDots width={20} height={20} className="text-unselected" />
                                 </div>

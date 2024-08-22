@@ -38,7 +38,7 @@ const TransactionsIndex = () => {
             <main className="relative flex flex-1 flex-col px-8 pb-4 h-screen w-full overflow-x-visible transition-all duration-300 ease-in-out px-10 sm:px-8 pb-10 h-full">
 
                 <nav>
-                    <TransactionsNavbar apiRef={apiRef} data={recentTransactionsData} />
+                <TransactionsNavbar buttonCheck={false} apiRef={apiRef} data={recentTransactionsData} />
                 </nav>
                 {data && data?.length < 1 ?
                     <>

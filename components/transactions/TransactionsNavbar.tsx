@@ -11,7 +11,7 @@ import { BsPlus } from 'react-icons/bs';
 import { DefaultButton } from '../reusables';
 import { useAuthContext } from 'context/AuthContext';
 
-const TransactionsNavbar = ({ apiRef, data, name, setShowDelete = () => null }: { apiRef: React.MutableRefObject<GridApiCommunity>, data: any | GridValidRowModel[], name?: string, setShowDelete?: any }) => {
+const TransactionsNavbar = ({ apiRef, data, name, buttonCheck = true, setShowDelete = () => null }: { apiRef: React.MutableRefObject<GridApiCommunity>, data: any | GridValidRowModel[], name?: string, setShowDelete?: any, buttonCheck?: boolean }) => {
 
     const [isHovered, setIsHovered] = useState(false);
 
@@ -41,7 +41,7 @@ const TransactionsNavbar = ({ apiRef, data, name, setShowDelete = () => null }: 
                 {`Transactions - ${name || "Txn."}`}
             </p>
             <div className="flex justify-end items-center gap-10">
-                {userTypeValue === "USER" &&
+                {userTypeValue === "USER" && buttonCheck &&
                     <DefaultButton
                         icon={<BsPlus size={25} />}
                         labelText={`Pay with ${name || "Transfer"}`}
