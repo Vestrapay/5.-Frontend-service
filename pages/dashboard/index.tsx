@@ -62,6 +62,12 @@ const Dashboard = () => {
         notifSuccess,
         notifData,
 
+        balanceLoading,
+        balanceErrorCheck,
+        balanceError,
+        balanceSuccess,
+        balanceData,
+
         transLoading,
         transErrorCheck,
         transError,
@@ -115,7 +121,7 @@ const Dashboard = () => {
                     <div className="grid grid-rows-1 grid-cols-1 col-span-6 xl:col-span-3 gap-4 h-full">
                         <div
                             className="flex bg-white p-3 rounded-2xl items-center w-full overflow-auto lg:flex-row flex-col h-fit ">
-                            <AtmCard isActivated={isCardDisabled} cardHolder={displayName?.name} />
+                            <AtmCard isActivated={isCardDisabled} cardHolder={displayName?.name} debitCardNumber={displayName?.userId} />
                             <Image
                                 src={DivisionLine}
                                 alt={"division-line"}
@@ -123,15 +129,15 @@ const Dashboard = () => {
                             />
                             <div className="flex text-right mt-5 lg:mt-0 flex-col sm:flex-row lg:flex-col justify-center ml-2 mr-8">
                                 <span className="m-0 py-2 flex flex-row-reverse items-center gap-4">
-                                    <p className="text-lg font-bold m-0">₦0.00</p>
+                                    <p className="text-lg font-bold m-0">{"₦" + balanceData?.currentBalance || "0.00"}</p>
                                     <p className="text-sm whitespace-nowrap m-0 text-unselected">Current balance</p>
                                 </span>
                                 <span className="m-0 py-2 flex flex-row-reverse items-center gap-4">
-                                    <p className="text-lg font-bold m-0 text-green">₦0.00</p>
+                                    <p className="text-lg font-bold m-0">{"₦" + balanceData?.income || "0.00"}</p>
                                     <p className="text-sm m-0 text-unselected">Income</p>
                                 </span>
                                 <span className="m-0 py-2 flex flex-row-reverse items-center gap-4">
-                                    <p className="text-lg font-bold m-0 text-red">₦0.00</p>
+                                    <p className="text-lg font-bold m-0">{"₦" + balanceData?.outcome || "0.00"}</p>
                                     <p className="text-sm m-0 text-unselected">Outcome</p>
                                 </span>
                                 {/* <span className="m-0 py-0.5">
@@ -350,7 +356,7 @@ const Dashboard = () => {
                                                 >
                                                     <EmptyTransactionIcon width={100} height={100} />
                                                 </div>,
-                                        }} 
+                                        }}
                                         initialState={{
                                             pagination: {
                                                 paginationModel: {

@@ -8,6 +8,7 @@ import Pagination from "@mui/material/Pagination";
 import { TransactionController } from 'containers/transactionApi';
 import { DefaultButton } from '@/components/reusables';
 import { BsPlus } from 'react-icons/bs';
+import Link from '@mui/material/Link';
 
 const Chargebacks = () => {
 
@@ -53,14 +54,11 @@ const Chargebacks = () => {
                             You do not have ny chargebacks to process at the moment.
                         </div>
                         <div className="w-full lg:w-2/3 text-black text-base sm:text-xl font-bold font-['Nunito'] sm:p-5">
-                            Your customers might be looking for ways to pay you, create a payment link.
+                            <span>Your customers might be looking for ways to pay you, </span>
+                            <Link classes="font-300 text-sm text-blue-500 leading-6"  color="inherit" href={'/payments/payment-links'}>
+                                create a payment link.
+                            </Link>
                         </div>
-                        <DefaultButton
-                            icon={<BsPlus size={25} />}
-                            labelText="Create a payment link"
-                            handleClick={() => null}
-                            variant={"bg-selected cursor-poNunito flex items-center p-0 min-w-max sm:m-5"}
-                        />
                     </> :
                     <DataGrid
                         rows={stateData || data || []}

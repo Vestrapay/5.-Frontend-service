@@ -26,7 +26,8 @@ export type endPointlistTypes = {
     dashboardAnalytics: endpointTypes;
     dashboardNotif: endpointTypes;
     dashboardTrans: endpointTypes;
-
+    dashboardBalance: endpointTypes;
+    
     accountList: endpointTypes;
     createAccount: endpointTypes;
     updateAccount: endpointTypes;

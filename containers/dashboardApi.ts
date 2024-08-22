@@ -12,6 +12,7 @@ const fetchDashData = () => {
   const [displayName, setDisplayName] = useState({
     name: "",
     userType: "",
+    userId: "",
     kycStatus: false
   })
 
@@ -24,6 +25,7 @@ const fetchDashData = () => {
     setDisplayName({
       name: details?.businessName || "",
       userType: details?.userType || "",
+      userId: details?.uuid || "",
       kycStatus: details?.kycStatus ? false : true,
     })
 
@@ -104,6 +106,24 @@ const fetchDashData = () => {
   );
 
 
+  const func8 = async (): Promise<any> => {
+    const response = await apiCall({
+      name: "dashboardBalance",
+      action: (): any => (["skip"]),
+      errorAction: (): any => (["skip"])
+    })
+    return response;
+  }
+
+  const { isLoading: balanceLoading, isError: balanceErrorCheck, error: balanceError, isSuccess: balanceSuccess, data: balanceData } = useQuery(
+    ["DASHBOARD_DATA", "balance"],
+    () => func8(),
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
+
+
   return {
     displayName,
     updateProfile,
@@ -132,7 +152,13 @@ const fetchDashData = () => {
     transSuccess,
     transData,
     handleClearError,
-    handleClearUpdateError
+    handleClearUpdateError,
+
+    balanceLoading,
+    balanceErrorCheck,
+    balanceError,
+    balanceSuccess,
+    balanceData
   };
 }
 

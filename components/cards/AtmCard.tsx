@@ -7,9 +7,10 @@ import { RiVisaLine } from "react-icons/ri";
 const AtmCard = ({ debitCardNumber = "000000000000", cardHolder = "Omonigho Isaiah", expiryDate = "00/00", cardProvider = "", isActivated=true }: any) => {
 
     const groups: string[] = []
+let finaldebitCardNumber = debitCardNumber?.substring(0,12);
 
-    for (let i = 0; i < debitCardNumber.length; i += 4) {
-        groups.push(debitCardNumber.slice(i, i + 4))
+    for (let i = 0; i < finaldebitCardNumber.length; i += 4) {
+        groups.push(finaldebitCardNumber.slice(i, i + 4))
     }
 
     for (let i = 0; i < groups.length; i++) {

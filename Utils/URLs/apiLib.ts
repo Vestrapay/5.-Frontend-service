@@ -74,6 +74,12 @@ export const endPoints: endPointlistTypes = {
         headers: headers,
         auth: true
     },
+    dashboardBalance: {
+        url: '/api/v1/dashboard/balance',
+        method: 'GET',
+        headers: headers,
+        auth: true
+    },
 
 
     topBranches: {
