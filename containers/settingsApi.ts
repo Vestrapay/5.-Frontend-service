@@ -866,6 +866,22 @@ const SettlmentController = (showDelete: any = false, showView: any = false, sho
         }
     );
 
+    const fetchBanksData = async (): Promise<any> => {
+        const response = await apiCall({
+            name: "banksList",
+            action: (): any => (["skip"])
+        })
+        return response;
+    }
+
+    const { isLoading: bankisLoading, isError: bankisError, error: bankerror, isSuccess: bankisSuccess, data: bankdata, refetch: bankrefetch } = useQuery(
+        ["BANKS_LIST_DATA", "values", fName], () => fetchBanksData(),
+        {
+            refetchOnWindowFocus: false,
+            // staleTime: 60000
+        }
+    );
+
     useEffect(() => {
         refetch()
     }, [state?.viewCheck, state?.isSubmitting])
@@ -1198,7 +1214,7 @@ const SettlmentController = (showDelete: any = false, showView: any = false, sho
     }
 
     return {
-        setAddSettlement, selectEdit, setDeletingFunc, selectDelete, handleDeleteAccount, handleMakePrimary, handleEdit, handleCreate, handleClearError, handleChange, handleExtraChange, stateValues: state
+        bankdata, setAddSettlement, selectEdit, setDeletingFunc, selectDelete, handleDeleteAccount, handleMakePrimary, handleEdit, handleCreate, handleClearError, handleChange, handleExtraChange, stateValues: state
     }
 
     // return { isLoading, isError, error, isSuccess, data, refetch }

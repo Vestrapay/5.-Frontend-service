@@ -219,7 +219,7 @@ const SignInController = (setPage: (val: string) => any, resetingPass: boolean, 
                 },
                 successDetails: {
                     title: "Successful",
-                    text: `Your OTP has been resent.`,
+                    text: `Your OTP has been sent.`,
                     icon: ""
                 },
                 errorAction: (err?: any) => {

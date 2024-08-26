@@ -26,9 +26,9 @@ const BlankSettlement = ({ handleSubmit }: any) => (
 
 const Settlement = () => {
 
-    const { handleCreate, handleClearError, selectEdit, setDeletingFunc,
+    const { handleCreate, handleClearError, selectEdit, setDeletingFunc, bankdata,
         handleEdit, handleChange, handleExtraChange, stateValues, handleMakePrimary, setAddSettlement, selectDelete } = SettlmentController()
-
+    console.log(bankdata);
     return (
         <>
             <DashboardLayout>

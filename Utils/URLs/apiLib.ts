@@ -605,7 +605,7 @@ export const endPoints: endPointlistTypes = {
 
     //Institutions
     banksList: {
-        url: '/api/v1/bank/view',
+        url: '/api/v1/banks',
         method: 'GET',
         headers: headers,
         auth: true
@@ -628,6 +628,7 @@ export const endPoints: endPointlistTypes = {
         headers: headers,
         auth: true
     },
+
 
 
     //Settings
