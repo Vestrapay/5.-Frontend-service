@@ -406,9 +406,9 @@ const SignInController = (setPage: (val: string) => any, resetingPass: boolean, 
                 }
             })
                 .then(async (res: any) => {
-                    console.log("data: ", res?.data, "email: " + email, "password: " + password, "data: ", passData);
+                    console.log("data: ", res?.enabled, "email: " + email, "password: " + password, "data: ", passData);
                     setPassData({ ...passData, email: email, password: password });
-                    if (res?.data?.enabled) {
+                    if (res?.enabled) {
                         console.log("enabled: ", res?.data);
                         setPage("validatelogin");
                     } else {

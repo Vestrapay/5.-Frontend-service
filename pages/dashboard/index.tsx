@@ -129,15 +129,15 @@ const Dashboard = () => {
                             />
                             <div className="flex text-right mt-5 lg:mt-0 flex-col sm:flex-row lg:flex-col justify-center ml-2 mr-8">
                                 <span className="m-0 py-2 flex flex-row-reverse items-center gap-4">
-                                    <p className="text-lg font-bold m-0">{"₦" + balanceData?.currentBalance || "0.00"}</p>
+                                    <p className="text-lg font-bold m-0">{"₦" + (balanceData?.currentBalance || "0.00")}</p>
                                     <p className="text-sm whitespace-nowrap m-0 text-unselected">Current balance</p>
                                 </span>
                                 <span className="m-0 py-2 flex flex-row-reverse items-center gap-4">
-                                    <p className="text-lg font-bold m-0">{"₦" + balanceData?.income || "0.00"}</p>
+                                    <p className="text-lg font-bold m-0">{"₦" + (balanceData?.income || "0.00")}</p>
                                     <p className="text-sm m-0 text-unselected">Income</p>
                                 </span>
                                 <span className="m-0 py-2 flex flex-row-reverse items-center gap-4">
-                                    <p className="text-lg font-bold m-0">{"₦" + balanceData?.outcome || "0.00"}</p>
+                                    <p className="text-lg font-bold m-0">{"₦" + (balanceData?.outcome || "0.00")}</p>
                                     <p className="text-sm m-0 text-unselected">Outcome</p>
                                 </span>
                                 {/* <span className="m-0 py-0.5">

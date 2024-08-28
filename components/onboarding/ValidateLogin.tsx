@@ -8,7 +8,6 @@ import { LoginErrorCard } from '@Utils/actions/error';
 
 const ValidateLogin = ({ setPage, passData, resetingPass, setResetingPass, signInStatus, setPassData }: any) => {
 
-    console.log(passData);
 
     const {
         stateValues, handleSubmit, handlePreLogin, onChangeOTP, timeVal, setKey, handleClearError, generateOtp
@@ -16,6 +15,8 @@ const ValidateLogin = ({ setPage, passData, resetingPass, setResetingPass, signI
 
     // handleSubmit
     // handlePreLogin
+    console.log("stateValues: ", stateValues);
+
 
     const {
         otp,
