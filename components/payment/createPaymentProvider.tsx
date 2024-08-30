@@ -14,7 +14,7 @@ export default function CreatePaymentProvider({
 
     const { details } = Storage.getItem("userDetails") || {}
 
-    const { stateValues, handleChange, handleSubmit, selectMethod, payMethods, handleClearError } = createPayProvidersController(data);
+    const { stateValues, handleChange, handleSubmit, selectMethod, payMethods, handleClearError } = createPayProvidersController(data, setShow);
 
     const { isLoading, isError, error, isSuccess, data: payMethodData, refetch } = PayMethodController("")
 
@@ -61,9 +61,9 @@ export default function CreatePaymentProvider({
                             containerVariant={!stateValues?.submittingError ? "hidden" : ""} />
 
                         <div className="my-3 w-full flex flex-col sm:flex-row gap-5 justify-center items-center ">
-                        <DefaultButton
+                            <DefaultButton
                                 labelText="Submit"
-                                handleClick={(e: any) => { handleSubmit(e); () => setShow(false); }}
+                                handleClick={(e: any) => { handleSubmit(e);}}
                                 isLoading={stateValues?.isSubmitting}
                             />
                             <button

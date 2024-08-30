@@ -44,7 +44,7 @@ const PayProvidersController = (search: string = "") => {
 
 }
 
-const createPayProvidersController = (data: any) => {
+const createPayProvidersController = (data: any, setShow: any = () => null) => {
 
     const { userType, userDetail } = useAuthContext()
 
@@ -102,7 +102,8 @@ const createPayProvidersController = (data: any) => {
                         ...state,
                         isSubmitting: false,
                         submittingError: false,
-                    })
+                    });
+                    setShow(false);
                     return []
                 },
                 successDetails: {
@@ -132,6 +133,7 @@ const createPayProvidersController = (data: any) => {
             })
                 .then(async (res: any) => {
                     // showModal();
+                    setShow(false);
                     setState({
                         payMethod: "",
                         submittingError: false,
