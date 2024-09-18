@@ -6,7 +6,6 @@ import { BsPencilSquare, BsFillTrash3Fill, BsThreeDots, BsPlus, BsFillTrashFill,
 import { Switch } from '@mui/material';
 import { LoginErrorCard } from '@utils/actions/error';
 
-
 export default function EditPermission({ usePermissionController, users }: any) {
 
 
@@ -30,7 +29,7 @@ export default function EditPermission({ usePermissionController, users }: any) 
 
             <div className="w-full h-7 mt-10 justify-start items-start lg:items-center gap-4 flex lg:flex-row flex-col">
                 <div className="px-2 py-1 bg-indigo-900 rounded-lg flex-col justify-start items-start inline-flex">
-                    <div className="text-white text-xs font-medium font-['Nunito'] leading-none">Step 2 of 2</div>
+                    <div className="text-white text-xs font-medium font-['Nunito'] leading-none min-w-max p-1">Step 2 of 2</div>
                 </div>
                 <div className="text-zinc-800 text-2xl font-medium font-['Nunito'] leading-7 h-max w-full">{`Edit ${stateValues?.selectedUser?.username + " " || ""}permissions`}</div>
             </div>

@@ -36,7 +36,7 @@ let finaldebitCardNumber = debitCardNumber?.substring(0,12);
                     <p className="text-white text-xs mt-1">{cardHolder}</p>
                 </div>
                 <div>
-                    <p className="text-[7px] m-0">Expire date</p>
+                    <p className="text-[7px] m-0">Expiry date</p>
                     <p className="text-white text-xs mt-1">{expiryDate}</p>
                 </div>
                 {

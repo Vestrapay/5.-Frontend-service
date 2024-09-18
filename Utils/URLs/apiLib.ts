@@ -263,7 +263,7 @@ export const endPoints: endPointlistTypes = {
         payment: true
     },
     transferStatusQuery: {
-        url: '/api/v1/pay/transaction-status',
+        url: '/api/v1/pay',
         method: 'GET',
         headers: headers,
         auth: true,

@@ -91,7 +91,7 @@ export default function UpdateRoutingRule({
                         <div className="my-3 w-full flex flex-col sm:flex-row gap-5 justify-center items-center ">
                             <DefaultButton
                                 labelText="Submit"
-                                handleClick={(e: any) => { handleSubmit(e); () => setShow(false); }}
+                                handleClick={(e: any) => { handleSubmit(e, setShow) }}
                                 isLoading={stateValues?.isSubmitting}
                             />
                             <button

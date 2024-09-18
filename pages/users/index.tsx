@@ -225,7 +225,7 @@ const Users = () => {
         <>
             <DashboardLayout>
                 <main
-                    className="relative flex flex-1 flex-col px-10 pb-4 h-screen w-full overflow-x-visible transition-all duration-300 ease-in-out sm:px-12 pb-10 h-full">
+                    className="relative flex flex-1 flex-col px-10 pb-4 h-[90%] w-full overflow-x-visible transition-all duration-300 ease-in-out sm:px-12 pb-10 h-full">
                     <UsersNavbar />
                     <DataGrid
                         initialState={{

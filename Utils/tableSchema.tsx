@@ -69,7 +69,7 @@ export const recentTransactionsFields: GridColDef[] = [
                 <CurrencyFormat value={amount || ""} displayType={'text'} thousandSeparator={true} fixedDecimalScale={true} decimalScale={2} prefix={"₦"} />
             )
         }
-    }
+    },
 ]
 
 export const recentTransactionsData: GridRowsProp = [

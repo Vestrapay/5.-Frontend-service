@@ -9,6 +9,7 @@ import { SettlmentController } from 'containers/settingsApi';
 import { CountriesJson } from '@utils/helpers/CountriesJson';
 import { BanksJson } from '@utils/helpers/BanksJson';
 import DeleteAccount from '@/components/settlement/DeleteAccount';
+import { listController } from 'containers/banksApi';
 
 
 const BlankSettlement = ({ handleSubmit }: any) => (
@@ -26,9 +27,11 @@ const BlankSettlement = ({ handleSubmit }: any) => (
 
 const Settlement = () => {
 
-    const { handleCreate, handleClearError, selectEdit, setDeletingFunc, bankdata,
+    const { handleCreate, handleClearError, selectEdit, setDeletingFunc,
         handleEdit, handleChange, handleExtraChange, stateValues, handleMakePrimary, setAddSettlement, selectDelete } = SettlmentController()
-    console.log(bankdata);
+
+    const { isLoading: isLoadingBank, data: dataBank, refetch: refetchBank } = listController(0, 10, "", false, null, null, null);
+
     return (
         <>
             <DashboardLayout>
@@ -68,7 +71,7 @@ const Settlement = () => {
                                                 data={CountriesJson}
                                                 containerVariant="w-full py-2 col-span-2"
                                             />
-                                            <DefaultSelect
+                                            {/* <DefaultSelect
                                                 name="bank"
                                                 label="Bank"
                                                 topLabel="Select Bank"
@@ -77,12 +80,23 @@ const Settlement = () => {
                                                 handleChange={handleChange}
                                                 data={BanksJson}
                                                 containerVariant="w-full py-2 col-span-2"
+                                            /> */}
+                                            <DefaultSelect
+                                                name="bank"
+                                                label="Bank"
+                                                topLabel="Select Bank"
+                                                placeHolder={isLoadingBank ? "Loading..." : "Bank"}
+                                                value={stateValues?.bank}
+                                                handleChange={handleChange}
+                                                data={dataBank?.map((each: any, i: any) => ({ id: i, value: each?.name || "", name: each?.name || "", code: each?.code || "", nibss: each?.nibss_bank_code || "" }))}
+                                                // data={BanksJson}
+                                                containerVariant="w-full py-2 col-span-2"
                                             />
                                             <DefaultSelect
                                                 name="currency"
                                                 label="Currency"
                                                 topLabel="Select Account currency"
-                                                placeHolder="Enter Currency"
+                                                placeHolder=" Currency"
                                                 value={stateValues?.currency}
                                                 handleChange={handleChange}
                                                 data={[{ id: 1, name: "Naira", value: "Naira" }, { id: 2, name: "Dollar", value: "Dollar" }]}
@@ -171,10 +185,11 @@ const Settlement = () => {
                                                     name="bank"
                                                     label="Bank"
                                                     topLabel="Select Bank"
-                                                    placeHolder={stateValues?.bank}
+                                                    placeHolder={isLoadingBank ? "Loading..." : stateValues?.bank}
                                                     value={stateValues?.bank}
                                                     handleChange={handleChange}
-                                                    data={BanksJson}
+                                                    data={dataBank?.map((each: any, i: any) => ({ id: i, value: each?.name || "", name: each?.name || "", code: each?.code || "", nibss: each?.nibss_bank_code || "" }))}
+                                                    // data={BanksJson}
                                                     containerVariant="w-full py-2 col-span-2"
                                                 />
                                                 <DefaultSelect

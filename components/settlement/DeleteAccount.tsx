@@ -12,8 +12,8 @@ export default function DeleteAccount({
     data
 }: any) {
 
-    const { stateValues, handleDeleteAccount, handleClearError } = SettlmentController()
-    console.log(data);
+    const { stateValues, handleDeleteAccount, handleClearError } = SettlmentController(setShow)
+
     return (
         <Modal show={show} clicked={setShow}>
             <div className="flex flex-row gap-8 justify-around items-start max-w-[50vw] mb-10">
@@ -35,7 +35,7 @@ export default function DeleteAccount({
                         <div className="my-3 flex flex-col sm:flex-row gap-5 justify-center items-center ">
                             <DefaultButton
                                 labelText="Delete"
-                                handleClick={()=>handleDeleteAccount(data)}
+                                handleClick={() => handleDeleteAccount(data, setShow)}
                                 isLoading={stateValues?.isSubmitting}
                             />
                             <button

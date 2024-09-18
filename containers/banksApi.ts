@@ -8,23 +8,23 @@ import { useEffect } from 'react';
 
 
 //Fetching Bank list data
-const fetchlistData = (pageNo: any, pageSize: any, search: string) => {
+const fetchlistData = (pageNo: any = 0, pageSize: any = 10, search: string = "") => {
 
     const func = async (): Promise<any> => {
         const response = await apiCall({
             name: "banksList",
-            params: {
-                pageNo,
-                pageSize,
-                name: search
-            },
+            // params: {
+            //     pageNo,
+            //     pageSize,
+            //     name: search
+            // },
             action: (): any => (["skip"])
         })
         return response;
     }
 
     const { isLoading, isError, error, isSuccess, data, refetch } = useQuery(
-        ["BANK_LIST_DATA", "stats", pageNo], () => func(),
+        ["BANK_LIST_DATA", "stats", pageNo, pageSize, search], () => func(),
         {
             refetchOnWindowFocus: false,
             // staleTime: 60000
@@ -33,13 +33,9 @@ const fetchlistData = (pageNo: any, pageSize: any, search: string) => {
     return { isLoading, isError, error, isSuccess, data, refetch }
 }
 
-const listController = (pageNo: any, pageSize: any, search: string, show: any, state: any, setState: any, setShowDrop: any) => {
+const listController = (pageNo: any = 0, pageSize: any = 10, search: string = "", show: any, state: any, setState: any, setShowDrop: any) => {
 
     const { isLoading, isError, error, isSuccess, data, refetch } = fetchlistData(pageNo, pageSize, search);
-
-    useEffect(() => {
-        refetch()
-    }, [pageNo, pageSize, search, show])
 
     const handleExtraChange = (status: string, value: string) => {
         setState({ ...state, [status]: value })

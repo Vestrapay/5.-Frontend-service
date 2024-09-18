@@ -37,7 +37,10 @@ export const CreateTransContext = createContext({
         userId: ""
     },
     setPayLinkDetails: (value: any) => {
-    }
+    },
+    isViewTrans: false,
+    setIsViewTrans: (isViewUser: boolean) => {
+    },
 })
 
 export const NewTransContext = ({ children }: { children: React.ReactNode }) => {
@@ -54,11 +57,12 @@ export const NewTransContext = ({ children }: { children: React.ReactNode }) => 
         secret: "",
         userId: ""
     });
+    const [isViewTrans, setIsViewTrans] = useState(false);
 
     return (
         <CreateTransContext.Provider value={{
             payType, setPayType, payPath, setPayPath, amount, setAmount, payLinkDetails, setPayLinkDetails, payment,
-            email, setEmail, merchant, setMerchant, business, setBusiness, setPayment
+            email, setEmail, merchant, setMerchant, business, setBusiness, setPayment, isViewTrans, setIsViewTrans
         }}>
             {children}
         </CreateTransContext.Provider>

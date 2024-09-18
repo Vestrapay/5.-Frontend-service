@@ -866,21 +866,6 @@ const SettlmentController = (showDelete: any = false, showView: any = false, sho
         }
     );
 
-    const fetchBanksData = async (): Promise<any> => {
-        const response = await apiCall({
-            name: "banksList",
-            action: (): any => (["skip"])
-        })
-        return response;
-    }
-
-    const { isLoading: bankisLoading, isError: bankisError, error: bankerror, isSuccess: bankisSuccess, data: bankdata, refetch: bankrefetch } = useQuery(
-        ["BANKS_LIST_DATA", "values", fName], () => fetchBanksData(),
-        {
-            refetchOnWindowFocus: false,
-            // staleTime: 60000
-        }
-    );
 
     useEffect(() => {
         refetch()
@@ -1153,8 +1138,8 @@ const SettlmentController = (showDelete: any = false, showView: any = false, sho
         };
     }
 
-    const handleDeleteAccount = async (values: any) => {
-        console.log(values);
+    const handleDeleteAccount = async (values: any, showDelete: any) => {
+
         setState((state: any) => ({
             ...state,
             isSubmitting: true
@@ -1177,7 +1162,8 @@ const SettlmentController = (showDelete: any = false, showView: any = false, sho
                         ...state,
                         isSubmitting: false,
                         submittingError: false,
-                    })
+                    });
+                    showDelete && showDelete(false);
                     return [""]
                 },
                 successDetails: { title: "Account removed Successfully!", text: "Congratulations, Your have removed this settlement account.", icon: "" },
@@ -1201,7 +1187,7 @@ const SettlmentController = (showDelete: any = false, showView: any = false, sho
                 }
             })
                 .then(async (res: any) => {
-                    // showModal();
+                    showDelete && showDelete(false);
                     setState({
                         submittingError: false,
                         isSubmitting: false,
@@ -1213,9 +1199,7 @@ const SettlmentController = (showDelete: any = false, showView: any = false, sho
         };
     }
 
-    return {
-        bankdata, setAddSettlement, selectEdit, setDeletingFunc, selectDelete, handleDeleteAccount, handleMakePrimary, handleEdit, handleCreate, handleClearError, handleChange, handleExtraChange, stateValues: state
-    }
+    return { setAddSettlement, selectEdit, setDeletingFunc, selectDelete, handleDeleteAccount, handleMakePrimary, handleEdit, handleCreate, handleClearError, handleChange, handleExtraChange, stateValues: state }
 
     // return { isLoading, isError, error, isSuccess, data, refetch }
 
