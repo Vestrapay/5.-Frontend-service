@@ -42,14 +42,13 @@ const Completionist = (value: any) => {
         </div>)
 };
 
-
 let second = 0;
 
-const CardPaymentGateway: NextPage = () => {
-    const [open, setOpen] = React.useState(false);
+const TransferPaymentLink: NextPage = () => {
 
-    const [first, setfirst] = useState<number>(0)
-    const [coutDone, setCountDone] = useState<boolean>(false)
+    const [open, setOpen] = React.useState(false);
+    const [first, setfirst] = useState<number>(0);
+    const [countDone, setCountDone] = useState<boolean>(false);
 
     const { handleInitiateTransfer, transferDetails, handleClearError, handleChange, handleExtraChange, stateValues, handleTSQ, closeModal } = paymentGatewayController("transfer")
 
@@ -69,7 +68,7 @@ const CardPaymentGateway: NextPage = () => {
     };
 
     React.useEffect(() => {
-        if (stateValues?.transactionStatus && stateValues?.transactionStatus === "PENDING") {
+        if ((stateValues?.transactionStatus && stateValues?.transactionStatus === "PENDING") || !initiatedTrans?.transfer?.payed) {
             setOpen(true);
         }
     }, [stateValues?.transactionStatus]);
@@ -86,6 +85,7 @@ const CardPaymentGateway: NextPage = () => {
             </IconButton>
         </React.Fragment>
     );
+
     return (
         <PayLinkLayout>
 
@@ -98,25 +98,18 @@ const CardPaymentGateway: NextPage = () => {
                     <div className="flex flex-wrap gap-10 w-full">
 
                         {stateValues?.transferSent || initiatedTrans?.transfer?.payed ?
-                            <div className="w-full h-max rounded-md border border-stone-500 border-opacity-20 flex-col justify-center items-center flex  pt-11 pb-11">
+                            <div className="w-full h-max rounded-md border border-stone-500 border-opacity-20 flex-col justify-center items-center flex  pt-11 pb-6">
                                 <div className="h-max p-10 pt-5 flex-col justify-center items-center gap-2 flex">
                                     <div>
                                         <img className="w-28 h-28" src="/assets/successGif.gif" />
                                     </div>
                                     <div className="h-max pt-2 flex-col  justify-center items-center gap-1 flex">
                                         <div className="text-neutral-600 text-2xl font-normal font-['Roboto'] leading-tight tracking-wide text-center ">Transaction Successful</div>
-                                        <div className="w-full pt-1 justify-center items-center inline-flex">
+                                        <div className="w-full pt-1 mb-2 justify-center items-center inline-flex">
                                             <div className=" justify-center items-center flex">
                                                 <div className=" font-base font-['Roboto'] leading-loose text-zinc-500 text-base text-center ">
                                                     Redirecting you back to the previous page.
                                                 </div>
-                                                <DefaultButton
-                                                    labelText={"Click to go back"}
-                                                    containerVariant="w-max p-3 my-5 text-center text-neutral-50 text-lg font-extrabold font-['Roboto'] leading-tight"
-                                                    variant=" w-full p-3 uppercase text-center text-neutral-50 text-lg font-extrabold font-['Roboto'] leading-tight"
-                                                    // handleClick={handleInitiateTransfer}
-                                                    handleClick={closeModal}
-                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -141,7 +134,7 @@ const CardPaymentGateway: NextPage = () => {
                                     </div>
                                 </div> :
                                 stateValues?.initiated ?
-                                    !coutDone ?
+                                    !countDone ?
                                         <>
                                             <div className="w-full h-max px-px pt-11 pb-5 bg-neutral-100 rounded-md border border-stone-500 border-opacity-20 flex-col justify-start items-start gap-7 inline-flex">
                                                 <div className="h-16 px-10 pt-2 flex-col justify-start items-start gap-1 flex">
@@ -243,7 +236,7 @@ const CardPaymentGateway: NextPage = () => {
 
                     </div>
                     <div className="w-full flex flex-row justify-center items-center">
-                        {stateValues?.initiated && !stateValues?.transferSentError && !stateValues?.transferSent ?
+                        {stateValues?.initiated && !stateValues?.transferSentError && !stateValues?.transferSent && !initiatedTrans?.transfer?.payed ?
                             <DefaultButton
                                 labelText={"Payment Completed"}
                                 containerVariant="w-max p-3 my-5 text-center text-neutral-50 text-lg font-extrabold font-['Roboto'] leading-tight"
@@ -252,7 +245,7 @@ const CardPaymentGateway: NextPage = () => {
                                 handleClick={(e: any) => handleTSQ(true)}
                                 isDisabled={stateValues?.isDisabled}
                             />
-                            : !stateValues?.transferSent ?
+                            : !stateValues?.transferSent && !initiatedTrans?.transfer?.payed ?
                                 <DefaultButton
                                     labelText={"Re check"}
                                     containerVariant="w-max p-3 my-5 text-center text-neutral-50 text-lg font-extrabold font-['Roboto'] leading-tight"
@@ -261,7 +254,26 @@ const CardPaymentGateway: NextPage = () => {
                                     // handleClick={handleInitiateTransfer}
                                     handleClick={(e: any) => handleTSQ(true)}
                                     isDisabled={stateValues?.isDisabled}
-                                /> : null
+                                /> : initiatedTrans?.transfer?.payed ?
+                                    <DefaultButton
+                                        labelText={"Click to go back"}
+                                        containerVariant="w-max p-3 my-5 text-center text-neutral-50 text-lg font-extrabold font-['Roboto'] leading-tight"
+                                        variant=" w-full p-3 uppercase text-center text-neutral-50 text-lg font-extrabold font-['Roboto'] leading-tight"
+                                        isLoading={stateValues?.isSubmitting}
+                                        // handleClick={handleInitiateTransfer}
+                                        handleClick={closeModal}
+                                        isDisabled={stateValues?.isDisabled}
+                                    />
+                                    :
+                                    <DefaultButton
+                                        labelText={"Re check"}
+                                        containerVariant="w-max p-3 my-5 text-center text-neutral-50 text-lg font-extrabold font-['Roboto'] leading-tight"
+                                        variant=" w-full p-3 uppercase text-center text-neutral-50 text-lg font-extrabold font-['Roboto'] leading-tight"
+                                        isLoading={stateValues?.isSubmitting}
+                                        // handleClick={handleInitiateTransfer}
+                                        handleClick={(e: any) => handleTSQ(true)}
+                                        isDisabled={stateValues?.isDisabled}
+                                    />
                         }
                     </div>
 
@@ -271,10 +283,11 @@ const CardPaymentGateway: NextPage = () => {
                 open={open}
                 autoHideDuration={6000}
                 onClose={handleClose}
-                message={stateValues?.transactionStatus === "PENDING"? "Transfer still in progress...":"Checking..."}
+                message={stateValues?.transactionStatus === "PENDING" ? "Transfer still in progress..." : "Checking..."}
                 action={action}
             />
         </PayLinkLayout>
     );
 };
-export default CardPaymentGateway;
+
+export default TransferPaymentLink;
