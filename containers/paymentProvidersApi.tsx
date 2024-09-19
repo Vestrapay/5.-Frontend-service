@@ -218,7 +218,7 @@ const updatePayProvidersController = (data: PayProvidersProps) => {
 
     const handleClearError = () => setState({ ...state, submittingError: false })
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent, setShow: any) => {
         e.preventDefault();
         setState((state: any) => ({
             ...state,
@@ -238,7 +238,8 @@ const updatePayProvidersController = (data: PayProvidersProps) => {
                         ...state,
                         isSubmitting: false,
                         submittingError: false,
-                    })
+                    });
+                    setShow(false);
                     return []
                 },
                 successDetails: {
@@ -267,7 +268,7 @@ const updatePayProvidersController = (data: PayProvidersProps) => {
                 }
             })
                 .then(async (res: any) => {
-                    // showModal();
+                    setShow(false);
                     setState({
                         payMethod: "",
                         submittingError: false,

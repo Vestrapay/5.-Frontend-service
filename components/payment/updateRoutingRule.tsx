@@ -5,6 +5,7 @@ import { Storage } from "@utils/inAppstorage";
 import { PayMethodController, createPayMethodController } from "containers/paymentMethodApi";
 import { PayProvidersController, updatePayProvidersController } from "containers/paymentProvidersApi";
 import { ProvidersByMethodController, updateRoutingRulesController } from "containers/routingRulesApi";
+import { LoginErrorCard } from "@utils/actions/error";
 
 export default function UpdateRoutingRule({
     show,
@@ -14,7 +15,7 @@ export default function UpdateRoutingRule({
 
     const { details } = Storage.getItem("userDetails") || {}
 
-    const { stateValues, handleChange, handleSubmit, selectMethod, payMethods } = updateRoutingRulesController(data);
+    const { stateValues, handleChange, handleSubmit, selectMethod, payMethods, handleClearError } = updateRoutingRulesController(data, setShow);
 
     const { data: payMethodData } = PayMethodController("")
 
@@ -87,6 +88,9 @@ export default function UpdateRoutingRule({
                                 <span>{each} &nbsp; </span>
                             ))}
                         </div> */}
+
+                        <LoginErrorCard handleClear={handleClearError} error={stateValues?.errorMssg || ""}
+                            containerVariant={!stateValues?.submittingError ? "hidden" : ""} />
 
                         <div className="my-3 w-full flex flex-col sm:flex-row gap-5 justify-center items-center ">
                             <DefaultButton

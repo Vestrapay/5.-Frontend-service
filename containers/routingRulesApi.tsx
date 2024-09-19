@@ -213,7 +213,7 @@ const createRoutingRulesController = (data: any) => {
     return { handleSubmit, handleClearError, handleChange, handleExtraChange, stateValues: state, selectMethod, payMethods }
 }
 
-const updateRoutingRulesController = (data: RoutingRulesProps) => {
+const updateRoutingRulesController = (data: RoutingRulesProps, setShow: any) => {
 
     const [state, setState] = useState<any>({
         payMethod: "",
@@ -234,11 +234,10 @@ const updateRoutingRulesController = (data: RoutingRulesProps) => {
             ...state,
             paymentMethod: data?.paymentMethod || state?.paymentMethod || "",
             provider: data?.provider || state?.provider || "",
+            submittingError: false,
+            isSubmitting: false,
+            errorMssg: ""
         })
-
-
-        // setPayMethods(listMethods);
-
     }, [data])
 
 
@@ -273,8 +272,8 @@ const updateRoutingRulesController = (data: RoutingRulesProps) => {
             const response = await apiCall({
                 name: "updateRoutingRules",
                 data: {
-                    provider: provider,
-                    paymentMethod: payMethod
+                    provider: provider || data?.provider || state?.provider || "",
+                    paymentMethod: payMethod || data?.paymentMethod || state?.paymentMethod || ""
                 },
                 action: (): any => {
                     refetch();
@@ -341,6 +340,11 @@ const updateRoutingRulesController = (data: RoutingRulesProps) => {
             [name]: value,
             submittingError: false
         });
+    }
+
+    const handleCloseModal = (name: any, value: any) => {
+        setShow(false);
+
     }
 
 
