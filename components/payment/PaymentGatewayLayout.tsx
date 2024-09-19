@@ -12,7 +12,7 @@ import { useNewTransContext } from "context/transactionContext";
 
 const PaymentGateway = ({ children }: LayoutProps) => {
     const router = useRouter()
-    const { stateValues } = paymentGatewayController();
+    const { stateValues, setState, closeModal } = paymentGatewayController();
 
     const { payType: paymentType } = useNewTransContext()
 
@@ -23,8 +23,6 @@ const PaymentGateway = ({ children }: LayoutProps) => {
     const changePaymentType = (url: string) => {
         router.push(url)
     }
-    
-
     useEffect(() => {
         if (router.asPath.includes("card")) {
             setPayType("card");
@@ -50,7 +48,9 @@ const PaymentGateway = ({ children }: LayoutProps) => {
                     <div className="flex flex-row  items-center md:items-start justify-center border border-darkslateblue rounded ">
 
                         <img className=" md:hidden block w-10 h-[50px] mr-5 top-10 left-5 md:left-10" alt="" src="/assets/svg/vector.svg" />
-                        <span className="relative leading-[21.63px] cursor-pointer" onClick={() => { paymentType ? router.push(paymentType) : window.history.back(); }}>Go back</span>
+                        <span className="relative leading-[21.63px] cursor-pointer"
+                            onClick={closeModal}>
+                            Go back</span>
                     </div>
 
                     <div className="w-8 h-8 md:hidden block bg-white rounded-full cursor-pointer" onClick={() => setDialog(true)}>
@@ -100,7 +100,8 @@ const PaymentGateway = ({ children }: LayoutProps) => {
 
             <div className="hidden md:flex w-[30%] h-[100%] min-h-[100vh] bg-indigo-900 bg-opacity-10  flex-col justify-center gap-0 items-start fixed right-0">
 
-                <div className="w-8 h-8 absolute bg-white rounded-full flex justify-center items-center top-20 right-10 lg:right-20 cursor-pointer" onClick={() => { paymentType ? router.push(paymentType) : window.history.back(); }}>
+                <div className="w-8 h-8 absolute bg-white rounded-full flex justify-center items-center top-20 right-10 lg:right-20 cursor-pointer"
+                    onClick={closeModal}>
                     <HiMiniXMark size={20} color={"black"} />
                 </div>
 
@@ -172,7 +173,9 @@ const PaymentGateway = ({ children }: LayoutProps) => {
 
                     <div className="text-zinc-800  px-5 lg:pl-10 xl:pl-20 lg:pr-5 pt-7 pb-6 text-xl font-semibold font-['Roboto'] uppercase leading-none">Pay with</div>
 
-                    <div className={` ${payType == "card" ? "bg-white" : "bg-none"} w-5/6 h-max px-5 lg:pl-10 xl:pl-20 lg:pr-5 pt-7 pb-6 rounded-tr-lg rounded-br-lg justify-start items-center gap-6 inline-flex cursor-pointer`} onClick={() => changePaymentType("/payment-gateway/card")}>
+                    <div className={` ${payType == "card" ? "bg-white" : "bg-none"} w-5/6 h-max px-5 lg:pl-10 xl:pl-20 lg:pr-5 pt-7 pb-6 rounded-tr-lg rounded-br-lg justify-start items-center gap-6 inline-flex cursor-pointer`}
+                        onClick={() => changePaymentType("/payment-gateway/card")}>
+
                         <div className=" justify-center items-start flex">
                             <div className={` ${payType == "card" ? "bg-indigo-900" : " bg-gray-300"} w-10 h-10 relative rounded-full flex justify-center items-center`}>
                                 <HiCreditCard size={15} color={payType == "card" ? "white" : "gray"} />

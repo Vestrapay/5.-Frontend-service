@@ -294,6 +294,7 @@ const Card = () => {
                 show={showDelete}
                 setShow={setShowDelete}
                 data={"/payment-gateway/card"}
+                type={"card"}
             />
         </>
     );

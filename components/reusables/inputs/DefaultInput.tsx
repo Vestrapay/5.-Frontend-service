@@ -33,6 +33,7 @@ const DefaultInput = forwardRef<any, any>(({
     checkNum,
     checkEmail,
     info = "",
+    noCheckPassword = false,
     textarea = false,
     isDisabled = false,
     payment = false
@@ -43,35 +44,41 @@ const DefaultInput = forwardRef<any, any>(({
     const [cap, setCap] = useState(false)
     const [low, setLow] = useState(false)
     const [num, setNum] = useState(false)
+    const [validity, setValidity] = useState(false)
 
     const togglePasswordVisiblity = () => {
         setPasswordShown(!passwordShown);
     };
 
     useEffect(() => {
-        if (value?.length >= 8) {
+        if (value?.length >= 7) {
             setMin(true)
-        } else if (value?.length < 8) {
+        } else if (value?.length < 7) {
             setMin(false);
+            setValidity(false);
             validationFunc();
         }
         if (/\d/.test(value)) {
             setNum(true)
         } else if (!/\d/.test(value)) {
             setNum(false)
+            setValidity(false);
         }
         if (/[a-z]/.test(value)) {
             setLow(true)
         } else if (!/[a-z]/.test(value)) {
             setLow(false)
+            setValidity(false);
         }
         if (/[A-Z]/.test(value)) {
             setCap(true)
         } else if (!/[A-Z]/.test(value)) {
             setCap(false)
+            setValidity(false);
         }
         if (min && cap && low && num) {
-            validationFunc()
+            validationFunc();
+            setValidity(true);
         }
     }, [value])
 
@@ -163,9 +170,10 @@ const DefaultInput = forwardRef<any, any>(({
                                     "outline-none placeholder:text-gray-300 text-blackish placeholder:text-sm placeholder:min-w-max w-full border-none leading-6 text-sm font-300 px-0 py-3 bg-[#ffffff00]"} 
                                 ${icon ? "pl-0" : ""} ${inputVariant} invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer `}
                             />
-                            <span className="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block absolute -bottom-6">
-                                {`Please enter a valid ${name.replace(/[A-Z-_\&](?=[a-z0-9]+)|[A-Z-_\&]+(?![a-z0-9])/g,' $&').trim().toLowerCase()}`}
-                            </span>
+                            {(!validity && !noCheckPassword) &&
+                                <span className="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block absolute -bottom-6">
+                                    {`Please enter a valid ${name.replace(/[A-Z-_\&](?=[a-z0-9]+)|[A-Z-_\&]+(?![a-z0-9])/g, ' $&').trim().toLowerCase()}`}
+                                </span>}
                         </>
                 }
                 {/* {label || name} */}

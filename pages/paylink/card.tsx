@@ -15,7 +15,7 @@ import { OtpInput } from "@/components/otpInput";
 
 const CardPaymentGateway: NextPage = () => {
 
-    const details = paymentGatewayController();
+    const details = paymentGatewayController("card");
 
     let { handleSubmitCard, handleCardPayAuth, handleClearError, handleChange, timeVal, onChangeOTP, handleExtraChange, stateValues } = details;
     const {

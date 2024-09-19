@@ -10,7 +10,8 @@ import { Storage } from "@utils/inAppstorage";
 export default function StartTransaction({
     show,
     setShow,
-    data
+    data,
+    type
 }: any) {
 
     const { amount, setAmount, setEmail, setMerchant, setBusiness, setPayType } = useNewTransContext()
@@ -23,7 +24,7 @@ export default function StartTransaction({
         setEmail(details?.email || "");
         setMerchant(details?.merchantId || "");
         setBusiness(details?.businessName || "")
-        setPayType(router?.asPath || "/payment-gateway")
+        setPayType(type || router?.asPath || "/payment-gateway")
     }
 
     return (

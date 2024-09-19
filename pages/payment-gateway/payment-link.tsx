@@ -15,7 +15,7 @@ import successAlert from "@utils/actions/success";
 
 const CardPaymentGateway: NextPage = () => {
 
-    const { handleSubmitLink, handleClearError, handleChange, handleExtraChange, stateValues } = paymentGatewayController();
+    const { handleSubmitLink, handleClearError, handleChange, handleExtraChange, stateValues } = paymentGatewayController("payment-link");
 
 
     return (

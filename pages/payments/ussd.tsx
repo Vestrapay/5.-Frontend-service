@@ -293,6 +293,7 @@ const Transfer = () => {
                 show={showDelete}
                 setShow={setShowDelete}
                 data={"/payment-gateway/ussd"}
+                type={"ussd"}
             />
         </>
     );

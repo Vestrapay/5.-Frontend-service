@@ -12,9 +12,13 @@ import { LayoutProps } from "@types";
 import PaymentGatewayLayout from "@/components/payment/PaymentGatewayLayout";
 import { useEffect, useState } from "react";
 import { PropagateLoader } from "react-spinners";
-import { BsFillExclamationTriangleFill } from "react-icons/bs";
+import { BsFillExclamationTriangleFill, BsXSquare } from "react-icons/bs";
 import Countdown, { zeroPad, calcTimeDelta, formatTimeDelta } from 'react-countdown';
-
+import { useNewTransContext } from "context/transactionContext";
+import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
+import React from "react";
 
 // Random component
 const Completionist = (value: any) => {
@@ -42,13 +46,46 @@ let second = 0;
 
 const TransferPaymentGateway: NextPage = () => {
 
+    const [open, setOpen] = React.useState(false);
     const [first, setfirst] = useState<number>(0);
     const [countDone, setCountDone] = useState<boolean>(false);
 
-    const { handleInitiateTransfer, transferDetails, handleClearError, handleChange, handleExtraChange, stateValues, handleTSQ } = paymentGatewayController("transfer");
+    const { handleInitiateTransfer, transferDetails, handleClearError, handleChange, handleExtraChange, stateValues, handleTSQ, closeModal } = paymentGatewayController("transfer")
 
     const { account_name, account_number, bank_code, bank_name } = transferDetails;
 
+    const { initiatedTrans } = useNewTransContext()
+
+    const handleClose = (
+        event: React.SyntheticEvent | Event,
+        reason?: SnackbarCloseReason,
+    ) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
+
+    React.useEffect(() => {
+        console.log(stateValues?.transactionStatus);
+        if ((stateValues?.transactionStatus && stateValues?.transactionStatus === "PENDING") || !initiatedTrans?.transfer?.payed) {
+            setOpen(true);
+        }
+    }, [stateValues?.transactionStatus]);
+
+    const action = (
+        <React.Fragment>
+            <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={handleClose}
+            >
+                <BsXSquare size={25} />
+            </IconButton>
+        </React.Fragment>
+    );
 
     return (
         <PaymentGatewayLayout>
@@ -61,15 +98,15 @@ const TransferPaymentGateway: NextPage = () => {
                     <LoginErrorCard handleClear={handleClearError} error={stateValues?.errorMssg || ""} containerVariant={!stateValues?.submittingError ? "hidden" : "mx-14"} />
                     <div className="flex flex-wrap gap-10 w-full">
 
-                        {stateValues?.transferSent ?
-                            <div className="w-full h-max rounded-md border border-stone-500 border-opacity-20 flex-col justify-center items-center flex  pt-11 pb-11">
+                        {stateValues?.transferSent || initiatedTrans?.transfer?.payed ?
+                            <div className="w-full h-max rounded-md border border-stone-500 border-opacity-20 flex-col justify-center items-center flex  pt-11 pb-6">
                                 <div className="h-max p-10 pt-5 flex-col justify-center items-center gap-2 flex">
                                     <div>
                                         <img className="w-28 h-28" src="/assets/successGif.gif" />
                                     </div>
                                     <div className="h-max pt-2 flex-col  justify-center items-center gap-1 flex">
                                         <div className="text-neutral-600 text-2xl font-normal font-['Roboto'] leading-tight tracking-wide text-center ">Transaction Successful</div>
-                                        <div className="w-full pt-1 justify-center items-center inline-flex">
+                                        <div className="w-full pt-1 mb-2 justify-center items-center inline-flex">
                                             <div className=" justify-center items-center flex">
                                                 <div className=" font-base font-['Roboto'] leading-loose text-zinc-500 text-base text-center ">
                                                     Redirecting you back to the previous page.
@@ -143,9 +180,9 @@ const TransferPaymentGateway: NextPage = () => {
                                                         if (data?.minutes) {
                                                             setfirst(data?.minutes);
                                                             if (first > data?.minutes) {
-                                                                console.log(first);
+                                                                console.log("transfer timer: ", first);
                                                                 setfirst(data?.minutes);
-                                                                handleTSQ();
+                                                                handleTSQ(false);
                                                             }
                                                         }
                                                     }}
@@ -153,7 +190,7 @@ const TransferPaymentGateway: NextPage = () => {
 
                                                         if (completed) {
                                                             setCountDone(true);
-                                                            handleTSQ();
+                                                            handleTSQ(false);
                                                             // Render a completed state
                                                             return <span></span>
                                                         } else {
@@ -200,29 +237,56 @@ const TransferPaymentGateway: NextPage = () => {
 
                     </div>
                     <div className="w-full flex flex-row justify-center items-center">
-                        {stateValues?.initiated && !stateValues?.transferSentError && !stateValues?.transferSent ?
+                        {stateValues?.initiated && !stateValues?.transferSentError && !stateValues?.transferSent && !initiatedTrans?.transfer?.payed ?
                             <DefaultButton
                                 labelText={"Payment Completed"}
                                 containerVariant="w-max p-3 my-5 text-center text-neutral-50 text-lg font-extrabold font-['Roboto'] leading-tight"
                                 variant="w-full p-3 text-center text-neutral-50 text-lg font-extrabold font-['Roboto'] leading-tight"
                                 isLoading={stateValues?.isSubmitting}
-                                handleClick={handleTSQ}
+                                handleClick={(e: any) => handleTSQ(true)}
                                 isDisabled={stateValues?.isDisabled}
                             />
-                            : !stateValues?.transferSent ?
+                            : !stateValues?.transferSent && !initiatedTrans?.transfer?.payed ?
                                 <DefaultButton
-                                    labelText={"Re initiate"}
+                                    labelText={"Re check"}
                                     containerVariant="w-max p-3 my-5 text-center text-neutral-50 text-lg font-extrabold font-['Roboto'] leading-tight"
                                     variant=" w-full p-3 uppercase text-center text-neutral-50 text-lg font-extrabold font-['Roboto'] leading-tight"
                                     isLoading={stateValues?.isSubmitting}
-                                    handleClick={handleInitiateTransfer}
+                                    // handleClick={handleInitiateTransfer}
+                                    handleClick={(e: any) => handleTSQ(true)}
                                     isDisabled={stateValues?.isDisabled}
-                                /> : null
+                                /> : initiatedTrans?.transfer?.payed ?
+                                    <DefaultButton
+                                        labelText={"Click to go back"}
+                                        containerVariant="w-max p-3 my-5 text-center text-neutral-50 text-lg font-extrabold font-['Roboto'] leading-tight"
+                                        variant=" w-full p-3 uppercase text-center text-neutral-50 text-lg font-extrabold font-['Roboto'] leading-tight"
+                                        isLoading={stateValues?.isSubmitting}
+                                        // handleClick={handleInitiateTransfer}
+                                        handleClick={closeModal}
+                                        isDisabled={stateValues?.isDisabled}
+                                    />
+                                    :
+                                    <DefaultButton
+                                        labelText={"Re check"}
+                                        containerVariant="w-max p-3 my-5 text-center text-neutral-50 text-lg font-extrabold font-['Roboto'] leading-tight"
+                                        variant=" w-full p-3 uppercase text-center text-neutral-50 text-lg font-extrabold font-['Roboto'] leading-tight"
+                                        isLoading={stateValues?.isSubmitting}
+                                        // handleClick={handleInitiateTransfer}
+                                        handleClick={(e: any) => handleTSQ(true)}
+                                        isDisabled={stateValues?.isDisabled}
+                                    />
                         }
                     </div>
 
                 </form>
             }
+            <Snackbar
+                open={open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                message={stateValues?.transactionStatus === "PENDING" ? "Transfer still in progress..." : "Checking..."}
+                action={action}
+            />
         </PaymentGatewayLayout>
     );
 };

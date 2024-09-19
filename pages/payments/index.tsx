@@ -298,6 +298,7 @@ const Transfer = () => {
                 show={showDelete}
                 setShow={setShowDelete}
                 data={"/payment-gateway/transfer"}
+                type={"transfer"}
             />
         </>
     );

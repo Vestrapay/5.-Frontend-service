@@ -14,7 +14,7 @@ import PaymentGatewayLayout from "@/components/payment/PaymentGatewayLayout";
 
 const CardPaymentGateway: NextPage = () => {
 
-    const { handleSubmitUSSD, handleClearError, handleChange, handleExtraChange, stateValues } = paymentGatewayController()
+    const { handleSubmitUSSD, handleClearError, handleChange, handleExtraChange, stateValues } = paymentGatewayController("ussd")
 
 
     return (

@@ -41,6 +41,39 @@ export const CreateTransContext = createContext({
     isViewTrans: false,
     setIsViewTrans: (isViewUser: boolean) => {
     },
+    initiatedTrans: {
+        transfer: {
+            initiated: false,
+            details: {
+                bank_account: {
+                    account_name: "",
+                    account_number: "",
+                    bank_code: "",
+                    bank_name: "",
+                },
+                amount: "",
+                business: "",
+                merchant: "",
+                email: "",
+                reference: "",
+            },
+            payed: false
+        },
+        ussd: {
+            initiated: false,
+            details: {}
+        },
+        card: {
+            initiated: false,
+            details: {}
+        },
+        link: {
+            initiated: false,
+            details: {}
+        }
+    },
+    setInitiatedTrans: (value: any) => {
+    },
 })
 
 export const NewTransContext = ({ children }: { children: React.ReactNode }) => {
@@ -57,12 +90,35 @@ export const NewTransContext = ({ children }: { children: React.ReactNode }) => 
         secret: "",
         userId: ""
     });
+    const [initiatedTrans, setInitiatedTrans] = useState<any>({
+        transfer: {
+            initiated: false,
+            details: {
+                bank_account: "",
+                reference: "",
+            },
+            payed: false
+        },
+        ussd: {
+            initiated: false,
+            details: {}
+        },
+        card: {
+            initiated: false,
+            details: {}
+        },
+        link: {
+            initiated: false,
+            details: {}
+        }
+    });
     const [isViewTrans, setIsViewTrans] = useState(false);
 
     return (
         <CreateTransContext.Provider value={{
             payType, setPayType, payPath, setPayPath, amount, setAmount, payLinkDetails, setPayLinkDetails, payment,
-            email, setEmail, merchant, setMerchant, business, setBusiness, setPayment, isViewTrans, setIsViewTrans
+            email, setEmail, merchant, setMerchant, business, setBusiness, setPayment, isViewTrans, setIsViewTrans,
+            initiatedTrans, setInitiatedTrans
         }}>
             {children}
         </CreateTransContext.Provider>

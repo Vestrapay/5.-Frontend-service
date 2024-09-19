@@ -33,6 +33,7 @@ const SignIn = ({ setPage, resetingPass, setResetingPass, signInStatus, setPassD
                 placeHolder="Enter Password"
                 containerVariant="w-full py-2"
                 value={password}
+                noCheckPassword={true}
                 handleChange={handleChange}
             />
 

@@ -11,7 +11,11 @@ import { useNewTransContext } from 'context/transactionContext';
 
 const paymentGatewayController = (paymentType: any = "") => {
 
+    
     const details = useNewTransContext()
+    const { initiatedTrans, setInitiatedTrans, setPayLinkDetails, payType } = details;
+
+    console.log("deets: ",paymentType, payType);
 
     const { secretKey } = Storage.getItem("apiKeys") || { secretKey: "" }
     const { details: { merchantId: merchantsID, uuid: uuID } } = Storage.getItem("userDetails") || { details: { merchantId: "", uuid: "" } }
@@ -124,6 +128,15 @@ const paymentGatewayController = (paymentType: any = "") => {
         }
     }, [name, number, cvv, expiryMonth, expiryYear])
 
+    useEffect(() => {
+        if (secretKey && merchantsID && uuID) {
+            setPayLinkDetails({
+                secret: secretKey || details?.payLinkDetails?.secret || state?.secret || "",
+                merchantId: merchantsID || details?.payLinkDetails?.merchantId || state?.merchantId || details?.merchant || "",
+                userId: uuID || details?.payLinkDetails?.userId || state?.userId || "",
+            })
+        }
+    }, [secretKey, merchantsID, uuID])
 
     useEffect(() => {
         if (state?.paymentPath && window && window.location.href) {
@@ -550,16 +563,23 @@ const paymentGatewayController = (paymentType: any = "") => {
                         bank_name: data?.bank_account?.bank_name || "",
                         reference: data?.reference || "",
                         data: data
-                    })
+                    }),
+                        setInitiatedTrans({
+                            ...initiatedTrans,
+                            transfer: {
+                                initiated: true,
+                                details: data
+                            },
+                        })
                     setState({
                         ...state,
                         initiated: true,
                         initiationError: false,
                         initiatingStarted: false,
-                        amount: state?.amount || details?.amount || "100",
-                        customerName: state?.business || details?.business || "Davids co",
-                        merchantId: state?.merchantId || details?.merchant || "a8c1bc11-11af-4bf4-aefc-a6d57c0b9ce8",
-                        customerEmail: state?.customerEmail || details?.email || "davoone@mailinator.com",
+                        amount: state?.amount || details?.amount || "",
+                        customerName: state?.business || details?.business || "",
+                        merchantId: state?.merchantId || details?.merchant || "",
+                        customerEmail: state?.customerEmail || details?.email || "",
                         isSubmittingTrans: false,
                         submittingError: false,
                     })
@@ -613,7 +633,7 @@ const paymentGatewayController = (paymentType: any = "") => {
     }
 
     //Check Transfer payment status
-    const handleTSQ = async () => {
+    const handleTSQ = async (_clicked: boolean = false) => {
 
         setState({
             ...state,
@@ -649,9 +669,28 @@ const paymentGatewayController = (paymentType: any = "") => {
                                 isSubmitting: false,
                                 transferSent: true,
                             })
-                            setTimeout(() => {
-                                window.history.back();
-                            }, 9999);
+                            if (router.asPath.includes("payment-gateway")) {
+                                setInitiatedTrans({
+                                    ...initiatedTrans,
+                                    transfer: {
+                                        initiated: false,
+                                        details: {},
+                                        payed: true,
+                                    },
+                                })
+                            } else {
+                                setInitiatedTrans({
+                                    ...initiatedTrans,
+                                    transfer: {
+                                        initiated: false,
+                                        details: {},
+                                        payed: true,
+                                    },
+                                })
+                                setTimeout(() => {
+                                    window.history.back();
+                                }, 9999);
+                            }
                         } else {
                             setState({
                                 ...state,
@@ -665,6 +704,7 @@ const paymentGatewayController = (paymentType: any = "") => {
                         submittingError: false,
                         isSubmitting: false,
                     })
+
                     // setTransferDetails({
                     //     account_name: data?.bank_account?.account_name || "",
                     //     account_number: data?.bank_account?.account_number || "",
@@ -682,7 +722,7 @@ const paymentGatewayController = (paymentType: any = "") => {
                     //     submittingError: false,
                     // })
 
-                    return ["skip"]
+                    return (["skip"])
                 },
                 errorAction: (err?: any) => {
                     if (err && err?.response?.data) {
@@ -692,9 +732,9 @@ const paymentGatewayController = (paymentType: any = "") => {
                             isSubmitting: false,
                             initiated: false,
                             transferSentError: true,
-                            errorMssg: err?.response?.data?.errors && err?.response?.data?.errors[0] || "Payment Failed, please try again"
+                            errorMssg: err?.response?.data?.errors && err?.response?.data?.errors[0] || "An error occured with your transaction, kindly recheck it's status."
                         })
-                        return ["skip"]
+                        return (_clicked ? [""] : ["skip"])
                     } else {
                         setState({
                             ...state,
@@ -745,6 +785,14 @@ const paymentGatewayController = (paymentType: any = "") => {
                         merchantId: returned?.headers?.merchant_id || data[0]?.merchantId || state?.merchantId || "",
                         secret: returned?.headers?.merchant_secret || secretKey || data[0]?.secret || state?.secret || "",
                         userId: data[0]?.userId || uuID || data[0]?.uuid || state?.userId || "",
+                    })
+
+                    setInitiatedTrans({
+                        ...initiatedTrans,
+                        link: {
+                            initiated: true,
+                            details: data
+                        },
                     })
 
                     setState({
@@ -833,11 +881,32 @@ const paymentGatewayController = (paymentType: any = "") => {
     }, [details?.payPath])
 
     useEffect(() => {
-        console.log("transferDetails : ", state?.initiatingStarted)
-        if (details?.payment == "transfer" && customerName && customerEmail && !transferDetails?.account_name && !state?.initiatingStarted && paymentType === "transfer") {
+        if (details?.payment == "transfer" && customerName && customerEmail && !transferDetails?.account_name && !state?.initiatingStarted && paymentType === "transfer" && !initiatedTrans?.transfer?.initiated) {
             handleInitiateTransfer(null);
-        } else if (router?.asPath?.includes("transfer") && customerName && customerEmail && !transferDetails?.account_name && !state?.initiatingStarted && paymentType === "transfer") {
+        } else if (router?.asPath?.includes("transfer") && customerName && customerEmail && !transferDetails?.account_name && !state?.initiatingStarted && paymentType === "transfer" && !initiatedTrans?.transfer?.initiated) {
             handleInitiateTransfer(null);
+        } else if (initiatedTrans?.transfer?.initiated) {
+            setTransferDetails({
+                ...transferDetails,
+                account_name: initiatedTrans?.transfer?.details?.bank_account?.account_name || "",
+                account_number: initiatedTrans?.transfer?.details?.bank_account?.account_number || "",
+                bank_code: initiatedTrans?.transfer?.details?.bank_account?.bank_code || "",
+                bank_name: initiatedTrans?.transfer?.details?.bank_account?.bank_name || "",
+                reference: initiatedTrans?.transfer?.details?.reference || "",
+                data: initiatedTrans?.transfer?.details
+            }),
+                setState({
+                    ...state,
+                    initiated: true,
+                    initiationError: false,
+                    initiatingStarted: false,
+                    amount: state?.amount || initiatedTrans?.transfer?.details?.amount || "",
+                    customerName: state?.business || initiatedTrans?.transfer?.details?.business || "",
+                    merchantId: state?.merchantId || initiatedTrans?.transfer?.details?.merchant || "",
+                    customerEmail: state?.customerEmail || initiatedTrans?.transfer?.details?.email || "",
+                    isSubmittingTrans: false,
+                    submittingError: false,
+                })
         }
     }, [router, customerName, details])
 
@@ -927,7 +996,7 @@ const paymentGatewayController = (paymentType: any = "") => {
         };
     }
 
-    //Submit Link payments
+    //Submit payments Link creation
     const handleSubmitLink = async (e: React.FormEvent) => {
         e.preventDefault();
         setState((state: any) => ({
@@ -1062,9 +1131,65 @@ const paymentGatewayController = (paymentType: any = "") => {
 
     }
 
+
+    const closeModal = () => {
+        router.asPath.includes("payment-gateway") ? router.push("/payments") : paymentType ? router.push(paymentType) : window.history.back();
+        setState({
+            transactionReference: "",
+            amount: 0,
+            countKey: 101,
+            currency: "NGN",
+            name: "",
+            number: "",
+            cvv: "",
+            pin: "",
+            date: "",
+            secret: "",
+            expiryMonth: "",
+            expiryYear: "",
+            customerName: "",
+            customerEmail: "",
+            merchantId: "",
+            transferingStatus: "",
+
+            cardStatus: "pay",
+            cardPin: "",
+            cardPhoneOTP: "",
+            cardAuthOTP: "",
+            cardAvsState: "",
+            cardAvsCity: "",
+            cardAvsCountry: "",
+            cardAvsAddress: "",
+            cardAvsZipCode: "",
+
+            payCustomerName: "",
+            payCustomerEmail: "",
+            payDescription: "",
+            payCustomizedLink: "",
+            linktransactionId: "",
+            linkId: "",
+
+            linkGenerated: false,
+
+            isDisabled: false,
+            submittingError: false,
+            initiationError: false,
+            initiatingStarted: false,
+            initiated: false,
+            transferSent: false,
+            transferSentError: false,
+            isSubmitting: false,
+            isFetchingLinkData: false,
+            isSubmittingTrans: true,
+            errorMssg: ""
+        })
+
+
+    }
+
     return {
         handleSubmitCard, handleInitiatePaymentLink, PaymentLinkList, handleCardPayAuth, timeVal, onChangeOTP, handleTSQ, handleInitiateTransfer,
-        handleSubmitUSSD, handleSubmitLink, handleClearError, handleChange, handleExtraChange, transferDetails, stateValues: state
+        handleSubmitUSSD, handleSubmitLink, handleClearError, handleChange, handleExtraChange, transferDetails, stateValues: state, setState, closeModal
     }
 }
 

@@ -12,9 +12,13 @@ import { LayoutProps } from "@types";
 import PayLinkLayout from "@/components/payment/PayLinkLayout";
 import { useEffect, useState } from "react";
 import { PropagateLoader } from "react-spinners";
-import { BsFillExclamationTriangleFill } from "react-icons/bs";
+import { BsFillExclamationTriangleFill, BsXSquare } from "react-icons/bs";
 import Countdown, { zeroPad, calcTimeDelta, formatTimeDelta } from 'react-countdown';
-
+import { useNewTransContext } from "context/transactionContext";
+import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
+import React from "react";
 
 // Random component
 const Completionist = (value: any) => {
@@ -42,15 +46,46 @@ const Completionist = (value: any) => {
 let second = 0;
 
 const CardPaymentGateway: NextPage = () => {
+    const [open, setOpen] = React.useState(false);
 
     const [first, setfirst] = useState<number>(0)
     const [coutDone, setCountDone] = useState<boolean>(false)
 
-    const { handleInitiateTransfer, transferDetails, handleClearError, handleChange, handleExtraChange, stateValues, handleTSQ } = paymentGatewayController()
+    const { handleInitiateTransfer, transferDetails, handleClearError, handleChange, handleExtraChange, stateValues, handleTSQ, closeModal } = paymentGatewayController("transfer")
 
     const { account_name, account_number, bank_code, bank_name } = transferDetails;
 
+    const { initiatedTrans } = useNewTransContext()
 
+    const handleClose = (
+        event: React.SyntheticEvent | Event,
+        reason?: SnackbarCloseReason,
+    ) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
+
+    React.useEffect(() => {
+        if (stateValues?.transactionStatus && stateValues?.transactionStatus === "PENDING") {
+            setOpen(true);
+        }
+    }, [stateValues?.transactionStatus]);
+
+    const action = (
+        <React.Fragment>
+            <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={handleClose}
+            >
+                <BsXSquare size={25} />
+            </IconButton>
+        </React.Fragment>
+    );
     return (
         <PayLinkLayout>
 
@@ -62,7 +97,7 @@ const CardPaymentGateway: NextPage = () => {
                     <LoginErrorCard handleClear={handleClearError} error={stateValues?.errorMssg || ""} containerVariant={!stateValues?.submittingError ? "hidden" : "mx-14"} />
                     <div className="flex flex-wrap gap-10 w-full">
 
-                        {stateValues?.transferSent ?
+                        {stateValues?.transferSent || initiatedTrans?.transfer?.payed ?
                             <div className="w-full h-max rounded-md border border-stone-500 border-opacity-20 flex-col justify-center items-center flex  pt-11 pb-11">
                                 <div className="h-max p-10 pt-5 flex-col justify-center items-center gap-2 flex">
                                     <div>
@@ -75,6 +110,13 @@ const CardPaymentGateway: NextPage = () => {
                                                 <div className=" font-base font-['Roboto'] leading-loose text-zinc-500 text-base text-center ">
                                                     Redirecting you back to the previous page.
                                                 </div>
+                                                <DefaultButton
+                                                    labelText={"Click to go back"}
+                                                    containerVariant="w-max p-3 my-5 text-center text-neutral-50 text-lg font-extrabold font-['Roboto'] leading-tight"
+                                                    variant=" w-full p-3 uppercase text-center text-neutral-50 text-lg font-extrabold font-['Roboto'] leading-tight"
+                                                    // handleClick={handleInitiateTransfer}
+                                                    handleClick={closeModal}
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -144,9 +186,9 @@ const CardPaymentGateway: NextPage = () => {
                                                         if (data?.minutes) {
                                                             setfirst(data?.minutes);
                                                             if (first > data?.minutes) {
-                                                                console.log(first);
+                                                                console.log("transfer timer: ", first);
                                                                 setfirst(data?.minutes);
-                                                                handleTSQ();
+                                                                handleTSQ(false);
                                                             }
                                                         }
                                                     }}
@@ -154,7 +196,7 @@ const CardPaymentGateway: NextPage = () => {
 
                                                         if (completed) {
                                                             setCountDone(true);
-                                                            handleTSQ();
+                                                            handleTSQ(false);
                                                             // Render a completed state
                                                             return <span></span>
                                                         } else {
@@ -207,16 +249,17 @@ const CardPaymentGateway: NextPage = () => {
                                 containerVariant="w-max p-3 my-5 text-center text-neutral-50 text-lg font-extrabold font-['Roboto'] leading-tight"
                                 variant="w-full p-3 text-center text-neutral-50 text-lg font-extrabold font-['Roboto'] leading-tight"
                                 isLoading={stateValues?.isSubmitting}
-                                handleClick={handleTSQ}
+                                handleClick={(e: any) => handleTSQ(true)}
                                 isDisabled={stateValues?.isDisabled}
                             />
                             : !stateValues?.transferSent ?
                                 <DefaultButton
-                                    labelText={"Re initiate"}
+                                    labelText={"Re check"}
                                     containerVariant="w-max p-3 my-5 text-center text-neutral-50 text-lg font-extrabold font-['Roboto'] leading-tight"
                                     variant=" w-full p-3 uppercase text-center text-neutral-50 text-lg font-extrabold font-['Roboto'] leading-tight"
                                     isLoading={stateValues?.isSubmitting}
-                                    handleClick={handleInitiateTransfer}
+                                    // handleClick={handleInitiateTransfer}
+                                    handleClick={(e: any) => handleTSQ(true)}
                                     isDisabled={stateValues?.isDisabled}
                                 /> : null
                         }
@@ -224,8 +267,14 @@ const CardPaymentGateway: NextPage = () => {
 
                 </form>
             }
+            <Snackbar
+                open={open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                message={stateValues?.transactionStatus === "PENDING"? "Transfer still in progress...":"Checking..."}
+                action={action}
+            />
         </PayLinkLayout>
     );
 };
-
 export default CardPaymentGateway;
