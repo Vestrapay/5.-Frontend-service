@@ -72,7 +72,7 @@ const TransferPaymentLink: NextPage = () => {
         if ((stateValues?.transactionStatus && stateValues?.transactionStatus === "PROCESSING") || (!initiatedTrans?.transfer?.payed && initiatedTrans?.transfer?.status === "PROCESSING")) {
             setOpen(true);
         }
-    }, [stateValues?.transactionStatus]);
+    }, [stateValues?.transactionStatus, initiatedTrans?.transfer?.status]);
 
     const action = (
         <React.Fragment>
