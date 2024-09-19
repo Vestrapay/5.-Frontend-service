@@ -68,7 +68,8 @@ const TransferPaymentLink: NextPage = () => {
     };
 
     React.useEffect(() => {
-        if ((stateValues?.transactionStatus && stateValues?.transactionStatus === "PENDING") || !initiatedTrans?.transfer?.payed) {
+        console.log(stateValues?.transactionStatus);
+        if ((stateValues?.transactionStatus && stateValues?.transactionStatus === "PROCESSING") || (!initiatedTrans?.transfer?.payed && initiatedTrans?.transfer?.status === "PROCESSING")) {
             setOpen(true);
         }
     }, [stateValues?.transactionStatus]);
@@ -283,7 +284,7 @@ const TransferPaymentLink: NextPage = () => {
                 open={open}
                 autoHideDuration={6000}
                 onClose={handleClose}
-                message={stateValues?.transactionStatus === "PENDING" ? "Transfer still in progress..." : "Checking..."}
+                message={stateValues?.transactionStatus === "PROCESSING" || initiatedTrans?.transfer?.status === "PROCESSING" ? "Transfer still in progress..." : "Checking..."}
                 action={action}
             />
         </PayLinkLayout>

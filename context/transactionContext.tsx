@@ -57,7 +57,8 @@ export const CreateTransContext = createContext({
                 email: "",
                 reference: "",
             },
-            payed: false
+            payed: false,
+            status: "N/A"
         },
         ussd: {
             initiated: false,

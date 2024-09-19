@@ -11,11 +11,9 @@ import { useNewTransContext } from 'context/transactionContext';
 
 const paymentGatewayController = (paymentType: any = "") => {
 
-    
+
     const details = useNewTransContext()
     const { initiatedTrans, setInitiatedTrans, setPayLinkDetails, payType } = details;
-
-    console.log("deets: ",paymentType, payType);
 
     const { secretKey } = Storage.getItem("apiKeys") || { secretKey: "" }
     const { details: { merchantId: merchantsID, uuid: uuID } } = Storage.getItem("userDetails") || { details: { merchantId: "", uuid: "" } }
@@ -568,7 +566,8 @@ const paymentGatewayController = (paymentType: any = "") => {
                             ...initiatedTrans,
                             transfer: {
                                 initiated: true,
-                                details: data
+                                details: data,
+                                status: "N/A"
                             },
                         })
                     setState({
@@ -676,6 +675,7 @@ const paymentGatewayController = (paymentType: any = "") => {
                                         initiated: false,
                                         details: {},
                                         payed: true,
+                                        status: "SUCCESSFUL"
                                     },
                                 })
                             } else {
@@ -685,6 +685,7 @@ const paymentGatewayController = (paymentType: any = "") => {
                                         initiated: false,
                                         details: {},
                                         payed: true,
+                                        status: "SUCCESSFUL"
                                     },
                                 })
                                 setTimeout(() => {
@@ -697,6 +698,13 @@ const paymentGatewayController = (paymentType: any = "") => {
                                 isSubmitting: false,
                                 transferingStatus: res?.data?.transactionStatus
                             })
+                            setInitiatedTrans({
+                                ...initiatedTrans,
+                                transfer: {
+                                    ...initiatedTrans?.transfer,
+                                    status: "PROCESSING"
+                                },
+                            })
                         }
                     }
                     setState({
@@ -704,7 +712,6 @@ const paymentGatewayController = (paymentType: any = "") => {
                         submittingError: false,
                         isSubmitting: false,
                     })
-
                     // setTransferDetails({
                     //     account_name: data?.bank_account?.account_name || "",
                     //     account_number: data?.bank_account?.account_number || "",
@@ -779,7 +786,6 @@ const paymentGatewayController = (paymentType: any = "") => {
                 urlExtra: `/${details?.payPath || ""}`,
                 action: (res, returned): any => {
                     let { data } = res;
-                    console.log("userId: ", data[0]?.userId);
                     details?.setPayLinkDetails({
                         ...details?.payLinkDetails,
                         merchantId: returned?.headers?.merchant_id || data[0]?.merchantId || state?.merchantId || "",
