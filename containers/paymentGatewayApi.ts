@@ -263,7 +263,6 @@ const paymentGatewayController = (paymentType: any = "") => {
                     }
                 },
                 action: (res: any): any => {
-                    console.log(res);
 
                     //auth_model: "NO_AUTH"
                     if ((res?.data?.data?.status === "success")) {
@@ -322,7 +321,6 @@ const paymentGatewayController = (paymentType: any = "") => {
                 }
             })
                 .then(async (res: any) => {
-                    console.log(res)
                     // showModal();
                     res?.data?.status === "success" ?
                         setState({
@@ -659,7 +657,7 @@ const paymentGatewayController = (paymentType: any = "") => {
                     }
                 },
                 action: (res): any => {
-                    console.log(res?.data?.transactionStatus, typeof (res?.data?.transactionStatus))
+
                     if (res && res?.data && res?.data?.transactionStatus) {
                         if (res?.data?.transactionStatus === "SUCCESSFUL") {
                             setState({
@@ -1062,8 +1060,7 @@ const paymentGatewayController = (paymentType: any = "") => {
                 }
             })
                 .then(async (res: any) => {
-                    // showModal();
-                    console.log(res);
+                    
                     let baseUrl = window.location.href.split("/payment-gateway/payment-link")[0];
                     let paymentLinkUrl = baseUrl + "/paylink/" + res?.path;
 

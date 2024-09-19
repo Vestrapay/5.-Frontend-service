@@ -68,7 +68,7 @@ const TransferPaymentLink: NextPage = () => {
     };
 
     React.useEffect(() => {
-        console.log(stateValues?.transactionStatus);
+
         if ((stateValues?.transactionStatus && stateValues?.transactionStatus === "PROCESSING") || (!initiatedTrans?.transfer?.payed && initiatedTrans?.transfer?.status === "PROCESSING")) {
             setOpen(true);
         }
