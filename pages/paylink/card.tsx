@@ -441,7 +441,7 @@ const CardPaymentGateway: NextPage = () => {
                                         </span>
                                     </span>
                                     <input className="rounded-none peer pl-12 pr-2 py-2.5 border-t-0 border-l-0 border-r-0 border-b border-slate-300 placeholder-gray-300"
-                                        type="tel"
+                                        type="number"
                                         name="cvv"
                                         placeholder="&bull;&bull;&bull;"
                                         maxLength={4}
@@ -467,7 +467,7 @@ const CardPaymentGateway: NextPage = () => {
                                 <label className="relative flex-1 w-full flex flex-col">
                                     <span className="text-gray-400 text-sm font-bold font-['Roboto'] uppercase leading-3 mb-3">Name on CARD</span>
                                     <input className="rounded-none peer pl-12 pr-2 py-2.5 border-t-0 uppercase border-l-0 border-r-0 border-b border-slate-300 placeholder-gray-300"
-                                        type="tel"
+                                        type="text"
                                         onChange={handleChange}
                                         value={stateValues?.name}
                                         required

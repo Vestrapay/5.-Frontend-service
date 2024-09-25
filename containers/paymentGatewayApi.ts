@@ -212,6 +212,14 @@ const paymentGatewayController = (paymentType: any = "") => {
                 [e.target.name]: newValue,
                 submittingError: false
             });
+        } else if (name == "pin") {
+            let newValue = value?.replace(/ /g, "")?.match(/.{1,4}/g)?.join(' ') || value;
+            let pureValue = value?.replace(/ /g, "") || value;
+            setState({
+                ...state,
+                [e.target.name]: newValue,
+                submittingError: false
+            });
         } else {
             setState({
                 ...state,
@@ -1060,7 +1068,7 @@ const paymentGatewayController = (paymentType: any = "") => {
                 }
             })
                 .then(async (res: any) => {
-                    
+
                     let baseUrl = window.location.href.split("/payment-gateway/payment-link")[0];
                     let paymentLinkUrl = baseUrl + "/paylink/" + res?.path;
 

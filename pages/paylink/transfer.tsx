@@ -187,7 +187,6 @@ const TransferPaymentLink: NextPage = () => {
                                                         }
                                                     }}
                                                     renderer={({ hours, minutes, seconds, completed }: any) => {
-
                                                         if (completed) {
                                                             setCountDone(true);
                                                             handleTSQ(false);
