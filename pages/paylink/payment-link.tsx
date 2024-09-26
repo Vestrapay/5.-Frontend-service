@@ -51,7 +51,7 @@ const CardPaymentGateway: NextPage = () => {
                                 type={"primary"}
                                 isLoading={stateValues?.isSubmitting}
                                 handleClick={() => {
-                                    navigator.clipboard.writeText(stateValues?.paymentLinkUrl || "");
+                                    navigator.clipboard.writeText(stateValues?.paymentLinkUrl);
                                     successAlert({
                                         title: "Copied!", text: "You've copied the payment link.", icon: "",
                                     }, { data: "", errors: "", message: "", statusCode: "", status: "" })
