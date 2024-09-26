@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Cardnumberinput19f2b12dsvg1 from "@assets/svg/cardnumberinput19f2b12dsvg1.svg"
 import { DateField } from '@mui/x-date-pickers/DateField';
-import { LoginErrorCard } from "@utils/actions/error";
+import errorAlert, { LoginErrorCard } from "@utils/actions/error";
 import { DefaultButton, DefaultInput } from "@/components/reusables";
 import { PayWithCardIcon, PayWithUSSDIcon } from "@/components/reusables/icons";
 import { HiBuildingLibrary, HiCreditCard, HiMiniHashtag, HiMiniLink, HiMiniXMark } from "react-icons/hi2";
@@ -41,7 +41,7 @@ const CardPaymentGateway: NextPage = () => {
                                 name="publicKey"
                                 isDisabled={true}
                                 placeHolder="Payment link"
-                                containerVariant="w-full py-5"
+                                containerVariant="w-full sm:min-w-max py-5"
                                 value={stateValues?.paymentLinkUrl || ""}
                             />
                             <DefaultButton
@@ -51,10 +51,18 @@ const CardPaymentGateway: NextPage = () => {
                                 type={"primary"}
                                 isLoading={stateValues?.isSubmitting}
                                 handleClick={() => {
-                                    navigator.clipboard.writeText(stateValues?.paymentLinkUrl);
-                                    successAlert({
-                                        title: "Copied!", text: "You've copied the payment link.", icon: "",
-                                    }, { data: "", errors: "", message: "", statusCode: "", status: "" })
+                                    navigator.clipboard
+                                        .writeText(stateValues?.paymentLinkUrl)
+                                        .then(() => {
+                                            successAlert({
+                                                title: "Copied!", text: "You've copied the payment link.", icon: "",
+                                            }, { data: "", errors: "", message: "", statusCode: "", status: "" })
+                                        })
+                                        .catch(() => {
+                                            errorAlert({
+                                                title: "Couldn't Copy.", text: "That failed for some reason, kindly copy manually.", icon: "",
+                                            })
+                                        });
                                 }}
                                 isDisabled={stateValues?.isDisabled}
                             />

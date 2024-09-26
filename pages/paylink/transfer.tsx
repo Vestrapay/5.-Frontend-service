@@ -187,6 +187,7 @@ const TransferPaymentLink: NextPage = () => {
                                                         }
                                                     }}
                                                     renderer={({ hours, minutes, seconds, completed }: any) => {
+
                                                         if (completed) {
                                                             setCountDone(true);
                                                             handleTSQ(false);
@@ -286,8 +287,8 @@ const TransferPaymentLink: NextPage = () => {
                 message={stateValues?.transactionStatus === "PROCESSING" || initiatedTrans?.transfer?.status === "PROCESSING" ? "Transfer still in progress..." : "Checking..."}
                 action={action}
             />
-        </PayLinkLayout>
-    );
-};
-
-export default TransferPaymentLink;
+            </PayLinkLayout>
+        );
+    };
+    
+    export default TransferPaymentLink;
