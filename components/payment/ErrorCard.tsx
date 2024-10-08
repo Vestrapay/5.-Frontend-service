@@ -15,7 +15,7 @@ const ErrorCard = ({ handleSubmit, loader }: any) => {
                         <div className="w-full pt-1 justify-center items-center inline-flex">
                             <div className=" justify-center items-center flex">
                                 <div className=" font-base font-['Roboto'] leading-loose text-zinc-500 text-base text-center max-w-[450px]">
-                                    We couldn't complete your transaction initiation right now, please try again later.
+                                    We couldn't initiate your transaction right now, please try again.
                                 </div>
                             </div>
                         </div>
