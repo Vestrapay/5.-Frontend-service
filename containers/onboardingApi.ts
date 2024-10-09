@@ -146,7 +146,9 @@ const SignUpController = (setPage: (val: string) => any, setPassData: (val: any)
 
 }
 
-const SignInController = (setPage: (val: string) => any, resetingPass: boolean, setResetingPass: (val: boolean) => any, signInStatus: boolean, passData: any, setPassData: (val: any) => any) => {
+const SignInController = (
+    setPage: (val: string) => any, resetingPass: boolean = false, setResetingPass: (val: boolean) => any,
+    signInStatus: boolean = false, passData: any = {}, setPassData: (val: any) => any) => {
 
     const [timeVal, setTimeVal] = useState({
         otp: '',
@@ -262,6 +264,29 @@ const SignInController = (setPage: (val: string) => any, resetingPass: boolean, 
         }
     }
 
+    const generateSignUpOtp = async (resent: any = false, data: any = "") => {
+        await apiCall({
+            name: "generateOtp",
+            data: passData?.email || data || "",
+            errorAction: (err?: any) => {
+                if (err && err?.response?.data) {
+                    setState({
+                        ...state,
+                        submittingError: true,
+                        errorMssg: "Action failed, please try again"
+                    })
+                }
+                return [""];
+            },
+            successDetails: {
+                title: "Successful",
+                text: `Your OTP has been sent.`,
+                icon: ""
+            },
+            action: (): any => resent ? [] : ["skip"]
+        })
+    }
+
     //Handle assertions functions
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setState({
@@ -318,6 +343,11 @@ const SignInController = (setPage: (val: string) => any, resetingPass: boolean, 
                             isLoggingIn: false,
                             loginErrorMssg: err?.response?.data?.errors && err?.response?.data?.errors[0] || "Login Failed, please try again"
                         })
+
+                        if (err?.response?.data?.errors[0]?.includes("verify OTP")) {
+                            setPage("verifySignUp");
+                            generateSignUpOtp(false,passData?.email || email);
+                        }
                         return ["skip"]
                     } else {
                         setState({
@@ -364,8 +394,6 @@ const SignInController = (setPage: (val: string) => any, resetingPass: boolean, 
                 action: (res: any): any => {
                     setPassData({ ...passData, email: email, password: password });
 
-                    console.log("data: ", res?.data, passData);
-
                     if (!res?.data?.enabled) {
                         localStorage.setItem('userDetails', JSON.stringify({
                             token: res?.message || "",
@@ -376,7 +404,6 @@ const SignInController = (setPage: (val: string) => any, resetingPass: boolean, 
                         res?.data?.user?.userType == "MERCHANT" || res?.data?.user?.userType == "MERCHANTUSER" ? setUserType("USER") : setUserType("ADMIN")
                         setUserDetail(res?.data?.user)
                     } else {
-                        console.log("enabled: ", res?.data);
                         setPage("validatelogin");
                         setState({
                             ...state,
@@ -394,6 +421,11 @@ const SignInController = (setPage: (val: string) => any, resetingPass: boolean, 
                             isLoggingIn: false,
                             loginErrorMssg: err?.response?.data?.errors && err?.response?.data?.errors[0] || "Login Failed, please try again"
                         })
+
+                        if (err?.response?.data?.errors[0]?.includes("verify OTP")) {
+                            setPage("verifySignUp");
+                            generateSignUpOtp(false, passData?.email || email);
+                        }
                         return ["skip"]
                     } else {
                         setState({
@@ -406,7 +438,6 @@ const SignInController = (setPage: (val: string) => any, resetingPass: boolean, 
                 }
             })
                 .then(async (res: any) => {
-                    console.log("data: ", res?.enabled, "email: " + email, "password: " + password, "data: ", passData);
                     setPassData({ ...passData, email: email, password: password });
                     if (res?.enabled) {
                         console.log("enabled: ", res?.data);
@@ -429,7 +460,8 @@ const SignInController = (setPage: (val: string) => any, resetingPass: boolean, 
         }
     }
 
-    return { stateValues: state, handleSubmit, handleChange, handleClearError, onChangeOTP, timeVal, setKey, handlePreLogin, generateOtp }
+
+    return { stateValues: state, handleSubmit, handleChange, handleClearError, onChangeOTP, timeVal, setKey, handlePreLogin, generateOtp, generateSignUpOtp }
 
 }
 
@@ -469,10 +501,10 @@ const VerifySignUpController = (setPage: (val: string) => any, passData: any, se
         setState({ ...state, submittingError: false })
     }
 
-    const generateOtp = async (resent: any = false) => {
+    const generateOtp = async (resent: any = false, data: any = "") => {
         await apiCall({
             name: "generateOtp",
-            data: passData?.email || "",
+            data: passData?.email || data || "",
             errorAction: (err?: any) => {
                 if (err && err?.response?.data) {
                     setState({

@@ -1,7 +1,7 @@
 import React from 'react';
 import { DefaultButton, DefaultInput } from "@/components/reusables";
 import { OtpInput } from '../otpInput';
-import { VerifySignUpController } from 'containers/onboardingApi';
+import { SignInController, VerifySignUpController } from 'containers/onboardingApi';
 import Countdown from 'react-countdown';
 import { LoginErrorCard } from '@Utils/actions/error';
 import { useAuthContext } from 'context/AuthContext';
@@ -13,6 +13,15 @@ const VerifySignUp = ({ setPage, passData, setSignInStatus }: any) => {
 
 
     const { stateValues, handleSubmit, onChangeOTP, timeVal, setKey, handleClearError, generateOtp } = VerifySignUpController(setPage, passDataCTX, setSignInStatus);
+
+    const { generateSignUpOtp } = SignInController(setPage,
+        false,
+        (val) => null,
+        false,
+        {},
+        (val) => null
+    );
+
 
     const {
         otp,
@@ -39,7 +48,7 @@ const VerifySignUp = ({ setPage, passData, setSignInStatus }: any) => {
                                 ${key == 0.017 ? "opacity-100" : "opacity-50"}`}
                     onClick={
                         key == 0.017 ?
-                            () => { generateOtp(true); setKey(Math.trunc(Math.random() * 10)) }
+                            () => { generateSignUpOtp(true, passDataCTX?.email || stateValues?.email); setKey(Math.trunc(Math.random() * 10)) }
                             : () => null
                     }>
                     Click to resend </span>

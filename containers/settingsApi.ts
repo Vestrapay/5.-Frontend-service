@@ -261,11 +261,29 @@ const UpdateKYCController = () => {
 
         const file = e?.target?.files[0] || null;
         let fileBase64 = await convertBase64(file);
+        const validExtensions = ['image/jpeg', 'image/png', 'application/pdf'];
 
-        let fileLabel: Element | null = document.querySelector("p.name");
-        fileLabel ? fileLabel.innerHTML = file?.name : null;
-        file && file?.size < 10000001 && setFilesString([...filesString, fileBase64]);
-        file && file?.size < 10000001 && setFiles([...files, file]);
+        if (file) {
+            if (!validExtensions.includes(file.type)) {
+                setState({
+                    ...state,
+                    submittingError: true,
+                    isSubmitting: false,
+                    errorMssg: "Please upload a file in JPG, PNG, or PDF format."
+                })
+            } else {
+                setState({
+                    ...state,
+                    submittingError: false,
+                    isSubmitting: false,
+                    errorMssg: ""
+                })
+                let fileLabel: Element | null = document.querySelector("p.name");
+                fileLabel ? fileLabel.innerHTML = file?.name : null;
+                file && file?.size < 10000001 && setFilesString([...filesString, fileBase64]);
+                file && file?.size < 10000001 && setFiles([...files, file]);
+            }
+        }
     }
 
     const handleClearFiles = (e: React.ChangeEvent<HTMLInputElement> | any) => {
@@ -280,71 +298,87 @@ const UpdateKYCController = () => {
         e.preventDefault();
 
 
-        let formData = new FormData();
-        files && files?.length > 0 ?
-            files?.map((each: any, i: any) => formData.append(category || 'files', each))
-            : null
-
-        setState((state: any) => ({
+        setState({
             ...state,
-            isSubmitting: true
-        }))
-        try {
+            submittingError: false,
+            isSubmitting: false,
+            errorMssg: ""
+        })
 
-            const response = await apiCall({
-                name: "uploadUtility",
-                data: formData,//params: { files: filesString },// { id: state?.id, country, firstName, lastName, email, phoneNumber, businessName, enabled, username, ...data },
-                action: (): any => {
-                    setState({
-                        ...state,
-                        isSubmitting: false,
-                        submittingError: false,
-                    })
-                    return [""]
-                },
-                successDetails: { title: "Successful", text: "Documents have been uploaded successfully, and will be reviewed.", icon: "" },
-                errorAction: (err?: any) => {
-                    if (err && err?.response?.data) {
+        let formData = new FormData();
+        if (files && files?.length > 0) {
+            files?.map((each: any, i: any) => formData.append(category || 'files', each))
+
+
+            setState((state: any) => ({
+                ...state,
+                isSubmitting: true
+            }))
+            try {
+
+                const response = await apiCall({
+                    name: "uploadUtility",
+                    data: formData,//params: { files: filesString },// { id: state?.id, country, firstName, lastName, email, phoneNumber, businessName, enabled, username, ...data },
+                    action: (): any => {
                         setState({
                             ...state,
-                            submittingError: true,
                             isSubmitting: false,
-                            errorMssg: err?.response?.data?.errors && err?.response?.data?.errors[0] || "Update Failed, please try again"
+                            submittingError: false,
                         })
                         return [""]
-                    } else {
+                    },
+                    successDetails: { title: "Successful", text: "Documents have been uploaded successfully, and will be reviewed.", icon: "" },
+                    errorAction: (err?: any) => {
+                        if (err && err?.response?.data) {
+                            setState({
+                                ...state,
+                                submittingError: true,
+                                isSubmitting: false,
+                                errorMssg: err?.response?.data?.errors && err?.response?.data?.errors[0] || "Update Failed, please try again"
+                            })
+                            return [""]
+                        } else {
+                            setState({
+                                ...state,
+                                submittingError: true,
+                                isSubmitting: false,
+                                errorMssg: "Action failed, please try again"
+                            })
+                        }
+                    }
+                })
+                    .then(async (res: any) => {
+                        // showModal();
+                        setFilesString([]);
+                        setFiles([]);
                         setState({
                             ...state,
-                            submittingError: true,
+                            country: "",
+                            firstName: "",
+                            lastName: "",
+                            email: "",
+                            phoneNumber: "",
+                            businessName: "",
+                            enabled: "",
+                            username: "",
+                            id: "",
+                            submittingError: false,
                             isSubmitting: false,
-                            errorMssg: "Action failed, please try again"
+                            errorMssg: ""
                         })
-                    }
-                }
-            })
-                .then(async (res: any) => {
-                    // showModal();
-                    setFilesString([]);
-                    setFiles([]);
-                    setState({
-                        ...state,
-                        country: "",
-                        firstName: "",
-                        lastName: "",
-                        email: "",
-                        phoneNumber: "",
-                        businessName: "",
-                        enabled: "",
-                        username: "",
-                        id: "",
-                        submittingError: false,
-                        isSubmitting: false,
-                        errorMssg: ""
                     })
-                })
-        } catch (e) {
-            console.log(e + " 'Caught Error.'");
-        };
+            } catch (e) {
+                console.log(e + " 'Caught Error.'");
+            };
+        } else {
+
+            setState({
+                ...state,
+                submittingError: true,
+                isSubmitting: false,
+                errorMssg: "Please select a file to upload."
+            })
+        }
     }
 
     //Handle assertions functions

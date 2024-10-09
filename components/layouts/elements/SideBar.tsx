@@ -13,11 +13,12 @@ import { BsArrowLeft } from "react-icons/bs";
 import { motion } from "framer-motion";
 import Backdrop from "../../modal/backdrop/Backdrop";
 import styles from '../../modal/modal.module.css'
-import { ExchangeRectangle, LogoutOpen, UserCircle } from "react-huge-icons/bulk";
+import { ExchangeRectangle, Files, LogoutOpen, UserCircle } from "react-huge-icons/bulk";
 import { userRoles } from "@/components/layouts/elements/SideBarItems";
 import { useQueryClient } from "react-query";
 import MigrateToProd from '@/components/settings/MigrateToProd'
 import { HiMiniXMark } from 'react-icons/hi2'
+import Link from 'next/link'
 
 function SideBar() {
 
@@ -64,7 +65,7 @@ function SideBar() {
 
     useEffect(() => {
         setActiveLink(router.asPath)
-        
+
         if (dropdownNavLinks.includes(router.asPath.split("/")[1])) {
             sidebarItems.filter((item: any) => {
                 if (item.route.toLowerCase() === router.asPath) {
@@ -183,7 +184,7 @@ function SideBar() {
                             }
                         </div>
                         <div className="h-[1px] w-full bg-slate-300 left-0 top-[450px]" />
-                        <motion.div
+                        {/* <motion.div
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.9 }}
                             onClick={() => setIsMigrate(!isMigrate)}
@@ -191,21 +192,36 @@ function SideBar() {
                             <ExchangeRectangle style={{ width: 24, height: 24 }} />
                             <p className="text-sm text-slate-500">Migrate to <br /><span
                                 className="font-bold">Production</span></p>
-                        </motion.div>
+                        </motion.div> */}
+                        <Link href="https://documenter.getpostman.com/view/8528336/2s9YythgCF#42536433-0ce7-4bcb-b80a-9b219800beb7" passHref={true}>
+                            <motion.div
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                                // onClick={() => setIsMigrate(!isMigrate)}
+                                className="flex gap-3 items-center top-[450px] cursor-pointer px-8  mt-8">
+                                <Files style={{ width: 24, height: 24 }} />
+                                <p className="text-sm text-slate-500">API Docs</p>
+                            </motion.div>
+                        </Link>
                     </div>
-                    <div className="flex gap-2 items-center bottom-8 ml-5">
+                    <div className=" flex flex-col justify-center items-start  bottom-8 ml-5">
 
-                        <div className="flex justify-center items-center rounded-xl p-1 bg-slate-100  cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out">
-                            <UserCircle className={"w-7 h-7 text-unselected rounded-full "} />
+                        {/**/}
+
+                        <div className="flex gap-2 items-start">
+                            <div className="flex justify-center items-center rounded-xl p-1 bg-slate-100  cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out">
+                                <UserCircle className={"w-7 h-7 text-unselected rounded-full "} />
+                            </div>
+                            {/* <Image src={ProfileImage3} alt={"profile"}
+                            className="rounded-2xl bg-rose-300 cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out" /> */}
+                            <div className="flex flex-col justify-center items-start">
+                                <p className="text-xs text-slate-900 font-bold my-0">{displayName?.name || ""}</p>
+                                <p className="text-xs text-slate-500 uppercase my-0 mb-5">{`${displayName?.userType + " " || ""}`}</p>
+                                <div className="flex gap-2 items-center cursor-pointer" onClick={handleSubmit} >
+                                    Logout <LogoutOpen style={{ width: 24, height: 24 }} className="text-selected cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out hover:text-ultraMarine " />
+                                </div>
+                            </div>
                         </div>
-                        {/* <Image src={ProfileImage3} alt={"profile"}
-                            className="rounded-2xl bg-rose-300 cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out"
-                        /> */}
-                        <div className="flex flex-col justify-center items-start">
-                            <p className="text-xs text-slate-900 font-bold my-0">{displayName?.name || ""}</p>
-                            <p className="text-xs text-slate-500 uppercase my-0">{`${displayName?.userType + " " || ""}`}</p>
-                        </div>
-                        <LogoutOpen style={{ width: 24, height: 24 }} onClick={handleSubmit} className="text-selected cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out hover:text-ultraMarine " />
                     </div>
                 </div>
             </aside>
@@ -333,7 +349,7 @@ function SideBar() {
                                 }
                             </div>
                             <div className="h-[1px] w-full bg-slate-300 left-0 top-[450px] mt-8" />
-                            <motion.div
+                            {/* <motion.div
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
                                 onClick={() => setIsMigrate(!isMigrate)}
@@ -341,21 +357,29 @@ function SideBar() {
                                 <ExchangeRectangle style={{ width: 24, height: 24 }} />
                                 <p className="text-sm text-slate-500">Migrate to <br /><span
                                     className="font-bold">Production</span></p>
+                            </motion.div> */}
+                            <motion.div
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                                onClick={() => setIsMigrate(!isMigrate)}
+                                className="flex gap-3 items-center top-[450px] cursor-pointer px-8  mt-8">
+                                <ExchangeRectangle style={{ width: 24, height: 24 }} />
+                                <p className="text-sm text-slate-500">API Docs</p>
                             </motion.div>
                         </div>
-                        <div className="flex gap-2 items-center bottom-8 ml-5">
-
-                            <div className="flex justify-center items-center rounded-xl p-1 bg-slate-100  cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out">
-                                <UserCircle className={"w-7 h-7 text-unselected rounded-full "} />
+                        <div className="flex  gap-2 items-center bottom-8 ml-5 space-y-4 justify-between">
+                            <div className="flex gap-2 items-center">
+                                <div className="flex justify-center items-center rounded-xl p-1 bg-slate-100  cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out">
+                                    <UserCircle className={"w-7 h-7 text-unselected rounded-full "} />
+                                </div>
+                                <div className="flex flex-col justify-center items-start">
+                                    <p className="text-xs text-slate-900 font-bold my-0">{displayName?.name || ""}</p>
+                                    <p className="text-xs text-slate-500 uppercase my-0">{`${displayName?.userType + " " || ""}`}</p>
+                                </div>
                             </div>
-                            {/* <Image src={ProfileImage3} alt={"profile"}
-                            className="rounded-2xl bg-rose-300 cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out"
-                        /> */}
-                            <div className="flex flex-col justify-center items-start">
-                                <p className="text-xs text-slate-900 font-bold my-0">{displayName?.name || ""}</p>
-                                <p className="text-xs text-slate-500 uppercase my-0">{`${displayName?.userType + " " || ""}`}</p>
-                            </div>
-                            <LogoutOpen style={{ width: 24, height: 24 }} onClick={handleSubmit} className="text-selected cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out hover:text-ultraMarine " />
+                        </div>
+                        <div className="flex gap-2 items-center cursor-pointer" onClick={handleSubmit} >
+                            Logout <LogoutOpen style={{ width: 24, height: 24 }} className="text-selected cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out hover:text-ultraMarine " />
                         </div>
                     </div>
                 </div>

@@ -8,6 +8,7 @@ import { BsFileEarmarkImage, BsCheckCircleFill } from 'react-icons/bs';
 import { default as UploadFile } from '@assets/svg/uploadFile.svg';
 import { default as UploadFileSmall } from '@assets/svg/uploadFileSmall.svg';
 import { kyccategories } from '@utils/mocks';
+import { LoginErrorCard } from '@utils/actions/error';
 
 const UpdateKyc = () => {
 
@@ -37,9 +38,9 @@ const UpdateKyc = () => {
                 </p>
                 <hr className="h-px mt-5 bg-[#382C7C50] border-0" />
                 <div className="flex flex-row my-5 gap-5 w-full items-center justify-start">
-                    <div className="flex flex-col w-1/3 mb-10">
+                    <div className={`flex flex-col mb-10 ${stateValues?.category ? " w-1/3" : " w-2/3"} `}>
                         <span className="text-base font-medium my-5">
-                            {`Please select a document to upload:`}
+                            {`Please select/click-on a document to upload:`}
                         </span>
                         {kyccategories && kyccategories?.map((each: any, i: any) => {
                             return (
@@ -63,7 +64,7 @@ const UpdateKyc = () => {
                     * You can upload multiple documents for kyc, just need to handle it on the backend.
                     */}
 
-                    <div className="flex flex-col my-5 gap-5 w-full items-center justify-center">
+                    <div className={`flex flex-col my-5 gap-5 w-full items-center justify-center ${stateValues?.category ? "block" : "hidden"} `}>
                         <div>
                             <div className='flex flex-col my-5 w-full items-center justify-center'>
                                 <h1 className="text-xl font-medium m-0">
@@ -104,6 +105,7 @@ const UpdateKyc = () => {
                                 <DefaultButton
                                     labelText="Upload Document"
                                     isLoading={stateValues?.isSubmitting}
+                                    isDisabled={stateValues?.submittingError || stateValues?.isSubmitting}
                                     handleClick={(e) => {
                                         handleSubmit(e);
                                         setTimeout(() => {
@@ -114,6 +116,8 @@ const UpdateKyc = () => {
                                 />
                             </div>
                         }
+                        <LoginErrorCard handleClear={handleClearError} error={stateValues?.errorMssg || ""}
+                            containerVariant={!stateValues?.submittingError ? "hidden" : ""} />
                     </div>
                 </div>
 
