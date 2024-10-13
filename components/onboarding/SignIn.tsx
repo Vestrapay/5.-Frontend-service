@@ -9,7 +9,7 @@ const SignIn = ({ setPage, resetingPass, setResetingPass, signInStatus, setPassD
     const { stateValues, handleSubmit, handlePreLogin, handleChange, handleClearError } = SignInController(setPage, resetingPass, setResetingPass, signInStatus, passData, setPassData);
 
     const { email, password, loginError, loginErrorMssg, isLoggingIn } = stateValues
-
+    console.log("getting current change status of state values",stateValues)
 
     return (
         <div className='md:w-2/3'>

@@ -424,6 +424,7 @@ const SignInController = (
 
                         if (err?.response?.data?.errors[0]?.includes("verify OTP")) {
                             setPage("verifySignUp");
+                            setPassData({ ...passData, email: email, password: password });
                             generateSignUpOtp(false, passData?.email || email);
                         }
                         return ["skip"]
@@ -465,7 +466,7 @@ const SignInController = (
 
 }
 
-const VerifySignUpController = (setPage: (val: string) => any, passData: any, setSignInStatus: (val: any) => any) => {
+const VerifySignUpController = (setPage: (val: string) => any, passData: any, passDataCtx: any, setSignInStatus: (val: any) => any) => {
 
     const [timeVal, setTimeVal] = useState({
         otp: '',
@@ -504,7 +505,7 @@ const VerifySignUpController = (setPage: (val: string) => any, passData: any, se
     const generateOtp = async (resent: any = false, data: any = "") => {
         await apiCall({
             name: "generateOtp",
-            data: passData?.email || data || "",
+            data: passData?.email || data || passDataCtx.email||"",
             errorAction: (err?: any) => {
                 if (err && err?.response?.data) {
                     setState({
@@ -530,11 +531,12 @@ const VerifySignUpController = (setPage: (val: string) => any, passData: any, se
             ...state,
             isSubmitting: true
         }))
+        console.log("Submitting validate otp with data",passData)
         try {
             const response = await apiCall({
                 name: "validateOtp",
                 data: {
-                    email: passData?.email || "",
+                    email: passData?.email || passDataCtx.email||"",
                     otp
                 },
                 successDetails: {

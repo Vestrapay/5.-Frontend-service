@@ -54,7 +54,8 @@ export default function Home() {
     const setPageFunc = (page: string) => {
         router.push(`/login?section=${page}`).then(() => setPage(page))
     }
-
+    console.log("value of pass data in home is ")
+    console.log(passData)
     const renderPages = () => {
         switch (page) {
             case 'signin':

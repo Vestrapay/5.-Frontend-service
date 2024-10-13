@@ -65,8 +65,9 @@ const ValidateLogin = ({ setPage, passData, resetingPass, setResetingPass, signI
                 handleClick={handleSubmit}
                 isDisabled={otp?.length < 6}
             />
+            <LoginErrorCard handleClear={handleClearError} error={stateValues?.loginErrorMssg || ""} containerVariant={!stateValues?.loginError ? "hidden" : ""} />
 
-            <LoginErrorCard handleClear={handleClearError} error={stateValues?.errorMssg || ""} containerVariant={!stateValues?.submittingError ? "hidden" : ""} />
+            {/*<LoginErrorCard handleClear={handleClearError} error={stateValues?.errorMssg || ""} containerVariant={!stateValues?.submittingError ? "hidden" : ""} />*/}
 
             <div className="flex items-start my-6">
                 <label htmlFor="remember" className="ml-2 text-base font-300 text-blackish text-center w-full">

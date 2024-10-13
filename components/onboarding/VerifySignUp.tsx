@@ -10,10 +10,7 @@ import { useAuthContext } from 'context/AuthContext';
 const VerifySignUp = ({ setPage, passData, setSignInStatus }: any) => {
 
     const { passDataCTX, setPassDataCTX } = useAuthContext()
-
-
-    const { stateValues, handleSubmit, onChangeOTP, timeVal, setKey, handleClearError, generateOtp } = VerifySignUpController(setPage, passDataCTX, setSignInStatus);
-
+    const { stateValues, handleSubmit, onChangeOTP, timeVal, setKey, handleClearError, generateOtp } = VerifySignUpController(setPage, passData,passDataCTX, setSignInStatus);
     const { generateSignUpOtp } = SignInController(setPage,
         false,
         (val) => null,
@@ -21,8 +18,6 @@ const VerifySignUp = ({ setPage, passData, setSignInStatus }: any) => {
         {},
         (val) => null
     );
-
-
     const {
         otp,
         clear,
@@ -32,7 +27,9 @@ const VerifySignUp = ({ setPage, passData, setSignInStatus }: any) => {
     } = timeVal || {};
 
     const { submittingError, isDisabled, isSubmitting, errorMssg, pin, confirmPin } = stateValues;
-
+    console.log("data from passdata")
+    console.log({passData})
+    console.log(passDataCTX)
     return (
         <div className='w-2/3 flex flex-col items-center'>
 
@@ -63,7 +60,7 @@ const VerifySignUp = ({ setPage, passData, setSignInStatus }: any) => {
 
             </p>
             <DefaultButton
-                labelText="Create Account"
+                labelText="Verify Otp"
                 containerVariant="w-full my-5"
                 variant="w-full"
                 isLoading={isSubmitting}
