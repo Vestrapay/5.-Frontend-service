@@ -349,6 +349,7 @@ const Dashboard = () => {
                                     <DataGrid
                                         rows={transData || []} // TODO: This should be the data from the API
                                         columns={recentTransactionsFields}
+                                        autoHeight
                                         slots={{
                                             loadingOverlay: () =>
                                                 <div

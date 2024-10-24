@@ -190,7 +190,7 @@ const Chargebacks = () => {
                 {data && data?.length < 1 ?
                     <>
                         <div className="w-full lg:w-2/3 text-black text-lg sm:text-5xl font-bold font-['Nunito'] sm:p-5">
-                            You do not have ny chargebacks to process at the moment.
+                            You do not have any chargebacks to process at the moment.
                         </div>
                         <div className="w-full lg:w-2/3 text-black text-base sm:text-xl font-bold font-['Nunito'] sm:p-5">
                             <span>Your customers might be looking for ways to pay you, </span>

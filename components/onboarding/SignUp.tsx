@@ -98,9 +98,13 @@ const SignUp = ({ setPage, setPassData }: any) => {
             checked={stateValues?.acceptTerms}
             onChange={() => handleExtraChange("acceptTerms", !stateValues?.acceptTerms)} />
         </div>
-        <label htmlFor="remember" className="ml-2 text-base font-300 text-blackish">
-          By creating an account you agree to the <span className="text-darkslateblue underline">terms of use</span> and our <span className="text-darkslateblue underline">privacy policy</span>.
-          <span className='text-red-500'>*</span></label>
+          <label htmlFor="remember" className="ml-2 text-base font-300 text-blackish">
+              By creating an account you agree to the
+              <a href="/terms.html" target="_blank" rel="noopener noreferrer" className="text-darkslateblue underline"> terms of use </a>
+              and our
+              <a href="/privacy.html" target="_blank" rel="noopener noreferrer" className="text-darkslateblue underline"> privacy policy</a> .
+              <span className='text-red-500'>*</span>
+          </label>
       </div>
 
 

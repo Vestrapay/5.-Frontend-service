@@ -261,7 +261,7 @@ const UpdateKYCController = () => {
 
         const file = e?.target?.files[0] || null;
         let fileBase64 = await convertBase64(file);
-        const validExtensions = ['image/jpeg', 'image/png', 'application/pdf'];
+        const validExtensions = ['image/jpeg', 'image/png', 'application/pdf','text/markdown'];
 
         if (file) {
             if (!validExtensions.includes(file.type)) {
