@@ -128,7 +128,7 @@ const ProfileSettings = () => {
                                     onChange={() => handleExtraChange("acceptTerms", !stateValues?.acceptTerms)} />
                             </div>
                             <label htmlFor="remember" className="ml-2 text-base font-300 text-blackish">
-                                I have read the <strong className="text-selected">Terms and Conditions</strong><span className='text-red-500'> *</span>
+                                I have read the <strong className="text-selected"><a href="/terms.html" target="_blank" rel="noopener noreferrer" className="text-darkslateblue underline"> Terms and Conditions </a></strong><span className='text-red-500'> *</span>
                             </label>
                         </div>
                         <DefaultButton

@@ -206,7 +206,7 @@ const SignInController = (
                         localStorage.setItem('userDetails', JSON.stringify({
                             token: res?.message || "",
                             details: res?.data?.user || "",
-                            isSuperAdmin: res?.data?.user?.userType == "MERCHANT" || res?.data?.user?.userType == "MERCHANTUSER" ? false : true
+                            isSuperAdmin: res?.data?.user?.userType == "MERCHANT" || res?.data?.user?.userType == "MERCHANT_USER" ? false : true
                         }))
 
                         setState({
@@ -214,7 +214,7 @@ const SignInController = (
                             isLoggingIn: false,
                             loginError: false,
                         })
-                        res?.data?.user?.userType == "MERCHANT" || res?.data?.user?.userType == "MERCHANTUSER" ? setUserType("USER") : setUserType("ADMIN")
+                        res?.data?.user?.userType == "MERCHANT" || res?.data?.user?.userType == "MERCHANT_USER" ? setUserType("USER") : setUserType("ADMIN")
                         setUserDetail(res?.data?.user)
                     }
                     return [""]
@@ -398,10 +398,10 @@ const SignInController = (
                         localStorage.setItem('userDetails', JSON.stringify({
                             token: res?.message || "",
                             details: res?.data?.user || "",
-                            isSuperAdmin: res?.data?.user?.userType == "MERCHANT" || res?.data?.user?.userType == "MERCHANTUSER" ? false : true
+                            isSuperAdmin: res?.data?.user?.userType == "MERCHANT" || res?.data?.user?.userType == "MERCHANT_USER" ? false : true
                         }))
 
-                        res?.data?.user?.userType == "MERCHANT" || res?.data?.user?.userType == "MERCHANTUSER" ? setUserType("USER") : setUserType("ADMIN")
+                        res?.data?.user?.userType == "MERCHANT" || res?.data?.user?.userType == "MERCHANT_USER" ? setUserType("USER") : setUserType("ADMIN")
                         setUserDetail(res?.data?.user)
                     } else {
                         setPage("validatelogin");

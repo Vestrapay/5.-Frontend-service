@@ -221,7 +221,7 @@ const TransferPaymentLink: NextPage = () => {
                                                     <BsFillExclamationTriangleFill size={75} />
                                                 </div>
                                                 <div className="h-max pt-2 flex-col  justify-center items-center gap-1 flex">
-                                                    <div className="text-neutral-600 text-2xl font-normal font-['Roboto'] leading-tight tracking-wide text-center ">Unsuccessful Initiation</div>
+                                                    <div className="text-neutral-600 text-2xl font-normal font-['Roboto'] leading-tight tracking-wide text-center ">{stateValues?.errorMssg}</div>
                                                     <div className="w-full pt-1 justify-center items-center inline-flex">
                                                         <div className=" justify-center items-center flex">
                                                             <div className=" font-base font-['Roboto'] leading-loose text-zinc-500 text-base text-center ">

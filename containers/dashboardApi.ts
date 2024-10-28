@@ -26,7 +26,7 @@ const fetchDashData = () => {
       name: details?.businessName || "",
       userType: details?.userType || "",
       userId: details?.uuid || "",
-      kycStatus: details?.kycStatus ? false : true,
+      kycStatus: details?.kycCompleted ? false : true,
     })
 
     setUpdateProfile(details?.businessName && details?.firstName && details?.lastName && details?.email && true || false);

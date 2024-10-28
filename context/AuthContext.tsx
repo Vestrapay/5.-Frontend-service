@@ -14,7 +14,6 @@ export const AuthContext = createContext<AdminContextProps>({
 })
 
 export const AuthenticationContext = ({ children }: { children: React.ReactNode }) => {
-
     const { isSuperAdmin, details } = Storage.getItem("userDetails") || {}
     const [passDataCTX, setPassDataCTX] = useState({
         email: "",
@@ -23,6 +22,7 @@ export const AuthenticationContext = ({ children }: { children: React.ReactNode 
     const role = isSuperAdmin ? "ADMIN" : "USER"
 
     const [userType, setUserType] = useState<RoleProps["role"]>(role || "USER");
+
 
     const [userDetail, setUserDetail] = useState<UserDetailProps>(details || {});
 

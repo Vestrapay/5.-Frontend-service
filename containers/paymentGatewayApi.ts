@@ -592,6 +592,7 @@ const paymentGatewayController = (paymentType: any = "") => {
                 },
                 successDetails: { title: "Payment initiated", text: "Bank transfer initiated successfully", icon: "" },
                 errorAction: (err?: any) => {
+                    console.log("error gotten is "+ err?.response?.data?.errors[0])
                     if (err && err?.response?.data) {
                         setState({
                             ...state,

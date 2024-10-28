@@ -37,13 +37,15 @@ const UserDetails = ({ data }: { data: UserDetailProps }) => {
                     {/* <hr className="h-px my-4 bg-gray-200 border-0 " /> */}
                     {data && data?.id && Object?.entries(data).map(([key, value]) => (
                         <>
-                            <div className="flex items-center gap-5">
-                                <p className="text-sm text-unselected ml-2 text-gray-700">{formatKey(key) || ""} : </p>
+                            <div className="flex items-center gap-2">
+                                <p className="text-sm ml-2">
+                                    <span className="font-bold text-gray-700">{formatKey(key) || ""}</span>:
+                                </p>
                                 <p className="text-sm text-unselected ml-2">
                                     {`${value !== null ? value.toString() : 'N/A' || ""}`}
                                 </p>
                             </div>
-                            <hr className="h-px my-2 bg-gray-200 border-0 " />
+                            <hr className="h-px my-1 bg-gray-200 border-0 " />
                         </>
                     ))}
                 </div>
