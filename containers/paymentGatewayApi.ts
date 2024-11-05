@@ -271,7 +271,6 @@ const paymentGatewayController = (paymentType: any = "") => {
                     }
                 },
                 action: (res: any): any => {
-
                     //auth_model: "NO_AUTH"
                     if ((res?.data?.data?.status === "success")) {
 

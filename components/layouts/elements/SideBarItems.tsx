@@ -55,8 +55,8 @@ const topMenuItems: MenuItems[] = [
     },
     {
         id: 3,
-        name: 'Payments Settings',
-        route: '/payment-settings/routing-rules',
+        name: 'Payment Settings',
+        route: '/payment-settings',
         subMenuItems: [
             {
                 id: 1,

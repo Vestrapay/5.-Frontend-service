@@ -20,6 +20,7 @@ const ChangePassword = ({ setPage, setResetingPass }: any) => {
                 placeHolder="Enter Temporary Password"
                 containerVariant="w-full py-2"
                 value={oldPassword}
+                noCheckPassword={true}
                 handleChange={handleChange}
             />
 

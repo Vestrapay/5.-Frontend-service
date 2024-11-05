@@ -95,7 +95,7 @@ export function OtpInput({ value, valueLength, onChange, type = "text" }: Props)
 
             let nextParent = target?.closest(".terk")?.nextElementSibling?.childNodes[0] as HTMLInputElement | null;
 
-            console.log(nextParent)
+            
 
             if (nextParent) {
                 nextParent?.focus();

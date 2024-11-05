@@ -303,8 +303,7 @@ const SignInController = (
     const handleClearError = () => setState({ ...state, loginError: false })
 
     const handleSubmit = async (e: React.FormEvent) => {
-        // console.log("login final initiated...");
-        console.log("data: ", passData, "email: " + email, "password: " + password, passData);
+        console.log("login final initiated...");
 
         e.preventDefault();
         setState((state: any) => ({
@@ -325,7 +324,7 @@ const SignInController = (
                         details: res?.data || "",
                         isSuperAdmin: res?.data?.userType == "MERCHANT" || res?.data?.userType == "MERCHANTUSER" ? false : true
                     }))
-                    console.log(res);
+
                     setState({
                         ...state,
                         isLoggingIn: false,

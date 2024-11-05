@@ -24,6 +24,7 @@ import MigrateToProd from "@/components/settings/MigrateToProd";
 import Backdrop from "@/components/modal/backdrop/Backdrop";
 import styles from "../../modal/modal.module.css";
 import { HiMiniXMark } from "react-icons/hi2";
+import { isBrowser } from "@utils/isHelper";
 
 function SideBar() {
   const dropdownNavLinks = [
@@ -32,6 +33,7 @@ function SideBar() {
     "settings",
     "payment-settings",
   ];
+
   const [selectedSubMenuItem, setSelectedSubMenuItem] =
     useState<MenuItems | null>();
   const [isMigrate, setIsMigrate] = useState(false);
@@ -67,17 +69,25 @@ function SideBar() {
   }, []);
 
   useEffect(() => {
+
     setActiveLink(router.asPath);
 
-    if (dropdownNavLinks.includes(router.asPath.split("/")[1])) {
+    let dropChecker = dropdownNavLinks.includes(router.asPath.split("/")[1]);
+
+    if (dropChecker) {
+
       sidebarItems.filter((item: any) => {
-        if (item.name.toLowerCase() === router.asPath.split("/")[1]) {
+
+        let checkerString = router.asPath.split("/")[1]?.replaceAll("-", " ") || router.asPath.split("/")[1];
+
+        if (item.name.toLowerCase() === checkerString) {
           setSelectedSubMenuItem(item);
           setIsSubCategorySelected(true);
         }
       });
     }
-  }, [router.asPath]);
+
+  }, [sidebarItems]);
 
   return (
     <>
@@ -90,8 +100,8 @@ function SideBar() {
             </div>
             <div className="flex flex-col gap-2 px-8">
               {dropdownNavLinks.includes(activeLink.split("/")[1]) &&
-              selectedSubMenuItem &&
-              isSubCategorySelected ? (
+                selectedSubMenuItem &&
+                isSubCategorySelected ? (
                 <div className="relative text-base">
                   <motion.div
                     whileTap={{ scale: 0.9 }}
@@ -149,16 +159,12 @@ function SideBar() {
                         <ActiveLinks
                           key={index}
                           href={item.route}
+                          onClick={() => setIsSubCategorySelected(true)}
                           activeClassName="text-selected font-bold"
                         >
-                          <div
-                            className={`w-full flex flex-row justify-between gap-6 items-center rounded-lg cursor-pointer`}
-                          >
+                          <div className={`w-full flex flex-row justify-between gap-6 items-center rounded-lg cursor-pointer`}>
                             <motion.div
-                              whileHover={{ scale: 1.1 }}
-                              whileTap={{ scale: 0.9 }}
-                              className="flex gap-3 items-center transition-all duration-300 ease-in-out"
-                            >
+                              whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className="flex gap-3 items-center transition-all duration-300 ease-in-out">
                               <div className="min-w-max">
                                 {item?.icon &&
                                   item?.icon({
@@ -220,9 +226,8 @@ function SideBar() {
                 <p className="text-xs text-slate-900 font-bold my-0">
                   {displayName?.name || ""}
                 </p>
-                <p className="text-xs text-slate-500 uppercase my-0 mb-5">{`${
-                  displayName?.userType + " " || ""
-                }`}</p>
+                <p className="text-xs text-slate-500 uppercase my-0 mb-5">{`${displayName?.userType + " " || ""
+                  }`}</p>
                 <div
                   className="flex gap-2 items-center cursor-pointer"
                   onClick={handleSubmit}
@@ -268,9 +273,8 @@ function SideBar() {
       >
         <Backdrop show={dialog} closeModal={() => setDialog(false)} />
         <div
-          className={` ${
-            dialog ? "block" : "hidden"
-          } z-[200] min-h-[100vh] h-[100%] pt-5 pb-10 xl:h-full bg-white lg:drop-shadow-lg drop-shadow-lg z-50 lg:inset-x-auto inset-x-0 lg:inset-y-0 | self-start top-0 w-full max-w-2/3  flex transition-all duration-300 ease-in-out fixed s`}
+          className={` ${dialog ? "block" : "hidden"
+            } z-[200] min-h-[100vh] h-[100%] pt-5 pb-10 xl:h-full bg-white lg:drop-shadow-lg drop-shadow-lg z-50 lg:inset-x-auto inset-x-0 lg:inset-y-0 | self-start top-0 w-full max-w-2/3  flex transition-all duration-300 ease-in-out fixed s`}
         >
           <div
             className="w-8 h-8 absolute bg-gray-500  z-[2000] rounded-full flex justify-center items-center top-5 right-10 lg:right-20 cursor-pointer"
@@ -283,8 +287,8 @@ function SideBar() {
             <div className=" w-full flex flex-col gap-1 text-slate-500 font-medium">
               <div className="flex flex-col gap-8 px-8">
                 {dropdownNavLinks.includes(activeLink.split("/")[1]) &&
-                selectedSubMenuItem &&
-                isSubCategorySelected ? (
+                  selectedSubMenuItem &&
+                  isSubCategorySelected ? (
                   <div className="relative text-base">
                     <motion.div
                       whileTap={{ scale: 0.9 }}
@@ -402,9 +406,8 @@ function SideBar() {
                   <p className="text-xs text-slate-900 font-bold my-0">
                     {displayName?.name || ""}
                   </p>
-                  <p className="text-xs text-slate-500 uppercase my-0">{`${
-                    displayName?.userType + " " || ""
-                  }`}</p>
+                  <p className="text-xs text-slate-500 uppercase my-0">{`${displayName?.userType + " " || ""
+                    }`}</p>
                 </div>
               </div>
             </div>
