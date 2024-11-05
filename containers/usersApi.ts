@@ -181,7 +181,7 @@ const createUserController = () => {
         } catch (e) {
             console.log(e + " 'Caught Error.'");
         }
-        ;
+
     }
 
     //Handle assertions functions
@@ -324,7 +324,7 @@ const updateUserController = (data: UserDetailProps, id: number | string) => {
         } catch (e) {
             console.log(e + " 'Caught Error.'");
         }
-        ;
+
     }
 
     //Handle assertions functions
@@ -420,7 +420,7 @@ const deleteUsersController = (data: UserDetailProps) => {
         } catch (e) {
             console.log(e + " 'Caught Error.'");
         }
-        ;
+
     }
 
     return { stateValues: state, handleSubmit, handleClearError }
@@ -499,7 +499,7 @@ const enableUsersController = (data: UserDetailProps) => {
         } catch (e) {
             console.log(e + " 'Caught Error.'");
         }
-        ;
+
     }
 
     return { stateValues: state, handleSubmit, handleClearError }
@@ -581,7 +581,7 @@ const enableAdminController = (data: UserDetailProps) => {
         } catch (e) {
             console.log(e + " 'Caught Error.'");
         }
-        ;
+
     }
 
     return { stateValues: state, handleSubmit, handleClearError }
@@ -666,7 +666,7 @@ const migrateToProductionController = () => {
         } catch (e) {
             console.log(e + " 'Caught Error.'");
         }
-        ;
+
     }
 
     return { stateValues: state, handleSubmit, handleClearError }

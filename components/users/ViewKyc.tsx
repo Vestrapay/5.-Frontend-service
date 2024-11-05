@@ -61,7 +61,7 @@ const UserDetails = ({ data }: { data: UserDetailProps }) => {
                     <div className="flex items-center gap-5">
                         <p className="text-sm text-unselected ml-2">{"KYC Actions: "}</p>
                         <DefaultButton
-                            labelText="Download Documents"
+                            labelText="Review Documents"
                             type="secondary"
                             handleClick={handleDownload}
                             isLoading={stateValues?.isSubmitting}

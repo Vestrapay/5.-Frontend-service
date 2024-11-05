@@ -27,9 +27,6 @@ const VerifySignUp = ({ setPage, passData, setSignInStatus }: any) => {
     } = timeVal || {};
 
     const { submittingError, isDisabled, isSubmitting, errorMssg, pin, confirmPin } = stateValues;
-    console.log("data from passdata")
-    console.log({passData})
-    console.log(passDataCTX)
     return (
         <div className='w-2/3 flex flex-col items-center'>
 

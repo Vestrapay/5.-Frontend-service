@@ -15,7 +15,6 @@ const ValidateLogin = ({ setPage, passData, resetingPass, setResetingPass, signI
 
     // handleSubmit
     // handlePreLogin
-    console.log("stateValues: ", stateValues);
 
 
     const {

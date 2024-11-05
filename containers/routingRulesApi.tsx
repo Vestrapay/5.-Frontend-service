@@ -189,7 +189,7 @@ const createRoutingRulesController = (data: any) => {
         } catch (e) {
             console.log(e + " 'Caught Error.'");
         }
-        ;
+
     }
 
     //Handle assertions functions
@@ -322,7 +322,7 @@ const updateRoutingRulesController = (data: RoutingRulesProps, setShow: any) => 
         } catch (e) {
             console.log(e + " 'Caught Error.'");
         }
-        ;
+
     }
 
     //Handle assertions functions

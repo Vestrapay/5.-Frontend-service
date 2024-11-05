@@ -15,7 +15,7 @@ const Webhook = () => {
             >
                 <header className="flex items-center justify-start">
                     <h1 className="text-2xl font-medium">
-                        Settings - Web hooks
+                        Settings - Webhook
                     </h1>
                 </header>
 
@@ -27,7 +27,7 @@ const Webhook = () => {
                             borderRadius: "1px",
                             border: "1px solid #F0F0F0"
                         }} className="w-full p-5 border border-gray-700 justify-between items-center gap-10 inline-flex">
-                        <div className="text-indigo-900 text-xl font-semibold font-['Nunito']">Test webhooks</div>
+                        <div className="text-indigo-900 text-xl font-semibold font-['Nunito']">Webhook Configuration</div>
                         <BsCaretDown />
                     </div>
 

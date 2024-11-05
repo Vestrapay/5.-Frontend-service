@@ -34,7 +34,7 @@ const ApiKeys = () => {
                             borderRadius: "1px",
                             border: "1px solid #F0F0F0"
                         }} className="w-full p-5 border border-gray-700 justify-between items-center gap-10 inline-flex">
-                        <div className="text-indigo-900 text-xl font-semibold font-['Nunito']">Test API Keys</div>
+                        <div className="text-indigo-900 text-xl font-semibold font-['Nunito']">API Keys</div>
                         <BsCaretDown />
                     </div>
 

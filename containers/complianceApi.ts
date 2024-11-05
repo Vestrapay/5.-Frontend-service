@@ -69,9 +69,25 @@ const ComplianceController = (kycData: any) => {
             const response = await apiCall({
                 name: "downloadComplianceDocs",
                 urlExtra: `/${kycData?.merchantId || ""}`,
-                customHeaders: { 'responseType': "blob" },
                 action: (res): any => {
-                    fileDownload(res, `${(kycData?.merchantId || "") + " "}kyc files.zip`);
+                    // If the response is JSON
+                    if (res.status === "OK" && res.message === "SUCCESS") {
+                        // Iterate through the data and open each file_url in a new window
+                        res.data.forEach((doc: { file_url: string | URL | undefined; }) => {
+                            if (doc.file_url) {
+                                // Open each URL in a new window with specified dimensions
+                                const width = 800; // Set your desired width
+                                const height = 600; // Set your desired height
+                                const left = (window.innerWidth - width) / 2; // Center the window horizontally
+                                const top = (window.innerHeight - height) / 2; // Center the window vertically
+                                window.open(doc.file_url, '_blank', `width=${width},height=${height},top=${top},left=${left}`);
+                            }
+                        });
+                    } else {
+                        // Handle the case where the response does not meet your expected format
+                        console.error("Unexpected response format", res);
+                    }
+                    // fileDownload(res, `${(kycData?.merchantId || "") + " "}kyc files.zip`);
                     setState({
                         ...state,
                         isSubmitting: false,
@@ -80,7 +96,7 @@ const ComplianceController = (kycData: any) => {
                     return []
                 },
                 successDetails: {
-                    title: "Download Successful!",
+                    title: "Successful!",
                     text: "Congratulations, Your download was successful.",
                     icon: ""
                 },
@@ -118,7 +134,7 @@ const ComplianceController = (kycData: any) => {
         } catch (e) {
             console.log(e + " 'Caught Error.'");
         }
-        ;
+
     }
 
     const handleValidate = async (e: React.FormEvent) => {
@@ -182,7 +198,7 @@ const ComplianceController = (kycData: any) => {
         } catch (e) {
             console.log(e + " 'Caught Error.'");
         }
-        ;
+
     }
 
     return { isLoading, isError, error, isSuccess, stateValues: state, data, refetch, handleValidate, handleDownload, handleChange }

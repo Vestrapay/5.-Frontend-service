@@ -173,7 +173,7 @@ const UsersProfileController = (showDelete: any = false, showView: any = false, 
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
-        };
+        }
     }
 
     //Handle assertions functions
@@ -369,7 +369,7 @@ const UpdateKYCController = () => {
                     })
             } catch (e) {
                 console.log(e + " 'Caught Error.'");
-            };
+            }
         } else {
 
             setState({
@@ -615,7 +615,7 @@ const AboutBusinessController = (showDelete: any = false, showView: any = false,
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
-        };
+        }
     }
 
     //Handle assertions functions
@@ -832,7 +832,7 @@ const CreateBusinessController = () => {
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
-        };
+        }
     }
 
     //Handle assertions functions
@@ -1048,7 +1048,7 @@ const SettlmentController = (showDelete: any = false, showView: any = false, sho
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
-        };
+        }
     }
 
     const handleEdit = async (e: React.FormEvent) => {
@@ -1116,7 +1116,7 @@ const SettlmentController = (showDelete: any = false, showView: any = false, sho
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
-        };
+        }
     }
 
     const handleMakePrimary = async (values: any) => {
@@ -1169,7 +1169,7 @@ const SettlmentController = (showDelete: any = false, showView: any = false, sho
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
-        };
+        }
     }
 
     const handleDeleteAccount = async (values: any, showDelete: any) => {
@@ -1230,7 +1230,7 @@ const SettlmentController = (showDelete: any = false, showView: any = false, sho
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
-        };
+        }
     }
 
     return { setAddSettlement, selectEdit, setDeletingFunc, selectDelete, handleDeleteAccount, handleMakePrimary, handleEdit, handleCreate, handleClearError, handleChange, handleExtraChange, stateValues: state }
@@ -1254,7 +1254,7 @@ const APIKEYSController = (showDelete: any = false, showView: any = false, showC
     const fetchKeysData = async (): Promise<any> => {
         const response = await apiCall({
             name: "getKeys",
-            urlExtra: `/${"TEST"}`,
+            urlExtra: `/${process.env.NEXT_PUBLIC_ENVIRONMENT}`,
             action: (): any => (["skip"]),
             errorAction: (err?: any) => {
                 setState({
@@ -1270,7 +1270,7 @@ const APIKEYSController = (showDelete: any = false, showView: any = false, showC
     }
 
     const { isLoading, isError, error, isSuccess, data, refetch } = useQuery(
-        ["API_KEYS_DATA", "values", "TEST"], () => fetchKeysData(),
+        ["API_KEYS_DATA", "values", process.env.NEXT_PUBLIC_ENVIRONMENT], () => fetchKeysData(),
         {
             refetchOnWindowFocus: false,
             // staleTime: 60000
@@ -1323,7 +1323,7 @@ const APIKEYSController = (showDelete: any = false, showView: any = false, showC
         try {
             const response = await apiCall({
                 name: "generateKeys",
-                urlExtra: `/${"TEST"}`,
+                urlExtra: `/${process.env.NEXT_PUBLIC_ENVIRONMENT}`,
                 // params: {environment: "TEST"},
                 action: (res): any => {
 
@@ -1369,7 +1369,7 @@ const APIKEYSController = (showDelete: any = false, showView: any = false, showC
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
-        };
+        }
     }
 
     //Handle assertions functions
@@ -1419,7 +1419,7 @@ const WebHooksController = (showDelete: any = false, showView: any = false, show
     }
 
     const { isLoading, isError, error, isSuccess, data, refetch } = useQuery(
-        ["API_KEYS_DATA", "values", "TEST"], () => fetchHookData(),
+        ["API_KEYS_DATA", "values", process.env.NEXT_PUBLIC_ENVIRONMENT], () => fetchHookData(),
         {
             refetchOnWindowFocus: false,
             // staleTime: 60000
@@ -1494,7 +1494,7 @@ const WebHooksController = (showDelete: any = false, showView: any = false, show
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
-        };
+        }
     }
 
     //Handle assertions functions

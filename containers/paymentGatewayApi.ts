@@ -357,7 +357,7 @@ const paymentGatewayController = (paymentType: any = "") => {
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
-        };
+        }
     }
 
     //Authorize card payments
@@ -523,7 +523,7 @@ const paymentGatewayController = (paymentType: any = "") => {
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
-        };
+        }
     }
 
     //Initiate Transfer payments
@@ -592,7 +592,7 @@ const paymentGatewayController = (paymentType: any = "") => {
                 },
                 successDetails: { title: "Payment initiated", text: "Bank transfer initiated successfully", icon: "" },
                 errorAction: (err?: any) => {
-                    console.log("error gotten is "+ err?.response?.data?.errors[0])
+                    console.log("error gotten is "+ err?.response?.data)
                     if (err && err?.response?.data) {
                         setState({
                             ...state,
@@ -635,7 +635,7 @@ const paymentGatewayController = (paymentType: any = "") => {
                 initiatingStarted: false,
                 errorMssg: "Action failed, please try again"
             })
-        };
+        }
     }
 
     //Check Transfer payment status
@@ -768,7 +768,7 @@ const paymentGatewayController = (paymentType: any = "") => {
             })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
-        };
+        }
     }
 
     //Initiate Link payments generation
@@ -883,7 +883,7 @@ const paymentGatewayController = (paymentType: any = "") => {
                 isFetchingLinkError: true,
                 errorMssg: "Action failed, please try again"
             })
-        };
+        }
     }
 
     //Authorise payments
@@ -1006,7 +1006,7 @@ const paymentGatewayController = (paymentType: any = "") => {
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
-        };
+        }
     }
 
     //Submit payments Link creation
@@ -1100,7 +1100,7 @@ const paymentGatewayController = (paymentType: any = "") => {
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
-        };
+        }
     }
 
 

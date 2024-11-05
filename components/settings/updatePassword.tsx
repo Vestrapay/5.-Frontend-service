@@ -81,7 +81,7 @@ function UpdatePassword({ show, showModal }: any) {
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
-        };
+        }
     }
     
     return (

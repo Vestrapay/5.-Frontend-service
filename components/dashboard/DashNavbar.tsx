@@ -46,7 +46,7 @@ const DashNavbar = () => {
                     className="flex items-center justify-center"
                 /> */}
                 {userTypeValue === "USER" &&
-                    <p className="text-sm w-[130px] h-[40px] flex justify-center items-center bg-selected p-4 rounded-md text-white">TEST</p>
+                    <p className="text-sm w-[130px] h-[40px] flex justify-center items-center bg-selected p-4 rounded-md text-white">{process.env.NEXT_PUBLIC_ENVIRONMENT}</p>
                 }
             </div>
         </div>

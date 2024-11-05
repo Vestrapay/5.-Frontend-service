@@ -56,7 +56,7 @@ const topMenuItems: MenuItems[] = [
     {
         id: 3,
         name: 'Payments Settings',
-        route: '/payment-settings',
+        route: '/payment-settings/routing-rules',
         subMenuItems: [
             {
                 id: 1,
@@ -160,7 +160,7 @@ const topMenuItems: MenuItems[] = [
         roles: ["USER", "ADMIN"]
     },
     {
-        id: 9,
+        id: 10,
         name: 'Dispute Resolution',
         route: '/dispute-resolution',
         subMenuItems: [],
@@ -176,7 +176,7 @@ const topMenuItems: MenuItems[] = [
     //     roles: ["USER", "ADMIN"]
     // },
     {
-        id: 10,
+        id: 11,
         name: "Settings",
         route: '/settings/profile-settings',
         subMenuItems: [

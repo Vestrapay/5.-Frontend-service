@@ -144,7 +144,7 @@ const createPayProvidersController = (data: any, setShow: any = () => null) => {
         } catch (e) {
             console.log(e + " 'Caught Error.'");
         }
-        ;
+
     }
 
     //Handle assertions functions
@@ -279,7 +279,7 @@ const updatePayProvidersController = (data: PayProvidersProps) => {
         } catch (e) {
             console.log(e + " 'Caught Error.'");
         }
-        ;
+
     }
 
     //Handle assertions functions

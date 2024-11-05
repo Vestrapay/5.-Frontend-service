@@ -8,12 +8,12 @@ import {PenIcon} from "@reusables/images";
 import CurrencyFormat from "react-currency-format";
 
 export const recentTransactionsFields: GridColDef[] = [
-    {
-        field: "id",
-        headerName: "#",
-        align: "center",
-        headerAlign: "center",
-    },
+    // {
+    //     field: "id",
+    //     headerName: "#",
+    //     align: "center",
+    //     headerAlign: "center",
+    // },
     {
         field: "pan",
         headerName: "Masked PAN",

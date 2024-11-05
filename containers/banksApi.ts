@@ -120,7 +120,7 @@ const createController = (state: any, setState: any, showModal: any) => {
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
-        };
+        }
     }
 
     //Handle assertions functions
@@ -247,7 +247,7 @@ const updateController = (state: any, setState: any, showModal: any, data: any) 
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
-        };
+        }
     }
 
     //Handle assertions functions

@@ -86,7 +86,7 @@ function UpdateUserPassword({ show, showModal, usernm }: any) {
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
-        };
+        }
     }
 
     //setState={(val: any) => setState({ ...state, ...val })} />;

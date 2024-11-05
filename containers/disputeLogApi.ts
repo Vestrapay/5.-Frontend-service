@@ -190,7 +190,7 @@ const createDisputesController = () => {
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
-        };
+        }
     }
 
 
@@ -366,7 +366,7 @@ const updateDisputesController = (data: any, id: number | string) => {
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
-        };
+        }
     }
 
 
@@ -464,7 +464,7 @@ const deleteUsersController = (data: UserDetailProps) => {
         } catch (e) {
             console.log(e + " 'Caught Error.'");
         }
-        ;
+
     }
 
     return { stateValues: state, handleSubmit, handleClearError }

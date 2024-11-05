@@ -123,7 +123,7 @@ const createPayMethodController = (data: any) => {
         } catch (e) {
             console.log(e + " 'Caught Error.'");
         }
-        ;
+
     }
 
     //Handle assertions functions
@@ -236,7 +236,7 @@ const updatePayMethodController = (data: PayMethodProps, id: number | string) =>
         } catch (e) {
             console.log(e + " 'Caught Error.'");
         }
-        ;
+
     }
 
 

@@ -442,9 +442,9 @@ export const endPoints: endPointlistTypes = {
     downloadComplianceDocs: {
         url: '/api/v1/compliance',
         method: 'GET',
-        headers: BlobHeaders,
+        headers: headers,
         auth: true,
-        responseType: 'blob'
+        // responseType: 'blob'
     },
     validateComplianceDocs: {
         url: '/api/v1/compliance/validate',

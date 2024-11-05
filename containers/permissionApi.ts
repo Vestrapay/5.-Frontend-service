@@ -302,7 +302,7 @@ const PermissionController = () => {
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
-        };
+        }
     }
 
 
@@ -370,7 +370,7 @@ const PermissionController = () => {
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
-        };
+        }
     }
 
     const handleEdit = async (e: React.FormEvent) => {
@@ -438,7 +438,7 @@ const PermissionController = () => {
                 })
         } catch (e) {
             console.log(e + " 'Caught Error.'");
-        };
+        }
     }
 
     return {

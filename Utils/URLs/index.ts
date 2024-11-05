@@ -6,12 +6,11 @@ import { endPoints } from './apiLib'
 import errorHandler from '../Functions/errorHandler'
 import successAlert from "Utils/actions/success";
 import { Storage } from "Utils/inAppstorage";
+import * as https from "https";
 
 
-const baseUrl = (): any => "http://52.18.226.155:8080/portal";//process.env.REACT_APP_BASE_URL;
-const paymentUrl = (): any => "http://52.18.226.155:8080/gateway";//process.env.REACT_APP_BASE_URL;
-// const baseUrl = (): any => "https://dd52a73cb86e.ngrok.app";//process.env.REACT_APP_BASE_URL;
-// const paymentUrl= (): any => "https://e2edbdebbb2f.ngrok.app";//process.env.REACT_APP_BASE_URL;
+const baseUrl = (): any => process.env.NEXT_PUBLIC_BASE_URL;//process.env.REACT_APP_BASE_URL;
+const paymentUrl = (): any => process.env.NEXT_PUBLIC_PAYMENT_URL;//process.env.REACT_APP_BASE_URL;
 
 // For testing purposes only
 export const _set_root_url = (newUrl: any): any => newUrl
@@ -26,6 +25,7 @@ export const _set_root_url = (newUrl: any): any => newUrl
  *      errs: Object
  *  }
  */
+const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
 
 export const apiCall = async ({ urlExtra, name, data = {}, params = {}, action = () => undefined, errorAction = () => undefined,
@@ -47,7 +47,8 @@ export const apiCall = async ({ urlExtra, name, data = {}, params = {}, action =
             headers: endPoints[theName] ? { ...customHeaders, ...endPoints[theName].headers } : { ...customHeaders },
             responseType: endPoints[theName] ? endPoints[theName]?.responseType || "json" : "json",
             data,
-            params
+            params,
+            httpsAgent
         }) 
             .then(async r => {
                 const returned = await action(r.data, r)
