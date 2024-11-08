@@ -271,7 +271,7 @@ export const endPoints: endPointlistTypes = {
     },
 
     authPin: {
-        url: '/api/v1/pay/authorize-pin',
+        url: '/api/v1/pay/card/authorize-pin',
         method: 'POST',
         headers: headers,
         auth: true,
@@ -279,7 +279,7 @@ export const endPoints: endPointlistTypes = {
     },
 
     authPhone: {
-        url: '/api/v1/pay/authorize-phone',
+        url: '/api/v1/pay/card/authorize-phone',
         method: 'POST',
         headers: headers,
         auth: true,
@@ -287,7 +287,7 @@ export const endPoints: endPointlistTypes = {
     },
 
     authOtp: {
-        url: '/api/v1/pay/authorize-otp',
+        url: '/api/v1/pay/card/authorize-otp',
         method: 'POST',
         headers: headers,
         auth: true,
@@ -296,7 +296,7 @@ export const endPoints: endPointlistTypes = {
     },
 
     authAvs: {
-        url: '/api/v1/pay/authorize-avs',
+        url: '/api/v1/pay/card/authorize-avs',
         method: 'POST',
         headers: headers,
         auth: true,

@@ -75,7 +75,7 @@ const PayLinkLayout = ({ children }: LayoutProps) => {
                             <div className="md:w-1/2 self-stretch pb-px flex-col items-start justify-start md:items-end inline-flex">
                                 <div className="w-full md:pl-36 justify-start md:justify-end items-start gap-1.5 inline-flex">
                                     <div className="text-indigo-900 text-2xl font-bold font-['Roboto'] leading-loose min-w-max">
-                                        <CurrencyFormat value={stateValues?.amount || ""} displayType={'text'} thousandSeparator={true} fixedDecimalScale={true} decimalScale={2} prefix={"NGN "} />
+                                        <CurrencyFormat value={stateValues?.amount || ""} displayType={'text'} thousandSeparator={true} fixedDecimalScale={true} decimalScale={2} prefix={stateValues?.currency+" " || "NGN "} />
                                     </div>
                                 </div>
                                 <div className="w-full md:justify-end items-start inline-flex">

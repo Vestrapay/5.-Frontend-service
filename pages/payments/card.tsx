@@ -119,9 +119,9 @@ const Card = () => {
             flex: 1,
             headerAlign: "left",
             align: "left",
-            renderCell: ({ row: { amount } }: { row: { amount: CardProviderProps } }) => {
+            renderCell: ({ row: { amount,currency } }: { row: { amount: CardProviderProps,currency: string } }) => {
                 return (
-                    <CurrencyFormat value={amount || ""} displayType={'text'} thousandSeparator={true} fixedDecimalScale={true} decimalScale={2} prefix={"₦"} />
+                    <CurrencyFormat value={amount || ""} displayType={'text'} thousandSeparator={true} fixedDecimalScale={true} decimalScale={2} prefix={currency+" "} />
                 )
             }
         },
@@ -195,7 +195,7 @@ const Card = () => {
                     {actualData && actualData?.length < 1 ?
                         <>
                             <div className="w-full lg:w-2/3 text-black text-lg sm:text-5xl font-bold font-['Nunito'] sm:p-5">
-                                With your Vestrapay card, you can make payments anywhere, globally and in any currency.
+                                You can make payments anywhere, globally and in any currency.
                             </div>
                             <DefaultButton
                                 icon={<BsPlus size={25} />}

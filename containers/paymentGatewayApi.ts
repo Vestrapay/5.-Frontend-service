@@ -35,7 +35,7 @@ const paymentGatewayController = (paymentType: any = "") => {
         customerEmail: "",
         merchantId: "",
         transferingStatus: "",
-
+        cardEmail:"",
         cardStatus: "pay",
         cardPin: "",
         cardPhoneOTP: "",
@@ -111,6 +111,7 @@ const paymentGatewayController = (paymentType: any = "") => {
         expiryYear,
         customerName,
         customerEmail,
+        cardEmail,
         merchantId,
         isDisabled,
         secret,
@@ -153,7 +154,7 @@ const paymentGatewayController = (paymentType: any = "") => {
             ...state,
             amount: state?.amount || details?.amount || "",
             secret: secretKey || details?.payLinkDetails?.secret || state?.secret || "",//|| details?.secret 
-            currency: "NGN",
+            currency: details?.currency || "NGN",
             name: "",
             number: "",
             cvv: "",
@@ -267,7 +268,7 @@ const paymentGatewayController = (paymentType: any = "") => {
                     },
                     customerDetails: {
                         name: customerName,
-                        email: customerEmail,
+                        email: cardEmail || customerEmail,
                     }
                 },
                 action: (res: any): any => {
@@ -329,12 +330,12 @@ const paymentGatewayController = (paymentType: any = "") => {
             })
                 .then(async (res: any) => {
                     // showModal();
-                    res?.data?.status === "success" ?
+                    res?.data?.status === "success" &&
                         setState({
                             ...state,
                             transactionReference: res?.data?.transaction_reference || res?.data?.transaction_reference || state?.transactionReference,
                             cardStatus: (res?.data?.status === "success") ? "success" : res?.data?.auth_model || "pay",
-                            currency: "NGN",
+                            currency: details?.currency || "NGN",
                             name: "",
                             number: "",
                             cvv: "",
@@ -346,12 +347,6 @@ const paymentGatewayController = (paymentType: any = "") => {
                             submittingError: false,
                             isSubmitting: false,
                             errorMssg: ""
-                        }) :
-                        setState({
-                            ...state,
-                            submittingError: true,
-                            isSubmitting: false,
-                            errorMssg: res?.data?.response_message || "Action failed, please try again" || ""
                         })
                 })
         } catch (e) {
@@ -493,7 +488,7 @@ const paymentGatewayController = (paymentType: any = "") => {
                         transactionReference: res?.data?.transaction_reference || res?.data?.transaction_reference || state?.transactionReference,
                         cardStatus: (res?.data?.status === "success") ? "success" : res?.data?.auth_model || "pay",
                         amount: 0,
-                        currency: "NGN",
+                        currency: details?.currency || "NGN",
                         name: "",
                         number: "",
                         cvv: "",
@@ -718,23 +713,6 @@ const paymentGatewayController = (paymentType: any = "") => {
                         submittingError: false,
                         isSubmitting: false,
                     })
-                    // setTransferDetails({
-                    //     account_name: data?.bank_account?.account_name || "",
-                    //     account_number: data?.bank_account?.account_number || "",
-                    //     bank_code: data?.bank_account?.bank_code || "",
-                    //     bank_name: data?.bank_account?.bank_name || ""
-                    // })
-                    // setState({
-                    //     ...state,
-                    //     initiated: true,
-                    //     amount: state?.amount || details?.amount || "100",
-                    //     customerName: state?.business || details?.business || "Davids co",
-                    //     merchantId: state?.merchantId || details?.merchant || "a8c1bc11-11af-4bf4-aefc-a6d57c0b9ce8",
-                    //     customerEmail: state?.customerEmail || details?.email || "davoone@mailinator.com",
-                    //     isSubmitting: false,
-                    //     submittingError: false,
-                    // })
-
                     return (["skip"])
                 },
                 errorAction: (err?: any) => {
@@ -988,7 +966,7 @@ const paymentGatewayController = (paymentType: any = "") => {
                     setState({
                         transactionReference: "",
                         amount: 0,
-                        currency: "NGN",
+                        currency: details?.currency || "NGN",
                         name: "",
                         number: "",
                         cvv: "",
@@ -1081,7 +1059,7 @@ const paymentGatewayController = (paymentType: any = "") => {
                         paymentPath: res?.path || "",
                         paymentLinkUrl,
                         amount: 0,
-                        currency: "NGN",
+                        currency: details?.currency || "NGN",
                         name: "",
                         number: "",
                         cvv: "",
@@ -1149,7 +1127,7 @@ const paymentGatewayController = (paymentType: any = "") => {
             transactionReference: "",
             amount: 0,
             countKey: 101,
-            currency: "NGN",
+            currency: details?.currency || "NGN",
             name: "",
             number: "",
             cvv: "",

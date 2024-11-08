@@ -17,6 +17,7 @@ import EnableAdmin from '@/components/users/EnableAdmin';
 import { ComplianceController } from 'containers/complianceApi';
 import ViewKyc from '@/components/users/ViewKyc';
 import KycModal from '@/components/users/KycModal';
+import dayjs from "dayjs";
 
 const Compliance = () => {
 
@@ -101,6 +102,13 @@ const Compliance = () => {
             flex: 1,
             headerAlign: "center",
             align: "center",
+            renderCell: ({ row: { requiredDocuments } }: { row: { requiredDocuments: string } }) => {
+                return (
+                    <div className="flex items-center">
+                        {requiredDocuments.replaceAll('[',"").replaceAll(']'," ")}
+                    </div>
+                )
+            }
         },
         {
             field: "action",

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Modal from "../modal/Modal";
-import { DefaultButton, DefaultInput } from "../reusables";
+import {DefaultButton, DefaultInput, DefaultSelect} from "../reusables";
 import { LgQuestionModalIcon } from "../reusables/icons";
 import { LoginErrorCard } from "@utils/actions/error";
 import router from "next/router";
@@ -14,14 +14,20 @@ export default function StartTransaction({
     type
 }: any) {
 
-    const { amount, setAmount, setEmail, setMerchant, setBusiness, setPayType } = useNewTransContext()
+    const { amount,currency, setAmount, setEmail, setMerchant, setBusiness, setPayType,setCurrency } = useNewTransContext()
 
     const { details } = Storage.getItem("userDetails") || {}
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
-        setAmount(e.target.value);
+        if (e.target.name == "currency"){
+            setCurrency(e.target.value)
+        }
+        if (e.target.name=="amount"){
+            setAmount(e.target.value);
+        }
         setEmail(details?.email || "");
+        setCurrency(e.target.value);
         setMerchant(details?.merchantId || "");
         setBusiness(details?.businessName || "")
         setPayType(type || router?.asPath || "/payment-gateway")
@@ -54,6 +60,17 @@ export default function StartTransaction({
                             containerVariant="w-full py-2"
                             value={amount}
                             handleChange={handleChange}
+                        />
+
+                        <DefaultSelect
+                            name="currency"
+                            label="Currency"
+                            topLabel="Currency"
+                            required={true}
+                            value={currency}
+                            handleChange={handleChange}
+                            data={[{ id: 1, name: "Naira", value: "NGN" }, { id: 2, name: "Dollar", value: "USD" }, { id: 3, name: "Pounds", value: "GBP" },{ id: 4, name: "CFA franc", value: "CFA" }]}
+                            containerVariant="w-full py-2 col-span-2"
                         />
 
 

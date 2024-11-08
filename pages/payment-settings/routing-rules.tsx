@@ -71,13 +71,13 @@ const RoutingRules = () => {
             headerAlign: "left",
             align: "left"
         },
-        {
-            field: "uuid",
-            headerName: "UUID",
-            flex: 1,
-            headerAlign: "left",
-            align: "left",
-        },
+        // {
+        //     field: "uuid",
+        //     headerName: "UUID",
+        //     flex: 1,
+        //     headerAlign: "left",
+        //     align: "left",
+        // },
         {
             field: "updatedAt",
             headerName: "Updated Date",

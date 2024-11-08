@@ -67,13 +67,13 @@ const PaymentProviders = () => {
             headerAlign: "left",
             align: "left"
         },
-        {
-            field: "uuid",
-            headerName: "UUID",
-            flex: 1,
-            headerAlign: "left",
-            align: "left",
-        },
+        // {
+        //     field: "uuid",
+        //     headerName: "UUID",
+        //     flex: 1,
+        //     headerAlign: "left",
+        //     align: "left",
+        // },
         {
             field: "supportedPaymentMethods",
             headerName: "Supported Payment Methods",

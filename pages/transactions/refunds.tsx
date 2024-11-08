@@ -107,9 +107,9 @@ const Refunds = () => {
             flex: 1,
             headerAlign: "left",
             align: "left",
-            renderCell: ({ row: { amount } }: { row: { amount: CardProviderProps } }) => {
+            renderCell: ({ row: { amount, currency } }: { row: { amount: CardProviderProps,currency:string } }) => {
                 return (
-                    <CurrencyFormat value={amount || ""} displayType={'text'} thousandSeparator={true} fixedDecimalScale={true} decimalScale={2} prefix={"₦"} />
+                    <CurrencyFormat value={amount || ""} displayType={'text'} thousandSeparator={true} fixedDecimalScale={true} decimalScale={2} prefix={currency+" "} />
                 )
             }
         },
